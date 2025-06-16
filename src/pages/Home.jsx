@@ -2,8 +2,10 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import GlowCards from "./GlowCards";
 import CareCollectionsSection from "./CareCollectionSection";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
+  const navigate = useNavigate();
      const products = [
     {
       name: "Good Mood + Sun Skin",
@@ -36,11 +38,16 @@ export default function Home() {
       image: "images/facepack.png",
     },
   ];
+
+  const handleChange=()=>{
+    navigate('/shoplist');
+  }
+  
   return (
     <div className="w-full bg-white  text-center font-sans ">
-      <Navbar/>
+     
   
- <section className="pt-10 lg:bg-[#F5F5F5] lg:pt-20 lg:pb-24 lg:flex lg:items-center lg:justify-between relative">
+ <section className="pt-[80px] lg:bg-[#F5F5F5] lg:pt-[110px] lg:pb-24 lg:flex lg:items-center lg:justify-between relative">
   {/* Left Content Block */}
   <div className=" lg:ml-52 relative">
     <h1 className="lg:w-[75%] text-[24px] lg:text-[40px] tracking-widest font-tenor text-[#333333] mb-4 lg:text-left ">
@@ -57,7 +64,7 @@ export default function Home() {
       <button className="bg-black text-white text-[14px] px-5 py-2 rounded-full flex items-center gap-2">
         Shop Now <span className="text-lg ml-2">→</span>
       </button>
-      <button className="border text-[#2B452C] border-[#2B452C] text-[14px] px-5 py-2 rounded-full flex items-center gap-2">
+      <button onClick={handleChange} className="border text-[#2B452C] border-[#2B452C] text-[14px] px-5 py-2 rounded-full flex items-center gap-2">
         Explore <span className="text-lg ml-2 text-[#2B452C]">→</span>
       </button>
     </div>
@@ -219,7 +226,8 @@ export default function Home() {
             sanitizers to nourishing beetroot lip balms. Experience nature’s
             bestsellers, crafted to care.
           </p>
-          <button className="mt-2 mb-5 px-6 py-3 bg-black text-white rounded-full text-[14px] font-tenor">
+          <button onClick={handleChange} 
+           className="mt-2 mb-5 px-6 py-3 bg-black text-white rounded-full text-[14px] font-tenor">
             All Products<span className="text-xl ml-3">→</span>
           </button>
         </div>
@@ -284,11 +292,11 @@ export default function Home() {
     {/* Left Section - Text Content */}
     <div className=" space-y-6 text-center lg:text-left lg:max-w-[45%]">
       <p className="text-[16px] font-archivo text-[#676A5E]">Special Products</p>
-      <div className="text-[32px] hidden lg:block font-tenor tracking-[0.2em] leading-snug uppercase text-[#676A5E] space-y-1">
+      <div className="text-[32px] hidden  lg:block font-tenor tracking-[0.2em] leading-snug uppercase text-[#676A5E] space-y-1">
         <p>EMBRACE FRESHNESS WITH A</p>
         <p>CITRUSY TOUCH</p>
       </div>
-       <div className="text-[24px] font-tenor tracking-wide lg:hidden block leading-normal uppercase text-[#676A5E] flex flex-col items-center">
+       <div className="text-[24px]  font-tenor tracking-wide lg:hidden block leading-normal uppercase text-[#676A5E] flex flex-col items-center">
        <p>Embrace the</p>   
          <p>Unembrace</p> 
          <p>Freshness With a</p>

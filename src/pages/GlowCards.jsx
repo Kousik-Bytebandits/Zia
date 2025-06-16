@@ -1,4 +1,7 @@
+import { useNavigate } from "react-router-dom";
+
 export default function GlowCards() {
+  const navigate = useNavigate();
   const cards = [
     {
       title: "BEAUTY GLOW",
@@ -36,7 +39,10 @@ export default function GlowCards() {
       button: false,
     },
   ];
-
+ 
+  const handleChange=()=>{
+    navigate('/shoplist');
+  }
   return (
     <div className="mx-auto px-6 py-10 space-y-8 lg:mt-20">
       <h2 className="text-center text-[24px] lg:text-[32px] lg:mb-20 font-tenor tracking-widest text-[#676A5E]">
@@ -68,7 +74,10 @@ export default function GlowCards() {
               </p>
             )}
             {card.button && (
-              <button className="mt-2 w-[55%] py-3 bg-white text-[#676A5E] rounded-full font-tenor text-[16px]">
+              <button
+                onClick={handleChange}
+                className="mt-2 w-[55%] py-3 bg-white text-[#676A5E] rounded-full font-tenor text-[16px]"
+              >
                 View Items <span className="text-lg ml-2">→</span>
               </button>
             )}
