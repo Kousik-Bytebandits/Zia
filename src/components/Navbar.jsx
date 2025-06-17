@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
-import { FaTimes, FaUser, FaShoppingCart } from 'react-icons/fa';
+import { FaTimes,  FaShoppingCart, FaUsers } from 'react-icons/fa';
 import { BiSearchAlt } from 'react-icons/bi';
-import { HiMiniBars3 } from 'react-icons/hi2';
 import { GoLocation } from 'react-icons/go';
 import {NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { FaArrowLeft } from "react-icons/fa6";
-
+import { IoMenu } from "react-icons/io5";
+import { GoSearch } from "react-icons/go";
+import { FaUser } from "react-icons/fa6";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -34,7 +35,7 @@ useEffect(() => {
        
 {/* Mobile Navbar — Conditional UI */}
 <div
-  className={`w-full lg:hidden px-4 py-2 pb-2 z-50 transition-all duration-300 fixed top-0 ${
+  className={`w-full lg:hidden px-4 py-3 pb-3 z-50 transition-all duration-300 fixed top-0 ${
     isScrolled ? 'bg-[#2f3a27] shadow-md' : 'bg-[#2f3a27]'
   }`}
 >
@@ -42,23 +43,23 @@ useEffect(() => {
     // If on Home Page
     isScrolled ? (
       // Scrolled compact version
-      <div className="flex items-center justify-between">
-        <button onClick={() => setIsOpen(true)} className="text-white text-2xl">
-          <HiMiniBars3 />
+      <div className="flex items-center justify-between ">
+        <button onClick={() => setIsOpen(true)} className="text-white ">
+          <IoMenu  className='text-5xl'/>
         </button>
 
         <div className="bg-[#E9F8E5] flex items-center px-3 py-[6px] rounded-lg w-full mx-2">
-          <BiSearchAlt className="w-4 h-4 mr-2 text-[#555]" />
+          <GoSearch  className="w-6 h-6 mr-2 text-[#555]" />
           <input
             type="text"
             placeholder="Search for Products"
-            className="bg-transparent outline-none text-sm w-full text-black placeholder:text-[#555]"
+            className="bg-[#E9F8E5] outline-none text-lg w-full text-black placeholder:text-black"
           />
         </div>
 
         <div className="relative ml-2">
-          <FaShoppingCart className="text-white text-xl" />
-          <span className="absolute -top-1 -right-2 bg-red-600 text-[10px] leading-none font-semibold text-white rounded-full px-[5px] py-[1px]">
+          <FaShoppingCart className="text-white text-[28px]" />
+          <span className="absolute -top-2 -right-1 bg-red-600 text-[10px] leading-none font-semibold text-white rounded-full px-[4px] py-[3px]">
             0
           </span>
         </div>
@@ -66,31 +67,31 @@ useEffect(() => {
     ) : (
       // Full home top layout
       <>
-        <div className="flex items-center justify-between mb-3">
-          <div className="flex items-center gap-3">
-            <button onClick={() => setIsOpen(true)} className="text-white text-2xl">
-              <HiMiniBars3 />
+        <div className="flex items-center justify-between mb-2 ">
+          <div className="flex items-center gap-2">
+            <button onClick={() => setIsOpen(true)} className="text-white ">
+              <IoMenu  className='text-5xl'/>
             </button>
-            <img src="images/zia_logo.png" alt="Zia Logo" className="h-8" />
+            <img src="images/zia_logo.png" alt="Zia Logo" className="h-11" />
           </div>
 
           <div className="flex items-center gap-4">
-            <FaUser className="text-white text-xl" />
+            <FaUser className="text-white text-3xl" />
             <div className="relative">
-              <FaShoppingCart className="text-white text-xl" />
-              <span className="absolute -top-1 -right-2 bg-red-600 text-[10px] leading-none font-semibold text-white rounded-full px-[5px] py-[1px]">
-                0
-              </span>
+              <FaShoppingCart className="text-white text-[30px]" />
+          <span className="absolute -top-2 -right-1 bg-red-600 text-[10px] leading-none font-semibold text-white rounded-full px-[4px] py-[3px]">
+            0
+          </span>
             </div>
           </div>
         </div>
 
-        <div className="bg-[#E9F8E5] flex items-center px-3 py-[8px] rounded-lg">
-          <BiSearchAlt className="w-6 h-6 mr-2 text-[#555]" />
+        <div className="bg-[#E9F8E5] flex items-center px-3 py-[10px] rounded-lg">
+         <GoSearch  className="w-6 h-6 mr-2 text-[#555]" />
           <input
             type="text"
             placeholder="Search for Products"
-            className="bg-[#E9F8E5]  outline-none text-md w-full text-black placeholder:text-[#555]"
+            className="bg-[#E9F8E5]  outline-none text-lg w-full text-black placeholder:text-black"
           />
         </div>
       </>
@@ -192,24 +193,42 @@ useEffect(() => {
       </nav>
 
       {/* Mobile Slide Menu */}
-      <div
-        className={`fixed top-0 left-0 h-full w-64 bg-[#2f3a27] text-white transform ${
-          isOpen ? 'translate-x-0' : '-translate-x-full'
-        } transition-transform duration-300 ease-in-out z-50 shadow-xl`}
-      >
-        <div className="flex justify-between items-center p-4">
-          <span className="text-lg font-bold">Menu</span>
-          <button onClick={() => setIsOpen(false)}>
-            <FaTimes className="text-xl" />
-          </button>
-        </div>
-        <ul className="space-y-4 p-4 text-lg text-left">
-          <li><a href="#">Home</a></li>
-          <li><a href="/shoplist">Shop</a></li>
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Contact Us</a></li>
-        </ul>
-      </div>
+    {isOpen && (
+  <div
+    className="fixed inset-0 z-40 bg-black bg-opacity-40"
+    onClick={() => setIsOpen(false)}
+  />
+)}
+
+<div
+  className={`fixed top-0 left-0 h-full w-64 transform ${
+    isOpen ? 'translate-x-0' : '-translate-x-full'
+  } transition-transform duration-300 ease-in-out z-50 shadow-xl`}
+  onClick={(e) => e.stopPropagation()}
+>
+  {/* Top Menu Header */}
+  <div className="bg-[#2f3a27] text-white flex justify-between items-center py-[21px] px-4">
+    <span className="text-[20px] font-bold">Menu</span>
+    <button onClick={() => setIsOpen(false)}>
+      <FaTimes className="text-xl" />
+    </button>
+  </div>
+
+  {/* Remaining Slide Content */}
+  <div
+    className="h-[calc(100%-64px)] p-4 text-lg text-left text-[#2B452C]"
+    style={{ backgroundColor: '#93A88DF2' }}
+  >
+    <ul className="space-y-6 font-medium  text-[20px]">
+      <li><a href="#">Home</a></li>
+      <li><a href="/shoplist">Shop</a></li>
+      <li><a href="#">About Us</a></li>
+      <li><a href="#">Contact Us</a></li>
+    </ul>
+  </div>
+</div>
+
+
     </>
   );
 };

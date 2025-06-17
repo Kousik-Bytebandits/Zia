@@ -47,7 +47,7 @@ export default function Home() {
     <div className="w-full bg-white  text-center font-sans ">
      
   
- <section className="pt-[80px] lg:bg-[#F5F5F5] lg:pt-[110px] lg:pb-24 lg:flex lg:items-center lg:justify-between relative">
+ <section className="pt-[120px] lg:bg-[#F5F5F5] lg:pt-[110px] lg:pb-24 lg:flex lg:items-center lg:justify-between relative">
   {/* Left Content Block */}
   <div className=" lg:ml-52 relative">
     <h1 className="lg:w-[75%] text-[24px] lg:text-[40px] tracking-widest font-tenor text-[#333333] mb-4 lg:text-left ">
@@ -101,10 +101,10 @@ export default function Home() {
   <img
     src="images/serum.png"
     alt="Packshot"
-    className="w-[55%] block lg:hidden"
+    className="w-[55%] hidden lg:hidden"
   />
   
-  <div className="lg:hidden text-[16px] lg:text-[20px] mt-5 font-tenor text-[#676A5E] tracking-widest flex items-center justify-center lg:justify-start w-[40%] lg:w-[60%] h-full">
+  <div className="hidden lg:hidden text-[16px] lg:text-[20px] mt-5 font-tenor text-[#676A5E] tracking-widest flex items-center justify-center lg:justify-start w-[40%] lg:w-[60%] h-full">
     NEXT <span className="inline-block ml-3 -mt-1 text-2xl lg:text-4xl lg:-mt-2">→</span>
   </div>
 </section>
@@ -207,9 +207,21 @@ export default function Home() {
   </div>
 </div>
 
-   <div className="bg-[#2f3a27] h-[100px] flex items-center justify-center">
-    <img src="images/BrandMarque.png" className="object-cover  h-[50%] lg:h-full lg:object-contain  "></img>
-    </div>
+<div className="bg-[#2f3a27] h-[100px] overflow-hidden flex items-center">
+  <div className="flex gap-40 w-max animate-scroll-right lg:animate-scroll-right">
+    {Array(6).fill(0).map((_, i) => (
+      <img
+        key={i}
+        src="/images/BrandMarque.png"
+        alt="Brand Marque"
+        className="h-[50px]"
+      />
+    ))}
+  </div>
+</div>
+
+
+
 
      <div className="px-4 py-10 lg:px-16">
       {/* Text + Button */}
@@ -252,26 +264,27 @@ export default function Home() {
                   <img
                     src={product.image}
                     alt={product.name}
-                    className="h-36 object-contain mb-2"
+                    className="h-36 object-contain "
                   />
-                  <h3 className="text-center text-[20px] text-[#676A5E] mt-2">
+                  <h3 className="text-center text-[24px] text-[#676A5E] mt-2">
                     {product.name}
                   </h3>
-                  <img src="images/stars-num.png" alt="stars" className="my-2" />
-                  <div className="text-[24px] font-bold mb-2">{product.price}</div>
+                  <img src="images/stars-num.png" alt="stars" className="my-1" />
+                  <div className="text-[28px] font-bold ">{product.price}</div>
                 </div>
 
                 {/* Button */}
                 <button
                   disabled={!product.inStock}
-                  className={`w-full py-2 text-[18px] transition-all ${
+                  className={`w-full py-3  text-[24px] transition-all ${
                     product.inStock
-                      ? 'bg-[#2B452C] text-white'
+                      ? 'bg-[#2B452C]   text-white tracking-wide '
                       : 'bg-gray-300 text-gray-500 cursor-not-allowed'
                   }`}
                 >
                   {product.inStock ? 'Add to Cart' : 'Unavailable'}
                 </button>
+              
               </div>
             ))}
           </div>
@@ -428,12 +441,25 @@ export default function Home() {
         <p>Products</p>
       </h2>
     </div>
-
-    <div className="flex flex-col lg:flex lg:flex-row lg:space-x-14 lg:justify-center space-y-8 lg:space-y-0 text-center">
-      <img src="images/herbal-handwash.png" className="lg:w-[500px] lg:h-[370px]" />
-      <img src="images/herbal-shampoo.png" className="lg:w-[500px] lg:h-[370px]" />
-      <img src="images/herbal-soap.png" className="lg:w-[500px] lg:h-[370px]" />
+<div className="flex flex-col lg:flex-row lg:space-x-14 lg:justify-center space-y-8 lg:space-y-0 text-center">
+  {[
+    { src: "images/herbal-handwash.png", label: "Herbal Handwash" },
+    { src: "images/herbal-shampoo.png", label: "Herbal Shampoo" },
+    { src: "images/herbal-soap.png", label: "Herbal Soap" },
+  ].map((item, index) => (
+    <div key={index} className="relative lg:w-[500px] lg:h-[340px]">
+      <img
+        src={item.src}
+        alt={item.label}
+        className="w-full h-full "
+      />
+      <div className="backdrop-blur-sm tracking-widest  font-tenor uppercase w-full absolute bottom-0 lg:py-4  py-2 left-1/2 transform -translate-x-1/2 bg-white/70  text-[#1F1F1F] text-[24px]  ">
+        {item.label}
+      </div>
     </div>
+  ))}
+</div>
+
   </div>
 </div>
 

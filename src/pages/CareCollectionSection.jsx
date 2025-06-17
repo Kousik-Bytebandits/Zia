@@ -1,4 +1,10 @@
+import { useState } from "react";
+
 export default function CareCollectionsSection() {
+   const [selected, setSelected] = useState("All Products");
+
+  const buttons = ["All Products", "Body Care", "Skin Care", "Moisture"];
+
   const products = [
     {
       name: "Lemon Hand Wash",
@@ -35,20 +41,21 @@ export default function CareCollectionsSection() {
       </h2>
 
       {/* Category Buttons */}
-      <div className="grid grid-cols-2 md:grid-cols-4 text-[14px] gap-4 text-[#676A5E] mb-12 lg:mb-32 lg:w-[40%]">
-        <button className="py-4 px-3 border border-[#676A5E] bg-[#2B452C] text-white rounded-full font-tenor">
-          All Products
+    <div className="grid grid-cols-2 md:grid-cols-4 text-[14px] gap-4 text-[#676A5E] mb-12 lg:mb-32 lg:w-[40%]">
+      {buttons.map((btn) => (
+        <button
+          key={btn}
+          onClick={() => setSelected(btn)}
+          className={`py-4 px-3 border border-[#676A5E] rounded-full font-tenor transition-colors duration-300 ${
+            selected === btn
+              ? "bg-[#2B452C] text-white"
+              : "bg-transparent text-[#676A5E]"
+          }`}
+        >
+          {btn}
         </button>
-        <button className="py-4 px-3 border border-[#676A5E] rounded-full font-tenor">
-          Body Care
-        </button>
-        <button className="py-4 px-3 border border-[#676A5E] rounded-full font-tenor">
-          Skin Care
-        </button>
-        <button className="py-4 px-3 border border-[#676A5E] rounded-full font-tenor">
-          Moisture
-        </button>
-      </div>
+      ))}
+    </div>
 
       {/* Product + Right Image Section */}
       <div className="lg:flex lg:items-start lg:gap-28">
