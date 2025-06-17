@@ -99,28 +99,28 @@ useEffect(() => {
   ) : (
     // Layout for other pages
     <div className="flex items-center justify-between">
-      <button onClick={() => navigate(-1)} className="text-white text-2xl">
+      <button onClick={() => navigate(-1)} className="text-white text-3xl">
         <FaArrowLeft />
       </button>
 
-      <div className="bg-[#545D4F] flex items-center px-4 py-[6px] rounded-full w-full mx-4">
-        <BiSearchAlt className="w-6 h-6 mr-2 text-white" />
+      <div className="bg-[#545D4F] flex items-center px-4 py-[7px] rounded-full w-full mx-4">
+        <BiSearchAlt className="w-7 h-7 mr-2 text-white" />
         <input
           type="text"
           placeholder="Search your products"
-          className="bg-[#545D4F] text-white outline-none text-md w-full placeholder:text-white"
+          className="bg-[#545D4F] text-white outline-none text-lg w-full placeholder:text-white"
         />
       </div>
 
       <div className="flex items-center gap-4">
-        <FaUser className="text-white text-xl" />
-        <div className="relative">
-          <FaShoppingCart className="text-white text-xl" />
-          <span className="absolute -top-1 -right-2 bg-red-600 text-[10px] leading-none font-semibold text-white rounded-full px-[5px] py-[1px]">
+            <FaUser className="text-white text-2xl" />
+            <div className="relative">
+              <FaShoppingCart className="text-white text-[25px]" />
+          <span className="absolute -top-2 -right-1 bg-red-600 text-[9px] leading-none font-semibold text-white rounded-full px-[4px] py-[3px]">
             0
           </span>
-        </div>
-      </div>
+            </div>
+          </div>
     </div>
   )}
 </div>
