@@ -53,7 +53,7 @@ useEffect(() => {
           <input
             type="text"
             placeholder="Search for Products"
-            className="bg-[#E9F8E5] outline-none text-lg w-full text-black placeholder:text-black"
+            className="bg-[#E9F8E5] outline-none text-lg w-full text-black placeholder:text-gray-700"
           />
         </div>
 
@@ -86,12 +86,12 @@ useEffect(() => {
           </div>
         </div>
 
-        <div className="bg-[#E9F8E5] flex items-center px-3 py-[10px] rounded-lg">
+        <div className="bg-[#E9F8E5] flex items-center px-3 py-[6px] rounded-lg">
          <GoSearch  className="w-6 h-6 mr-2 text-[#555]" />
           <input
             type="text"
             placeholder="Search for Products"
-            className="bg-[#E9F8E5]  outline-none text-lg w-full text-black placeholder:text-black"
+            className="bg-[#E9F8E5]  outline-none text-lg w-full text-black placeholder:text-gray-700"
           />
         </div>
       </>

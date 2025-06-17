@@ -214,7 +214,7 @@ export default function Home() {
         key={i}
         src="/images/BrandMarque.png"
         alt="Brand Marque"
-        className="h-[50px]"
+        className="h-[50px] object-cover"
       />
     ))}
   </div>
