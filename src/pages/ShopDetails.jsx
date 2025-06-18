@@ -34,16 +34,16 @@ export default function ShopDetails() {
       <div className="flex flex-col   lg:flex-row gap-6">
         <div className=" flex flex-row gap-2 flex-wrap lg:w-1/2 justify-evenly items-center">
           <div className=" lg:w-[300px]   rounded-lg flex ">
-            <img src="/images/3shampoo.png" alt="Zia Herbal Shampoo" className="w-[100%] h-auto" />
+            <img src="/images/3shampoo.png" alt="Zia Herbal Shampoo" className="w-[185px] h-[200px]" />
           </div>
           <div className="flex flex-col gap-1">
-            <img src="/images/small1.png" alt="thumb1" className=" " />
-            <img src="/images/small2.png" alt="thumb2" className=" " />
-            <img src="/images/small3.png" alt="thumb3" className=" " />
+            <img src="/images/small1.png" alt="thumb1" className="w-[55px] h-[58px] " />
+            <img src="/images/small2.png" alt="thumb2" className="w-[55px] h-[64px] " />
+            <img src="/images/small3.png" alt="thumb3" className="w-[55px] h-[58px] " />
           </div>
           <div className="flex flex-col gap-1">
-            <img src="/images/small4.png" alt="thumb4" className=" " />
-            <img src="/images/small5.png" alt="thumb5" className=" " />
+            <img src="/images/small4.png" alt="thumb4" className="w-[72px] h-[92px] " />
+            <img src="/images/small5.png" alt="thumb5" className="w-[72px] h-[92px] " />
           </div>
         </div>
 
