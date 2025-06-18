@@ -5,11 +5,13 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import ShopList from './pages/ShopList'; 
 import Navbar from './components/Navbar'; 
+import ScrollToTop from './components/ScrollToTop';
+import ShopDetails from './pages/ShopDetails';
 
 function App() {
   return (
     <Router>
-      
+      <ScrollToTop/>
       <Navbar  />
 
       {/* Page content */}
@@ -17,6 +19,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/shoplist" element={<ShopList />} />
+          <Route path="/shopdetails" element={<ShopDetails/>}/>
          
         </Routes>
       </div>

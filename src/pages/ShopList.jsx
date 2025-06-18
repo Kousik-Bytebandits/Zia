@@ -1,6 +1,7 @@
 import  { useState, useEffect, useRef } from "react";
 import { FaFilter } from "react-icons/fa";
 import Footer from "../components/Footer";
+import { useNavigate } from "react-router-dom";
 
 const products = Array(20).fill({
   name: "Good Mood + Sun Skin",
@@ -10,8 +11,12 @@ const products = Array(20).fill({
 });
 
 function ProductCard({ product }) {
+  const navigate = useNavigate();
+const handleChange=()=>{
+navigate("/shopdetails");
+}
   return (
-    <div className="bg-white lg:rounded-md lg:h-[430px] shadow-lg border border-gray-200 flex flex-col">
+    <div className="bg-white lg:rounded-md lg:h-[430px] shadow-xl border border-gray-200 flex flex-col">
       <img
         src={product.image}
         alt={product.name}
@@ -24,13 +29,14 @@ function ProductCard({ product }) {
           <span className="line-through text-[18px]  mr-1 lg:hidden text-gray-400">₹{product.originalPrice}</span>
           <span className="text-black  text-[18px] lg:text-[28px]">₹{product.salePrice}</span>
         </div>
-        <button className="w-full bg-[#2B452C] text-white py-3 lg:py-4 lg:rounded-b text-[18px] lg:text-[24px] tracking-wider font-medium rounded-none">
+        <button onClick={handleChange} className="w-full bg-[#2B452C] text-white py-3 lg:py-4 lg:rounded-b text-[18px] lg:text-[24px] tracking-wider font-medium rounded-none">
           Add to Cart
         </button>
       </div>
     </div>
   );
 }
+
 
 export default function ShopList() {
   const [showFilter, setShowFilter] = useState(false);
@@ -118,7 +124,7 @@ export default function ShopList() {
 
   return (
     <div>
-    <div className="min-h-screen bg-white pt-[17px] lg:px-8 lg:pt-8 overflow-hidden font-archivo text-[#676A5E]">
+    <div className="min-h-screen mb-20 bg-white pt-[17px] lg:px-8 lg:pt-8 overflow-hidden font-archivo text-[#676A5E]">
       <div className="hidden lg:flex justify-between items-center mb-4 px-4">
        
       </div>
@@ -186,7 +192,7 @@ export default function ShopList() {
         </div>
         </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 ">
+          <div className="grid grid-cols-2  sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 ">
             {products.map((product, index) => (
               <ProductCard key={index} product={product} />
             ))}

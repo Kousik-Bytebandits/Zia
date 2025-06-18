@@ -40,9 +40,9 @@ useEffect(() => {
   }`}
 >
   {isHome ? (
-    // If on Home Page
+    //  Home Page
     isScrolled ? (
-      // Scrolled compact version
+    
       <div className="flex items-center justify-between ">
         <button onClick={() => setIsOpen(true)} className="text-white ">
           <IoMenu  className='text-5xl'/>
@@ -103,24 +103,22 @@ useEffect(() => {
         <FaArrowLeft />
       </button>
 
-      <div className="bg-[#545D4F] flex items-center px-4 py-[7px] rounded-full w-full mx-4">
-        <BiSearchAlt className="w-7 h-7 mr-2 text-white" />
-        <input
-          type="text"
-          placeholder="Search your products"
-          className="bg-[#545D4F] text-white outline-none text-lg w-full placeholder:text-white"
-        />
-      </div>
+       <div className="bg-[#E9F8E5] flex items-center px-3 py-[6px] rounded-lg w-full mx-2">
+          <GoSearch  className="w-6 h-6 mr-2 text-[#555]" />
+          <input
+            type="text"
+            placeholder="Search for Products"
+            className="bg-[#E9F8E5] outline-none text-lg w-full text-black placeholder:text-gray-700"
+          />
+        </div>
 
-      <div className="flex items-center gap-4">
-            <FaUser className="text-white text-2xl" />
-            <div className="relative">
-              <FaShoppingCart className="text-white text-[25px]" />
-          <span className="absolute -top-2 -right-1 bg-red-600 text-[9px] leading-none font-semibold text-white rounded-full px-[4px] py-[3px]">
+        <div className="relative ml-2">
+          <FaShoppingCart className="text-white text-[28px]" />
+          <span className="absolute -top-2 -right-1 bg-red-600 text-[10px] leading-none font-semibold text-white rounded-full px-[4px] py-[3px]">
             0
           </span>
-            </div>
-          </div>
+        </div>
+          
     </div>
   )}
 </div>

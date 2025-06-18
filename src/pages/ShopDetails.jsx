@@ -1,0 +1,167 @@
+import { useEffect, useState } from "react";
+import { FaStar } from "react-icons/fa";
+import { RiArrowLeftWideLine } from "react-icons/ri";
+import { GoArrowRight } from "react-icons/go";
+import Footer from "../components/Footer";
+
+export default function ShopDetails() {
+  const [timer, setTimer] = useState(3 * 24 * 60 * 60 + 14 * 60 * 60 + 35 * 60 + 23);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimer((prev) => (prev > 0 ? prev - 1 : 0));
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const formatTime = (seconds) => {
+    const days = Math.floor(seconds / (24 * 3600));
+    const hours = Math.floor((seconds % (24 * 3600)) / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const secs = seconds % 60;
+    return `${days}D : ${hours.toString().padStart(2, '0')}hours : ${minutes.toString().padStart(2, '0')} Mins : ${secs.toString().padStart(2, '0')} Sec`;
+  };
+
+  const relatedProducts = Array(4).fill({
+    name: "Good Mood + Sun Skin",
+    image: "images/lemonwash.png",
+    originalPrice: 450,
+    salePrice: 400,
+  });
+
+  return (
+    <div className=" lg:p-8 font-archivo pt-10 text-[#676A5E]">
+      <div className="flex flex-col   lg:flex-row gap-6">
+        <div className=" flex flex-row gap-2 flex-wrap lg:w-1/2 justify-evenly items-center">
+          <div className=" lg:w-[300px]   rounded-lg flex ">
+            <img src="/images/3shampoo.png" alt="Zia Herbal Shampoo" className="w-[100%] h-auto" />
+          </div>
+          <div className="flex flex-col gap-1">
+            <img src="/images/small1.png" alt="thumb1" className=" " />
+            <img src="/images/small2.png" alt="thumb2" className=" " />
+            <img src="/images/small3.png" alt="thumb3" className=" " />
+          </div>
+          <div className="flex flex-col gap-1">
+            <img src="/images/small4.png" alt="thumb4" className=" " />
+            <img src="/images/small5.png" alt="thumb5" className=" " />
+          </div>
+        </div>
+
+        <div className="px-4 flex flex-row justify-between  text-[#252525] lg:w-1/2">
+          <h1 className="text-[22px] text-[#676A5E]  font-tenor tracking-wider uppercase">Zia Herbal<br/> Hair Shampoo</h1>
+          <div className="mt-1">
+          <div className="flex  items-center justify-end gap-2 text-[#E3B617] text-sm">
+            {[...Array(5)].map((_, i) => <FaStar key={i} />)}
+            
+          </div>
+              <p className="text-[#676A5E] tracking-wide text-[14px]">(1 Customer review)</p>
+              </div>
+              </div>
+               <hr className="border-[#B2BA98] w-[90%] mx-auto" />
+          <div className="  p-4">
+            <div className="flex items-center gap-6">
+              <span className="text-[#FF1010] text-[20px]">- 7%</span>
+              <span className="line-through text-[20x] text-[#B2BA98]">MRP: ₹320.00</span>
+              <span className="text-[25px] font-bold text-black">₹400</span>
+            </div>
+            <div className="text-[16px] tracking-wider mt-1 ">Inclusive of all takes</div>
+            <div className="flex items-center gap-2 mt-4">
+              <div className="flex border border-[#B2BA98]   overflow-hidden">
+                <button className="px-2 text-[18px]  border-r border-[#B2BA98]">-</button>
+                <div className="px-2 text-[18px] ">1</div>
+                <button className="px-2 text-[18px]  border-l border-[#B2BA98]">+</button>
+              </div>
+              <button className="bg-[#2B452C] text-white px-3 py-2 rounded-full font-tenor text-sm">Buy Now <GoArrowRight className="inline text-[18px]"/></button>
+              <button className="border border-[#2B452C] text-[#2B452C] px-3 py-2 rounded-full font-tenor text-sm">Add To Cart <GoArrowRight className="inline text-[18px]"/></button>
+            </div>
+         
+
+          <div className=" text-[15px] mt-2 py-4">
+            Hurry up! Deals end up : <span className="text-[#FF2B2B] font-bold ml-2">{formatTime(timer)}</span>
+          </div>
+          <div className="text-[15px] ">Worldwide Shipping in all order $200, Delivery in 2-5 working days Shipping & Return</div>
+         </div>
+      </div>
+
+      {/* Description Section */}
+         <hr className="border-[#B2BA98] w-[90%] mx-auto " />
+      <div className="p-4   pt-8 text-[#676A5E] mb-20">
+        <p className="text-[14px] mb-4">
+          This 10k Bags Solded features four asymmetric organic hand-cut London Blue Topaz leathers that each have their own unique beauty style;
+        </p>
+        <p className="text-[14px] mb-5 ">
+          Specifications:
+          <ul className="list-disc mt-2 pl-5 space-y-2">
+            <li>Vibrant blue hues. This unique button features London Blue Topaz stones size 1.1mm</li>
+            <li>10 USA Blue Topaz Materials</li>
+            <li>1k Leather Productions</li>
+          </ul>
+        </p>
+        
+        <div className=" py-4">
+          <h2 className="text-[18px] font-tenor tracking-[0.2em] uppercase flex justify-between items-center">About Puff Jerkin <GoArrowRight className="text-[25px]" /></h2>
+           <hr className="border-[#B2BA98] w-[100%] mx-auto mb-4 mt-5" />
+          <ul className="list-disc pl-5 mt-2 text-[14px] space-y-2 ">
+            <li>12K Solid Productions</li>
+            <li>Design Systems</li>
+            <li>Free shipping for orders $75.00 USD+</li>
+            <li>1-year warranty</li>
+            <li>30-day returns</li>
+            <li>Sustainable practices</li>
+          </ul>
+        </div>
+
+        <div className="py-4">
+          <h2 className="text-[18px] font-tenor tracking-[0.2em] uppercase flex justify-between items-center">Description <GoArrowRight className="text-[25px]"/></h2>
+           <hr className="border-[#B2BA98] w-[100%] mx-auto mb-5 mt-5" />
+          <p className="text-[14px] mt-2">
+            In mollis nunc sed id semper risus in hendrerit gravida. Porta nibh venenatis cras sed. Nunc sed velit dignissim sodales ut eu. Lobortis feugiat vivamus at augue eget. Phasellus egestas tellus rutrum tellus pellentesque. Sed risus ultricies tristique nulla aliquet enim tortor. Feugiat nibh sed pulvinar proin gravida hendrerit lectus. Odio facilisis mauris sit amet massa vitae. Interdum consectetur libero id faucibus nisl tincidunt. Euismod in pellentesque massa placerat. Ut sem viverra aliquet eget. Commodo viverra maecenas accumsan lacus vel facilisis volutpat. Eget arcu dictum varius duis. Nulla pharetra diam sit amet nisl suscipit adipiscing bibendum est.
+          </p>
+        </div>
+
+        <div className="mt-4 text-[14px] space-y-3">
+          <p><RiArrowLeftWideLine className="inline mr-2 text-[20px]" /> We target your business</p>
+          <p><RiArrowLeftWideLine className="inline mr-2 text-[20px]" /> Focus on Puff Materials</p>
+          <p><RiArrowLeftWideLine className="inline mr-2 text-[20px]" /> We target your business</p>
+          <p><RiArrowLeftWideLine className="inline mr-2 text-[20px]" /> Focus on Certificate</p>
+        </div>
+
+        {/* Related Products */}
+         <div className=" py-4">
+          <h2 className="text-[18px] font-tenor tracking-[0.2em] uppercase flex justify-between items-center mb-5 mt-10">Additional Details <GoArrowRight className="text-[25px]"/></h2>
+           <hr className="border-[#B2BA98] w-[100%] mx-auto mb-5 mt-5" />
+        </div>
+        <div className="mt-12 p-2">
+        
+          <h2 className="text-[18px] font-tenor tracking-[0.3em] mb-10 uppercase flex justify-center items-center">Related Products</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
+            {relatedProducts.map((product, i) => (
+              <div key={i} className="bg-white rounded-xl lg:h-[430px] shadow-xl border border-[#D8DCCB] flex flex-col">
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="w-full h-[110px] lg:h-[200px] object-contain p-2 lg:mt-4 lg:mb-3"
+                />
+                <div className="flex flex-col items-center text-center flex-grow justify-between">
+                  <h2 className="text-[16px] lg:text-[24px] font-medium leading-snug">{product.name}</h2>
+                  <img src="/images/stars-num.png" className="w-[95px] my-2 lg:my-0 lg:h-[22px] lg:w-[120px]" alt="rating" />
+                  <div className="font-semibold tracking-wide font-archivo mb-2">
+                   
+                    <span className="text-black text-[18px] lg:text-[28px]">₹{product.salePrice}</span>
+                  </div>
+                  <button
+                    onClick={() => alert("Added to Cart")}
+                    className="w-full bg-[#2B452C] text-white py-2 lg:py-4 rounded-b-xl text-[18px] lg:text-[24px] tracking-wider font-medium rounded-none"
+                  >
+                    Add to Cart
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      <Footer/>
+    </div>
+  );
+}
