@@ -119,7 +119,7 @@ export default function ShopDetails() {
         </p>
         
         <div className=" py-4">
-          <h2 className="text-[18px]  lg:text-[22px] font-tenor tracking-[0.2em] uppercase flex justify-between items-center">About Puff Jerkin <GoArrowRight className="text-[25px]  lg:hidden text-[#B2BA98]" /><GoArrowDown className="text-[25px] text-[#B2BA98]"/></h2>
+          <h2 className="text-[18px]  lg:text-[22px] font-tenor tracking-[0.2em] uppercase flex justify-between items-center">About Puff Jerkin <GoArrowRight className="text-[25px]  lg:hidden text-[#B2BA98]" /><GoArrowDown className="text-[25px] hidden lg:block text-[#B2BA98]"/></h2>
            <hr className="border-[#B2BA98] w-[100%] mx-auto mb-4 mt-5" />
           <ul className="list-disc pl-5 mt-2 text-[14px] lg:text-[18px] lg:tracking-wide space-y-2 ">
             <li>12K Solid Productions</li>
@@ -132,7 +132,7 @@ export default function ShopDetails() {
         </div>
 
         <div className="py-4">
-          <h2 className="text-[18px] lg:text-[22px] font-tenor tracking-[0.2em] uppercase flex justify-between items-center">Description <GoArrowRight className="text-[25px] lg:hidden text-[#B2BA98]"/><GoArrowDown className="text-[25px] text-[#B2BA98]"/></h2>
+          <h2 className="text-[18px] lg:text-[22px] font-tenor tracking-[0.2em] uppercase flex justify-between items-center">Description <GoArrowRight className="text-[25px] lg:hidden text-[#B2BA98]"/><GoArrowDown className="text-[25px]  hidden lg:block text-[#B2BA98]"/></h2>
            <hr className="border-[#B2BA98] w-[100%] mx-auto mb-5 mt-5" />
           <p className="text-[14px] mt-2 lg:text-[18px] lg:tracking-wide">
             In mollis nunc sed id semper risus in hendrerit gravida. Porta nibh venenatis cras sed. Nunc sed velit dignissim sodales ut eu. Lobortis feugiat vivamus at augue eget. Phasellus egestas tellus rutrum tellus pellentesque. Sed risus ultricies tristique nulla aliquet enim tortor. Feugiat nibh sed pulvinar proin gravida hendrerit lectus. Odio facilisis mauris sit amet massa vitae. Interdum consectetur libero id faucibus nisl tincidunt. Euismod in pellentesque massa placerat. Ut sem viverra aliquet eget. Commodo viverra maecenas accumsan lacus vel facilisis volutpat. Eget arcu dictum varius duis. Nulla pharetra diam sit amet nisl suscipit adipiscing bibendum est.
