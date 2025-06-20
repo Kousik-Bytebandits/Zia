@@ -220,7 +220,7 @@ useEffect(() => {
     <ul className="space-y-6 font-medium  text-[20px]">
       <li><a href="#">Home</a></li>
       <li><a href="/shoplist">Shop</a></li>
-      <li><a href="#">About Us</a></li>
+      <li><a href="/about">About Us</a></li>
       <li><a href="#">Contact Us</a></li>
     </ul>
   </div>

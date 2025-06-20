@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { FaStar } from "react-icons/fa";
 import { RiArrowLeftWideLine } from "react-icons/ri";
-import { GoArrowBoth, GoArrowDown, GoArrowRight } from "react-icons/go";
+import {   GoArrowRight } from "react-icons/go";
 import Footer from "../components/Footer";
+import { RiArrowRightSLine } from "react-icons/ri";
+import { RiArrowDownSLine } from "react-icons/ri";
+
 
 export default function ShopDetails() {
   const [timer, setTimer] = useState(3 * 24 * 60 * 60 + 14 * 60 * 60 + 35 * 60 + 23);
@@ -10,6 +13,9 @@ export default function ShopDetails() {
 
   const increment = () => setCount(prev => prev + 1);
   const decrement = () => setCount(prev => Math.max(1, prev - 1));
+   const [showAbout, setShowAbout] = useState(true);
+  const [showDescription, setShowDescription] = useState(true);
+
   useEffect(() => {
     const interval = setInterval(() => {
       setTimer((prev) => (prev > 0 ? prev - 1 : 0));
@@ -105,7 +111,7 @@ export default function ShopDetails() {
 
       {/* Description Section */}
          <hr className="border-[#B2BA98] w-[90%] lg:w-[95%] mx-auto " />
-      <div className="p-4   pt-8 text-[#676A5E] mb-20">
+      <div className="p-4   pt-8 text-[#676A5E] ">
         <p className="text-[14px] mb-4 lg:tracking-wide lg:text-[18px] lg:w-[75%]">
           This 10k Bags Solded features four asymmetric organic hand-cut London Blue Topaz leathers that each have their own unique beauty style;
         </p>
@@ -118,10 +124,21 @@ export default function ShopDetails() {
           </ul>
         </p>
         
-        <div className=" py-4">
-          <h2 className="text-[18px]  lg:text-[22px] font-tenor tracking-[0.2em] uppercase flex justify-between items-center">About Puff Jerkin <GoArrowRight className="text-[25px]  lg:hidden text-[#B2BA98]" /><GoArrowDown className="text-[25px] hidden lg:block text-[#B2BA98]"/></h2>
-           <hr className="border-[#B2BA98] w-[100%] mx-auto mb-4 mt-5" />
-          <ul className="list-disc pl-5 mt-2 text-[14px] lg:text-[18px] lg:tracking-wide space-y-2 ">
+       <div className="py-4">
+        <h2
+          onClick={() => setShowAbout(!showAbout)}
+          className="text-[18px] lg:text-[22px] font-tenor tracking-[0.2em] uppercase flex justify-between items-center cursor-pointer"
+        >
+          About Puff Jerkin
+          {showAbout ? (
+            < RiArrowDownSLine className="text-[25px] text-[#B2BA98]" />
+          ) : (
+            < RiArrowRightSLine  className="text-[25px] text-[#B2BA98]" />
+          )}
+        </h2>
+        <hr className="border-[#B2BA98] w-full mx-auto mb-4 mt-5" />
+        {showAbout && (
+          <ul className="list-disc pl-5 mt-2 text-[14px] lg:text-[18px] lg:tracking-wide space-y-2">
             <li>12K Solid Productions</li>
             <li>Design Systems</li>
             <li>Free shipping for orders $75.00 USD+</li>
@@ -129,28 +146,56 @@ export default function ShopDetails() {
             <li>30-day returns</li>
             <li>Sustainable practices</li>
           </ul>
-        </div>
+        )}
+      </div>
 
-        <div className="py-4">
-          <h2 className="text-[18px] lg:text-[22px] font-tenor tracking-[0.2em] uppercase flex justify-between items-center">Description <GoArrowRight className="text-[25px] lg:hidden text-[#B2BA98]"/><GoArrowDown className="text-[25px]  hidden lg:block text-[#B2BA98]"/></h2>
-           <hr className="border-[#B2BA98] w-[100%] mx-auto mb-5 mt-5" />
-          <p className="text-[14px] mt-2 lg:text-[18px] lg:tracking-wide">
-            In mollis nunc sed id semper risus in hendrerit gravida. Porta nibh venenatis cras sed. Nunc sed velit dignissim sodales ut eu. Lobortis feugiat vivamus at augue eget. Phasellus egestas tellus rutrum tellus pellentesque. Sed risus ultricies tristique nulla aliquet enim tortor. Feugiat nibh sed pulvinar proin gravida hendrerit lectus. Odio facilisis mauris sit amet massa vitae. Interdum consectetur libero id faucibus nisl tincidunt. Euismod in pellentesque massa placerat. Ut sem viverra aliquet eget. Commodo viverra maecenas accumsan lacus vel facilisis volutpat. Eget arcu dictum varius duis. Nulla pharetra diam sit amet nisl suscipit adipiscing bibendum est.
-          </p>
+      {/* Description */}
+      <div className="py-4">
+        <h2
+          onClick={() => setShowDescription(!showDescription)}
+          className="text-[18px] lg:text-[22px] font-tenor tracking-[0.2em] uppercase flex justify-between items-center cursor-pointer"
+        >
+          Description
+          {showDescription ? (
+            < RiArrowDownSLine className="text-[25px] text-[#B2BA98]" />
+          ) : (
+            < RiArrowRightSLine  className="text-[25px] text-[#B2BA98]" />
+          )}
+        </h2>
+        <hr className="border-[#B2BA98] w-full mx-auto mb-4 mt-5" />
+        {showDescription && (
+          <div>
+            <p className="text-[14px] mt-2 lg:text-[18px] lg:tracking-wide">
+              In mollis nunc sed id semper risus in hendrerit gravida. Porta nibh
+              venenatis cras sed. Nunc sed velit dignissim sodales ut eu.
+              Lobortis feugiat vivamus at augue eget. Phasellus egestas tellus
+              rutrum tellus pellentesque. Sed risus ultricies tristique nulla
+              aliquet enim tortor. Feugiat nibh sed pulvinar proin gravida
+              hendrerit lectus. Odio facilisis mauris sit amet massa vitae.
+              Interdum consectetur libero id faucibus nisl tincidunt. Euismod in
+              pellentesque massa placerat. Ut sem viverra aliquet eget. Commodo
+              viverra maecenas accumsan lacus vel facilisis volutpat. Eget arcu
+              dictum varius duis. Nulla pharetra diam sit amet nisl suscipit
+              adipiscing bibendum est.
+            </p>
+              <div className="mt-4 text-[14px] space-y-3 lg:text-[18px] lg:tracking-wide">
+          <p><RiArrowLeftWideLine className="inline mr-2 text-[20px] text-[#B2BA98]" /> We target your business</p>
+            <p><RiArrowLeftWideLine className="inline mr-2 text-[20px] text-[#B2BA98]" /> Focus on Puff Materials</p>
+            <p><RiArrowLeftWideLine className="inline mr-2 text-[20px] text-[#B2BA98]" /> We target your business</p>
+            <p><RiArrowLeftWideLine className="inline mr-2 text-[20px] text-[#B2BA98]" /> Focus on Certificate</p>
         </div>
+          </div>
+        )}
+      
 
-        <div className="mt-4 text-[14px] space-y-3 lg:text-[18px] lg:tracking-wide">
-          <p><RiArrowLeftWideLine className="inline mr-2 text-[20px]" /> We target your business</p>
-          <p><RiArrowLeftWideLine className="inline mr-2 text-[20px]" /> Focus on Puff Materials</p>
-          <p><RiArrowLeftWideLine className="inline mr-2 text-[20px]" /> We target your business</p>
-          <p><RiArrowLeftWideLine className="inline mr-2 text-[20px]" /> Focus on Certificate</p>
+      
         </div>
         </div>
          </div>
          </div>
         {/* Related Products */}
          <div className=" py-4 lg:hidden">
-          <h2 className="text-[18px] px-4 font-tenor tracking-[0.2em] uppercase flex justify-between items-center mb-5 ">Additional Details <GoArrowRight className="text-[25px] lg:hidden text-[#B2BA98]"/> </h2>
+          <h2 className="text-[18px] px-4 font-tenor tracking-[0.2em] uppercase flex justify-between items-center mb-5 ">Additional Details < RiArrowRightSLine  className="text-[25px] lg:hidden text-[#B2BA98]"/> </h2>
            <hr className="border-[#B2BA98] w-[92%] mx-auto mb-5 mt-5" />
         </div>
         <div className=" p-2 lg:p-28 mb-20">

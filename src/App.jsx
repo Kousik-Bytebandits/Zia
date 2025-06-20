@@ -7,6 +7,8 @@ import ShopList from './pages/ShopList';
 import Navbar from './components/Navbar'; 
 import ScrollToTop from './components/ScrollToTop';
 import ShopDetails from './pages/ShopDetails';
+import AboutUs from './pages/AboutUs';
+
 
 function App() {
   return (
@@ -20,6 +22,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/shoplist" element={<ShopList />} />
           <Route path="/shopdetails" element={<ShopDetails/>}/>
+          <Route path="/about" element={<AboutUs/>}/>
          
         </Routes>
       </div>
