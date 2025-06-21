@@ -157,7 +157,7 @@ useEffect(() => {
     About Us
   </NavLink>
   <NavLink
-    to="/contact"
+    to="/error"
     className={({ isActive }) =>
       `${isActive ? 'border-b-2 border-white' : ''}`
     }
@@ -221,7 +221,7 @@ useEffect(() => {
       <li><a href="#">Home</a></li>
       <li><a href="/shoplist">Shop</a></li>
       <li><a href="/about">About Us</a></li>
-      <li><a href="#">Contact Us</a></li>
+      <li><a href="/error"k>Contact Us</a></li>
     </ul>
   </div>
 </div>

@@ -8,6 +8,8 @@ import Navbar from './components/Navbar';
 import ScrollToTop from './components/ScrollToTop';
 import ShopDetails from './pages/ShopDetails';
 import AboutUs from './pages/AboutUs';
+import ErrorPage from './pages/ErrorPage';
+import OrderTracking from './pages/OrderTracking';
 
 
 function App() {
@@ -23,7 +25,8 @@ function App() {
           <Route path="/shoplist" element={<ShopList />} />
           <Route path="/shopdetails" element={<ShopDetails/>}/>
           <Route path="/about" element={<AboutUs/>}/>
-         
+          <Route path="/error" element={<ErrorPage/>}/>
+          <Route path='/ordertracking' element={<OrderTracking/>}/>
         </Routes>
       </div>
     </Router>
