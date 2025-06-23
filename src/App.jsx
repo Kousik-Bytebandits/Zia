@@ -10,6 +10,7 @@ import ShopDetails from './pages/ShopDetails';
 import AboutUs from './pages/AboutUs';
 import ErrorPage from './pages/ErrorPage';
 import OrderTracking from './pages/OrderTracking';
+import ContactUs from './pages/ContactUs';
 
 
 function App() {
@@ -25,8 +26,9 @@ function App() {
           <Route path="/shoplist" element={<ShopList />} />
           <Route path="/shopdetails" element={<ShopDetails/>}/>
           <Route path="/about" element={<AboutUs/>}/>
-          <Route path="/error" element={<ErrorPage/>}/>
+         <Route path='/contactus' element={<ContactUs/>}/>
           <Route path='/ordertracking' element={<OrderTracking/>}/>
+           <Route path="*" element={<ErrorPage/>}/>
         </Routes>
       </div>
     </Router>

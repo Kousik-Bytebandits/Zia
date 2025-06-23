@@ -136,7 +136,7 @@ export default function AboutUs(){
       <div className="hidden lg:flex flex-col items-center text-center relative">
         {/* Heading + Paragraph */}
         <div className="max-w-3xl">
-          <h2 className="text-[20px] tracking-[0.2em] font-tenor text-[#676A5E] uppercase mb-4 ">
+          <h2 className="text-[32px] tracking-[0.2em] font-tenor text-[#676A5E] uppercase mb-4 ">
             CARE COLLECTIONS
           </h2>
           <p className="text-[16px] lg:w-[80%] lg:ml-16 text-[#676A5E] font-archivo mb-6 lg:mb-12">
