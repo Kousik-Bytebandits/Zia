@@ -131,7 +131,7 @@ useEffect(() => {
           <div className="bg-[#2f3a27] flex items-center px-6 py-3 gap-8 w-[50%]">
             <img src="images/zia_logo.png" alt="Zia Logo" className="h-14" />
 
-           <ul className="flex gap-20 text-[24px] items-center tracking-widest">
+           <ul className="flex gap-14 text-[20px] items-center tracking-widest">
   <NavLink
     to="/"
     className={({ isActive }) =>
@@ -164,18 +164,26 @@ useEffect(() => {
   >
     Contact Us
   </NavLink>
+   <NavLink
+    to="/ordertracking"
+    className={({ isActive }) =>
+      `${isActive ? 'border-b-2 border-white' : ''}`
+    }
+  >
+   Track Order
+  </NavLink>
 </ul>
 
           </div>
 
           {/* Right Section */}
-          <div className="bg-[#1f210e] flex items-center gap-10 px-6 py-3 w-[60%] justify-end">
-            <div className="flex items-center text-[18px] tracking-widest gap-2 mr-10">
-              <GoLocation className="text-lg " />
+          <div className="bg-[#1f210e] flex items-center gap-8 px-6 py-3 w-[60%] justify-start">
+            <div className="flex items-center text-[20px] tracking-widest gap-2 mx-5 ">
+              <GoLocation className="text-sm " />
               <span>Chennai</span>
             </div>
 
-            <div className="bg-[#545D4F] flex items-center px-3 py-2 rounded-lg w-96 mr-10">
+            <div className="bg-[#545D4F] flex items-center px-3 py-2 rounded-lg w-[100%] ">
               <BiSearchAlt className="w-7 h-7 mr-2" />
               <input
                 type="text"
@@ -184,8 +192,8 @@ useEffect(() => {
               />
             </div>
 
-            <FaUser className="text-xl" />
-            <FaShoppingCart className="text-xl mr-28" />
+            <FaUser className="text-3xl" />
+            <FaShoppingCart className="text-4xl mr-10" />
           </div>
         </div>
       </nav>
@@ -221,7 +229,9 @@ useEffect(() => {
       <li><a href="#">Home</a></li>
       <li><a href="/shoplist">Shop</a></li>
       <li><a href="/about">About Us</a></li>
-      <li><a href="/error"k>Contact Us</a></li>
+      <li><a href="/error">Contact Us</a></li>
+      <li><a href="/ordertracking">Track Order</a></li>
+
     </ul>
   </div>
 </div>
