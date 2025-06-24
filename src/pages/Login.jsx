@@ -52,7 +52,7 @@ export default function Login() {
     <div className="font-archivo h-screen w-full bg-white relative text-gray-800 overflow-hidden">
       {/* Top animated leaf section */}
       <div className="relative w-full overflow-hidden">
-        <img src="images/leaf.jpg" alt="Leaf background" className="w-full h-[45dvh] object-cover" />
+        <img src="images/leaf.jpg" alt="Leaf background" className="w-full h-[45lvh] object-cover" />
         <div className="ocean absolute bottom-0 left-0 w-full">
           <div className="wave"></div>
           <div className="wave"></div>
