@@ -115,14 +115,14 @@ export default function ShopDetails() {
         <p className="text-[14px] mb-4 lg:tracking-wide lg:text-[18px] lg:w-[75%]">
           This 10k Bags Solded features four asymmetric organic hand-cut London Blue Topaz leathers that each have their own unique beauty style;
         </p>
-        <p className="text-[14px] mb-5 lg:text-[18px] lg:tracking-wide ">
+        <div className="text-[14px] mb-5 lg:text-[18px] lg:tracking-wide ">
           Specifications:
           <ul className="list-disc mt-2 pl-5 space-y-2">
             <li>Vibrant blue hues. This unique button features London Blue Topaz stones size 1.1mm</li>
             <li>10 USA Blue Topaz Materials</li>
             <li>1k Leather Productions</li>
           </ul>
-        </p>
+        </div>
         
        <div className="py-4">
         <h2

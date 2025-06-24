@@ -13,7 +13,7 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-const isHome = location.pathname === '/'; 
+const isHome = location.pathname === '/home'; 
 
 useEffect(() => {
   const handleScroll = () => {
@@ -133,7 +133,7 @@ useEffect(() => {
 
            <ul className="flex gap-14 text-[20px] items-center tracking-widest">
   <NavLink
-    to="/"
+    to="/home"
     className={({ isActive }) =>
       `ml-10 ${isActive ? 'border-b-2 border-white' : ''}`
     }
@@ -226,7 +226,7 @@ useEffect(() => {
     style={{ backgroundColor: '#93A88DF2' }}
   >
     <ul className="space-y-6 font-medium  text-[20px]">
-      <li><a href="#">Home</a></li>
+      <li><a href="/home">Home</a></li>
       <li><a href="/shoplist">Shop</a></li>
       <li><a href="/about">About Us</a></li>
       <li><a href="/contactus">Contact Us</a></li>

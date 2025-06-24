@@ -13,7 +13,7 @@ export default function ErrorPage() {
         Sorry, we couldn’t find this page
       </p>
       <button
-        onClick={() => navigate("/")}
+        onClick={() => navigate("/home")}
         className="bg-black tracking-wider text-white text-[18px] font-archivo px-8 py-5 rounded-full flex items-center gap-4"
       >
         Back to Home Page <span className="text-lg">→</span>
