@@ -63,15 +63,26 @@ export default function SignUp() {
   };
 
   return (
-    <div className="font-archivo min-h-screen w-full bg-[url('images/leaf.jpg')] bg-white/20 bg-cover bg-center bg-no-repeat relative flex flex-col">
-      {/* Top Icons */}
-       <div className="absolute top-4 left-4  py-5 text-5xl z-10 ">
+    <div className="font-archivo min-h-screen w-full relative flex flex-col">
+     
+       <img
+    src="images/leaf.jpg"
+    alt="Leaf Background"
+    className="absolute inset-0 w-full h-full object-cover z-0"
+  />
+
+  <div
+    className="absolute inset-0 z-10"
+    style={{ backgroundColor: '#1212124D' }}
+  />
+
+       <div className="z-20 absolute top-4 left-4  py-5 text-5xl z-10 ">
           < RiArrowLeftSLine onClick={() => navigate(-1)} className=' bg-white rounded-full '/>
         </div>
         <img src="images/zia-white.png" alt="Zia Logo" className="absolute top-4 right-3 py-4  w-[120px] z-10" />
    
-      {/* Signup Form Card */}
-      <div className="mt-32 mb-20 mx-6 bg-white rounded-2xl shadow-md px-6 py-10">
+     
+      <div className="z-20 mt-32 mb-20 mx-6 bg-white rounded-2xl shadow-md px-6 py-10">
         <h2 className="text-[42px] font-bold text-[#2E3A27] text-center mb-1">Welcome</h2>
         <p className="text-center text-[#2E3A27] text-[28px] mb-6">Create Your Account</p>
 
@@ -83,7 +94,7 @@ export default function SignUp() {
           <input type="password" name="password" placeholder="Password" value={form.password} onChange={handleChange} className="w-full px-4 py-3 rounded-lg bg-[#D8E5DC] placeholder:text-[18px] text-[18px] outline-none" />
           <input type="password" name="confirmPassword" placeholder="Confirm Password" value={form.confirmPassword} onChange={handleChange} className="w-full px-4 py-3 rounded-lg bg-[#D8E5DC] placeholder:text-[18px] text-[18px] outline-none" />
           
-          {/* Street address with more space */}
+          
           <textarea name="street_address" rows={3} placeholder="Street Address" value={form.street_address} onChange={handleChange} className="w-full px-4 py-3 rounded-lg bg-[#D8E5DC] placeholder:text-[18px] text-[18px] outline-none resize-none" />
          <input type="text" name="city" placeholder="City" value={form.city} onChange={handleChange} className="w-full px-4 py-3 rounded-lg bg-[#D8E5DC] placeholder:text-[18px] text-[18px] outline-none" />
           
