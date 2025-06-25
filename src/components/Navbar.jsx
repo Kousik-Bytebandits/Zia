@@ -28,6 +28,15 @@ useEffect(() => {
   return () => window.removeEventListener('scroll', handleScroll);
 }, []);
 
+const handleChange=()=>{
+  const userId = localStorage.getItem("user_id");
+    if (userId) {
+      navigate("/profile"); 
+    }  else {
+      navigate("/login"); 
+    }
+
+}
 
   return (
     <>
@@ -67,7 +76,7 @@ useEffect(() => {
     ) : (
       // Full home top layout
       <>
-        <div className="flex items-center justify-between mb-2 ">
+        <div className="flex items-center justify-between mb-3 ">
           <div className="flex items-center gap-2">
             <button onClick={() => setIsOpen(true)} className="text-white ">
               <IoMenu  className='text-5xl'/>
@@ -76,7 +85,8 @@ useEffect(() => {
           </div>
 
           <div className="flex items-center gap-4">
-            <FaUser className="text-white text-3xl" />
+            <button onClick={handleChange}><FaUser className="text-white text-3xl" /></button>
+            
             <div className="relative">
               <FaShoppingCart className="text-white text-[30px]" />
           <span className="absolute -top-2 -right-1 bg-red-600 text-[10px] leading-none font-semibold text-white rounded-full px-[4px] py-[3px]">
@@ -86,7 +96,7 @@ useEffect(() => {
           </div>
         </div>
 
-        <div className="bg-[#E9F8E5] flex items-center px-3 py-[6px] rounded-lg">
+        <div className="bg-[#E9F8E5] flex items-center  px-3 py-[6px] rounded-lg">
          <GoSearch  className="w-6 h-6 mr-2 text-[#555]" />
           <input
             type="text"

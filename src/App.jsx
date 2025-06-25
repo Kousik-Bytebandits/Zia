@@ -3,6 +3,7 @@ import './index.css';
 import { Routes, Route, useLocation } from 'react-router-dom';
 
 import Home from './pages/Home';
+import Profile from './pages/Profile';
 import ShopList from './pages/ShopList';
 import Navbar from './components/Navbar';
 import ScrollToTop from './components/ScrollToTop';
@@ -31,6 +32,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/profile" element={<Profile/>}/>
           <Route path="/shoplist" element={<ShopList />} />
           <Route path="/shopdetails" element={<ShopDetails />} />
           <Route path="/about" element={<AboutUs />} />
