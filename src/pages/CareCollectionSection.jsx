@@ -1,8 +1,17 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
 
 export default function CareCollectionsSection() {
    const [selected, setSelected] = useState("All Products");
-
+ 
+   useEffect(() => {
+  AOS.init({
+    duration: 1000,  
+    once: true       
+  });
+}, []);
   const buttons = ["All Products", "Body Care", "Skin Care", "Moisture"];
 
   const products = [
@@ -36,12 +45,12 @@ export default function CareCollectionsSection() {
   return (
     <div className="lg:mt-40 mx-auto px-6 py-8 font-archivo lg:px-24 ">
       {/* Title */}
-      <h2 className="text-left font-tenor tracking-widest lg:tracking-[1rem] lg:text-[32px] text-[24px] text-[#676A5E] mb-8 ">
+      <h2 data-aos="fade-up" data-aos-delay="100" className="text-left font-tenor tracking-widest lg:tracking-[1rem] lg:text-[32px] text-[24px] text-[#676A5E] mb-8 ">
         CARE COLLECTIONS
       </h2>
 
       {/* Category Buttons */}
-    <div className="grid grid-cols-2 md:grid-cols-4 text-[14px] gap-4 text-[#676A5E] mb-12 lg:mb-32 lg:w-[40%]">
+    <div data-aos="fade-up" data-aos-delay="100" className="grid grid-cols-2 md:grid-cols-4 text-[14px] gap-4 text-[#676A5E] mb-12 lg:mb-32 lg:w-[40%]">
       {buttons.map((btn) => (
         <button
           key={btn}
@@ -60,7 +69,7 @@ export default function CareCollectionsSection() {
       {/* Product + Right Image Section */}
       <div className="lg:flex lg:items-start lg:gap-28">
         {/* Product Scroll */}
-        <div className="overflow-x-auto scrollbar-none lg:max-w-[1140px]">
+        <div data-aos="fade-up" data-aos-delay="100" className="overflow-x-auto scrollbar-none lg:max-w-[1140px]">
           <div className="flex gap-4 w-max">
             {products.map((product, index) => (
               <div

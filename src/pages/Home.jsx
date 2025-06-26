@@ -3,6 +3,10 @@ import Footer from "../components/Footer";
 import GlowCards from "./GlowCards";
 import CareCollectionsSection from "./CareCollectionSection";
 import { useNavigate } from "react-router-dom";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import { useEffect } from 'react';
+
 
 export default function Home() {
   const navigate = useNavigate();
@@ -42,25 +46,30 @@ export default function Home() {
   const handleChange=()=>{
     navigate('/shoplist');
   }
-  
+  useEffect(() => {
+  AOS.init({
+    duration: 1000,  
+    once: false       
+    });
+}, []);
   return (
-    <div className="w-full bg-white  text-center font-sans ">
+    <div className="w-full bg-white  text-center font-sans "data-aos="fade-up">
      
   
  <section className="pt-[120px] lg:bg-[#F5F5F5] lg:pt-[110px] lg:pb-24 lg:flex lg:items-center lg:justify-between relative">
   {/* Left Content Block */}
-  <div className=" lg:ml-52 relative">
-    <h1 className="lg:w-[75%] text-[24px] lg:text-[40px] tracking-widest font-tenor text-[#333333] mb-4 lg:text-left ">
+  <div className=" lg:ml-52 relative ">
+    <h1 data-aos="fade-up" data-aos-delay="100" className="lg:w-[75%] text-[24px] lg:text-[40px] tracking-widest font-tenor text-[#333333] mb-4 lg:text-left ">
       NATURE’S TOUCH,
       <br />
       BOTTLED WITH CARE
     </h1>
 
-    <p className="text-[14px] lg:mr-[14%] lg:text-[18px] font-archivo text-[#9D9C9C] max-w-[80%] mx-auto mb-6 text-center lg:text-left lg:max-w-[85%]">
+    <p data-aos="fade-up" data-aos-delay="100" className="text-[14px] lg:mr-[14%] lg:text-[18px] font-archivo text-[#9D9C9C] max-w-[80%] mx-auto mb-6 text-center lg:text-left lg:max-w-[85%]">
       Zia Herbal brings you a range of 100% natural, farm-fresh skincare and wellness products crafted using traditional herbs and modern purity standards. Our products are handcrafted with ingredients sourced directly from our sustainable farmlands, ensuring nature’s finest reaches your skin.
     </p>
 
-    <div className="flex justify-around mb-24 lg:justify-start lg:gap-20 font-tenor">
+    <div data-aos="fade-up" data-aos-delay="100" className="flex justify-around mb-24 lg:justify-start lg:gap-20 font-tenor">
       <button className="bg-black text-white text-[14px] px-5 py-2 rounded-full flex items-center gap-2">
         Shop Now <span className="text-lg ml-2">→</span>
       </button>
@@ -70,7 +79,7 @@ export default function Home() {
     </div>
 
     {/* Left Image  */}
-    <div className="hidden relative lg:flex items-center justify-start gap-32 mt-8 -ml-[41%]">
+    <div data-aos="fade-up" data-aos-delay="100" className="hidden relative lg:flex items-center justify-start gap-32 mt-8 -ml-[41%]">
       <img
         src="images/bg_left.png"
         alt="Left Product"
@@ -97,7 +106,7 @@ export default function Home() {
 
 
 {/* Bottom NEXT Section */}
-<section className="relative lg:bg-[#F5F5F5]  py-5 flex items-center justify-between lg:justify-left   ">
+<section data-aos="fade-up" data-aos-delay="100" className="relative lg:bg-[#F5F5F5]  py-5 flex items-center justify-between lg:justify-left   ">
   <img
     src="images/serum.png"
     alt="Packshot"
@@ -113,7 +122,7 @@ export default function Home() {
   {/* Box Grid for Desktop */}
   <div className="hidden lg:grid lg:grid-cols-4 lg:gap-x-8 lg:gap-y-10">
     {/* Box 1 - Tall */}
-    <div className="bg-[#D4480C] font-tenor text-white p-10 h-[430px] w-[420px] rounded-xl flex flex-col justify-between">
+    <div data-aos="fade-up" data-aos-delay="100" className="bg-[#D4480C] font-tenor text-white p-10 h-[430px] w-[420px] rounded-xl flex flex-col justify-between">
       <h2 className="text-[42px] border-b pb-3">38<span className="ml-1">+</span></h2>
       <p className="text-[24px] tracking-widest">YEARS IN BUSINESS</p>
       <p className="text-[16px] font-archivo tracking-wide">
@@ -122,13 +131,13 @@ export default function Home() {
     </div>
 
     {/* Box 2 - Short */}
-    <div className="bg-[#2B452C] font-tenor text-white p-10 h-[260px] w-[420px] rounded-xl flex flex-col justify-evenly self-end">
+    <div data-aos="fade-up" data-aos-delay="100" className="bg-[#2B452C] font-tenor text-white p-10 h-[260px] w-[420px] rounded-xl flex flex-col justify-evenly self-end">
       <h2 className="text-[42px] border-b pb-3">10<span className="ml-1">+</span></h2>
       <p className="text-[26px] tracking-widest">COSMETIC AWARDS</p>
     </div>
 
     {/* Box 3 - Tall */}
-    <div className="bg-[#151D10] font-tenor text-white p-10 h-[430px] w-[420px] rounded-xl flex flex-col justify-between">
+    <div data-aos="fade-up" data-aos-delay="100" className="bg-[#151D10] font-tenor text-white p-10 h-[430px] w-[420px] rounded-xl flex flex-col justify-between">
       <h2 className="text-[42px] border-b pb-3">750<span className="ml-1">+</span></h2>
       <p className="text-[24px] tracking-widest">PRODUCTS LAUNCHED</p>
       <p className="text-[16px] font-archivo tracking-wide">
@@ -138,7 +147,7 @@ export default function Home() {
 
     {/* Box 4 - Short */}
    {/* Box 4 - Short (Yellow - Top Aligned) */}
-<div className="bg-[#F6A903] font-tenor text-white p-10 h-[260px] w-[420px] rounded-xl flex flex-col justify-evenly self-start">
+<div data-aos="fade-up" data-aos-delay="100" className="bg-[#F6A903] font-tenor text-white p-10 h-[260px] w-[420px] rounded-xl flex flex-col justify-evenly self-start">
   <h2 className="text-[42px] border-b pb-3">25<span className="ml-1">+</span></h2>
   <p className="text-[26px] tracking-widest">ORGANIC PRODUCTS</p>
 </div>
@@ -148,7 +157,7 @@ export default function Home() {
   {/* Mobile Layout (unchanged) */}
   <div className="lg:hidden space-y-5">
     {/* Tall Box */}
-    <div className="bg-[#D4480C] font-tenor text-white p-10 min-h-[400px] rounded-xl flex flex-col justify-between">
+    <div data-aos="fade-up" data-aos-delay="100" className="bg-[#D4480C] font-tenor text-white p-10 min-h-[400px] rounded-xl flex flex-col justify-between">
       <h2 className="text-[42px] border-b pb-3">38<span className="ml-1">+</span></h2>
       <p className="text-[24px] w-[60%] -mt-16 tracking-widest">YEARS IN BUSINESS</p>
       <p className="text-[16px] font-archivo tracking-wide">
@@ -157,13 +166,13 @@ export default function Home() {
     </div>
 
     {/* Short Box */}
-    <div className="bg-[#2B452C] font-tenor text-white p-10 min-h-[270px] rounded-xl flex flex-col justify-evenly">
+    <div data-aos="fade-up" data-aos-delay="100" className="bg-[#2B452C] font-tenor text-white p-10 min-h-[270px] rounded-xl flex flex-col justify-evenly">
       <h2 className="text-[42px] border-b pb-3">10<span className="ml-1">+</span></h2>
       <p className="text-[26px] w-[60%] tracking-widest">COSMETIC AWARDS</p>
     </div>
 
     {/* Tall Box */}
-    <div className="bg-[#151D10] font-tenor text-white p-10 min-h-[400px] rounded-xl flex flex-col justify-between">
+    <div data-aos="fade-up" data-aos-delay="100" className="bg-[#151D10] font-tenor text-white p-10 min-h-[400px] rounded-xl flex flex-col justify-between">
       <h2 className="text-[42px] border-b pb-3">750<span className="ml-1">+</span></h2>
       <p className="text-[24px] w-[60%] -mt-16 tracking-widest">PRODUCTS LAUNCHED</p>
       <p className="text-[16px] font-archivo tracking-wide">
@@ -172,7 +181,7 @@ export default function Home() {
     </div>
 
     {/* Short Box */}
-    <div className="bg-[#F6A903] font-tenor text-white p-10 min-h-[270px] rounded-xl flex flex-col justify-evenly">
+    <div data-aos="fade-up" data-aos-delay="100" className="bg-[#F6A903] font-tenor text-white p-10 min-h-[270px] rounded-xl flex flex-col justify-evenly">
       <h2 className="text-[42px] border-b pb-3">25<span className="ml-1">+</span></h2>
       <p className="text-[26px] w-[60%] tracking-widest">ORGANIC PRODUCTS</p>
     </div>
@@ -180,7 +189,7 @@ export default function Home() {
 
   {/* Trust Section (same for all views) */}
   <div className="text-left pt-6 lg:flex lg:justify-start items-center">
-    <div className="lg:mt-10 lg:w-[58%]">  
+    <div data-aos="fade-up" data-aos-delay="100" className="lg:mt-10 lg:w-[58%]">  
     <p className="text-[24px] leading-relaxed uppercase tracking-widest w-[95%] lg:w-[55%] text-[#676A5E] font-tenor">
       Trusted by over 250,000+ clients worldwide since 2000
     </p>
@@ -189,7 +198,7 @@ export default function Home() {
       Zia Herbal is redefining natural care, one product at a time.
     </p>
       </div>
-    <div className="flex  text-[#676A5E] font-tenor gap-10 lg:gap-20 mt-16 mb-10 lg:mr-28">
+    <div data-aos="fade-up" data-aos-delay="100" className="flex  text-[#676A5E] font-tenor gap-10 lg:gap-20 mt-16 mb-10 lg:mr-28">
       <div className="border-r-2 pr-8 lg:pr-20 border-[#B2BA98]">
         <h3 className="text-[50px]">6<span className="mx-2">M</span>+</h3>
         <img src="images/stars.png" className="mb-4" />
@@ -201,7 +210,7 @@ export default function Home() {
         <p className="text-[16px] font-archivo">2564+ Ratingsa<br />World Wide</p>
       </div>
     </div>
-    <button className="mt-4 bg-black font-tenor text-white text-[16px] px-5 py-3 lg:h-[5%]  rounded-full">
+    <button data-aos="fade-up" data-aos-delay="100" className="mt-4 bg-black font-tenor text-white text-[16px] px-5 py-3 lg:h-[5%]  rounded-full">
       More Details <span className="ml-3 text-lg">→</span>
     </button>
   </div>
@@ -226,7 +235,7 @@ export default function Home() {
      <div className="px-4 py-10 lg:px-16">
       {/* Text + Button */}
       <div className="text-center  lg:text-left lg:flex lg:items-center lg:justify-between lg:mb-10">
-        <div className="lg:w-1/4">
+        <div data-aos="fade-up" data-aos-delay="100" className="lg:w-1/4">
           <h2 className="text-[32px] font-tenor tracking-[0.3em] text-[#676A5E]">
             TRENDING
           </h2>
@@ -245,7 +254,7 @@ export default function Home() {
         </div>
 
         {/* Product Grid on desktop, scrollable on mobile */}
-        <div className="mt-10 overflow-x-auto scrollbar-none ">
+        <div data-aos="fade-up" data-aos-delay="100" className="mt-10 overflow-x-auto scrollbar-none ">
           <div className="flex space-x-5 w-max lg:grid lg:grid-cols-5 lg:gap-6">
             {products.map((product, index) => (
               <div
@@ -293,7 +302,7 @@ export default function Home() {
     </div>
 
     <div className=" mx-auto px-4 lg:px-16 py-10 lg:mt-10">
-       <div className="overflow-hidden ">
+       <div data-aos="fade-up" data-aos-delay="100" className="overflow-hidden ">
         <img
           src="images/handwash.png" 
           alt="Product Highlight "
@@ -304,12 +313,12 @@ export default function Home() {
     
     {/* Left Section - Text Content */}
     <div className=" space-y-6 text-center lg:text-left lg:max-w-[45%]">
-      <p className="text-[16px] font-archivo text-[#676A5E]">Special Products</p>
-      <div className="text-[32px] hidden  lg:block font-tenor tracking-[0.2em] leading-snug uppercase text-[#676A5E] space-y-1">
+      <p data-aos="fade-up" data-aos-delay="100" className="text-[16px] font-archivo text-[#676A5E]">Special Products</p>
+      <div data-aos="fade-up" data-aos-delay="100" className="text-[32px] hidden  lg:block font-tenor tracking-[0.2em] leading-snug uppercase text-[#676A5E] space-y-1">
         <p>EMBRACE FRESHNESS WITH A</p>
         <p>CITRUSY TOUCH</p>
       </div>
-       <div className="text-[24px]  font-tenor tracking-wide lg:hidden block leading-normal uppercase text-[#676A5E] flex flex-col items-center">
+       <div data-aos="fade-up" data-aos-delay="100" className="text-[24px]  font-tenor tracking-wide lg:hidden block leading-normal uppercase text-[#676A5E] flex flex-col items-center">
        <p>Embrace the</p>   
          <p>Unembrace</p> 
          <p>Freshness With a</p>
@@ -317,27 +326,27 @@ export default function Home() {
           <p>Magic of Facial</p>
          <p>   Touchup</p>
         </div>
-      <p className="text-[14px] lg:text-[16px] text-[#676A5E] font-archivo  lg:w-[100%] leading-relaxed">
+      <p data-aos="fade-up" data-aos-delay="100" className="text-[14px] lg:text-[16px] text-[#676A5E] font-archivo  lg:w-[100%] leading-relaxed">
         Experience the power of nature with Zia Herbal's curated wellness essentials. From facial care to daily hygiene, our products are thoughtfully crafted to refresh, nourish, and protect all while staying true to herbal traditions. From skincare to hand care, our range keeps you naturally nourished. Zia Herbal Neem Hand Wash is crafted with antibacterial Neem and refreshing lemon, tough on germs, gentle on hands. Say goodbye to dryness and hello to farm-fresh hygiene.
       </p>
 
       {/* Features */}
       <div className="flex justify-between text-[14px] lg:text-[16px] font-archivo text-[#676A5E] pt-4 ">
-        <div className="text-center lg:flex lg:items-center lg:gap-4 lg:mb-20">
+        <div data-aos="fade-up" data-aos-delay="100" className="text-center lg:flex lg:items-center lg:gap-4 lg:mb-20">
           <img src="images/drops.png" alt="Icon 1" className="mx-auto mb-2 w-12 h-12 lg:mb-0 lg:w-[75px] lg:h-[75px]" />
           <div className="lg:text-left">
             <p>Required Enamel</p>
             <p>Solutions</p>
           </div>
         </div>
-        <div className="text-center lg:flex lg:items-center lg:gap-4 lg:mb-20">
+        <div data-aos="fade-up" data-aos-delay="100" className="text-center lg:flex lg:items-center lg:gap-4 lg:mb-20">
           <img src="images/hold.png" alt="Icon 2" className="mx-auto mb-2 w-12 h-12 lg:mb-0 lg:w-[75px] lg:h-[75px]" />
           <div className="lg:text-left">
             <p>Stunning Solutions</p>
             <p>in Face</p>
           </div>
         </div>
-        <div className="text-center lg:flex lg:items-center lg:gap-4 lg:mb-20">
+        <div data-aos="fade-up" data-aos-delay="100" className="text-center lg:flex lg:items-center lg:gap-4 lg:mb-20">
           <img src="images/leaf.png" alt="Icon 3" className="mx-auto mb-2 w-12 h-12 lg:mb-0 lg:w-[75px] lg:h-[75px]" />
           <div className="lg:text-left">
             <p>Organic Natural</p>
@@ -348,24 +357,24 @@ export default function Home() {
 
       {/* Button - should appear before reviews on desktop */}
       <div className="lg:flex lg:justify-between ">
-         <div className="flex items-center justify-center lg:hidden block ">
+         <div data-aos="fade-up" data-aos-delay="100" className="flex items-center justify-center lg:hidden block ">
         <img src="images/review.png" alt="Reviews" className="lg:max-w-[350px] lg:my-5 max-w-[300px] my-10" />
       </div>
       <div className="text-center lg:text-left font-tenor order-last lg:order-none">
         
-        <button className="bg-black text-white px-6 py-3 rounded-full text-[14px] mt-5">
+        <button data-aos="fade-up" data-aos-delay="100" className="bg-black text-white px-6 py-3 rounded-full text-[14px] mt-5">
           More Details <span className="text-lg ml-3">→</span>
         </button>
       </div>
 
       {/* Reviews - Last on desktop */}
-      <div className="flex items-center justify-center hidden lg:block ">
+      <div data-aos="fade-up" data-aos-delay="100" className="flex items-center justify-center hidden lg:block ">
         <img src="images/review.png" alt="Reviews" className="lg:max-w-[350px] lg:my-5 max-w-[300px] my-10" />
       </div>
     </div>
 </div>
     {/* Right Section - Product Image */}
-    <div className="relative w-full  lg:w-[650px] ">
+    <div data-aos="fade-up" data-aos-delay="100" className="relative w-full  lg:w-[650px] ">
       
        <img
         src="images/bg_lemon.png"
@@ -385,7 +394,7 @@ export default function Home() {
   <div className="lg:flex lg:h-[100vh] mx-auto py-16 lg:space-x-12 text-[#676A5E] space-y-10 lg:space-y-0 items-center lg:bg-[#2B452C] lg:text-white  lg:px-0">
     
    
-    <div className="relative lg:w-1/2 ">
+    <div data-aos="fade-up" data-aos-delay="100" className="relative lg:w-1/2 ">
       <img
         src="images/girl.png"
         alt="Before and After"
@@ -398,14 +407,14 @@ export default function Home() {
     {/* Right Side - Text Content on Green Background */}
     <div className="lg:w-1/2 w-full px-4 lg:px-6">
       {/* Heading */}
-      <div className="lg:z-10 lg:-mt-[58%] lg:text-[32px] lg:tracking-[0.7rem] lg:text-[#676A5E] font-tenor text-[24px] tracking-widest leading-relaxed uppercase mb-6  lg:text-left text-center">
+      <div data-aos="fade-up" data-aos-delay="100" className="lg:z-10 lg:-mt-[58%] lg:text-[32px] lg:tracking-[0.7rem] lg:text-[#676A5E] font-tenor text-[24px] tracking-widest leading-relaxed uppercase mb-6  lg:text-left text-center">
         <p>WON’T KILL YOU BUT</p>
         <p>YOU CAN MAKE THEM</p>
         <p>DISAPPEAR</p>
       </div>
 
       {/* Problem */}
-      <div className="mb-6 lg:w-[70%] lg:mt-10">
+      <div data-aos="fade-up" data-aos-delay="100" className="mb-6 lg:w-[70%] lg:mt-10">
         <h3 className="text-[24px] font-tenor text-left  tracking-widest mb-2">PROBLEM</h3>
         <p className="text-[16px] lg:text-[18px] leading-relaxed text-[#676A5E] text-left lg:text-white">
           Many skincare products promise glowing skin but contain harsh chemicals that can damage sensitive skin over time. There’s a need for natural, herbal solutions that safely promote skin brightness and radiance.
@@ -413,7 +422,7 @@ export default function Home() {
       </div>
 
       {/* Solutions */}
-      <div className="lg:w-[70%]">
+      <div data-aos="fade-up" data-aos-delay="100" className="lg:w-[70%]">
         <h3 className="text-[24px] font-tenor tracking-widest  text-left mb-2">SOLUTIONS</h3>
         <ul className="list-decimal lg:text-[18px] list-inside space-y-3 text-[16px] text-[#676A5E] lg:text-white text-left">
           <li>Zia Herbal’s Radiance Boost Solution is carefully crafted to naturally brighten your skin and restore its healthy glow.</li>
@@ -425,7 +434,7 @@ export default function Home() {
       </div>
 
       {/* Button */}
-      <div className="mt-12 lg:text-left">
+      <div data-aos="fade-up" data-aos-delay="100" className="mt-12 lg:text-left">
         <button className="px-6 py-3 bg-black text-white text-[14px] font-tenor rounded-full">
           See More <span className="text-lg ml-3">→</span>
         </button>
@@ -435,13 +444,13 @@ export default function Home() {
 
   {/* Special Products Section */}
   <div className="bg-white px-4 py-16 lg:z-100  flex flex-col ">
-    <div className="text-center mb-10 lg:mb-14 lg:-mt-[18%]">
+    <div data-aos="fade-up" data-aos-delay="100" className="text-center mb-10 lg:mb-14 lg:-mt-[18%]">
       <h2 className="text-[32px] font-tenor lg:text-white uppercase tracking-widest text-[#676A5E] lg:flex lg:justify-center lg:gap-4">
         <p>Our Special</p>
         <p>Products</p>
       </h2>
     </div>
-<div className="flex flex-col lg:flex-row lg:space-x-14 lg:justify-center space-y-8 lg:space-y-0 text-center">
+<div data-aos="fade-up" data-aos-delay="100" className="flex flex-col lg:flex-row lg:space-x-14 lg:justify-center space-y-8 lg:space-y-0 text-center">
   {[
     { src: "images/herbal-handwash.png", label: "Herbal Handwash" },
     { src: "images/herbal-shampoo.png", label: "Herbal Shampoo" },
@@ -468,7 +477,7 @@ export default function Home() {
   <div className="flex flex-col lg:flex-row lg:items-start lg:gap-10">
 
     {/* Left Side: Product + Badges */}
-    <div className="flex flex-col lg:flex-row lg:w-1/2">
+    <div  className="flex flex-col lg:flex-row lg:w-1/2">
 
       {/* Packs Image with Peach Background */}
       <div className=" lg:w-2/3 ">
@@ -479,8 +488,8 @@ export default function Home() {
         />
       </div>
 
-      {/* ISO and Smile Images - Vertically stacked */}
-      <div className="flex flex-row lg:flex-col justify-center items-center gap-6 lg:pl-6 mt-6 lg:mt-0">
+      {/* ISO and Smile Images  */}
+      <div data-aos="fade-up" data-aos-delay="100" className="flex flex-row lg:flex-col justify-center items-center gap-6 lg:pl-6 mt-6 lg:mt-0">
         <img
           src="images/approved.png"
           alt="Certified"
@@ -502,18 +511,18 @@ export default function Home() {
     {/* Right Side: Text Content */}
     <div className="lg:w-1/2 mt-10 lg:-mt-10">
       {/* Heading */}
-      <div className="lg:flex hidden lg:block lg:flex-col  lg:text-[32px] text-left font-tenor text-[24px]  tracking-[0.2em] text-[#676A5E] uppercase mb-8">
+      <div data-aos="fade-up" data-aos-delay="100" className="lg:flex hidden lg:block lg:flex-col  lg:text-[32px] text-left font-tenor text-[24px]  tracking-[0.2em] text-[#676A5E] uppercase mb-8">
         <p>Best Selling Aesthetician</p>
         <p>Skincare Brands</p>
       </div>
-      <div className="lg:hidden block lg:gap-5 lg:text-[32px] text-left font-tenor text-[24px] leading-relaxed tracking-[0.2em] text-[#676A5E] uppercase mb-8">
+      <div data-aos="fade-up" data-aos-delay="100" className="lg:hidden block lg:gap-5 lg:text-[32px] text-left font-tenor text-[24px] leading-relaxed tracking-[0.2em] text-[#676A5E] uppercase mb-8">
         <p>Best Selling</p>
         <p>Aesthetician</p> 
         <p>Skincare Brands</p>
       </div>
 
       {/* Feature #1 */}
-      <div className="flex items-start gap-4 lg:gap-8 text-left mb-6">
+      <div data-aos="fade-up" data-aos-delay="100" className="flex items-start gap-4 lg:gap-8 text-left mb-6">
         <img src="images/ph.png" alt="pH icon" className=" mt-2" />
         <div>
           <h3 className="text-[20px] text-[#B2BA98] font-semibold mb-4">
@@ -527,7 +536,7 @@ export default function Home() {
       </div>
 
       {/* Feature #2 */}
-      <div className="flex items-start gap-4 lg:gap-8 text-left">
+      <div data-aos="fade-up" data-aos-delay="100" className="flex items-start gap-4 lg:gap-8 text-left">
         <img src="images/spray.png" alt="Bottle icon" className=" mt-2" />
         <div>
           <h3 className="text-[20px] text-[#B2BA98] mb-4">
@@ -541,7 +550,7 @@ export default function Home() {
       </div>
 
       {/* Button */}
-      <div className="text-center lg:text-left font-tenor mt-10">
+      <div data-aos="fade-up" data-aos-delay="100" className="text-center lg:text-left font-tenor mt-10">
         <button className="bg-black text-white px-6 py-3 rounded-full text-[14px]">
           See More <span className="text-lg ml-3">→</span>
         </button>
@@ -552,14 +561,14 @@ export default function Home() {
 
     
     <div className="lg:mt-20 flex items-center justify-evenly tracking-widest space-x-4 text-[20px] lg:text-[40px] font-tenor  text-[#676A5E] mb-4">
-  <div className="text-left leading-relaxed lg:flex ">
+  <div data-aos="fade-up" data-aos-delay="100" className="text-left leading-relaxed lg:flex ">
     <p>35% OFFER</p>
     <p>ON BEAUTY</p>
   </div>
 
   <img src="/images/Star1.png" alt="star" className="w-6 h-6" />
 
-  <div className="text-left leading-relaxed  lg:flex">
+  <div data-aos="fade-up" data-aos-delay="100" className="text-left leading-relaxed  lg:flex">
     <p>25% OFF</p>
     <p>SHINE</p>
   </div>
@@ -567,7 +576,7 @@ export default function Home() {
 
  <img src="/images/Star1.png" alt="star" className="hidden lg:block w-6 h-6" />
 
-  <div className="text-left leading-relaxed hidden lg:block  lg:flex">
+  <div data-aos="fade-up" data-aos-delay="100" className="text-left leading-relaxed hidden lg:block  lg:flex">
     <p>25% OFF</p>
     <p>SHINE</p>
   </div>
@@ -577,14 +586,14 @@ export default function Home() {
 
     <div className="lg:mt-20  p-6 text-left lg:text-center mb-10">
   {/* Title */}
-  <h2 className="text-[#686257] font-tenor text-[24px] lg:mb-20 lg:text-[32px] tracking-widest mb-10 uppercase">
+  <h2 data-aos="fade-up" data-aos-delay="100" className="text-[#686257] font-tenor text-[24px] lg:mb-20 lg:text-[32px] tracking-widest mb-10 uppercase">
     Customer Support Feedback
   </h2>
 
   {/* Testimonials Container */}
   <div className="grid grid-cols-1 lg:grid-cols-3 gap- lg:ml-40 lg:px-24 lg:mb-40">
     {/* Testimonial Card 1 */}
-    <div className="flex flex-col   text-left lg:w-[70%]  items-left text-[#686257]">
+    <div data-aos="fade-up" data-aos-delay="100" className="flex flex-col   text-left lg:w-[70%]  items-left text-[#686257]">
       <img src="images/quotes.png" className="mb-4" />
       <p className="font-archivo text-[18px] leading-relaxed">
         Proin a interdum elit. Etiam eu sapien sem. Suspendisse a massa justo.
@@ -597,7 +606,7 @@ export default function Home() {
     </div>
 
     {/* Testimonial Card 2 */}
-    <div className="flex hidden lg:block flex-col items-left text-left lg:w-[70%]  text-[#686257]">
+    <div data-aos="fade-up" data-aos-delay="100" className="flex hidden lg:block flex-col items-left text-left lg:w-[70%]  text-[#686257]">
       <img src="images/quotes.png" className="mb-4 " />
       <p className="font-archivo text-[18px] text-left leading-relaxed">
         Proin a interdum elit. Etiam eu sapien sem. Suspendisse a massa justo.
@@ -610,7 +619,7 @@ export default function Home() {
     </div>
 
     {/* Testimonial Card 3 */}
-    <div className="flex hidden lg:block flex-col items-left text-left lg:w-[70%]   text-[#686257]">
+    <div data-aos="fade-up" data-aos-delay="100" className="flex hidden lg:block flex-col items-left text-left lg:w-[70%]   text-[#686257]">
       <img src="images/quotes.png" className="mb-4 " />
       <p className="font-archivo text-[18px] text-left leading-relaxed">
         Proin a interdum elit. Etiam eu sapien sem. Suspendisse a massa justo.

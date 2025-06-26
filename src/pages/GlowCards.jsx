@@ -1,7 +1,17 @@
 import { useNavigate } from "react-router-dom";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import { useEffect } from 'react';
+
 
 export default function GlowCards() {
   const navigate = useNavigate();
+  useEffect(() => {
+  AOS.init({
+    duration: 1000,  
+    once: true       
+    });
+}, []);
   const cards = [
     {
       title: "BEAUTY GLOW",
@@ -45,10 +55,10 @@ export default function GlowCards() {
   }
   return (
     <div className="mx-auto px-6 py-10 space-y-8 lg:mt-20">
-      <h2 className="text-center text-[24px] lg:text-[32px] lg:mb-20 font-tenor tracking-widest text-[#676A5E]">
+      <h2 data-aos="fade-up" data-aos-delay="100" className="text-center text-[24px] lg:text-[32px] lg:mb-20 font-tenor tracking-widest text-[#676A5E]">
         GET YOUR BEAUTY & GLOW
       </h2>
-      <div className="lg:flex lg:justify-evenly  space-y-8 lg:space-y-0">
+      <div data-aos="fade-up" data-aos-delay="100" className="lg:flex lg:justify-evenly  space-y-8 lg:space-y-0">
         {cards.map((card, index) => (
           <div
             key={index}
