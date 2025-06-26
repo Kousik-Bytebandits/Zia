@@ -38,6 +38,9 @@ const handleChange=()=>{
 
 }
 
+const handleCart=()=>{
+  navigate('/shopcart');
+}
   return (
     <>
       <nav className="flex flex-col lg:flex-row text-white w-full ">
@@ -88,7 +91,7 @@ const handleChange=()=>{
            <FaUser onClick={handleChange} className="text-white text-3xl" />
             
             <div className="relative">
-              <FaShoppingCart className="text-white text-[30px]" />
+              <FaShoppingCart onClick={handleCart} className="text-white text-[30px]" />
           <span className="absolute -top-2 -right-1 bg-red-600 text-[10px] leading-none font-semibold text-white rounded-full px-[4px] py-[3px]">
             0
           </span>
