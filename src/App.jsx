@@ -16,6 +16,9 @@ import Faq from './pages/Faq';
 import StartScreen from './pages/StartScreen';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function App() {
   const location = useLocation();
@@ -40,7 +43,9 @@ function App() {
           <Route path="/ordertracking" element={<OrderTracking />} />
           <Route path="/faq" element={<Faq />} />
           <Route path="*" element={<ErrorPage />} />
+         
         </Routes>
+          <ToastContainer position="top-center" autoClose={3000} />
       </div>
     </>
   );

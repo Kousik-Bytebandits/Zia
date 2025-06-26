@@ -42,7 +42,7 @@ const handleChange=()=>{
     <>
       <nav className="flex flex-col lg:flex-row text-white w-full ">
        
-{/* Mobile Navbar — Conditional UI */}
+{/* Mobile Navbar*/}
 <div
   className={`w-full lg:hidden px-4 py-3 pb-3 z-50 transition-all duration-300 fixed top-0 ${
     isScrolled ? 'bg-[#2f3a27] shadow-md' : 'bg-[#2f3a27]'
@@ -85,7 +85,7 @@ const handleChange=()=>{
           </div>
 
           <div className="flex items-center gap-4">
-            <button onClick={handleChange}><FaUser className="text-white text-3xl" /></button>
+           <FaUser onClick={handleChange} className="text-white text-3xl" />
             
             <div className="relative">
               <FaShoppingCart className="text-white text-[30px]" />
@@ -202,7 +202,7 @@ const handleChange=()=>{
               />
             </div>
 
-            <FaUser className="text-3xl" />
+            <FaUser onClick={handleChange}  className="cursor-pointer text-3xl" />
             <FaShoppingCart className="text-4xl mr-10" />
           </div>
         </div>
