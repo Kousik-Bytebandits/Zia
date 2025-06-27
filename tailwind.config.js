@@ -11,6 +11,10 @@ export default {
          tenor: ['Tenor Sans', 'sans-serif'], 
           sans: ['DM Sans', 'sans-serif'],
       },
+       boxShadow: {
+        'around': '0 4px 20px rgba(0, 0, 0, 0.08), 0 -4px 20px rgba(0, 0, 0, 0.06), 4px 0 20px rgba(0, 0, 0, 0.06), -4px 0 20px rgba(0, 0, 0, 0.06)',
+        'around-soft': '0 2px 8px rgba(0,0,0,0.08), 0 -2px 8px rgba(0,0,0,0.05), 2px 0 8px rgba(0,0,0,0.05), -2px 0 8px rgba(0,0,0,0.05)',
+      },
       
         keyframes: {
     'scroll-left': {

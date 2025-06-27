@@ -1,4 +1,6 @@
 import  { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 
 export default function Profile() {
   const [form, setForm] = useState({
@@ -16,8 +18,14 @@ export default function Profile() {
   });
 
   const userId = localStorage.getItem("user_id");
+ const navigate = useNavigate();
+ 
+ useEffect(() => {
+  if (!userId) {
+    navigate('/login');
+    return;
+  }
 
-  useEffect(() => {
   const fetchUserData = async () => {
     try {
       const res = await fetch(
@@ -49,8 +57,9 @@ export default function Profile() {
     }
   };
 
-  if (userId) fetchUserData();
-}, [userId]);
+  fetchUserData();
+}, [userId, navigate]);
+
 
 
   const handleChange = (e) => {
@@ -98,7 +107,7 @@ export default function Profile() {
 
       if (res.ok) {
         alert("Profile updated successfully!");
-        // Optionally, you can reload the page or refetch user data here if needed
+        
         window.location.reload();
       } else {
         const data = await res.json();

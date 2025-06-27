@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { FaLock, FaUser } from 'react-icons/fa';
 import { RiArrowLeftSLine } from 'react-icons/ri';
 import { useState } from 'react';
@@ -6,6 +6,11 @@ import { toast } from 'react-toastify';
 
 export default function Login() {
   const navigate = useNavigate();
+  const location = useLocation();
+
+ 
+  const fromCheckout = location.state?.fromCheckout || false;
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -16,12 +21,22 @@ export default function Login() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
       });
+
       const data = await res.json();
 
       if (res.ok && data.success) {
         localStorage.setItem('user_id', data.user_id);
+        localStorage.setItem('user', JSON.stringify(data));
+
         toast.success('Login successful!');
-        navigate('/home');
+
+       
+        if (fromCheckout) {
+          navigate('/shopcart', { replace: true });
+        } else {
+          navigate('/home', { replace: true });
+        }
+
       } else {
         toast.error(data.message || 'Login failed');
       }
@@ -51,6 +66,7 @@ export default function Login() {
       toast.error('An error occurred');
     }
   };
+
   return (
     <div className="relative h-screen w-full overflow-hidden">
 

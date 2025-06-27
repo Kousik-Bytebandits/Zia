@@ -204,9 +204,9 @@ const handleCart=()=>{
                 className="bg-transparent outline-none tracking-widest text-md w-full placeholder-white"
               />
             </div>
-
-            <FaUser onClick={handleChange}  className="cursor-pointer text-3xl" />
-            <FaShoppingCart className="text-4xl mr-10" />
+            <FaShoppingCart className="text-4xl cursor-pointer" onClick={handleCart} />
+            <FaUser onClick={handleChange}  className="cursor-pointer text-3xl mr-10" />
+            
           </div>
         </div>
       </nav>
