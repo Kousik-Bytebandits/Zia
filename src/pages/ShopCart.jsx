@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
+import { FaMinus, FaPlus } from "react-icons/fa";
 
 export default function ShopCart() {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ export default function ShopCart() {
     },
     {
       id: 2,
-      name: "ZIA HERBAL HAIR OIL",
+      name: "ZIA  HERBAL HAIR SHAMPOO",
       size: "100 ML",
       price: 800,
       quantity: 1,
@@ -25,23 +26,23 @@ export default function ShopCart() {
     },
     {
       id: 3,
-      name: "ZIA HERBAL FACE PACK",
-      size: "150 GM",
+      name: "ZIA  HERBAL HAIR SHAMPOO",
+      size: "100 ML",
       price: 800,
       quantity: 3,
       img: "/images/h_shampoo.png",
     },
     {
       id: 4,
-      name: "ZIA HERBAL BODY LOTION",
-      size: "200 ML",
+      name: "ZIA  HERBAL HAIR SHAMPOO",
+      size: "100 ML",
       price: 800,
       quantity: 1,
       img: "/images/h_shampoo.png",
     },
   ]);
 
-  
+  // ✅ Cart Calculations
   const subtotal = items.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
@@ -49,7 +50,7 @@ export default function ShopCart() {
   const discount = 0.1;
   const total = subtotal - subtotal * discount;
 
-
+  // ✅ Functions
   const handleIncrement = (id) => {
     setItems((prev) =>
       prev.map((item) =>
@@ -78,8 +79,7 @@ export default function ShopCart() {
     if (!userId) {
       navigate("/login"); 
     } else {
-      navigate("/home"); 
-    }
+      navigate("/home");     }
   };
 
   return (
@@ -95,7 +95,7 @@ export default function ShopCart() {
           </div>
         ) : (
           <>
-            {/*  Desktop View */}
+            {/* ✅ Desktop View */}
             <div className="hidden lg:flex gap-6 mb-20">
               <div className="w-[100%] bg-white rounded-lg shadow-around-soft p-8">
                 <div className="grid grid-cols-5 text-[26px] py-4 text-center text-[#373737] font-semibold border-b border-[#A3A3A3]">
@@ -159,7 +159,7 @@ export default function ShopCart() {
                 </div>
               </div>
 
-              {/*  Right Sidebar */}
+              {/* ✅ Right Sidebar */}
               <div className="w-[35%] space-y-6">
                 <div className="bg-[#EFEFEF] rounded-lg shadow-around-soft px-6 pt-4">
                   <h3 className="text-[24px] border-b border-[#A3A3A3] pb-3 mb-4">
@@ -224,7 +224,7 @@ export default function ShopCart() {
       </div>
             </div>
 
-            {/*  Mobile View */}
+            {/* ✅ Mobile View */}
             <div className="lg:hidden">
               <div className="max-w-md mx-auto bg-white rounded-lg p-4">
                 {items.map((item) => (
@@ -232,46 +232,49 @@ export default function ShopCart() {
                     key={item.id}
                     className="border-b-2 mt-8 border-dashed border-[#D1D1D1] pb-4 relative"
                   >
-                    <button
-                      onClick={() => handleRemove(item.id)}
-                      className="absolute top-0 right-4 text-[#D1D1D1] hover:text-red-500 font-semibold text-xl"
-                    >
-                      ✕
-                    </button>
-                    <div className="flex gap-4">
+                  
+                    <div className="flex gap-">
                       <img
                         src={item.img}
                         alt="product"
-                        className="w-[84px] h-[110px] object-contain"
+                        className="w-[120px] h-[180px] "
                       />
                       <div className="flex flex-col justify-between py-2 w-full">
                         <div>
-                          <h3 className="font-medium text-[16px] leading-tight">
-                            {item.name.split(" ").slice(0, 2).join(" ")} <br />
-                            {item.name.split(" ").slice(2).join(" ")}
+                          <h3 className="font-medium text-[16px] leading-tight tracking-wider">
+                            {item.name}
                           </h3>
                           <p className="text-[14px] text-[#AEAEAE]">
                             {item.size}
                           </p>
                         </div>
-
-                        <div className="flex justify-between items-center mt-2">
-                          <p className="text-[18px] font-semibold">
-                            ₹ {item.price}
-                          </p>
-
-                         <div className="shadow-around-soft flex items-center gap-2 border border-[#D5D5D5] rounded-full h-[33px] text-[18px]">
+                         <div className="flex items-center gap-2 text-[12px] text-[#676A5E] ">
+                         <span>5.0</span>
+                      <img src="/images/5star.png" alt="star" className="" />
+                      <span className="text-[#676A5E] mr-2">(10)</span>
+                        </div>
+                         <div className="flex items-center gap-3">
+        <p className="text-[20px] text-[#FF1010] ">-28%</p>
+        <p className="line-through text-[#AEAEAE] text-[20px]">₹320.00</p>
+        <p className="text-[24px] font-bold">₹400</p>
+      </div>
+                        <div className="flex justify-start gap-4 items-center mt-2">
+                         
+                         <div className="shadow-around-soft flex items-center gap-1 border border-[#D5D5D5] rounded-full h-[34px]">
                 <button
                   className="px-3"
                   onClick={() => handleDecrement(item.id)}
                 >
-                  -
+                  <FaMinus/>
                 </button>
-                <span>{item.quantity}</span>
-                <div className="rounded-full border border-[#D5D5D5] px-3 py-[2px]">
-                  <button onClick={() => handleIncrement(item.id)}>+</button>
+                <span className="text-[#4C4B4B] text-[20px] font-bold">{item.quantity}</span>
+                <div className="rounded-full border border-[#D5D5D5] px-3 py-3 bg-black  flex ml-2 ">
+                  <button onClick={() => handleIncrement(item.id)}><FaPlus className="text-white " size={18}/></button>
                 </div>
               </div>
+              <div>
+                <button  onClick={() => handleRemove(item.id)} className="rounded-full bg-[#BE0000] text-white px-6 py-1.5">Delete</button>
+                </div>
                         </div>
                       </div>
                     </div>
@@ -298,17 +301,17 @@ export default function ShopCart() {
                     ₹ 80 INR
                   </span>
                 </div>
-                <div className="flex justify-between font-semibold text-[18px]">
+                <div className="flex justify-between font-semibold tracking-wide text-[18px]">
                   <span>Total:</span>
                   <span>₹ {total.toFixed(2)} INR</span>
                 </div>
-                <p className="flex justify-end text-[#929292] text-[10px]">
+                <p className="flex justify-end text-[#929292] text-[11px]">
                   Free Shipping
                 </p>
 
                 <button
                   onClick={handleCheckout}
-                  className="w-full bg-[#111111] text-[18px] text-white py-3 mt-2 rounded-lg"
+                  className="w-full bg-[#111111] font-tenor text-[18px] text-white py-3 mt-2 rounded-lg"
                 >
                   Proceed to checkout
                 </button>

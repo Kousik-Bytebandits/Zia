@@ -46,6 +46,27 @@ const handleCart=()=>{
       <nav className="flex flex-col lg:flex-row text-white w-full ">
        
 {/* Mobile Navbar*/}
+{location.pathname === "/shopcart" ? (
+ 
+  <div className="w-full lg:hidden px-4 py-3 z-50 fixed top-0 bg-[#2f3a27]">
+    <div className="flex items-center justify-between">
+      <button onClick={() => setIsOpen(true)} className="text-white">
+        <IoMenu className="text-5xl" />
+      </button>
+
+      <div className="bg-[#E9F8E5] flex items-center px-3 py-[6px] rounded-lg w-full mx-2">
+        <GoSearch className="w-6 h-6 mr-2 text-[#555]" />
+        <input
+          type="text"
+          placeholder="Search for Products"
+          className="bg-[#E9F8E5] outline-none text-lg w-full text-black placeholder:text-gray-700"
+        />
+      </div>
+
+      <FaUser onClick={handleChange} className="text-white text-4xl mx-3" />
+    </div>
+  </div>
+) : (
 <div
   className={`w-full lg:hidden px-4 py-3 pb-3 z-50 transition-all duration-300 fixed top-0 ${
     isScrolled ? 'bg-[#2f3a27] shadow-md' : 'bg-[#2f3a27]'
@@ -70,7 +91,7 @@ const handleCart=()=>{
         </div>
 
         <div className="relative ml-2">
-          <FaShoppingCart className="text-white text-[28px]" />
+          <FaShoppingCart className="text-white text-[28px]" onClick={handleCart} />
           <span className="absolute -top-2 -right-1 bg-red-600 text-[10px] leading-none font-semibold text-white rounded-full px-[4px] py-[3px]">
             0
           </span>
@@ -126,7 +147,7 @@ const handleCart=()=>{
         </div>
 
         <div className="relative ml-2">
-          <FaShoppingCart className="text-white text-[28px]" />
+          <FaShoppingCart className="text-white text-[28px]"  onClick={handleCart} />
           <span className="absolute -top-2 -right-1 bg-red-600 text-[10px] leading-none font-semibold text-white rounded-full px-[4px] py-[3px]">
             0
           </span>
@@ -135,7 +156,7 @@ const handleCart=()=>{
     </div>
   )}
 </div>
-
+)}
 
 
         {/* Desktop View */}

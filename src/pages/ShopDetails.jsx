@@ -1,245 +1,321 @@
-import { useEffect, useState } from "react";
-import { FaStar } from "react-icons/fa";
-import { RiArrowLeftWideLine } from "react-icons/ri";
-import {   GoArrowRight } from "react-icons/go";
+import { useEffect, useState, useRef } from "react";
 import Footer from "../components/Footer";
-import { RiArrowRightSLine } from "react-icons/ri";
-import { RiArrowDownSLine } from "react-icons/ri";
-
+import { GoArrowDown, GoArrowRight } from "react-icons/go";
+const images = [
+  "/images/shampoo1.png",
+  "/images/shampoo2.png",
+  "/images/shampoo3.png",
+  "/images/shampoo4.png",
+  "/images/shampoo5.png",
+];
 
 export default function ShopDetails() {
-  const [timer, setTimer] = useState(3 * 24 * 60 * 60 + 14 * 60 * 60 + 35 * 60 + 23);
-  const [count, setCount] = useState(1); 
-
-  const increment = () => setCount(prev => prev + 1);
-  const decrement = () => setCount(prev => Math.max(1, prev - 1));
-   const [showAbout, setShowAbout] = useState(true);
-  const [showDescription, setShowDescription] = useState(true);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTimer((prev) => (prev > 0 ? prev - 1 : 0));
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const formatTime = (seconds) => {
-    const days = Math.floor(seconds / (24 * 3600));
-    const hours = Math.floor((seconds % (24 * 3600)) / 3600);
-    const minutes = Math.floor((seconds % 3600) / 60);
-    const secs = seconds % 60;
-    return `${days}D : ${hours.toString().padStart(2, '0')}hours : ${minutes.toString().padStart(2, '0')} Mins : ${secs.toString().padStart(2, '0')} Sec`;
-  };
-
-  const relatedProducts = Array(12).fill({
-    name: "Good Mood + Sun Skin",
-    image: "images/lemonwash.png",
-    originalPrice: 450,
-    salePrice: 400,
+  const [currentIndex, setCurrentIndex] = useState(2); // Middle image
+  const [timeLeft, setTimeLeft] = useState({ days: 3, hours: 14, minutes: 35, seconds: 23 });
+  const [openSections, setOpenSections] = useState({
+    specifications: false,
+    usage: false,
+    ingredients: false,
+    features: false,
   });
 
+  const touchStartX = useRef(null);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => {
+        let { days, hours, minutes, seconds } = prev;
+        if (seconds > 0) seconds--;
+        else if (minutes > 0) {
+          minutes--; seconds = 59;
+        } else if (hours > 0) {
+          hours--; minutes = 59; seconds = 59;
+        } else if (days > 0) {
+          days--; hours = 23; minutes = 59; seconds = 59;
+        }
+        return { days, hours, minutes, seconds };
+      });
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const handleDotClick = (index) => {
+    setCurrentIndex(index);
+  };
+
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e) => {
+    const endX = e.changedTouches[0].clientX;
+    const deltaX = endX - touchStartX.current;
+    if (deltaX > 50 && currentIndex > 0) setCurrentIndex((prev) => prev - 1);
+    else if (deltaX < -50 && currentIndex < images.length - 1) setCurrentIndex((prev) => prev + 1);
+  };
+
+  const toggleSection = (section) => {
+    setOpenSections((prev) => ({ ...prev, [section]: !prev[section] }));
+  };
+
   return (
-    <div className="  font-archivo pt-10 text-[#676A5E]">
-      <div className="flex flex-col   lg:mt-20 gap-6 lg:gap-0 lg:flex-row">
-        <div className=" flex flex-row gap-2 lg:flex-col lg:w-1/2 justify-evenly items-center">
-          <div className="    rounded-md flex ">
-            <img src="/images/3shampoo.png" alt="Zia Herbal Shampoo" className="w-[185px] h-[200px] lg:w-[720px] lg:h-[700px] " />
-          </div>
-          <div className="flex flex-col gap-1 lg:flex-row lg:gap-4">
-            <img src="/images/small1.png" alt="thumb1" className="w-[55px] h-[58px] lg:w-[225px] lg:h-[200px] " />
-            <img src="/images/small2.png" alt="thumb2" className="w-[55px] h-[64px] lg:w-[225px] lg:h-[230px] lg:-mt-2 " />
-            <img src="/images/small3.png" alt="thumb3" className="w-[55px] h-[58px] lg:w-[225px] lg:h-[200px] " />
-          </div>
-          <div className="flex flex-col gap-1 lg:flex-row lg:gap-5">
-            <img src="/images/small4.png" alt="thumb4" className="w-[72px] h-[92px] lg:w-[310px] lg:h-[390px] " />
-            <img src="/images/small5.png" alt="thumb5" className="w-[72px] h-[92px] lg:w-[370px] lg:h-[390px] " />
-          </div>
-          <div className="mt-4">
-            <img src="images/herb-s.png" className="w-[700px] hidden lg:block"/>
-          </div>
+    <>
+        <div className="p-4 py-10 max-w-lg mx-auto font-archivo">
+      {/* Header */}
+      <div className="flex items-start px-4">
+        <h1 className="tracking-wide  text-[28px] text-[#676A5E]">ZIA HERBAL HAIR SHAMPOO</h1>
+        <div className="flex items-center gap-1 mt-3 text-[12px] text-[#676A5E] ">
+          <span>5.0</span>
+          <img src="/images/5star.png" alt="star" className="" />
+          <span className="text-[#676A5E] mr-2">(10)</span>
         </div>
-       
-       
-       <div className=" lg:flex lg:flex-col lg:w-[45%] ">
-        <div className="px-4 flex flex-row justify-between mt-8 lg:mt-0  text-[#252525] ">
-          <h1 className="text-[22px] lg:text-[40px] lg:tracking-widest  text-[#676A5E]  font-tenor tracking-wider uppercase">Zia Herbal<br/> Hair Shampoo</h1>
-          <div className="mt-1">
-          <div className="flex  items-center justify-end gap-2 text-[#FCA502] text-sm lg:text-[16px]">
-            {[...Array(5)].map((_, i) => <FaStar key={i} />)}
-            
-          </div>
-              <p className="text-[#676A5E] tracking-wide text-[14px] lg:text-[16px]">(1 Customer review)</p>
-              </div>
-              </div>
-               <hr className="border-[#B2BA98] w-[90%] lg:w-[95%] mx-auto mt-5 mb-5" />
-          <div className="  p-4">
-            <div className="flex items-center gap-6">
-              <span className="text-[#FF1010] text-[20px] lg:text-[24px]">- 7%</span>
-              <span className="line-through text-[20x] text-[#B2BA98] lg:text-[24px]">MRP: ₹320.00</span>
-              <span className="text-[25px] font-bold text-black lg:text-[32px]">₹400</span>
-            </div>
-            <div className="text-[16px] tracking-wider mt-1 ">Inclusive of all takes</div>
-            <div className="flex items-center gap-1 mt-4 lg:gap-6">
-               <div className="flex border border-[#B2BA98] overflow-hidden">
-      <button
-        onClick={decrement}
-        className="px-2 lg:px-4 lg:py-1 text-[18px] lg:text-[22px] border-r border-[#B2BA98]"
-      >
-        -
-      </button>
-      <div className="px-2 lg:px-4 lg:py-1 text-[18px] lg:text-[22px]">
-        {count}
-      </div>
-      <button
-        onClick={increment}
-        className="px-2 lg:px-4 lg:py-1 text-[18px] lg:text-[22px] border-l border-[#B2BA98]"
-      >
-        +
-      </button>
-    </div>
-              <button className="bg-[#2B452C] text-white px-3 py-2 lg:py-3 lg:px-6 rounded-full font-tenor text-sm lg:text-[16px]">Buy Now <GoArrowRight className="inline text-[18px] lg:text-[20px]"/></button>
-              <button className="border border-[#2B452C] text-[#2B452C] px-3 py-2 lg:py-3 lg:px-6 rounded-full font-tenor text-sm lg:text-[16px]">Add To Cart <GoArrowRight className="inline text-[18px] lg:text-[20px] "/></button>
-            </div>
-         
-
-          <div className=" text-[15px] lg:text-[18px] mt-2 py-4 lg:tracking-wide">
-            Hurry up! Deals end up : <span className="text-[#FF2B2B] font-bold ml-2">{formatTime(timer)}</span>
-          </div>
-          <div className="text-[15px] lg:text-[18px] lg:tracking-wide">Worldwide Shipping in all order $200, Delivery in 2-5 working days Shipping & Return</div>
-         </div>
-      
-
-      {/* Description Section */}
-         <hr className="border-[#B2BA98] w-[90%] lg:w-[95%] mx-auto " />
-      <div className="p-4   pt-8 text-[#676A5E] ">
-        <p className="text-[14px] mb-4 lg:tracking-wide lg:text-[18px] lg:w-[75%]">
-          This 10k Bags Solded features four asymmetric organic hand-cut London Blue Topaz leathers that each have their own unique beauty style;
-        </p>
-        <div className="text-[14px] mb-5 lg:text-[18px] lg:tracking-wide ">
-          Specifications:
-          <ul className="list-disc mt-2 pl-5 space-y-2">
-            <li>Vibrant blue hues. This unique button features London Blue Topaz stones size 1.1mm</li>
-            <li>10 USA Blue Topaz Materials</li>
-            <li>1k Leather Productions</li>
-          </ul>
-        </div>
-        
-       <div className="py-4">
-        <h2
-          onClick={() => setShowAbout(!showAbout)}
-          className="text-[18px] lg:text-[22px] font-tenor tracking-[0.2em] uppercase flex justify-between items-center cursor-pointer"
-        >
-          About Puff Jerkin
-          {showAbout ? (
-            < RiArrowDownSLine className="text-[25px] text-[#B2BA98]" />
-          ) : (
-            < RiArrowRightSLine  className="text-[25px] text-[#B2BA98]" />
-          )}
-        </h2>
-        <hr className="border-[#B2BA98] w-full mx-auto mb-4 mt-5" />
-        {showAbout && (
-          <ul className="list-disc pl-5 mt-2 text-[14px] lg:text-[18px] lg:tracking-wide space-y-2">
-            <li>12K Solid Productions</li>
-            <li>Design Systems</li>
-            <li>Free shipping for orders $75.00 USD+</li>
-            <li>1-year warranty</li>
-            <li>30-day returns</li>
-            <li>Sustainable practices</li>
-          </ul>
-        )}
       </div>
 
-      {/* Description */}
-      <div className="py-4">
-        <h2
-          onClick={() => setShowDescription(!showDescription)}
-          className="text-[18px] lg:text-[22px] font-tenor tracking-[0.2em] uppercase flex justify-between items-center cursor-pointer"
+      {/* Image Carousel */}
+      <div className="relative my-8">
+        <div
+          className="overflow-hidden rounded-lg relative"
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
         >
-          Description
-          {showDescription ? (
-            < RiArrowDownSLine className="text-[25px] text-[#B2BA98]" />
-          ) : (
-            < RiArrowRightSLine  className="text-[25px] text-[#B2BA98]" />
+          <img
+            src={images[currentIndex]}
+            alt="Product"
+            className="w-[380px] mx-auto h-auto object-contain transition-all duration-500"
+          /> 
+          {currentIndex === 2 && (
+            <div className="absolute top-4 left-4 bg-[#C50000] text-white text-[14px] w-14 h-14 flex text-center items-center justify-center font-semibold rounded-full">
+              28% <br/> Off
+            </div>
           )}
-        </h2>
-        <hr className="border-[#B2BA98] w-full mx-auto mb-4 mt-5" />
-        {showDescription && (
-          <div>
-            <p className="text-[14px] mt-2 lg:text-[18px] lg:tracking-wide">
-              In mollis nunc sed id semper risus in hendrerit gravida. Porta nibh
-              venenatis cras sed. Nunc sed velit dignissim sodales ut eu.
-              Lobortis feugiat vivamus at augue eget. Phasellus egestas tellus
-              rutrum tellus pellentesque. Sed risus ultricies tristique nulla
-              aliquet enim tortor. Feugiat nibh sed pulvinar proin gravida
-              hendrerit lectus. Odio facilisis mauris sit amet massa vitae.
-              Interdum consectetur libero id faucibus nisl tincidunt. Euismod in
-              pellentesque massa placerat. Ut sem viverra aliquet eget. Commodo
-              viverra maecenas accumsan lacus vel facilisis volutpat. Eget arcu
-              dictum varius duis. Nulla pharetra diam sit amet nisl suscipit
-              adipiscing bibendum est.
-            </p>
-              <div className="mt-4 text-[14px] space-y-3 lg:text-[18px] lg:tracking-wide">
-          <p><RiArrowLeftWideLine className="inline mr-2 text-[20px] text-[#B2BA98]" /> We target your business</p>
-            <p><RiArrowLeftWideLine className="inline mr-2 text-[20px] text-[#B2BA98]" /> Focus on Puff Materials</p>
-            <p><RiArrowLeftWideLine className="inline mr-2 text-[20px] text-[#B2BA98]" /> We target your business</p>
-            <p><RiArrowLeftWideLine className="inline mr-2 text-[20px] text-[#B2BA98]" /> Focus on Certificate</p>
         </div>
-          </div>
-        )}
-      
 
-      
-        </div>
-        </div>
-         </div>
-         </div>
-        {/* Related Products */}
-         <div className=" py-4 lg:hidden">
-          <h2 className="text-[18px] px-4 font-tenor tracking-[0.2em] uppercase flex justify-between items-center mb-5 ">Additional Details < RiArrowRightSLine  className="text-[25px] lg:hidden text-[#B2BA98]"/> </h2>
-           <hr className="border-[#B2BA98] w-[92%] mx-auto mb-5 mt-5" />
-        </div>
-        <div className=" p-2 lg:p-28 mb-20">
-        
-          <h2 className="text-[18px] lg:text-[32px] font-tenor tracking-[0.3em] mb-10 uppercase flex justify-center items-center">Related Products</h2>
-         <div className="grid grid-cols-2 lg:grid-cols-6 gap-4  gap-y-6 lg:gap-y-20 mt-4">
-      {relatedProducts.map((product, i) => {
-        
-        const shouldHideOnMobile = i >= 4 ? "hidden lg:block" : "block";
-
-        return (
-          <div
-            key={i}
-            className={`bg-white rounded-xl  shadow-xl border border-[#D8DCCB] flex flex-col ${shouldHideOnMobile}`}
-          >
-            <img
-              src={product.image}
-              alt={product.name}
-              className="w-full h-[110px] lg:h-[200px] object-contain p-2 lg:mt-4 lg:mb-3"
-            />
-            <div className="flex flex-col items-center text-center flex-grow justify-between">
-              <h2 className="text-[16px] lg:text-[24px] font-medium leading-snug">{product.name}</h2>
-              <img
-                src="/images/stars-num.png"
-                className="w-[95px] my-2 lg:my-0 lg:h-[22px] lg:w-[120px]"
-                alt="rating"
-              />
-              <div className="font-semibold tracking-wide font-archivo mb-2">
-                <span className="text-black text-[18px] lg:text-[28px]">₹{product.salePrice}</span>
-              </div>
+        {/* Dots */}
+        <div className="flex justify-center items-center mt-6 gap-2">
+          {images.map((_, i) => {
+            const isSelected = i === currentIndex;
+            const isAdjacent = Math.abs(i - currentIndex) === 1;
+            const sizeClass = isSelected ? 'w-3 h-3' : isAdjacent ? 'w-3 h-3' : 'w-2 h-2';
+            const bgColor = isSelected ? 'bg-black' : 'bg-[#9A9A9A]';
+            return (
               <button
-                onClick={() => alert("Added to Cart")}
-                className="w-full bg-[#2B452C] text-white py-2 lg:py-4 rounded-b-xl text-[18px] lg:text-[24px] tracking-wider font-medium rounded-none"
-              >
-                Add to Cart
-              </button>
-            </div>
-          </div>
-        );
-      })}
-    </div>
+                key={i}
+                onClick={() => handleDotClick(i)}
+                className={`rounded-full border-2 transition-all ${sizeClass} ${bgColor} ${bgColor === 'bg-black' ? 'border-black' : 'border-gray-400'}`}
+              />
+            );
+          })}
         </div>
-     
-      <Footer/>
+      </div>
+
+      {/* Divider */}
+      <hr className="my-8 border-[#B2BA98]" />
+
+      {/* Price + Delivery */}
+      <div className="bg-[#FBFFFB] border border-black rounded-lg p-4 space-y-3">
+        <p className="text-[20px] tracking-wide font-semibold text-black">Free and Fast Delivery</p>
+        <p className="text-[#FF1010] text-[42px] mx-2 tracking-wide">-28% <span className="text-[#151515] font-bold ml-2"> ₹400</span> </p>
+        <p className="text-[#757878] line-through text-[18px]">M.R.P: ₹320.00</p>
+        <p className="text-[18px] text-[#757878]">Inclusive of all taxes</p>
+        <p className="text-[18px] text-black">Use by: 31 AUG 2027</p>
+
+        <p className="text-[18px] ">
+          Hurry up! Deals end up in:
+          <span className="text-[#FF0606] ml-2 font-semibold">
+            {`${timeLeft.days}D : ${String(timeLeft.hours).padStart(2, '0')}H : ${String(timeLeft.minutes).padStart(2, '0')}Min : ${String(timeLeft.seconds).padStart(2, '0')}Sec`}
+          </span>
+        </p>
+
+        <p className="text-[#08650B] text-[20px] font-bold  ">In Stock</p>
+<div className="flex items-center bg-[#F0F2F2] w-[28%] border border-black  mt-2 gap-1 rounded-full px-4 py-1">
+  <label htmlFor="qty" className="text-[18px] text-[#151515] ">
+    Qty:
+  </label>
+  <select
+    id="qty"
+    className="bg-[#F0F2F2]   text-[18px] text-[#151515]  "
+  >
+    {[1, 2, 3, 4, 5].map((q) => (
+      <option key={q} value={q}>
+        {q}
+      </option>
+    ))}
+  </select>
+</div>
+
+      </div>
+
+      {/* Buttons */}
+      <button className="mt-4 w-full py-2 tracking-wide border border-[#2F3A27] bg-[#AEBCA466] rounded-full text-[#2F3A27] text-[18px] font-semibold">
+        Buy Now
+      </button>
+      <button className="mt-2 w-full py-2 tracking-wide rounded-full bg-[#2F3A27] border border-black text-white font-semibold text-[18px] ">
+        Add to Cart
+      </button>
+
+       <hr className="my-8 border-[#B2BA98]" />
+
+      {/* Product Details */}
+      <div className="mt-6">
+        <h2 className="text-[20px] tracking-wide font-semibold mb-2">Product Details:</h2>
+
+        {/* Description */}
+        <div className="text-[16px]  text-[#2B452C] space-y-2 mb-4">
+          <p className="text-[18px] uppercase">
+           Description
+          </p>
+          <ul className="list-disc ml-5">
+            <li> Zia Herbal Hair Shampoo is a gentle yet effective herbal cleanser infused with time-honoured Ayurvedic ingredients known for their hair-strengthening and scalp-nourishing properties.</li>
+            <li>This unique formula removes dirt, excess oil, and impurities without stripping away natural moisture, leaving your hair clean, soft, and vibrant.</li>
+            <li>Enriched with Aloe Vera, Hibiscus, Amla, Neem, and Bhringraj, this shampoo deeply hydrates, enhances hair texture, and promotes natural shine.</li>
+            <li>Its antibacterial and anti-inflammatory properties soothe the scalp, preventing dandruff and irritation.</li>
+            <li>Regular use results in stronger, healthier, and more manageable hair.</li>
+          </ul>
+        </div>
+
+        {/* Collapsible Sections */}
+        {[
+          {
+            key: "specifications",
+            label: "PRODUCT SPECIFICATIONS",
+           content: (
+  <div className="overflow-x-auto text-[#2B452C]">
+    <table className="w-full text-[16px] text-left border border-[#B2BA98]">
+      <tbody>
+        {[
+          ["Item Length", "5.5 cm"],
+          ["Item Width", "5.5 cm"],
+          ["Item Height", "12.5 cm"],
+          ["Package Length", "6 cm"],
+          ["Package Width", "6 cm"],
+          ["Package Height", "15.5 cm"],
+          ["Package Weight", "340 ml"]
+        ].map(([label, value], idx) => (
+          <tr key={idx} className="border-b border-[#B2BA98]">
+            <td className="px-3 py-2 font-medium border-r border-[#B2BA98] w-1/2">{label}</td>
+            <td className="px-3 py-2">{value}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+)
+          },
+          {
+            key: "usage",
+            label: "HOW TO USE",
+            content: (
+              <ul className="text-[16px] text-[#2B452C] list-disc ml-5">
+                <li>Wet your hair thoroughly.</li>
+                <li>Take a sufficient amount of Zia Herbal Hair Shampoo and apply it to the scalp and hair.</li>
+                <li> Gently massage for a few minutes, working up a rich lather.</li>
+                <li> Rinse thoroughly with lukewarm water.</li>
+                <li> For best results, follow up with Zia Herbal Hair Oil for deep nourishment.</li>
+              </ul>
+            )
+          },
+          {
+            key: "ingredients",
+            label: "INGREDIENTS",
+            content: (
+              <ul className="text-[16px] text-[#2B452C] list-disc ml-5">
+                <li> Aloe Vera – Hydrates and repairs damaged hair, reducing frizz and dryness.</li>
+                <li> Hibiscus – Strengthens roots, adds volume, and enhances natural shine.</li>
+                <li> Neem & Tulsi – Detoxifies the scalp, prevents dandruff, and soothes irritation.</li>
+                <li>Amla (Indian Gooseberry) – Rich in Vitamin C to promote hair growth and prevent premature graying</li>
+                <li> Bhringraj – Revitalizes hair follicles, reduces hair fall, and nourishes the scalp.</li>
+            <li> Shikakai & Reetha – Natural cleansers that gently wash away impurities while keeping hair soft and manageable.</li>
+            <li> Fenugreek & Brahmi – Strengthen hair from the roots, preventing thinning and hair loss.</li>
+              </ul>
+            )
+          },
+          {
+            key: "features",
+            label: "FEATURES",
+            content: (
+              <ul className="text-[16px] text-[#2B452C] list-disc ml-5 ">
+                <li> 100% Natural Formula – A powerful blend of herbal extracts and essential nutrients to gently cleanse and revitalize hair.</li>
+                <li> Strengthens Hair & Reduces Breakage – Fortifies hair strands, prevents split ends, and minimizes hair fall.</li>
+                <li> Promotes Hair Growth – Stimulates the scalp, nourishes roots, and encourages healthier hair growth.</li>
+                <li>Soothes Scalp & Controls Dandruff – Fights dryness, flakiness, and itchiness while maintaining scalp balance.</li>
+                <li> No Harsh Chemicals – Free from sulfates, parabens, artificial fragrances, and preservatives.</li>
+              </ul>
+            )
+          }
+        ].map(({ key, label, content }) => (
+          <div key={key}>
+            <div
+              className="flex justify-between items-center py-3 cursor-pointer border-t border-[#B2BA98]"
+              onClick={() => toggleSection(key)}
+            >
+              <span className="text-[18px] font-medium text-[#2B452C] ">{label}</span>
+              {openSections[key] ? <GoArrowDown size={24} className="text-[#B2BA98]"/> : <GoArrowRight size={24}  className="text-[#B2BA98]" />}
+            </div>
+            {openSections[key] && <div className="pb-3">{content}</div>}
+          </div>
+        ))}
+      </div>
+
+       <hr className=" border-[#B2BA98]" />
+
+      {/* Related Products */}
+<div className="mt-8">
+  <h2 className="text-[20px] font-semibold text-[#2B452C] mb-4">
+    Related Products
+  </h2>
+
+  <div className="grid grid-cols-2 gap-2 mb-10">
+    {/* Product 1 */}
+    <div className="border rounded-xl p-3 w-[100%] ">
+      <img
+        src="/images/hairoil.png"
+        alt="Zia Herbal Hair Shampoo"
+        className="w-full h-[180px] object-contain"
+      />
+      <p className="mt-2 text-[16px] font-semibold text-[#676A5E]">
+        Zia Herbal Hair Shampoo 300ml
+      </p>
+      <div className="flex items-center gap-1 mt-1">
+    
+            <img  src="/images/4star.png" alt="star" className="" />
+         
+      </div>
+      <p className="text-[14px] text-[#676A5E] mt-1">10 Reviews</p>
+      <div className="flex items-center gap-2 mt-2">
+        <p className="text-[18px] text-[#FF1010] ">-28%</p>
+        <p className="line-through text-[#757878] text-[16px]">₹320.00</p>
+        <p className="text-[18px] font-bold">₹400</p>
+      </div>
     </div>
+
+    {/* Product 2 */}
+    <div className="border rounded-xl p-3 w-[100%]">
+      <img
+        src="/images/hairoil.png"
+        alt="Zia Herbal Hair Oil"
+        className="w-full h-[180px] object-contain"
+      />
+      <p className="mt-2 text-[16px] w-[80%] font-semibold text-[#676A5E]">
+        Zia Herbal Hair Oil 300ml
+      </p>
+      <div className="flex items-center gap-1 mt-1">
+      
+            <img  src="/images/4star.png" alt="star" className="" />
+          
+      </div>
+      <p className="text-[14px] text-[#676A5E] mt-1">10 Reviews</p>
+      <div className="flex items-center gap-2 mt-2">
+        <p className="text-[18px] text-[#FF1010] ">-28%</p>
+        <p className="line-through text-[#757878] text-[16px]">₹320.00</p>
+        <p className="text-[18px] font-bold">₹400</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+    </div>
+ <Footer/>
+    </>
+
   );
 }
