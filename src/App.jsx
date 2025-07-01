@@ -23,7 +23,7 @@ import 'react-toastify/dist/ReactToastify.css';
 function App() {
   const location = useLocation();
 
-  const hideNavbarRoutes = ['/', '/login', '/signup'];
+  const hideNavbarRoutes = ['/startscreen', '/login', '/signup'];
 
   const isAuthenticated = !!localStorage.getItem('user_id');
 
