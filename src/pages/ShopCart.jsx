@@ -77,7 +77,7 @@ export default function ShopCart() {
   const handleCheckout = () => {
     const userId = localStorage.getItem("user_id");
     if (!userId) {
-      navigate("/"); 
+      navigate("/startscreen"); 
     } else {
       navigate("/home");     }
   };

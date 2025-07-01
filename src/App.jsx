@@ -35,8 +35,8 @@ function App() {
       <div className={!hideNavbarRoutes.includes(location.pathname) ? 'pt-[50px]' : ''}>
         <Routes>
           {/* Start Screen - Optional */}
-          <Route path="/" element={<StartScreen/>} />
-
+          <Route path="/" element={<Navigate to="/home" />} />
+          <Route path="/startscreen" element={<StartScreen/>}/>
           {/* Auth */}
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
