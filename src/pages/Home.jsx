@@ -43,6 +43,13 @@ export default function Home() {
     },
   ];
 
+const handleAbout=()=>{
+  navigate('/about')
+}
+const handleProducts=()=>{
+  navigate('/shopdetails')
+}
+
   const handleChange=()=>{
     navigate('/shoplist');
   }
@@ -70,7 +77,7 @@ export default function Home() {
     </p>
 
     <div data-aos="fade-up" data-aos-delay="100" className="flex justify-around mb-24 lg:justify-start lg:gap-20 font-tenor">
-      <button className="bg-black text-white text-[14px] px-5 py-2 rounded-full flex items-center gap-2">
+      <button onClick={handleProducts} className="bg-black text-white text-[14px] px-5 py-2 rounded-full flex items-center gap-2">
         Shop Now <span className="text-lg ml-2">→</span>
       </button>
       <button onClick={handleChange} className="border text-[#2B452C] border-[#2B452C] text-[14px] px-5 py-2 rounded-full flex items-center gap-2">
@@ -210,7 +217,7 @@ export default function Home() {
         <p className="text-[16px] font-archivo">2564+ Ratingsa<br />World Wide</p>
       </div>
     </div>
-    <button data-aos="fade-up" data-aos-delay="100" className="mt-4 bg-black font-tenor text-white text-[16px] px-5 py-3 lg:h-[5%]  rounded-full">
+    <button onClick={handleAbout} data-aos="fade-up" data-aos-delay="100" className="mt-4 bg-black font-tenor text-white text-[16px] px-5 py-3 lg:h-[5%]  rounded-full">
       More Details <span className="ml-3 text-lg">→</span>
     </button>
   </div>
@@ -362,7 +369,7 @@ export default function Home() {
       </div>
       <div className="text-center lg:text-left font-tenor order-last lg:order-none">
         
-        <button data-aos="fade-up" data-aos-delay="100" className="bg-black text-white px-6 py-3 rounded-full text-[14px] mt-5">
+        <button onClick={handleAbout} data-aos="fade-up" data-aos-delay="100" className="bg-black text-white px-6 py-3 rounded-full text-[14px] mt-5">
           More Details <span className="text-lg ml-3">→</span>
         </button>
       </div>
@@ -435,7 +442,7 @@ export default function Home() {
 
       {/* Button */}
       <div data-aos="fade-up" data-aos-delay="100" className="mt-12 lg:text-left">
-        <button className="px-6 py-3 bg-black text-white text-[14px] font-tenor rounded-full">
+        <button onClick={handleChange} className="px-6 py-3 bg-black text-white text-[14px] font-tenor rounded-full">
           See More <span className="text-lg ml-3">→</span>
         </button>
       </div>
@@ -551,7 +558,7 @@ export default function Home() {
 
       {/* Button */}
       <div data-aos="fade-up" data-aos-delay="100" className="text-center lg:text-left font-tenor mt-10">
-        <button className="bg-black text-white px-6 py-3 rounded-full text-[14px]">
+        <button onClick={handleChange}   className="bg-black text-white px-6 py-3 rounded-full text-[14px]">
           See More <span className="text-lg ml-3">→</span>
         </button>
       </div>

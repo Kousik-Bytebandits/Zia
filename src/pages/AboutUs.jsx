@@ -1,7 +1,11 @@
 import Footer from "../components/Footer";
-
+import {  useNavigate } from "react-router-dom";
 
 export default function AboutUs(){
+  const naviagte = useNavigate();
+  const handleMore =()=>{
+    naviagte('/shoplist');
+  }
         return(
             <>
               <div className="lg:p-16 p-4 flex flex-col lg:flex-row items-center lg:items-start lg:justify-between lg:mb-14">
@@ -126,7 +130,7 @@ export default function AboutUs(){
             />
           </div>
 
-          <button className="bg-black text-white px-6 py-3 rounded-full text-[14px] mt-4">
+          <button onClick={handleMore} className="bg-black text-white px-6 py-3 rounded-full text-[14px] mt-4">
             Discover More <span className="text-lg ml-3">→</span>
           </button>
         </div>
@@ -243,8 +247,8 @@ export default function AboutUs(){
       </div>
 
       {/* Button */}
-      <div className="mt-12 lg:text-left">
-        <button className="px-6 py-3 bg-black text-white text-[14px] font-tenor rounded-full">
+      <div className="mt-12 lg:text-left text-center">
+        <button onClick={handleMore} className="px-6 py-3 bg-black text-white text-[14px] font-tenor rounded-full">
           See More <span className="text-lg ml-3">→</span>
         </button>
       </div>

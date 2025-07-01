@@ -77,7 +77,7 @@ export default function ShopCart() {
   const handleCheckout = () => {
     const userId = localStorage.getItem("user_id");
     if (!userId) {
-      navigate("/login"); 
+      navigate("/"); 
     } else {
       navigate("/home");     }
   };
@@ -230,18 +230,19 @@ export default function ShopCart() {
                 {items.map((item) => (
                   <div
                     key={item.id}
-                    className="border-b-2 mt-8 border-dashed border-[#D1D1D1] pb-4 relative"
+                    className="border-b-2 mt-8 ...987\l
+                    border-dashed border-[#D1D1D1] pb-4 relative"
                   >
                   
                     <div className="flex gap-">
                       <img
                         src={item.img}
                         alt="product"
-                        className="w-[120px] h-[180px] "
+                        className="w-[117px] h-[155px] "
                       />
                       <div className="flex flex-col justify-between py-2 w-full">
                         <div>
-                          <h3 className="font-medium text-[16px] leading-tight tracking-wider">
+                          <h3 className="font-medium text-[18px] leading-tight tracking-wider">
                             {item.name}
                           </h3>
                           <p className="text-[14px] text-[#AEAEAE]">
@@ -268,12 +269,12 @@ export default function ShopCart() {
                   <FaMinus/>
                 </button>
                 <span className="text-[#4C4B4B] text-[20px] font-bold">{item.quantity}</span>
-                <div className="rounded-full border border-[#D5D5D5] px-3 py-3 bg-black  flex ml-2 ">
+                <div className="rounded-full border border-[#D5D5D5] px-2 py-2 bg-black  flex ml-3 ">
                   <button onClick={() => handleIncrement(item.id)}><FaPlus className="text-white " size={18}/></button>
                 </div>
               </div>
               <div>
-                <button  onClick={() => handleRemove(item.id)} className="rounded-full bg-[#BE0000] text-white px-6 py-1.5">Delete</button>
+                <button  onClick={() => handleRemove(item.id)} className="rounded-full bg-[#BE0000] text-white px-8 py-1.5">Delete</button>
                 </div>
                         </div>
                       </div>

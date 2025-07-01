@@ -4,7 +4,7 @@ import 'aos/dist/aos.css';
 
 
 export default function CareCollectionsSection() {
-   const [selected, setSelected] = useState("All Products");
+   const [selected, setSelected] = useState("Hand Wash");
  
    useEffect(() => {
   AOS.init({
@@ -12,7 +12,7 @@ export default function CareCollectionsSection() {
     once: true       
   });
 }, []);
-  const buttons = ["All Products", "Body Care", "Skin Care", "Moisture"];
+  const buttons = ["Hand Wash", "Hair Oil", "Soaps", "Serums"];
 
   const products = [
     {

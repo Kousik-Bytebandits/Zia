@@ -107,7 +107,7 @@ export default function Profile() {
 
       if (res.ok) {
         alert("Profile updated successfully!");
-        
+        // Optionally, you can reload the page or refetch user data here if needed
         window.location.reload();
       } else {
         const data = await res.json();
