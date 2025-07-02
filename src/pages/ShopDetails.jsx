@@ -10,7 +10,7 @@ const images = [
 ];
 
 export default function ShopDetails() {
-  const [currentIndex, setCurrentIndex] = useState(2); // Middle image
+  const [currentIndex, setCurrentIndex] = useState(2);
   const [timeLeft, setTimeLeft] = useState({ days: 3, hours: 14, minutes: 35, seconds: 23 });
   const [openSections, setOpenSections] = useState({
     specifications: false,
@@ -84,7 +84,7 @@ export default function ShopDetails() {
             className="w-[380px] mx-auto h-auto object-contain transition-all duration-500"
           /> 
           {currentIndex === 2 && (
-            <div className="absolute top-4 left-4 bg-[#C50000] text-white text-[14px] w-14 h-14 flex text-center items-center justify-center font-semibold rounded-full">
+            <div className="absolute top-4 left-6 bg-[#C50000] text-white text-[14px] w-14 h-14 flex text-center items-center justify-center font-semibold rounded-full">
               28% <br/> Off
             </div>
           )}
