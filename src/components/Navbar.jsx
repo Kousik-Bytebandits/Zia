@@ -46,9 +46,46 @@ const handleCart=()=>{
       <nav className="flex flex-col lg:flex-row text-white w-full ">
        
 {/* Mobile Navbar*/}
-{location.pathname === "/shopcart" ? (
- 
-  <div className="w-full lg:hidden px-4 py-3 z-50 fixed top-0 bg-[#2f3a27]">
+
+<div
+  className={`w-full lg:hidden px-4 py-3 pb-3 z-50 transition-all duration-300 fixed top-0 ${
+    isScrolled ? 'bg-[#2f3a27] shadow-md' : 'bg-[#2f3a27]'
+  }`}
+>
+  {/* Replace entire logic block inside here with this 👇 */}
+  {!isScrolled ? (
+    // 🟢 Full Top Layout for all pages before scroll
+    <>
+      <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center gap-2">
+          <button onClick={() => setIsOpen(true)} className="text-white">
+            <IoMenu className="text-5xl" />
+          </button>
+          <img src="images/zia_logo.png" alt="Zia Logo" className="h-11" />
+        </div>
+
+        <div className="flex items-center gap-4">
+          <FaUser onClick={handleChange} className="text-white text-3xl" />
+          <div className="relative">
+            <FaShoppingCart onClick={handleCart} className="text-white text-[30px]" />
+            <span className="absolute -top-2 -right-1 bg-red-600 text-[10px] leading-none font-semibold text-white rounded-full px-[4px] py-[3px]">
+              0
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div className="bg-[#E9F8E5] flex items-center px-3 py-[6px] rounded-lg">
+        <GoSearch className="w-6 h-6 mr-2 text-[#555]" />
+        <input
+          type="text"
+          placeholder="Search for Products"
+          className="bg-[#E9F8E5] outline-none text-lg w-full text-black placeholder:text-gray-700"
+        />
+      </div>
+    </>
+  ) : isHome ? (
+    // 🟡 Scrolled Home Page Layout
     <div className="flex items-center justify-between">
       <button onClick={() => setIsOpen(true)} className="text-white">
         <IoMenu className="text-5xl" />
@@ -63,100 +100,39 @@ const handleCart=()=>{
         />
       </div>
 
-      <FaUser onClick={handleChange} className="text-white text-4xl mx-3" />
-    </div>
-  </div>
-) : (
-<div
-  className={`w-full lg:hidden px-4 py-3 pb-3 z-50 transition-all duration-300 fixed top-0 ${
-    isScrolled ? 'bg-[#2f3a27] shadow-md' : 'bg-[#2f3a27]'
-  }`}
->
-  {isHome ? (
-    //  Home Page
-    isScrolled ? (
-    
-      <div className="flex items-center justify-between ">
-        <button onClick={() => setIsOpen(true)} className="text-white ">
-          <IoMenu  className='text-5xl'/>
-        </button>
-
-        <div className="bg-[#E9F8E5] flex items-center px-3 py-[6px] rounded-lg w-full mx-2">
-          <GoSearch  className="w-6 h-6 mr-2 text-[#555]" />
-          <input
-            type="text"
-            placeholder="Search for Products"
-            className="bg-[#E9F8E5] outline-none text-lg w-full text-black placeholder:text-gray-700"
-          />
-        </div>
-
-        <div className="relative ml-2">
-          <FaShoppingCart className="text-white text-[28px]" onClick={handleCart} />
-          <span className="absolute -top-2 -right-1 bg-red-600 text-[10px] leading-none font-semibold text-white rounded-full px-[4px] py-[3px]">
-            0
-          </span>
-        </div>
+      <div className="relative ml-2">
+        <FaShoppingCart className="text-white text-[28px]" onClick={handleCart} />
+        <span className="absolute -top-2 -right-1 bg-red-600 text-[10px] leading-none font-semibold text-white rounded-full px-[4px] py-[3px]">
+          0
+        </span>
       </div>
-    ) : (
-      // Full home top layout
-      <>
-        <div className="flex items-center justify-between mb-3 ">
-          <div className="flex items-center gap-2">
-            <button onClick={() => setIsOpen(true)} className="text-white ">
-              <IoMenu  className='text-5xl'/>
-            </button>
-            <img src="images/zia_logo.png" alt="Zia Logo" className="h-11" />
-          </div>
-
-          <div className="flex items-center gap-4">
-           <FaUser onClick={handleChange} className="text-white text-3xl" />
-            
-            <div className="relative">
-              <FaShoppingCart onClick={handleCart} className="text-white text-[30px]" />
-          <span className="absolute -top-2 -right-1 bg-red-600 text-[10px] leading-none font-semibold text-white rounded-full px-[4px] py-[3px]">
-            0
-          </span>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-[#E9F8E5] flex items-center  px-3 py-[6px] rounded-lg">
-         <GoSearch  className="w-6 h-6 mr-2 text-[#555]" />
-          <input
-            type="text"
-            placeholder="Search for Products"
-            className="bg-[#E9F8E5]  outline-none text-lg w-full text-black placeholder:text-gray-700"
-          />
-        </div>
-      </>
-    )
+    </div>
   ) : (
-    // Layout for other pages
+    // 🔴 Scrolled Other Page Layout
     <div className="flex items-center justify-between">
       <button onClick={() => navigate(-1)} className="text-white text-3xl">
         <FaArrowLeft />
       </button>
 
-       <div className="bg-[#E9F8E5] flex items-center px-3 py-[6px] rounded-lg w-full mx-2">
-          <GoSearch  className="w-6 h-6 mr-2 text-[#555]" />
-          <input
-            type="text"
-            placeholder="Search for Products"
-            className="bg-[#E9F8E5] outline-none text-lg w-full text-black placeholder:text-gray-700"
-          />
-        </div>
+      <div className="bg-[#E9F8E5] flex items-center px-3 py-[6px] rounded-lg w-full mx-2">
+        <GoSearch className="w-6 h-6 mr-2 text-[#555]" />
+        <input
+          type="text"
+          placeholder="Search for Products"
+          className="bg-[#E9F8E5] outline-none text-lg w-full text-black placeholder:text-gray-700"
+        />
+      </div>
 
-        <div className="relative ml-2">
-          <FaShoppingCart className="text-white text-[28px]"  onClick={handleCart} />
-          <span className="absolute -top-2 -right-1 bg-red-600 text-[10px] leading-none font-semibold text-white rounded-full px-[4px] py-[3px]">
-            0
-          </span>
-        </div>
-          
+      <div className="relative ml-2">
+        <FaShoppingCart className="text-white text-[28px]" onClick={handleCart} />
+        <span className="absolute -top-2 -right-1 bg-red-600 text-[10px] leading-none font-semibold text-white rounded-full px-[4px] py-[3px]">
+          0
+        </span>
+      </div>
     </div>
   )}
 </div>
-)}
+
 
 
         {/* Desktop View */}

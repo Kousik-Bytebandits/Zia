@@ -12,7 +12,7 @@ export default function OrderTracking() {
 
   return (
     <>
-    <div className="h-[75vh] lg:h-[90vh] flex flex-col justify-center items-center bg-white px-4 text-center">
+    <div className="h-[75vh] pt-20 lg:h-[90vh] flex flex-col justify-center items-center bg-white px-4 text-center">
       {/* Header */}
       <p className=" font-tenor mb-2 text-[40px] lg:hidden">Order Tracking</p>
       <p className="font-archivo text-[20px] text-[#676A5E] hidden lg:block tracking-wide mb-10">Track Your Shipment</p>

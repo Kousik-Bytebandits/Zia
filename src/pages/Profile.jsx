@@ -120,7 +120,7 @@ export default function Profile() {
   };
 
   return (
-    <div className="min-h-screen  flex flex-col items-center font-archivo px-10 py-6 bg-white">
+    <div className="min-h-screen pt-[25%] flex flex-col items-center font-archivo px-10 py-6 bg-white">
       <h1 className="text-[30px] text-[#2E3A27] font-bold mb-4">User Profile</h1>
 
       <div className="bg-white shadow-lg rounded-lg p-6 flex flex-col items-center w-full max-w-sm mb-8">

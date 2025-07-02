@@ -16,7 +16,7 @@ const handleChange=()=>{
 navigate("/shopdetails");
 }
   return (
-    <div className="bg-white lg:rounded-md lg:h-[430px] shadow-xl border border-gray-200 flex flex-col">
+    <div className=" bg-white lg:rounded-md lg:h-[430px] shadow-xl border border-gray-200 flex flex-col">
       <img
         src={product.image}
         alt={product.name}
@@ -124,7 +124,7 @@ export default function ShopList() {
 
   return (
     <div>
-    <div className="min-h-screen mb-20 bg-white pt-[17px] lg:px-8 lg:pt-8 overflow-hidden font-archivo text-[#676A5E]">
+    <div className="pt-[18%] min-h-screen mb-20 bg-white pt-[17px] lg:px-8 lg:pt-8 overflow-hidden font-archivo text-[#676A5E]">
       <div className="hidden lg:flex justify-between items-center mb-4 px-4">
        
       </div>

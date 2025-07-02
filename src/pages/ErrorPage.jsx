@@ -7,7 +7,7 @@ export default function ErrorPage() {
 
   return (
     <>
-    <div className="h-[60vh] lg:h-[80vh] flex flex-col justify-center items-center bg-white text-center px-4">
+    <div className="h-[70vh] lg:h-[80vh] flex flex-col justify-center items-center bg-white text-center px-4">
       <h1 className="text-[70px] font-tenor tracking-widest text-[#676A5E]">404</h1>
       <p className="text-[#676A5E] text-[25px] mb-8 font-archivo">
         Sorry, we couldn’t find this page

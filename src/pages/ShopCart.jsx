@@ -84,7 +84,7 @@ export default function ShopCart() {
 
   return (
     <>
-      <div className="max-w-[1600px] mx-auto py-8 font-archivo">
+      <div className="max-w-[1600px] pt-20 mx-auto py-8 font-archivo">
         <h2 className="lg:text-[32px] text-center lg:mt-10 lg:mb-10 py-4 font-tenor text-[#2E3A27] text-[28px]">
           Shopping Cart
         </h2>
