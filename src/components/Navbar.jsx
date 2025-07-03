@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { FaTimes,  FaShoppingCart, FaUsers } from 'react-icons/fa';
+import { FaTimes,  FaShoppingCart } from 'react-icons/fa';
 import { BiSearchAlt } from 'react-icons/bi';
 import { GoLocation } from 'react-icons/go';
 import {NavLink, useLocation, useNavigate } from 'react-router-dom';
@@ -29,8 +29,8 @@ useEffect(() => {
 }, []);
 
 const handleChange=()=>{
-  const userId = localStorage.getItem("user_id");
-    if (userId) {
+  const token = localStorage.getItem("accessToken");
+    if (token) {
       navigate("/profile"); 
     }  else {
       navigate("/login"); 

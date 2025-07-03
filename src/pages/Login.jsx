@@ -2,52 +2,61 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { FaLock, FaUser } from 'react-icons/fa';
 import { RiArrowLeftSLine } from 'react-icons/ri';
 import { useState } from 'react';
-import { toast } from 'react-toastify';
+import NotificationPopup from './NotificatioPopup';
 
 export default function Login() {
   const navigate = useNavigate();
   const location = useLocation();
-
- 
   const fromCheckout = location.state?.fromCheckout || false;
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const [popup, setPopup] = useState({
+    show: false,
+    type: "success",
+    message: "",
+  });
+
+  const showPopup = (type, message) => {
+    setPopup({ show: true, type, message });
+  };
+
   const handleLogin = async () => {
     try {
-      const res = await fetch('https://booksemporium.in/ziaherbalpro/apirouting/user/login', {
+      const res = await fetch('https://booksemporium.in/Microservices_zia/prod/02_Authentication/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
       });
 
       const data = await res.json();
+      console.log("Login Response", data);
 
-      if (res.ok && data.success) {
-        localStorage.setItem('user_id', data.user_id);
-        localStorage.setItem('user', JSON.stringify(data));
 
-        toast.success('Login successful!');
+      if (res.ok && data.accessToken) {
+  localStorage.setItem('user', JSON.stringify(data));
+  localStorage.setItem('accessToken', data.accessToken);
+  localStorage.setItem('refreshToken', data.refreshToken);
 
-       
-        if (fromCheckout) {
-          navigate('/shopcart', { replace: true });
-        } else {
-          navigate('/home', { replace: true });
-        }
+  showPopup('success', 'Login successful!');
 
-      } else {
-        toast.error(data.message || 'Login failed');
-      }
+  setTimeout(() => {
+    navigate(fromCheckout ? '/shopcart' : '/home', { replace: true });
+  }, 1500);
+} else {
+  showPopup('error', data.message || 'Login failed');
+}
+
     } catch (err) {
       console.error(err);
-      toast.error('Something went wrong.');
+      showPopup("error", "Something went wrong.");
     }
   };
 
   const handleForgotPassword = async () => {
-    if (!email) return toast.warn('Enter your email first');
+    if (!email) return showPopup("error", "Enter your email first");
+
     try {
       const res = await fetch('https://booksemporium.in/ziaherbalpro/apirouting/user/forgot-password', {
         method: 'POST',
@@ -57,16 +66,15 @@ export default function Login() {
       const data = await res.json();
 
       if (res.ok) {
-        toast.success('Password reset email sent!');
+        showPopup("success", "Password reset email sent!");
       } else {
-        toast.error(data.message || 'Request failed');
+        showPopup("error", data.message || "Request failed");
       }
     } catch (err) {
       console.error(err);
-      toast.error('An error occurred');
+      showPopup("error", "An error occurred");
     }
   };
-
   return (
     <div className="relative h-screen w-full overflow-hidden">
 
@@ -285,6 +293,12 @@ export default function Login() {
           </p>
         </div>
       </div>
+       <NotificationPopup
+        show={popup.show}
+        type={popup.type}
+        message={popup.message}
+        onClose={() => setPopup({ ...popup, show: false })}
+      />
     </div>
   );
 }

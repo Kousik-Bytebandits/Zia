@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import NotificationPopup from "./NotificatioPopup"
@@ -22,25 +22,25 @@ export default function SignUp() {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [otpVerified, setOtpVerified] = useState(false);
 
+ 
   const [popup, setPopup] = useState({
     show: false,
     type: "success",
     message: "",
   });
-
+ const otpRefs = useRef([]);
   const showPopup = (type, message) => {
     setPopup({ show: true, type, message });
   };
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+   const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    
+    setForm({ ...form, [name]: value });
   };
 
-  const handleOtpChange = (value, index) => {
-    const updatedOtp = [...otp];
-    updatedOtp[index] = value;
-    setOtp(updatedOtp);
-  };
+
 
   const sendOtp = async () => {
     if (!form.email) {
@@ -100,70 +100,126 @@ export default function SignUp() {
   };
 
   const handleSignup = async (e) => {
-    e.preventDefault();
-    if (!otpVerified) {
-      showPopup("error", "Please verify OTP before signing up");
-      return;
-    }
-    if (form.password !== form.confirmPassword) {
-      showPopup("error", "Passwords do not match");
-      return;
-    }
+  e.preventDefault();
 
-    const payload = {
-      email: form.email,
-      password: form.password,
-      first_name: form.first_name,
-      last_name: form.last_name,
-      phone: form.phone,
-      address: {
-        street: form.street_address,
-        city: form.city,
-        state: form.state,
-        postal_code: form.postal_code,
-        country: "INDIA",
-        is_default: true,
-      },
-    };
+  if (!/^\d{10}$/.test(form.phone)) {
+    showPopup("error", "Phone number must be exactly 10 digits");
+    return;
+  }
 
-    try {
-      const res = await fetch(
-        "https://booksemporium.in/Microservices_zia/prod/02_Authentication/auth/register",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        }
-      );
-      const data = await res.json();
-      if (res.ok) {
-        showPopup("success", "Account created successfully");
-        setTimeout(() => {
-          navigate("/login");
-        }, 1500);
-      } else {
-        showPopup("error", data.message || "Signup failed");
-      }
-    } catch (err) {
-      showPopup("error", "An error occurred during signup");
-      console.log(err)
-    }
+  if (!otpVerified) {
+    showPopup("error", "Please verify OTP before signing up");
+    return;
+  }
+
+  if (form.password !== form.confirmPassword) {
+    showPopup("error", "Passwords do not match");
+    return;
+  }
+
+  const payload = {
+    email: form.email,
+    password: form.password,
+    first_name: form.first_name,
+    last_name: form.last_name,
+    phone: form.phone,
+    address: {
+      street: form.street_address,
+      city: form.city,
+      state: form.state,
+      postal_code: form.postal_code,
+      country: "INDIA",
+      is_default: true,
+    },
   };
 
-  const renderOtpInput = (boxSize = "w-14 h-14 ") => (
-    <div className="flex justify-between">
-      {otp.map((val, i) => (
-        <input
-          key={i}
-          maxLength={1}
-          value={val}
-          onChange={(e) => handleOtpChange(e.target.value, i)}
-          required
-          className={`${boxSize} rounded-lg bg-[#D8E5DC] text-center text-xl outline-none`}
-        />
-      ))}
-    </div>
-  );
+  try {
+    const res = await fetch(
+      "https://booksemporium.in/Microservices_zia/prod/02_Authentication/auth/register",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      }
+    );
+    const data = await res.json();
+
+    if (res.ok) {
+      if (data.accessToken) {
+        localStorage.setItem("access_token", data.accessToken);
+        localStorage.setItem("refresh_token", data.refreshToken);
+        localStorage.setItem("user", JSON.stringify(data.user));
+      }
+
+      showPopup("success", "Account created successfully");
+      setTimeout(() => {
+        navigate("/login");
+      }, 1500);
+    } else {
+      showPopup("error", data.message || "Signup failed");
+    }
+  } catch (err) {
+    showPopup("error", "An error occurred during signup");
+    console.log(err);
+  }
+};
+
+
+const renderOtpInput = (boxSize = "w-12 h-12") => (
+  <div className="flex flex-wrap lg:flex-nowrap lg:gap-4 justify-center gap-1 max-w-[340px] mx-auto">
+    {otp.map((val, i) => (
+      <input
+        key={i}
+        ref={(el) => (otpRefs.current[i] = el)}
+        maxLength={1}
+        type="text"
+        inputMode="numeric"
+        pattern="[0-9]*"
+        value={val}
+        onChange={(e) => {
+          const newValue = e.target.value.replace(/\D/g, "");
+          if (!newValue) return;
+
+          const updatedOtp = [...otp];
+          updatedOtp[i] = newValue;
+          setOtp(updatedOtp);
+
+         
+          if (i < 5 && newValue) {
+            setTimeout(() => {
+              otpRefs.current[i + 1]?.focus();
+            }, 10);
+          }
+        }}
+        onKeyDown={(e) => {
+          if (e.key === "Backspace") {
+            e.preventDefault();
+            const updatedOtp = [...otp];
+            if (otp[i]) {
+              updatedOtp[i] = "";
+              setOtp(updatedOtp);
+            } else if (i > 0) {
+              otpRefs.current[i - 1]?.focus();
+            }
+          }
+        }}
+        onPaste={(e) => {
+          e.preventDefault();
+          const pasted = e.clipboardData.getData("text").replace(/\D/g, "").slice(0, 6);
+          const pastedArray = pasted.split("");
+          const updatedOtp = [...otp];
+          for (let j = 0; j < pastedArray.length; j++) {
+            updatedOtp[j] = pastedArray[j];
+            otpRefs.current[j]?.focus();
+          }
+          setOtp(updatedOtp);
+        }}
+        className={`${boxSize} rounded-lg bg-[#D8E5DC] text-center text-xl outline-none`}
+      />
+    ))}
+  </div>
+);
+
 
  const renderForm = (isDesktop) => (
   <form className="space-y-4" onSubmit={handleSignup}>
@@ -232,7 +288,7 @@ export default function SignUp() {
 
     {/* OTP */}
     <div className="bg-[#F9F9F9] rounded-md p-4 border border-[#F0F0F0]">
-      {renderOtpInput(isDesktop ? "w-20 h-14" : "w-12 h-12")}
+      {renderOtpInput(isDesktop ? "w-20 h-14" : "w-[15%] h-10")}
       <div className="flex justify-around mt-4 lg:mt-6 gap-4">
         <button
           type="button"
@@ -257,45 +313,51 @@ export default function SignUp() {
     {/* Password and Confirm Password */}
     {isDesktop ? (
       <div className="flex gap-4">
-        <input
-          type="password"
-          name="password"
-          placeholder="Password*"
-          value={form.password}
-          onChange={handleChange}
-          required
-          className="w-1/2 px-4 py-3 rounded-lg bg-[#D8E5DC] outline-none"
-        />
-        <input
-          type="password"
-          name="confirmPassword"
-          placeholder="Confirm Password*"
-          value={form.confirmPassword}
-          onChange={handleChange}
-          required
-          className="w-1/2 px-4 py-3 rounded-lg bg-[#D8E5DC] outline-none"
-        />
+       <input
+  type="password"
+  name="password"
+  autoComplete="new-password"
+  placeholder="Password*"
+  value={form.password}
+  onChange={handleChange}
+  required
+  className="w-full px-4 py-3 rounded-lg bg-[#D8E5DC] outline-none"
+/>
+<input
+  type="password"
+  name="confirmPassword"
+  autoComplete="new-password"
+  placeholder="Confirm Password*"
+  value={form.confirmPassword}
+  onChange={handleChange}
+  required
+  className="w-full px-4 py-3 rounded-lg bg-[#D8E5DC] outline-none"
+/>
+
       </div>
     ) : (
       <>
-        <input
-          type="password"
-          name="password"
-          placeholder="Password*"
-          value={form.password}
-          onChange={handleChange}
-          required
-          className="w-full px-4 py-3 rounded-lg bg-[#D8E5DC] outline-none"
-        />
-        <input
-          type="password"
-          name="confirmPassword"
-          placeholder="Confirm Password*"
-          value={form.confirmPassword}
-          onChange={handleChange}
-          required
-          className="w-full px-4 py-3 rounded-lg bg-[#D8E5DC] outline-none"
-        />
+       <input
+  type="password"
+  name="password"
+  autoComplete="new-password"
+  placeholder="Password*"
+  value={form.password}
+  onChange={handleChange}
+  required
+  className="w-full px-4 py-3 rounded-lg bg-[#D8E5DC] outline-none"
+/>
+<input
+  type="password"
+  name="confirmPassword"
+  autoComplete="new-password"
+  placeholder="Confirm Password*"
+  value={form.confirmPassword}
+  onChange={handleChange}
+  required
+  className="w-full px-4 py-3 rounded-lg bg-[#D8E5DC] outline-none"
+/>
+
       </>
     )}
 

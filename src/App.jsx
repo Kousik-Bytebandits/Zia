@@ -1,7 +1,7 @@
 import './App.css';
 import './index.css';
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
-
+import { useState,useEffect } from 'react';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
 import ShopList from './pages/ShopList';
@@ -17,15 +17,23 @@ import StartScreen from './pages/StartScreen';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import ShopCart from './pages/ShopCart';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
 
 function App() {
   const location = useLocation();
 
   const hideNavbarRoutes = ['/startscreen', '/login', '/signup'];
 
-  const isAuthenticated = !!localStorage.getItem('user_id');
+ 
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    !!localStorage.getItem('accessToken')
+  );
+
+  useEffect(() => {
+    // Watch location and update auth state
+    const token = localStorage.getItem('accessToken');
+    setIsAuthenticated(!!token);
+  }, [location]);
 
   return (
     <>
@@ -43,8 +51,8 @@ function App() {
 
           {/* Pages */}
           <Route path="/home" element={<Home />} />
-          <Route path="/profile" element={isAuthenticated ? <Profile /> : <Navigate to="/login" />} />
-          <Route path="/shoplist" element={<ShopList />} />
+         <Route path="/profile" element={isAuthenticated ? <Profile /> : <Navigate to="/login" />} />
+         <Route path="/shoplist" element={<ShopList />} />
           <Route path="/shopdetails" element={<ShopDetails />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/contactus" element={<ContactUs />} />
@@ -58,7 +66,7 @@ function App() {
           <Route path="*" element={<ErrorPage />} />
         </Routes>
 
-        <ToastContainer position="top-center" autoClose={3000} />
+       
       </div>
     </>
   );

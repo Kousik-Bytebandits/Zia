@@ -1,5 +1,7 @@
 import  { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import NotificationPopup from './NotificatioPopup';
+
 
 
 export default function Profile() {
@@ -17,107 +19,141 @@ export default function Profile() {
     },
   });
 
-  const userId = localStorage.getItem("user_id");
+ const [popup, setPopup] = useState({
+  show: false,
+  type: "success",
+  message: "",
+});
+
+const showPopup = (type, message) => {
+  setPopup({ show: true, type, message });
+};
+
  const navigate = useNavigate();
  
- useEffect(() => {
-  if (!userId) {
+
+
+useEffect(() => {
+  const token = localStorage.getItem("accessToken");
+  
+  if (!token) {
     navigate('/login');
     return;
   }
-
-  const fetchUserData = async () => {
-    try {
-      const res = await fetch(
-        `https://booksemporium.in/ziaherbalpro/apirouting/user/${userId}`
-      );
-      const data = await res.json();
-
-      if (data && data.success && data.user) {
-        const user = data.user;
-        const address = user.address || {};
-
-        setForm({
-          first_name: user.first_name || "",
-          last_name: user.last_name || "",
-          phone: user.phone || "",
-          email: user.email || "",
-          address: {
-            street_address: address.street_address || "",
-            city: address.city || "",
-            state: address.state || "",
-            postal_code: address.postal_code || "",
-            country: address.country || "India",
-          },
-        });
+const fetchUserData = async () => {
+  try {
+    const res = await fetch(
+      "https://booksemporium.in/Microservices_zia/prod/02_Authentication/auth/profile",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       }
-    } catch (err) {
-      console.error("Error fetching user data:", err);
-      alert("Failed to load user info.");
+    );
+
+    const data = await res.json();
+    
+
+    if (res.ok && data.user) {
+      const user = data.user;
+      const address = data.address || {};
+
+      setForm({
+        first_name: user.first_name || "",
+        last_name: user.last_name || "",
+        phone: user.phone || "",
+        email: user.email || "",
+        address: {
+          street_address: address.street || "",
+          city: address.city || "",
+          state: address.state || "",
+          postal_code: address.postal_code || "",
+          country: address.country || "India",
+        },
+      });
+    } else {
+      console.error("Failed to fetch user profile");
     }
-  };
+  } catch (err) {
+    console.error("Error fetching user data:", err);
+    alert("Failed to load user info.");
+  }
+};
+
 
   fetchUserData();
-}, [userId, navigate]);
+}, [navigate]);
 
 
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+ const handleChange = (e) => {
+  const { name, value } = e.target;
 
-    if (
-      name === "street_address" ||
-      name === "state" ||
-      name === "city" ||
-      name === "postal_code" ||
-      name === "country"
-    ) {
-      setForm((prev) => ({
-        ...prev,
-        address: {
-          ...prev.address,
-          [name]: value,
-        },
-      }));
-    } else {
-      setForm((prev) => ({
-        ...prev,
+  const addressFields = ["street_address", "state", "city", "postal_code", "country"];
+
+  if (addressFields.includes(name)) {
+    setForm((prev) => ({
+      ...prev,
+      address: {
+        ...prev.address,
         [name]: value,
-      }));
-    }
-  };
+      },
+    }));
+  } else {
+    setForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  }
+};
 
-  const handleUpdate = async () => {
-    try {
-      const res = await fetch(
-        `https://booksemporium.in/ziaherbalpro/apirouting/user/update/${userId}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
+const handleUpdate = async () => {
+  const token = localStorage.getItem("accessToken");
+
+  if (!token) {
+    showPopup("error", "You are not logged in. Please login again.");
+    return;
+  }
+
+  try {
+    const res = await fetch(
+      "https://booksemporium.in/Microservices_zia/prod/02_Authentication/auth/register",
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          email: form.email,
+          first_name: form.first_name,
+          last_name: form.last_name,
+          phone: form.phone,
+          address: {
+            street: form.address.street_address,
+            city: form.address.city,
+            state: form.address.state,
+            postal_code: form.address.postal_code,
+            country: form.address.country,
+            is_default: true
           },
-          body: JSON.stringify({
-            first_name: form.first_name,
-            last_name: form.last_name,
-            phone: form.phone,
-            address: form.address,
-          }),
-        }
-      );
-
-      if (res.ok) {
-        alert("Profile updated successfully!");
-        // Optionally, you can reload the page or refetch user data here if needed
-        window.location.reload();
-      } else {
-        const data = await res.json();
-        alert(data.message || "Update failed");
+        }),
       }
-    } catch (err) {
-      console.error("Update error:", err);
-      alert("Something went wrong.");
+    );
+
+    const data = await res.json();
+
+    if (res.ok) {
+      showPopup("success", "Profile updated successfully!");
+    } else {
+      showPopup("error", data?.message || "Update failed");
     }
-  };
+  } catch (err) {
+    console.error("Update error:", err);
+    showPopup("error", "Something went wrong.");
+  }
+};
+
 
   return (
     <div className="min-h-screen pt-[25%] flex flex-col items-center font-archivo px-10 py-6 bg-white">
@@ -203,6 +239,12 @@ export default function Profile() {
       >
         Update
       </button>
+        <NotificationPopup
+              show={popup.show}
+              type={popup.type}
+              message={popup.message}
+              onClose={() => setPopup({ ...popup, show: false })}
+            />
     </div>
   );
 }

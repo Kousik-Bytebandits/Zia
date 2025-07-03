@@ -75,8 +75,8 @@ export default function ShopCart() {
   };
 
   const handleCheckout = () => {
-    const userId = localStorage.getItem("user_id");
-    if (!userId) {
+   const token = localStorage.getItem("accessToken");
+    if (!token) {
       navigate("/startscreen"); 
     } else {
       navigate("/home");     }
