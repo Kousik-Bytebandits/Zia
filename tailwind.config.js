@@ -10,6 +10,13 @@ export default {
         archivo: ['"Archivo Narrow"', 'sans-serif'],
          tenor: ['Tenor Sans', 'sans-serif'], 
           sans: ['DM Sans', 'sans-serif'],
+           inter: ['Inter', 'sans-serif'],
+      },
+       colors: {
+        primary: "#102B01", // Dark Green
+        secondary: "#FFD25D", // Light Gold
+        "secondary-border": "#D3AA40", // Gold Border
+        body: "#F5F6F0", // Light Green background
       },
        boxShadow: {
         'around': '0 4px 20px rgba(0, 0, 0, 0.08), 0 -4px 20px rgba(0, 0, 0, 0.06), 4px 0 20px rgba(0, 0, 0, 0.06), -4px 0 20px rgba(0, 0, 0, 0.06)',
