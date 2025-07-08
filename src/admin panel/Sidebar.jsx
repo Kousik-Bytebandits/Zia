@@ -8,7 +8,8 @@ export default function Sidebar() {
   const [openDropdown, setOpenDropdown] = useState(true);
 
   return (
-    <aside className="w-[15%] min-w-[220px] bg-[#102B01] text-white flex flex-col justify-between h-screen shadow-lg">
+    <aside className=" lg:min-w-[16%]  bg-[#102B01] text-white flex flex-col justify-between h-screen lg:h-auto shadow-lg">
+
       
       <div>
         {/* Logo */}
