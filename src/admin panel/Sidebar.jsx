@@ -48,7 +48,7 @@ export default function Sidebar() {
                 <NavLink
                   to="/admin/grid"
                   className={({ isActive }) =>
-                    `block text-[16px] px-3 py-2 rounded ${
+                    `block text-[16px] w-full px-3 py-2 rounded ${
                       isActive
                         ? 'bg-[#FFD25D] text-[#102B01] font-bold'
                         : 'hover:bg-green-700'
@@ -63,7 +63,7 @@ export default function Sidebar() {
                 <NavLink
                   to="/admin/home"
                   className={({ isActive }) =>
-                    `block text-[16px] px-3 py-2 rounded ${
+                    `block text-[16px] w-full px-3 py-2 rounded ${
                       isActive
                         ? 'bg-[#FFD25D] text-[#102B01] font-bold'
                         : 'hover:bg-green-700'

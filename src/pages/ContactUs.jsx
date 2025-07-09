@@ -3,7 +3,7 @@ import Footer from "../components/Footer";
 const ContactUs = () => {
   return (
     <>
-      <div className="pt-[17%] bg-white  text-[#676A5E] w-full text-[#4A4A4A] font-archivo py-3">
+      <div className="pt-[17%] lg:pt-[0] bg-white  text-[#676A5E] w-full text-[#4A4A4A] font-archivo py-3">
         {/* Top Image */}
         <div className="w-full">
           <img

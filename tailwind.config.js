@@ -6,6 +6,12 @@ export default {
   ],
   theme: {
     extend: {
+       screens: {
+        xxxl: '1920px',    
+        hd:'1440px' ,
+        laptop: '1280px',  
+
+          },
         fontFamily: {
         archivo: ['"Archivo Narrow"', 'sans-serif'],
          tenor: ['Tenor Sans', 'sans-serif'], 

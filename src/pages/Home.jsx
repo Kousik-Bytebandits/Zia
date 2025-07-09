@@ -63,16 +63,16 @@ const handleProducts=()=>{
     <div className="w-full bg-white  text-center font-sans "data-aos="fade-up">
      
   
- <section className="pt-[120px] lg:bg-[#F5F5F5] lg:pt-[110px] lg:pb-24 lg:flex lg:items-center lg:justify-between relative">
+ <section className="pt-[120px] lg:bg-[#F5F5F5] lg:pt-[110px] lg:pb-20 lg:flex lg:items-center lg:justify-between relative">
   {/* Left Content Block */}
-  <div className=" lg:ml-52 relative ">
-    <h1 data-aos="fade-up" data-aos-delay="100" className="lg:w-[75%] text-[24px] lg:text-[40px] tracking-widest font-tenor text-[#333333] mb-4 lg:text-left ">
+  <div className=" xxxl:ml-52 hd:ml-40 laptop:ml-32 relative ">
+    <h1 data-aos="fade-up" data-aos-delay="100" className="lg:w-[75%] laptop:w-[80%] text-[24px] laptop:text-[22px] hd:text-[30px]   xxxl:text-[40px] tracking-widest font-tenor text-[#333333] mb-4 lg:text-left ">
       NATURE’S TOUCH,
       <br />
       BOTTLED WITH CARE
     </h1>
 
-    <p data-aos="fade-up" data-aos-delay="100" className="text-[14px] lg:mr-[14%] lg:text-[18px] font-archivo text-[#9D9C9C] max-w-[80%] mx-auto mb-6 text-center lg:text-left lg:max-w-[85%]">
+    <p data-aos="fade-up" data-aos-delay="100" className="text-[14px] lg:mr-[14%] xxxl:text-[18px] font-archivo text-[#9D9C9C] max-w-[80%] mx-auto mb-6 text-center lg:text-left lg:max-w-[85%]">
       Zia Herbal brings you a range of 100% natural, farm-fresh skincare and wellness products crafted using traditional herbs and modern purity standards. Our products are handcrafted with ingredients sourced directly from our sustainable farmlands, ensuring nature’s finest reaches your skin.
     </p>
 
@@ -90,7 +90,7 @@ const handleProducts=()=>{
       <img
         src="images/bg_left.png"
         alt="Left Product"
-        className="w-[600px] "
+        className="w-[600px] laptop:w-[400px] xxxl:w-[600px] hd:w-[500px]"
       />
       <div className="text-[20px] font-tenor text-[#676A5E] tracking-widest flex items-center">
         NEXT <span className="inline-block ml-3 -mt-1 text-3xl">→</span>
@@ -106,7 +106,7 @@ const handleProducts=()=>{
   />
   <img
     src="images/bg_right.png"
-    className="hidden lg:block w-[54.55%] h-[750px] -mt-[7.5%] rounded-bl-[200px]"
+    className="hidden lg:block w-[55%] xxxl:h-[750px] laptop:h-[500px] hd:h-[600px]  xxxl:-mt-[7.5%] laptop:-mt-[15%] hd:-mt-[9%] rounded-bl-[200px]"
     alt="Background Right"
   />
 </section>
@@ -125,41 +125,73 @@ const handleProducts=()=>{
   </div>
 </section>
 
-<div className="px-6 mt-10 mb-10 text-left space-y-5 lg:space-y-8 lg:px-20 lg:mt-28 lg:mb-28">
+<div className="px-6 mt-10 mb-10 text-left space-y-5 lg:space-y-8  xxxl:px-20 xxxl:mt-28 xxxl:mb-28 laptop:px-10 laptop:mt-12 laptop:mb-14 hd:px-16 hd:mt-20 hd:mb-20">
   {/* Box Grid for Desktop */}
-  <div className="hidden lg:grid lg:grid-cols-4 lg:gap-x-8 lg:gap-y-10">
-    {/* Box 1 - Tall */}
-    <div data-aos="fade-up" data-aos-delay="100" className="bg-[#D4480C] font-tenor text-white p-10 h-[430px] w-[420px] rounded-xl flex flex-col justify-between">
-      <h2 className="text-[42px] border-b pb-3">38<span className="ml-1">+</span></h2>
-      <p className="text-[24px] tracking-widest">YEARS IN BUSINESS</p>
-      <p className="text-[16px] font-archivo tracking-wide">
-        Creation timelines for the standard lorem ipsum passage vary, with some citing.
-      </p>
-    </div>
+ <div className="hidden laptop:grid laptop:grid-cols-4 hd:grid-cols-4 xxxl:grid-cols-4 gap-y-4 laptop:gap-x-2 hd:gap-x-2 hd:gap-y-4 xxxl:gap-x-8 xxxl:gap-y-10">
 
-    {/* Box 2 - Short */}
-    <div data-aos="fade-up" data-aos-delay="100" className="bg-[#2B452C] font-tenor text-white p-10 h-[260px] w-[420px] rounded-xl flex flex-col justify-evenly self-end">
-      <h2 className="text-[42px] border-b pb-3">10<span className="ml-1">+</span></h2>
-      <p className="text-[26px] tracking-widest">COSMETIC AWARDS</p>
-    </div>
+  {/* Box 1 - Tall */}
+  <div
+    data-aos="fade-up"
+    data-aos-delay="100"
+    className="bg-[#D4480C] font-tenor text-white
+      laptop:p-6 laptop:w-[280px] laptop:h-[280px]
+      hd:p-8 hd:w-[340px] hd:h-[330px]
+      xxxl:p-10 xxxl:w-[420px] xxxl:h-[430px]
+      rounded-xl flex flex-col justify-between"
+  >
+    <h2 className="text-[28px] hd:text-[32px] xxxl:text-[42px] border-b pb-2">38<span className="ml-1">+</span></h2>
+    <p className="text-[16px] hd:text-[20px] xxxl:text-[24px] tracking-widest">YEARS IN BUSINESS</p>
+    <p className="text-[12px] hd:text-[14px] xxxl:text-[16px] font-archivo tracking-wide">
+      Creation timelines for the standard lorem ipsum passage vary, with some citing.
+    </p>
+  </div>
 
-    {/* Box 3 - Tall */}
-    <div data-aos="fade-up" data-aos-delay="100" className="bg-[#151D10] font-tenor text-white p-10 h-[430px] w-[420px] rounded-xl flex flex-col justify-between">
-      <h2 className="text-[42px] border-b pb-3">750<span className="ml-1">+</span></h2>
-      <p className="text-[24px] tracking-widest">PRODUCTS LAUNCHED</p>
-      <p className="text-[16px] font-archivo tracking-wide">
-        Standard reation timelines for the standard lorem ipsum passage vary, with some citing.
-      </p>
-    </div>
+  {/* Box 2 - Short */}
+  <div
+    data-aos="fade-up"
+    data-aos-delay="100"
+    className="bg-[#2B452C] font-tenor text-white
+      laptop:p-6 laptop:w-[280px] laptop:h-[160px]
+      hd:p-8 hd:w-[340px] hd:h-[200px]
+      xxxl:p-10 xxxl:w-[420px] xxxl:h-[260px]
+      rounded-xl flex flex-col justify-evenly self-end"
+  >
+    <h2 className="text-[28px] hd:text-[32px] xxxl:text-[42px] border-b pb-2">10<span className="ml-1">+</span></h2>
+    <p className="text-[18px] hd:text-[22px] xxxl:text-[26px] tracking-widest">COSMETIC AWARDS</p>
+  </div>
 
-    {/* Box 4 - Short */}
-   {/* Box 4 - Short (Yellow - Top Aligned) */}
-<div data-aos="fade-up" data-aos-delay="100" className="bg-[#F6A903] font-tenor text-white p-10 h-[260px] w-[420px] rounded-xl flex flex-col justify-evenly self-start">
-  <h2 className="text-[42px] border-b pb-3">25<span className="ml-1">+</span></h2>
-  <p className="text-[26px] tracking-widest">ORGANIC PRODUCTS</p>
+  {/* Box 3 - Tall */}
+  <div
+    data-aos="fade-up"
+    data-aos-delay="100"
+    className="bg-[#151D10] font-tenor text-white
+      laptop:p-6 laptop:w-[280px] laptop:h-[280px]
+      hd:p-8 hd:w-[340px] hd:h-[330px]
+      xxxl:p-10 xxxl:w-[420px] xxxl:h-[430px]
+      rounded-xl flex flex-col justify-between"
+  >
+    <h2 className="text-[28px] hd:text-[32px] xxxl:text-[42px] border-b pb-2">750<span className="ml-1">+</span></h2>
+    <p className="text-[16px] hd:text-[20px] xxxl:text-[24px] tracking-widest">PRODUCTS LAUNCHED</p>
+    <p className="text-[12px] hd:text-[14px] xxxl:text-[16px] font-archivo tracking-wide">
+      Standard reation timelines for the standard lorem ipsum passage vary, with some citing.
+    </p>
+  </div>
+
+  {/* Box 4 - Short */}
+  <div
+    data-aos="fade-up"
+    data-aos-delay="100"
+    className="bg-[#F6A903] font-tenor text-white
+      laptop:p-6 laptop:w-[280px] laptop:h-[160px]
+      hd:p-8 hd:w-[340px] hd:h-[200px]
+      xxxl:p-10 xxxl:w-[420px] xxxl:h-[260px]
+      rounded-xl flex flex-col justify-evenly self-start"
+  >
+    <h2 className="text-[28px] hd:text-[32px] xxxl:text-[42px] border-b pb-2">25<span className="ml-1">+</span></h2>
+    <p className="text-[18px] hd:text-[22px] xxxl:text-[26px] tracking-widest">ORGANIC PRODUCTS</p>
+  </div>
 </div>
 
-  </div>
 
   {/* Mobile Layout (unchanged) */}
   <div className="lg:hidden space-y-5">
@@ -194,33 +226,60 @@ const handleProducts=()=>{
     </div>
   </div>
 
-  {/* Trust Section (same for all views) */}
+  
   <div className="text-left pt-6 lg:flex lg:justify-start items-center">
-    <div data-aos="fade-up" data-aos-delay="100" className="lg:mt-10 lg:w-[58%]">  
-    <p className="text-[24px] leading-relaxed uppercase tracking-widest w-[95%] lg:w-[55%] text-[#676A5E] font-tenor">
+  {/* Text Section */}
+  <div
+    data-aos="fade-up"
+    data-aos-delay="100"
+    className="lg:mt-10 lg:w-[58%] hd:w-[65%] laptop:w-[75%] xxxl:w-[58%]"
+  >
+    <p className="text-[20px] laptop:text-[16px] hd:text-[20px] xxxl:text-[26px] leading-relaxed uppercase tracking-widest w-[95%] lg:w-[55%] text-[#676A5E] font-tenor">
       Trusted by over 250,000+ clients worldwide since 2000
     </p>
-    <p className="text-[16px] text-[#676A5E] font-archivo mt-5">
+    <p className="text-[14px] laptop:text-[12px] hd:text-[14px] xxxl:text-[17px] text-[#676A5E] font-archivo mt-5">
       Rooted in tradition, trusted for purity.<br />
       Zia Herbal is redefining natural care, one product at a time.
     </p>
-      </div>
-    <div data-aos="fade-up" data-aos-delay="100" className="flex  text-[#676A5E] font-tenor gap-10 lg:gap-20 mt-16 mb-10 lg:mr-28">
-      <div className="border-r-2 pr-8 lg:pr-20 border-[#B2BA98]">
-        <h3 className="text-[50px]">6<span className="mx-2">M</span>+</h3>
-        <img src="images/stars.png" className="mb-4" />
-        <p className="text-[16px] font-archivo">Worldwide Products<br />Sale Per Year</p>
-      </div>
-      <div>
-        <h3 className="text-[50px]">4<span className="mx-2">.</span>8</h3>
-        <img src="images/stars.png" className="mb-4" />
-        <p className="text-[16px] font-archivo">2564+ Ratingsa<br />World Wide</p>
-      </div>
-    </div>
-    <button onClick={handleAbout} data-aos="fade-up" data-aos-delay="100" className="mt-4 bg-black font-tenor text-white text-[16px] px-5 py-3 lg:h-[5%]  rounded-full">
-      More Details <span className="ml-3 text-lg">→</span>
-    </button>
   </div>
+
+  {/* Stats Section */}
+  <div
+    data-aos="fade-up"
+    data-aos-delay="100"
+    className="flex text-[#676A5E] font-tenor gap-6 laptop:gap-10 hd:gap-16 xxxl:gap-20 mt-16 mb-10 lg:mr-28"
+  >
+    <div className="border-r-2 pr-6 laptop:pr-10 hd:pr-14 xxxl:pr-20 border-[#B2BA98]">
+      <h3 className="text-[36px] laptop:text-[32px] hd:text-[40px] xxxl:text-[50px]">
+        6<span className="mx-2">M</span>+
+      </h3>
+      <img src="images/stars.png" className="mb-3 laptop:mb-4" />
+      <p className="text-[13px] laptop:text-[12px] hd:text-[14px] xxxl:text-[16px] font-archivo">
+        Worldwide Products<br />Sale Per Year
+      </p>
+    </div>
+    <div>
+      <h3 className="text-[36px] laptop:text-[32px] hd:text-[40px] xxxl:text-[50px]">
+        4<span className="mx-2">.</span>8
+      </h3>
+      <img src="images/stars.png" className="mb-3 laptop:mb-4" />
+      <p className="text-[13px] laptop:text-[12px] hd:text-[14px] xxxl:text-[16px] font-archivo">
+        2564+ Ratings<br />World Wide
+      </p>
+    </div>
+  </div>
+
+  {/* Button */}
+  <button
+    onClick={handleAbout}
+    data-aos="fade-up"
+    data-aos-delay="100"
+    className="mt-4 bg-black font-tenor text-white text-[14px] laptop:text-[12px] hd:text-[12px] hd:p xxxl:text-[17px] px-4 py-2 rounded-full hd:w-[12%] laptop:w-[15%]"
+  >
+    More Details <span className="ml-2 text-base">→</span>
+  </button>
+</div>
+
 </div>
 
 <div className="bg-[#2f3a27] h-[100px] overflow-hidden flex items-center">
@@ -239,199 +298,242 @@ const handleProducts=()=>{
 
 
 
-     <div className="px-4 py-10 lg:px-16">
-      {/* Text + Button */}
-      <div className="text-center  lg:text-left lg:flex lg:items-center lg:justify-between lg:mb-10">
-        <div data-aos="fade-up" data-aos-delay="100" className="lg:w-1/4">
-          <h2 className="text-[32px] font-tenor tracking-[0.3em] text-[#676A5E]">
-            TRENDING
-          </h2>
-          <h2 className="text-[32px] font-tenor tracking-[0.3em] text-[#676A5E] mb-5">
-            ITEMS
-          </h2>
-          <p className="text-[16px] mx-auto  text-[#676A5E] w-[80%]  mb-10 font-archivo lg:w-full">
-            Discover our most-loved herbal essentials from refreshing Neem hand
-            sanitizers to nourishing beetroot lip balms. Experience nature’s
-            bestsellers, crafted to care.
-          </p>
-          <button onClick={handleChange} 
-           className="mt-2 mb-5 px-6 py-3 bg-black text-white rounded-full text-[14px] font-tenor">
-            All Products<span className="text-xl ml-3">→</span>
-          </button>
-        </div>
-
-        {/* Product Grid on desktop, scrollable on mobile */}
-        <div data-aos="fade-up" data-aos-delay="100" className="mt-10 overflow-x-auto scrollbar-none ">
-          <div className="flex space-x-5 w-max lg:grid lg:grid-cols-5 lg:gap-6">
-            {products.map((product, index) => (
-              <div
-                key={index}
-                className="relative min-w-[270px] h-[360px] font-archivo bg-white border-2 border-[#D8DCCB] rounded-xl overflow-hidden shadow-sm flex flex-col justify-between"
-              >
-                {/* Out of Stock Badge */}
-                {!product.inStock && (
-                  <span className="absolute top-2 left-2 bg-[#D12034] text-white text-[12px] px-3 py-[2px] rounded-full font-semibold z-10">
-                    out of stock
-                  </span>
-                )}
-
-                {/* Content */}
-                <div className="p-4 flex flex-col items-center">
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="h-36 object-contain "
-                  />
-                  <h3 className="text-center text-[24px] text-[#676A5E] mt-2">
-                    {product.name}
-                  </h3>
-                  <img src="images/stars-num.png" alt="stars" className="my-1" />
-                  <div className="text-[28px] font-bold ">{product.price}</div>
-                </div>
-
-                {/* Button */}
-                <button
-                  disabled={!product.inStock}
-                  className={`w-full py-3  text-[24px] transition-all ${
-                    product.inStock
-                      ? 'bg-[#2B452C]   text-white tracking-wide '
-                      : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                  }`}
-                >
-                  {product.inStock ? 'Add to Cart' : 'Unavailable'}
-                </button>
-              
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
+     <div className="px-4 py-10 laptop:px-10 hd:px-12 xxxl:px-16">
+  {/* Text + Button */}
+  <div className="text-center lg:text-left lg:flex lg:items-center lg:justify-between lg:mb-10">
+    
+    {/* Text Column */}
+    <div data-aos="fade-up" data-aos-delay="100" className="lg:w-1/4 laptop:w-[30%] hd:w-[28%] xxxl:w-1/4">
+      <h2 className="text-[28px] laptop:text-[24px] hd:text-[26px] xxxl:text-[34px] font-tenor tracking-[0.3em] text-[#676A5E]">
+        TRENDING
+      </h2>
+      <h2 className="text-[28px] laptop:text-[24px] hd:text-[26px] xxxl:text-[34px] font-tenor tracking-[0.3em] text-[#676A5E] mb-5">
+        ITEMS
+      </h2>
+      <p className="text-[14px] laptop:text-[13px] hd:text-[14px] xxxl:text-[17px] mx-auto text-[#676A5E] w-[80%] lg:w-full mb-10 font-archivo">
+        Discover our most-loved herbal essentials from refreshing Neem hand sanitizers to nourishing beetroot lip balms. Experience nature’s bestsellers, crafted to care.
+      </p>
+      <button
+        onClick={handleChange}
+        className="mt-2 mb-5 px-6 py-3 hd:py-2 xxxl:py-3 laptop:py-1 bg-black text-white rounded-full text-[14px] laptop:text-[12px] hd:text-[14px] xxxl:text-[17px] font-tenor"
+      >
+        All Products<span className="text-lg laptop:text-xl ml-3">→</span>
+      </button>
     </div>
 
-    <div className=" mx-auto px-4 lg:px-16 py-10 lg:mt-10">
-       <div data-aos="fade-up" data-aos-delay="100" className="overflow-hidden ">
-        <img
-          src="images/handwash.png" 
-          alt="Product Highlight "
-          className="w-full mb-10 lg:hidden block"
-        />
+    {/* Product Grid */}
+    <div data-aos="fade-up" data-aos-delay="100" className="mt-10 overflow-x-auto scrollbar-none">
+      <div className="flex space-x-5 w-max lg:grid lg:grid-cols-5 laptop:grid-cols-5 hd:grid-cols-5 xxxl:grid-cols-5 laptop:gap-2 hd:gap-3 xxxl:gap-6">
+        {products.map((product, index) => (
+          <div
+            key={index}
+            className="relative min-w-[250px] laptop:min-w-[150px] hd:min-w-[200px] xxxl:min-w-[270px] h-[340px] laptop:h-[280px] hd:h-[340px] xxxl:h-[360px] font-archivo bg-white border-2 border-[#D8DCCB] rounded-xl overflow-hidden shadow-sm flex flex-col justify-between"
+          >
+            {/* Out of Stock Badge */}
+            {!product.inStock && (
+              <span className="absolute top-2 left-2 bg-[#D12034] text-white text-[12px] px-3 py-[2px] rounded-full font-semibold z-10">
+                out of stock
+              </span>
+            )}
+
+            {/* Product Content */}
+            <div className="p-4 flex flex-col items-center">
+              <img
+                src={product.image}
+                alt={product.name}
+                className="h-32 laptop:h-24 hd:h-28 xxxl:h-36 object-contain"
+              />
+              <h3 className="text-center text-[20px] laptop:text-[18px] hd:text-[22px] xxxl:text-[24px] text-[#676A5E] mt-2">
+                {product.name}
+              </h3>
+              <img src="images/stars-num.png" alt="stars" className="my-1" />
+              <div className="text-[22px] laptop:text-[20px] hd:text-[22px] xxxl:text-[28px] font-bold">
+                {product.price}
+              </div>
+            </div>
+
+            {/* Add to Cart Button */}
+            <button
+              disabled={!product.inStock}
+              className={`w-full py-3 text-[20px] laptop:text-[18px] xxxl:text-[24px] transition-all ${
+                product.inStock
+                  ? 'bg-[#2B452C] text-white tracking-wide'
+                  : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+              }`}
+            >
+              {product.inStock ? 'Add to Cart' : 'Unavailable'}
+            </button>
+          </div>
+        ))}
       </div>
+    </div>
+  </div>
+</div>
+
+<div className="mx-auto px-4 laptop:px-10 hd:px-14 xxxl:px-16 py-10 lg:mt-10">
+  <div data-aos="fade-up" data-aos-delay="100" className="overflow-hidden">
+    <img
+      src="images/handwash.png"
+      alt="Product Highlight"
+      className="w-full mb-10 lg:hidden block"
+    />
+  </div>
+
   <div className="flex flex-col lg:flex-row items-center lg:items-start lg:justify-between gap-10">
-    
-    {/* Left Section - Text Content */}
-    <div className=" space-y-6 text-center lg:text-left lg:max-w-[45%]">
-      <p data-aos="fade-up" data-aos-delay="100" className="text-[16px] font-archivo text-[#676A5E]">Special Products</p>
-      <div data-aos="fade-up" data-aos-delay="100" className="text-[32px] hidden  lg:block font-tenor tracking-[0.2em] leading-snug uppercase text-[#676A5E] space-y-1">
+    {/* Left Section - Text */}
+    <div className="space-y-6 text-center lg:text-left lg:max-w-[45%] laptop:max-w-[52%] hd:max-w-[50%] xxxl:max-w-[45%]">
+      <p data-aos="fade-up" data-aos-delay="100" className="text-[14px] laptop:text-[14px] hd:text-[15px] text-[#676A5E] font-archivo">
+        Special Products
+      </p>
+
+      {/* Large Heading for desktop */}
+      <div
+        data-aos="fade-up"
+        data-aos-delay="100"
+        className="hidden lg:block font-tenor tracking-[0.2em] leading-snug uppercase text-[#676A5E] space-y-1 text-[28px] laptop:text-[24px] hd:text-[28px] xxxl:text-[34px]"
+      >
         <p>EMBRACE FRESHNESS WITH A</p>
         <p>CITRUSY TOUCH</p>
       </div>
-       <div data-aos="fade-up" data-aos-delay="100" className="text-[24px]  font-tenor tracking-wide lg:hidden block leading-normal uppercase text-[#676A5E] flex flex-col items-center">
-       <p>Embrace the</p>   
-         <p>Unembrace</p> 
-         <p>Freshness With a</p>
-         <p> Citrusy Touchseen</p>
-          <p>Magic of Facial</p>
-         <p>   Touchup</p>
-        </div>
-      <p data-aos="fade-up" data-aos-delay="100" className="text-[14px] lg:text-[16px] text-[#676A5E] font-archivo  lg:w-[100%] leading-relaxed">
+
+      {/* Smaller heading for mobile */}
+      <div
+        data-aos="fade-up"
+        data-aos-delay="100"
+        className="text-[22px] laptop:text-[23px] hd:text-[18px] xxxl:text-[25px] font-tenor tracking-wide lg:hidden block leading-normal uppercase text-[#676A5E] flex flex-col items-center"
+      >
+        <p>Embrace the</p>
+        <p>Unembrace</p>
+        <p>Freshness With a</p>
+        <p>Citrusy Touchseen</p>
+        <p>Magic of Facial</p>
+        <p>Touchup</p>
+      </div>
+
+      <p
+        data-aos="fade-up"
+        data-aos-delay="100"
+        className="text-[14px] laptop:text-[13px] hd:text-[14px] xxxl:text-[17px] text-[#676A5E] font-archivo leading-relaxed lg:w-full"
+      >
         Experience the power of nature with Zia Herbal's curated wellness essentials. From facial care to daily hygiene, our products are thoughtfully crafted to refresh, nourish, and protect all while staying true to herbal traditions. From skincare to hand care, our range keeps you naturally nourished. Zia Herbal Neem Hand Wash is crafted with antibacterial Neem and refreshing lemon, tough on germs, gentle on hands. Say goodbye to dryness and hello to farm-fresh hygiene.
       </p>
 
       {/* Features */}
-      <div className="flex justify-between text-[14px] lg:text-[16px] font-archivo text-[#676A5E] pt-4 ">
-        <div data-aos="fade-up" data-aos-delay="100" className="text-center lg:flex lg:items-center lg:gap-4 lg:mb-20">
-          <img src="images/drops.png" alt="Icon 1" className="mx-auto mb-2 w-12 h-12 lg:mb-0 lg:w-[75px] lg:h-[75px]" />
-          <div className="lg:text-left">
-            <p>Required Enamel</p>
-            <p>Solutions</p>
+      <div className="flex justify-between text-[13px] laptop:text-[14px] hd:text-[15px] xxxl:text-[16px] font-archivo text-[#676A5E] pt-4">
+        {[{ icon: 'drops', text: ['Required Enamel', 'Solutions'] },
+          { icon: 'hold', text: ['Stunning Solutions', 'in Face'] },
+          { icon: 'leaf', text: ['Organic Natural', 'Products'] }].map((item, i) => (
+          <div
+            key={i}
+            data-aos="fade-up"
+            data-aos-delay="100"
+            className="text-center lg:flex lg:items-center lg:gap-4 lg:mb-20"
+          >
+            <img
+              src={`images/${item.icon}.png`}
+              alt={`Icon ${i + 1}`}
+              className="mx-auto mb-2 w-12 h-12 laptop:w-[55px] laptop:h-[55px] hd:w-[60px] hd:h-[60px] xxxl:w-[75px] xxxl:h-[75px] lg:mb-0"
+            />
+            <div className="lg:text-left">
+              {item.text.map((line, idx) => (
+                <p key={idx}>{line}</p>
+              ))}
+            </div>
           </div>
-        </div>
-        <div data-aos="fade-up" data-aos-delay="100" className="text-center lg:flex lg:items-center lg:gap-4 lg:mb-20">
-          <img src="images/hold.png" alt="Icon 2" className="mx-auto mb-2 w-12 h-12 lg:mb-0 lg:w-[75px] lg:h-[75px]" />
-          <div className="lg:text-left">
-            <p>Stunning Solutions</p>
-            <p>in Face</p>
-          </div>
-        </div>
-        <div data-aos="fade-up" data-aos-delay="100" className="text-center lg:flex lg:items-center lg:gap-4 lg:mb-20">
-          <img src="images/leaf.png" alt="Icon 3" className="mx-auto mb-2 w-12 h-12 lg:mb-0 lg:w-[75px] lg:h-[75px]" />
-          <div className="lg:text-left">
-            <p>Organic Natural</p>
-            <p>Products</p>
-          </div>
-        </div>
+        ))}
       </div>
 
-      {/* Button - should appear before reviews on desktop */}
-      <div className="lg:flex lg:justify-between ">
-         <div data-aos="fade-up" data-aos-delay="100" className="flex items-center justify-center lg:hidden block ">
-        <img src="images/review.png" alt="Reviews" className="lg:max-w-[350px] lg:my-5 max-w-[300px] my-10" />
-      </div>
-      <div className="text-center lg:text-left font-tenor order-last lg:order-none">
-        
-        <button onClick={handleAbout} data-aos="fade-up" data-aos-delay="100" className="bg-black text-white px-6 py-3 rounded-full text-[14px] mt-5">
-          More Details <span className="text-lg ml-3">→</span>
-        </button>
-      </div>
+      {/* Button + Reviews on Desktop */}
+      <div className="lg:flex lg:justify-between">
+        <div
+          data-aos="fade-up"
+          data-aos-delay="100"
+          className="flex items-center justify-center lg:hidden block"
+        >
+          <img
+            src="images/review.png"
+            alt="Reviews"
+            className="max-w-[300px] laptop:max-w-[260px] hd:max-w-[300px] my-10"
+          />
+        </div>
 
-      {/* Reviews - Last on desktop */}
-      <div data-aos="fade-up" data-aos-delay="100" className="flex items-center justify-center hidden lg:block ">
-        <img src="images/review.png" alt="Reviews" className="lg:max-w-[350px] lg:my-5 max-w-[300px] my-10" />
+        <div className="text-center lg:text-left font-tenor order-last lg:order-none">
+          <button
+            onClick={handleAbout}
+            data-aos="fade-up"
+            data-aos-delay="100"
+            className="bg-black text-white px-6 py-3 rounded-full text-[14px] laptop:text-[13px] hd:text-[14px] xxxl:text-[17px] mt-5"
+          >
+            More Details <span className="ml-3 text-lg">→</span>
+          </button>
+        </div>
+
+        <div
+          data-aos="fade-up"
+          data-aos-delay="100"
+          className="flex items-center justify-center hidden lg:block"
+        >
+          <img
+            src="images/review.png"
+            alt="Reviews"
+            className="lg:max-w-[350px] laptop:max-w-[320px] hd:max-w-[340px] xxxl:max-w-[360px] lg:my-5"
+          />
+        </div>
       </div>
     </div>
-</div>
-    {/* Right Section - Product Image */}
-    <div data-aos="fade-up" data-aos-delay="100" className="relative w-full  lg:w-[650px] ">
-      
-       <img
+
+    {/* Right Image */}
+    <div
+      data-aos="fade-up"
+      data-aos-delay="100"
+      className="relative w-full lg:w-[650px] laptop:w-[550px] hd:w-[580px] xxxl:w-[650px]"
+    >
+      <img
         src="images/bg_lemon.png"
         alt="Product Highlight"
         className="w-full h-auto rounded-xl object-contain hidden lg:block"
       />
-     
-     
     </div>
   </div>
 </div>
+
 
 
     <GlowCards/>
 <div className="font-archivo lg:mt-80">
   {/* Split Section with Green Background */}
   <div className="lg:flex lg:h-[100vh] mx-auto py-16 lg:space-x-12 text-[#676A5E] space-y-10 lg:space-y-0 items-center lg:bg-[#2B452C] lg:text-white  lg:px-0">
-    
-   
     <div data-aos="fade-up" data-aos-delay="100" className="relative lg:w-1/2 ">
       <img
         src="images/girl.png"
         alt="Before and After"
-        className="lg:z-10 relative lg:-top-80 lg:w-[850px] lg:h-[680px] lg:left-20"
+        className="lg:z-10 relative lg:-top-80 laptop:w-[550px] laptop:h-[480px] hd:w-[700px] hd:h-[600px] xxxl:w-[850px] xxxl:h-[680px] lg:left-20"
       />
-      <span className="absolute top-2/3 left-5 lg:top-1/3 lg:left-40 lg:z-10  transform -translate-y-1/2 text-white text-[22px]">Before</span>
-      <span className="absolute top-2/3 right-5  lg:top-1/3 lg:right-20 lg:z-10 transform -translate-y-1/2 text-white text-[22px]">After</span>
+      <span className="absolute top-2/3 left-5 xxxl:top-1/3 xxxl:left-40 hd:top-1/4 hd:left-40 laptop:top-10 laptop:left-40 lg:z-10 transform -translate-y-1/2 text-white text-[20px] laptop:text-[20px] hd:text-[21px] xxxl:text-[22px]">Before</span>
+      <span className="absolute top-2/3 right-5 xxxl:top-1/3 xxxl:right-20 hd:top-1/4 hd:right-10 laptop:top-10 laptop:right-10 lg:z-10 transform -translate-y-1/2 text-white text-[20px] laptop:text-[20px] hd:text-[21px] xxxl:text-[22px]">After</span>
     </div>
 
     {/* Right Side - Text Content on Green Background */}
     <div className="lg:w-1/2 w-full px-4 lg:px-6">
       {/* Heading */}
-      <div data-aos="fade-up" data-aos-delay="100" className="lg:z-10 lg:-mt-[58%] lg:text-[32px] lg:tracking-[0.7rem] lg:text-[#676A5E] font-tenor text-[24px] tracking-widest leading-relaxed uppercase mb-6  lg:text-left text-center">
+      <div data-aos="fade-up" data-aos-delay="100" className="text-[#676A5E] lg:z-10 xxxl:-mt-[58%] hd:-mt-[50%] laptop:-mt-[48%] text-[22px] laptop:text-[24px] hd:text-[24px] xxxl:text-[32px] font-tenor tracking-widest lg:tracking-[0.7rem] leading-relaxed uppercase mb-6 lg:text-left text-center">
         <p>WON’T KILL YOU BUT</p>
         <p>YOU CAN MAKE THEM</p>
         <p>DISAPPEAR</p>
       </div>
 
       {/* Problem */}
-      <div data-aos="fade-up" data-aos-delay="100" className="mb-6 lg:w-[70%] lg:mt-10">
-        <h3 className="text-[24px] font-tenor text-left  tracking-widest mb-2">PROBLEM</h3>
-        <p className="text-[16px] lg:text-[18px] leading-relaxed text-[#676A5E] text-left lg:text-white">
+      <div data-aos="fade-up" data-aos-delay="100" className="mb-6 laptop:w-[90%] hd:w-[80%] xxxl:w-[70%] lg:mt-10">
+        <h3 className="text-[22px] laptop:text-[22px] hd:text-[23px] xxxl:text-[24px] font-tenor text-left tracking-widest mb-2">PROBLEM</h3>
+        <p className="text-[15px] laptop:text-[16px] hd:text-[17px] xxxl:text-[18px] leading-relaxed text-[#676A5E] text-left lg:text-white">
           Many skincare products promise glowing skin but contain harsh chemicals that can damage sensitive skin over time. There’s a need for natural, herbal solutions that safely promote skin brightness and radiance.
         </p>
       </div>
 
       {/* Solutions */}
-      <div data-aos="fade-up" data-aos-delay="100" className="lg:w-[70%]">
-        <h3 className="text-[24px] font-tenor tracking-widest  text-left mb-2">SOLUTIONS</h3>
-        <ul className="list-decimal lg:text-[18px] list-inside space-y-3 text-[16px] text-[#676A5E] lg:text-white text-left">
+      <div data-aos="fade-up" data-aos-delay="100" className="laptop:w-[90%] hd:w-[80%] xxxl:w-[70%]">
+        <h3 className="text-[22px] laptop:text-[18px] hd:text-[21px] xxxl:text-[24px] font-tenor tracking-widest text-left mb-2">SOLUTIONS</h3>
+        <ul className="list-decimal laptop:text-[14px] hd:text-[15px] xxxl:text-[18px] list-inside space-y-3 text-[15px] text-[#676A5E] lg:text-white text-left">
           <li>Zia Herbal’s Radiance Boost Solution is carefully crafted to naturally brighten your skin and restore its healthy glow.</li>
           <li>Herbal-Powered Glow: Made with traditional herbs known to enhance skin radiance.</li>
           <li>Farm-Fresh Purity: Ingredients are directly sourced from our sustainable farmlands for maximum freshness and potency.</li>
@@ -441,8 +543,8 @@ const handleProducts=()=>{
       </div>
 
       {/* Button */}
-      <div data-aos="fade-up" data-aos-delay="100" className="mt-12 lg:text-left">
-        <button onClick={handleChange} className="px-6 py-3 bg-black text-white text-[14px] font-tenor rounded-full">
+      <div data-aos="fade-up" data-aos-delay="100" className="mt-8  lg:text-left">
+        <button onClick={handleChange} className="px-6 py-3 xxxl:py-3 laptop:py-1 hd:py-2 bg-black text-white text-[14px] font-tenor rounded-full">
           See More <span className="text-lg ml-3">→</span>
         </button>
       </div>
@@ -450,92 +552,72 @@ const handleProducts=()=>{
   </div>
 
   {/* Special Products Section */}
-  <div className="bg-white px-4 py-16 lg:z-100  flex flex-col ">
-    <div data-aos="fade-up" data-aos-delay="100" className="text-center mb-10 lg:mb-14 lg:-mt-[18%]">
-      <h2 className="text-[32px] font-tenor lg:text-white uppercase tracking-widest text-[#676A5E] lg:flex lg:justify-center lg:gap-4">
+  <div className="bg-white px-4 py-16 lg:z-100 flex flex-col">
+    <div data-aos="fade-up" data-aos-delay="100" className="text-center mb-10 lg:mb-14 xxxl:-mt-[18%] hd:-mt-[17%] laptop:-mt-[15%]">
+      <h2 className="text-[26px] laptop:text-[22px] hd:text-[28px] xxxl:text-[32px] font-tenor lg:text-white uppercase tracking-widest text-[#676A5E] lg:flex lg:justify-center lg:gap-4">
         <p>Our Special</p>
         <p>Products</p>
       </h2>
     </div>
-<div data-aos="fade-up" data-aos-delay="100" className="flex flex-col lg:flex-row lg:space-x-14 lg:justify-center space-y-8 lg:space-y-0 text-center">
-  {[
-    { src: "images/herbal-handwash.png", label: "Herbal Handwash" },
-    { src: "images/herbal-shampoo.png", label: "Herbal Shampoo" },
-    { src: "images/herbal-soap.png", label: "Herbal Soap" },
-  ].map((item, index) => (
-    <div key={index} className="relative lg:w-[500px] lg:h-[340px]">
-      <img
-        src={item.src}
-        alt={item.label}
-        className="w-full h-full "
-      />
-      <div className="backdrop-blur-sm tracking-widest  font-tenor uppercase w-full absolute bottom-0 lg:py-4  py-2 left-1/2 transform -translate-x-1/2 bg-white/70  text-[#1F1F1F] text-[24px]  ">
-        {item.label}
-      </div>
+    <div data-aos="fade-up" data-aos-delay="100" className="flex flex-col lg:flex-row lg:space-x-14 lg:justify-center space-y-8 lg:space-y-0 text-center">
+      {[{ src: "images/herbal-handwash.png", label: "Herbal Handwash" }, { src: "images/herbal-shampoo.png", label: "Herbal Shampoo" }, { src: "images/herbal-soap.png", label: "Herbal Soap" }].map((item, index) => (
+        <div key={index} className="relative laptop:w-[340px] hd:w-[400px] xxxl:w-[500px] laptop:h-[250px] hd:h-[280px] xxxl:h-[340px]">
+          <img src={item.src} alt={item.label} className="w-full h-full" />
+          <div className="backdrop-blur-sm tracking-widest font-tenor uppercase w-full absolute bottom-0 lg:py-4 py-2 left-1/2 transform -translate-x-1/2 bg-white/70 text-[#1F1F1F] text-[20px] laptop:text-[22px] xxxl:text-[24px]">
+            {item.label}
+          </div>
+        </div>
+      ))}
     </div>
-  ))}
-</div>
-
   </div>
 </div>
 
 
-     <div className="mx-auto px-4 lg:px-28 py-10 lg:mt-20 font-archivo">
+
+    <div className="mx-auto px-4 laptop:px-10 hd:px-20 xxxl:px-28 py-10 laptop:mt-10 hd:mt-16 xxxl:mt-20 font-archivo">
   <div className="flex flex-col lg:flex-row lg:items-start lg:gap-10">
 
     {/* Left Side: Product + Badges */}
-    <div  className="flex flex-col lg:flex-row lg:w-1/2">
+    <div className="flex flex-col lg:flex-row lg:w-1/2">
 
-      {/* Packs Image with Peach Background */}
-      <div className=" lg:w-2/3 ">
+      {/* Packs Image */}
+      <div className="lg:w-2/3">
         <img
           src="images/packs.png"
           alt="Zia Herbal Face Pack"
-          className="w-full lg:w-[560px]  h-auto object-contain"
+          className="w-full laptop:w-[400px] hd:w-[500px] xxxl:w-[560px] h-auto object-contain"
         />
       </div>
 
-      {/* ISO and Smile Images  */}
+      {/* ISO and Smile Images */}
       <div data-aos="fade-up" data-aos-delay="100" className="flex flex-row lg:flex-col justify-center items-center gap-6 lg:pl-6 mt-6 lg:mt-0">
-        <img
-          src="images/approved.png"
-          alt="Certified"
-          className=" h-auto lg:hidden"
-        />
-        <img
-          src="images/iso.png"
-          alt="Certified"
-          className=" h-auto hidden lg:block mb-10"
-        />
-        <img
-          src="images/smile.png"
-          alt="Smiling Woman"
-          className="h-auto  lg:w-[210px]"
-        />
+        <img src="images/approved.png" alt="Certified" className="h-auto lg:hidden" />
+        <img src="images/iso.png" alt="Certified" className="h-auto hidden lg:block mb-10" />
+        <img src="images/smile.png" alt="Smiling Woman" className="h-auto laptop:w-[150px] hd:w-[180px] xxxl:w-[210px]" />
       </div>
     </div>
 
     {/* Right Side: Text Content */}
     <div className="lg:w-1/2 mt-10 lg:-mt-10">
       {/* Heading */}
-      <div data-aos="fade-up" data-aos-delay="100" className="lg:flex hidden lg:block lg:flex-col  lg:text-[32px] text-left font-tenor text-[24px]  tracking-[0.2em] text-[#676A5E] uppercase mb-8">
-        <p>Best Selling Aesthetician</p>
-        <p>Skincare Brands</p>
+      <div data-aos="fade-up" data-aos-delay="100" className="hidden text-left lg:flex lg:flex-col font-tenor uppercase tracking-[0.2em] text-[#676A5E] mb-8">
+        <p className="text-[24px] laptop:text-[24px] hd:text-[28px] xxxl:text-[32px]">Best Selling Aesthetician</p>
+        <p className="text-[24px] laptop:text-[24px] hd:text-[28px] xxxl:text-[32px]">Skincare Brands</p>
       </div>
-      <div data-aos="fade-up" data-aos-delay="100" className="lg:hidden block lg:gap-5 lg:text-[32px] text-left font-tenor text-[24px] leading-relaxed tracking-[0.2em] text-[#676A5E] uppercase mb-8">
-        <p>Best Selling</p>
-        <p>Aesthetician</p> 
-        <p>Skincare Brands</p>
+      <div data-aos="fade-up" data-aos-delay="100" className="lg:hidden block font-tenor uppercase tracking-[0.2em] text-[#676A5E] mb-8">
+        <p className="text-[24px]">Best Selling</p>
+        <p className="text-[24px]">Aesthetician</p>
+        <p className="text-[24px]">Skincare Brands</p>
       </div>
 
       {/* Feature #1 */}
       <div data-aos="fade-up" data-aos-delay="100" className="flex items-start gap-4 lg:gap-8 text-left mb-6">
-        <img src="images/ph.png" alt="pH icon" className=" mt-2" />
+        <img src="images/ph.png" alt="pH icon" className="mt-2 " />
         <div>
-          <h3 className="text-[20px] text-[#B2BA98] font-semibold mb-4">
+          <h3 className="text-[18px] laptop:text-[16px] hd:text-[18px] xxxl:text-[22px] text-[#B2BA98] font-semibold mb-4">
             Premium Natural Ingredients
           </h3>
-          <p className="text-[16px] lg:w-[75%] text-[#676A5E] leading-relaxed">
+          <p className="text-[14px] laptop:text-[13px] hd:text-[14px] xxxl:text-[16px] text-[#676A5E] leading-relaxed laptop:w-[90%] hd:w-[80%] xxxl:w-[75%]">
             Our Zia Herbal Face Pack is crafted using farm-fresh, 100% organic herbs. It
             naturally brightens the skin while nourishing it from within.
           </p>
@@ -544,12 +626,12 @@ const handleProducts=()=>{
 
       {/* Feature #2 */}
       <div data-aos="fade-up" data-aos-delay="100" className="flex items-start gap-4 lg:gap-8 text-left">
-        <img src="images/spray.png" alt="Bottle icon" className=" mt-2" />
+        <img src="images/spray.png" alt="Bottle icon" className="mt-2 " />
         <div>
-          <h3 className="text-[20px] text-[#B2BA98] mb-4">
+          <h3 className="text-[18px] laptop:text-[16px] hd:text-[18px] xxxl:text-[22px] text-[#B2BA98] mb-4">
             High-quality Raw Materials
           </h3>
-          <p className="text-[16px] lg:w-[75%] text-[#676A5E] leading-relaxed">
+          <p className="text-[14px] laptop:text-[13px] hd:text-[14px] xxxl:text-[16px] text-[#676A5E] leading-relaxed laptop:w-[90%] hd:w-[80%] xxxl:w-[75%]">
             Every ingredient is carefully selected from our sustainable farms to ensure
             purity, effectiveness, and the perfect skin-friendly formula.
           </p>
@@ -558,7 +640,7 @@ const handleProducts=()=>{
 
       {/* Button */}
       <div data-aos="fade-up" data-aos-delay="100" className="text-center lg:text-left font-tenor mt-10">
-        <button onClick={handleChange}   className="bg-black text-white px-6 py-3 rounded-full text-[14px]">
+        <button onClick={handleChange} className="bg-black text-white px-6 py-3 rounded-full text-[14px]">
           See More <span className="text-lg ml-3">→</span>
         </button>
       </div>
@@ -567,78 +649,99 @@ const handleProducts=()=>{
 </div>
 
     
-    <div className="lg:mt-20 flex items-center justify-evenly tracking-widest space-x-4 text-[20px] lg:text-[40px] font-tenor  text-[#676A5E] mb-4">
-  <div data-aos="fade-up" data-aos-delay="100" className="text-left leading-relaxed lg:flex ">
+   <div className="lg:mt-20 flex items-center justify-evenly tracking-widest space-x-2 laptop:space-x-4 hd:space-x-6 xxxl:space-x-8 text-[16px] laptop:text-[28px] hd:text-[34px] xxxl:text-[40px] font-tenor text-[#676A5E] mb-4">
+  {/* Block 1 */}
+  <div data-aos="fade-up" data-aos-delay="100" className="text-left leading-relaxed lg:flex  items-start">
     <p>35% OFFER</p>
     <p>ON BEAUTY</p>
   </div>
 
-  <img src="/images/Star1.png" alt="star" className="w-6 h-6" />
+  <img src="/images/Star1.png" alt="star" className="w-4 h-4 laptop:w-5 laptop:h-5 hd:w-6 hd:h-6" />
 
-  <div data-aos="fade-up" data-aos-delay="100" className="text-left leading-relaxed  lg:flex">
+  {/* Block 2 */}
+  <div data-aos="fade-up" data-aos-delay="100" className="text-left leading-relaxed lg:flex  items-start">
     <p>25% OFF</p>
     <p>SHINE</p>
   </div>
 
+  <img src="/images/Star1.png" alt="star" className="hidden lg:block w-4 h-4 laptop:w-5 laptop:h-5 hd:w-6 hd:h-6" />
 
- <img src="/images/Star1.png" alt="star" className="hidden lg:block w-6 h-6" />
-
-  <div data-aos="fade-up" data-aos-delay="100" className="text-left leading-relaxed hidden lg:block  lg:flex">
+  {/* Block 3 */}
+  <div data-aos="fade-up" data-aos-delay="100" className="hidden lg:flex  items-start text-left leading-relaxed">
     <p>25% OFF</p>
     <p>SHINE</p>
   </div>
 </div>
 
+
     <CareCollectionsSection/>
 
-    <div className="lg:mt-20  p-6 text-left lg:text-center mb-10">
+  <div className="lg:mt-20 p-6 text-left lg:text-center mb-10">
   {/* Title */}
-  <h2 data-aos="fade-up" data-aos-delay="100" className="text-[#686257] font-tenor text-[24px] lg:mb-20 lg:text-[32px] tracking-widest mb-10 uppercase">
+  <h2
+    data-aos="fade-up"
+    data-aos-delay="100"
+    className="text-[#686257] font-tenor text-[24px] lg:mb-20 lg:text-[32px] tracking-widest mb-10 uppercase"
+  >
     Customer Support Feedback
   </h2>
 
   {/* Testimonials Container */}
-  <div className="grid grid-cols-1 lg:grid-cols-3 gap- lg:ml-40 lg:px-24 lg:mb-40">
+  <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:ml-40 xxxl:px-24  lg:mb-40">
+    
     {/* Testimonial Card 1 */}
-    <div data-aos="fade-up" data-aos-delay="100" className="flex flex-col   text-left lg:w-[70%]  items-left text-[#686257]">
-      <img src="images/quotes.png" className="mb-4" />
+    <div
+      data-aos="fade-up"
+      data-aos-delay="100"
+      className="flex flex-col text-left xxxl:w-[70%] laptop:w-[100%] hd:w-[90%] items-left text-[#686257]"
+    >
+      <img src="/images/quotes.png" alt="quote" className="mb-4 " />
       <p className="font-archivo text-[18px] leading-relaxed">
         Proin a interdum elit. Etiam eu sapien sem. Suspendisse a massa justo.
         Cras eget lorem nunc. Fusce nec urna tempus tempus
       </p>
-      <div className="flex items-center justify-left mt-6 space-x-4 ">
-        <img src="images/manager1.png" alt="User" className="w-10 h-10 rounded-full" />
+      <div className="flex items-center justify-left mt-6 space-x-4">
+        <img src="/images/manager1.png" alt="User" className="w-10 h-10 rounded-full" />
         <p className="text-[16px] font-archivo">Jenifer Nisha - Manager</p>
       </div>
     </div>
 
     {/* Testimonial Card 2 */}
-    <div data-aos="fade-up" data-aos-delay="100" className="flex hidden lg:block flex-col items-left text-left lg:w-[70%]  text-[#686257]">
-      <img src="images/quotes.png" className="mb-4 " />
+    <div
+      data-aos="fade-up"
+      data-aos-delay="100"
+      className="flex hidden lg:block flex-col items-left text-left xxxl:w-[70%] laptop:w-[100%] hd:w-[90%] text-[#686257]"
+    >
+      <img src="/images/quotes.png" alt="quote" className="mb-4 " />
       <p className="font-archivo text-[18px] text-left leading-relaxed">
         Proin a interdum elit. Etiam eu sapien sem. Suspendisse a massa justo.
         Cras eget lorem nunc. Fusce nec urna tempus tempus
       </p>
       <div className="flex items-center mt-6 space-x-4">
-        <img src="images/manager1.png" alt="User" className="w-10 h-10 rounded-full" />
+        <img src="/images/manager1.png" alt="User" className="w-10 h-10 rounded-full" />
         <p className="text-[16px] font-archivo">Jenifer Nisha - Manager</p>
       </div>
     </div>
 
     {/* Testimonial Card 3 */}
-    <div data-aos="fade-up" data-aos-delay="100" className="flex hidden lg:block flex-col items-left text-left lg:w-[70%]   text-[#686257]">
-      <img src="images/quotes.png" className="mb-4 " />
+    <div
+      data-aos="fade-up"
+      data-aos-delay="100"
+      className="flex hidden lg:block flex-col items-left text-left xxxl:w-[70%] laptop:w-[100%] hd:w-[90%] text-[#686257]"
+    >
+      <img src="/images/quotes.png" alt="quote" className="mb-4 " />
       <p className="font-archivo text-[18px] text-left leading-relaxed">
         Proin a interdum elit. Etiam eu sapien sem. Suspendisse a massa justo.
         Cras eget lorem nunc. Fusce nec urna tempus tempus
       </p>
       <div className="flex items-center mt-6 space-x-4">
-        <img src="images/manager1.png" alt="User" className="w-10 h-10 rounded-full" />
+        <img src="/images/manager1.png" alt="User" className="w-10 h-10 rounded-full" />
         <p className="text-[16px] font-archivo">Jenifer Nisha - Manager</p>
       </div>
     </div>
   </div>
 </div>
+
 
 
     <Footer/>

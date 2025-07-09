@@ -117,7 +117,7 @@ const handleUpdate = async () => {
 
   try {
     const res = await fetch(
-      "https://booksemporium.in/Microservices_zia/prod/02_Authentication/auth/register",
+      "https://booksemporium.in/Microservices_zia/prod/02_Authentication/auth/update",
       {
         method: "PUT",
         headers: {
@@ -134,8 +134,8 @@ const handleUpdate = async () => {
             city: form.address.city,
             state: form.address.state,
             postal_code: form.address.postal_code,
-            country: form.address.country,
-            is_default: true
+            country: form.address.country || "India",
+            is_default: true,
           },
         }),
       }
@@ -150,13 +150,15 @@ const handleUpdate = async () => {
     }
   } catch (err) {
     console.error("Update error:", err);
-    showPopup("error", "Something went wrong.");
+    showPopup("error", "Something went wrong while updating profile.");
   }
 };
 
 
+
+
   return (
-    <div className="min-h-screen pt-[25%] flex flex-col items-center font-archivo px-10 py-6 bg-white">
+    <div className="min-h-screen pt-[25%] lg:pt-[0] flex flex-col items-center font-archivo px-10 py-6 bg-white">
       <h1 className="text-[30px] text-[#2E3A27] font-bold mb-4">User Profile</h1>
 
       <div className="bg-white shadow-lg rounded-lg p-6 flex flex-col items-center w-full max-w-sm mb-8">

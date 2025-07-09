@@ -52,9 +52,9 @@ const handleCart=()=>{
     isScrolled ? 'bg-[#2f3a27] shadow-md' : 'bg-[#2f3a27]'
   }`}
 >
-  {/* Replace entire logic block inside here with this 👇 */}
+ 
   {!isScrolled ? (
-    // 🟢 Full Top Layout for all pages before scroll
+   
     <>
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
@@ -85,7 +85,7 @@ const handleCart=()=>{
       </div>
     </>
   ) : isHome ? (
-    // 🟡 Scrolled Home Page Layout
+    // Home Page Layout
     <div className="flex items-center justify-between">
       <button onClick={() => setIsOpen(true)} className="text-white">
         <IoMenu className="text-5xl" />
@@ -108,7 +108,7 @@ const handleCart=()=>{
       </div>
     </div>
   ) : (
-    // 🔴 Scrolled Other Page Layout
+    //  Other Page Layout
     <div className="flex items-center justify-between">
       <button onClick={() => navigate(-1)} className="text-white text-3xl">
         <FaArrowLeft />
@@ -136,76 +136,74 @@ const handleCart=()=>{
 
 
         {/* Desktop View */}
-        <div className="hidden lg:flex w-full fixed top-0 z-50 font-archivo">
-          {/* Left Section */}
-          <div className="bg-[#2f3a27] flex items-center px-6 py-3 gap-8 w-[50%]">
-            <img src="images/zia_logo.png" alt="Zia Logo" className="h-14" />
+  <div className="hidden laptop:flex w-full fixed top-0 z-50 font-archivo overflow-x-auto">
+  {/* Left Section */}
+  <div className="bg-[#2f3a27] flex items-center px-4 laptop:px-4 xxxl:px-10 py-3 gap-6 hd:gap-10 laptop:gap-6 xxxl:gap-14 laptop:w-[45%] xxxl:w-[45%] ">
+    <img src="images/zia_logo.png" alt="Zia Logo" className="h-12 laptop:h-14 xxxl:h-16 px-2 shrink-0" />
 
-           <ul className="flex gap-14 text-[20px] items-center tracking-widest">
-  <NavLink
-    to="/home"
-    className={({ isActive }) =>
-      `ml-10 ${isActive ? 'border-b-2 border-white' : ''}`
-    }
-  >
-    Home
-  </NavLink>
-  <NavLink
-    to="/shoplist"
-    className={({ isActive }) =>
-      `${isActive ? 'border-b-2 border-white' : ''}`
-    }
-  >
-    Shop
-  </NavLink>
-  <NavLink
-    to="/about"
-    className={({ isActive }) =>
-      `${isActive ? 'border-b-2 border-white' : ''}`
-    }
-  >
-    About Us
-  </NavLink>
-  <NavLink
-    to="/contactus"
-    className={({ isActive }) =>
-      `${isActive ? 'border-b-2 border-white' : ''}`
-    }
-  >
-    Contact Us
-  </NavLink>
-   <NavLink
-    to="/ordertracking"
-    className={({ isActive }) =>
-      `${isActive ? 'border-b-2 border-white' : ''}`
-    }
-  >
-   Track Order
-  </NavLink>
-</ul>
+    <ul className="flex gap-6 laptop:gap-6 xxxl:gap-14 hd:gap-10 hd:text-[18px] text-[16px] laptop:text-[17px] xxxl:text-[20px] items-center justify-start ">
+      <NavLink
+        to="/home"
+        className={({ isActive }) => `ml-2 ${isActive ? 'border-b-2 border-white' : ''}`}
+      >
+        Home
+      </NavLink>
+      <NavLink
+        to="/shoplist"
+        className={({ isActive }) => `${isActive ? 'border-b-2 border-white' : ''}`}
+      >
+        Shop
+      </NavLink>
+      <NavLink
+        to="/about"
+        className={({ isActive }) => `${isActive ? 'border-b-2 border-white' : ''}`}
+      >
+        About Us
+      </NavLink>
+      <NavLink
+        to="/contactus"
+        className={({ isActive }) => `${isActive ? 'border-b-2 border-white' : ''}`}
+      >
+        Contact Us
+      </NavLink>
+      <NavLink
+        to="/ordertracking"
+        className={({ isActive }) => `${isActive ? 'border-b-2 border-white' : ''}`}
+      >
+        Track Order
+      </NavLink>
+    </ul>
+  </div>
 
-          </div>
+  {/* Right Section */}
+  <div className="bg-[#1f210e] flex items-center gap-4 laptop:gap-6 xxxl:gap-10 px-4 laptop:px-6 xxxl:px-14 py-3  justify-start w-[55%] xxxl:w-[55%]">
+    <div className="flex items-center text-[14px] laptop:text-[16px] xxxl:text-[20px] gap-2 shrink-0">
+      <GoLocation className="text-sm xxxl:text-lg" />
+      <span>Chennai</span>
+    </div>
 
-          {/* Right Section */}
-          <div className="bg-[#1f210e] flex items-center gap-8 px-6 py-3 w-[60%] justify-start">
-            <div className="flex items-center text-[20px] tracking-widest gap-2 mx-5 ">
-              <GoLocation className="text-sm " />
-              <span>Chennai</span>
-            </div>
+    <div className="bg-[#545D4F] flex items-center px-3 py-3 laptop:py-2 rounded-lg w-full ">
+      <BiSearchAlt className="w-5 h-5 laptop:w-6 laptop:h-6 mr-2 shrink-0" />
+      <input
+        type="text"
+        placeholder="Search your products"
+        className="bg-transparent outline-none xxxl:text-lg laptop:text-sm w-full placeholder-white"
+      />
+    </div>
 
-            <div className="bg-[#545D4F] flex items-center px-3 py-2 rounded-lg w-[100%] ">
-              <BiSearchAlt className="w-7 h-7 mr-2" />
-              <input
-                type="text"
-                placeholder="Search your products"
-                className="bg-transparent outline-none tracking-widest text-md w-full placeholder-white"
-              />
-            </div>
-            <FaShoppingCart className="text-4xl cursor-pointer" onClick={handleCart} />
-            <FaUser onClick={handleChange}  className="cursor-pointer text-3xl mr-10" />
-            
-          </div>
-        </div>
+    <FaShoppingCart
+      className="text-2xl laptop:text-2xl xxxl:text-3xl cursor-pointer shrink-0"
+      onClick={handleCart}
+    />
+    <FaUser
+      onClick={handleChange}
+      className="cursor-pointer text-2xl laptop:text-2xl xxxl:text-3xl shrink-0"
+    />
+  </div>
+</div>
+
+
+
       </nav>
 
       {/* Mobile Slide Menu */}
