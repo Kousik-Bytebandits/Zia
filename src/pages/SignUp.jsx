@@ -29,6 +29,11 @@ export default function SignUp() {
     message: "",
   });
  const otpRefs = useRef([]);
+ const moveToNext = (index) => {
+  if (index < otpRefs.current.length - 1) {
+    otpRefs.current[index + 1]?.focus();
+  }
+};
   const showPopup = (type, message) => {
     setPopup({ show: true, type, message });
   };
@@ -102,10 +107,6 @@ export default function SignUp() {
   const handleSignup = async (e) => {
   e.preventDefault();
 
-  if (!/^\d{10}$/.test(form.phone)) {
-    showPopup("error", "Phone number must be exactly 10 digits");
-    return;
-  }
 
   if (!otpVerified) {
     showPopup("error", "Please verify OTP before signing up");
@@ -164,65 +165,46 @@ export default function SignUp() {
   }
 };
 
+const handleOtpChange = (e, index) => {
+    const value = e.target.value;
+    if (!/^[0-9]?$/.test(value)) return;
 
-const renderOtpInput = (boxSize = "w-12 h-12") => (
-  <div className="flex flex-wrap lg:flex-nowrap lg:gap-4 justify-center gap-1 max-w-[340px] mx-auto">
-    {otp.map((val, i) => (
-      <input
-        key={i}
-        ref={(el) => (otpRefs.current[i] = el)}
-        maxLength={1}
-        type="text"
-        inputMode="numeric"
-        pattern="[0-9]*"
-        value={val}
-        onChange={(e) => {
-          const newValue = e.target.value.replace(/\D/g, "");
-          if (!newValue) return;
+    const updatedOtp = [...otp];
+    updatedOtp[index] = value;
+    setOtp(updatedOtp);
 
-          const updatedOtp = [...otp];
-          updatedOtp[i] = newValue;
-          setOtp(updatedOtp);
+    if (value) moveToNext(index);
+  };
 
-         
-          if (i < 5 && newValue) {
-            setTimeout(() => {
-              otpRefs.current[i + 1]?.focus();
-            }, 10);
-          }
-        }}
-        onKeyDown={(e) => {
-          if (e.key === "Backspace") {
-            e.preventDefault();
-            const updatedOtp = [...otp];
-            if (otp[i]) {
-              updatedOtp[i] = "";
-              setOtp(updatedOtp);
-            } else if (i > 0) {
-              otpRefs.current[i - 1]?.focus();
-            }
-          }
-        }}
-        onPaste={(e) => {
-          e.preventDefault();
-          const pasted = e.clipboardData.getData("text").replace(/\D/g, "").slice(0, 6);
-          const pastedArray = pasted.split("");
-          const updatedOtp = [...otp];
-          for (let j = 0; j < pastedArray.length; j++) {
-            updatedOtp[j] = pastedArray[j];
-            otpRefs.current[j]?.focus();
-          }
-          setOtp(updatedOtp);
-        }}
-        className={`${boxSize} rounded-lg bg-[#D8E5DC] text-center text-xl outline-none`}
-      />
-    ))}
-  </div>
-);
+  const handleOtpKeyDown = (e, index) => {
+    if (e.key === "Backspace" && !e.target.value && index > 0) {
+      otpRefs.current[index - 1]?.focus();
+    }
+  };
+
+const renderOtpInput = () => (
+    <div className="grid grid-cols-6 gap-2 justify-center w-full">
+      {[...Array(6)].map((_, i) => (
+        <input
+          key={i}
+          type="text"
+          maxLength={1}
+          ref={(el) => (otpRefs.current[i] = el)}
+          value={otp[i]}
+          onChange={(e) => handleOtpChange(e, i)}
+          onKeyDown={(e) => handleOtpKeyDown(e, i)}
+          className="w-[15%] min-w-[48px] h-10 rounded-lg bg-[#D8E5DC] text-center text-xl outline-none"
+        />
+      ))}
+    </div>
+  );
+
+
+
 
 
  const renderForm = (isDesktop) => (
-  <form className="space-y-4" onSubmit={handleSignup}>
+  <form className="space-y-4 xxxl:space-y-4 laptop:space-y-1 hd:space-y-2" onSubmit={handleSignup}>
     {/* First and Last Name */}
     {isDesktop ? (
       <div className="flex gap-4">
@@ -233,7 +215,7 @@ const renderOtpInput = (boxSize = "w-12 h-12") => (
           value={form.first_name}
           onChange={handleChange}
           required
-          className="w-1/2 px-4 py-3 rounded-lg bg-[#D8E5DC] outline-none"
+          className="w-1/2 px-4 py-3 xxxl:px-4 xxxl:py-3 laptop:px-3 laptop:py-2 hd:px-4 hd:py-2 rounded-lg bg-[#D8E5DC] outline-none"
         />
         <input
           type="text"
@@ -241,7 +223,7 @@ const renderOtpInput = (boxSize = "w-12 h-12") => (
           placeholder="Last Name"
           value={form.last_name}
           onChange={handleChange}
-          className="w-1/2 px-4 py-3 rounded-lg bg-[#D8E5DC] outline-none"
+          className="w-1/2 px-4 py-3 xxxl:px-4 xxxl:py-3 laptop:px-3 laptop:py-2 hd:px-4 hd:py-2 rounded-lg bg-[#D8E5DC] outline-none"
         />
       </div>
     ) : (
@@ -253,7 +235,7 @@ const renderOtpInput = (boxSize = "w-12 h-12") => (
           value={form.first_name}
           onChange={handleChange}
           required
-          className="w-full px-4 py-3 rounded-lg bg-[#D8E5DC] outline-none"
+          className="w-full px-4 py-3 xxxl:px-4 xxxl:py-3 laptop:px-3 laptop:py-2 hd:px-4 hd:py-2 rounded-lg bg-[#D8E5DC] outline-none"
         />
         <input
           type="text"
@@ -261,21 +243,24 @@ const renderOtpInput = (boxSize = "w-12 h-12") => (
           placeholder="Last Name"
           value={form.last_name}
           onChange={handleChange}
-          className="w-full px-4 py-3 rounded-lg bg-[#D8E5DC] outline-none"
+          className="w-full px-4 py-3 xxxl:px-4 xxxl:py-3 laptop:px-3 laptop:py-2 hd:px-4 hd:py-2 rounded-lg bg-[#D8E5DC] outline-none"
         />
       </>
     )}
 
     {/* Phone and Email */}
     <input
-      type="text"
-      name="phone"
-      placeholder="Phone No*"
-      value={form.phone}
-      onChange={handleChange}
-      required
-      className="w-full px-4 py-3 rounded-lg bg-[#D8E5DC] outline-none"
-    />
+  type="tel"
+  name="phone"
+  pattern="[0-9]{10}"
+  title="Phone number must be exactly 10 digits"
+  placeholder="Phone No*"
+  value={form.phone}
+  onChange={handleChange}
+  required
+  className="w-full px-4 py-3 xxxl:px-4 xxxl:py-3 laptop:px-3 laptop:py-2 hd:px-4 hd:py-2 rounded-lg bg-[#D8E5DC] outline-none"
+/>
+
     <input
       type="email"
       name="email"
@@ -283,29 +268,30 @@ const renderOtpInput = (boxSize = "w-12 h-12") => (
       value={form.email}
       onChange={handleChange}
       required
-      className="w-full px-4 py-3 rounded-lg bg-[#D8E5DC] outline-none"
+      className="w-full px-4 py-3 xxxl:px-4 xxxl:py-3 laptop:px-3 laptop:py-2 hd:px-4 hd:py-2 rounded-lg bg-[#D8E5DC] outline-none"
     />
 
     {/* OTP */}
-    <div className="bg-[#F9F9F9] rounded-md p-4 border border-[#F0F0F0]">
-      {renderOtpInput(isDesktop ? "w-20 h-14" : "w-[15%] h-10")}
+    <div className="bg-[#F9F9F9] rounded-md p-4 xxxl:p-4 laptop:p-1 hd:p-2 border border-[#F0F0F0]">
+      {renderOtpInput()}
+
       <div className="flex justify-around mt-4 lg:mt-6 gap-4">
         <button
           type="button"
           onClick={sendOtp}
-          className="bg-[#4D765A] text-white w-[50%] py-2 rounded-md text-[18px]"
+          className="bg-[#4D765A] text-white w-[50%] py-2 xxxl:py-2 laptop:py-1 hd:py-1 rounded-md text-[18px] xxxl:text-[18px] laptop:text-[14px] hd:text-[16px]"
         >
           Send OTP
         </button>
         <button
           type="button"
           onClick={verifyOtp}
-          className="bg-[#161616] text-white w-[50%] py-2 rounded-md text-[18px]"
+          className="bg-[#161616] text-white w-[50%] py-2 rounded-md text-[18px] xxxl:text-[18px] laptop:text-[14px] hd:text-[16px] "
         >
           Verify OTP
         </button>
       </div>
-      <p className="text-[#4D4D4D] text-[12px] lg:text-[14px] text-center mt-4 font-semibold">
+      <p className="text-[#4D4D4D] text-[12px] xxxl:text-[14px] laptop:text-[12px] hd:text-[14px] text-center mt-4 font-semibold">
         Resend OTP
       </p>
     </div>
@@ -321,7 +307,7 @@ const renderOtpInput = (boxSize = "w-12 h-12") => (
   value={form.password}
   onChange={handleChange}
   required
-  className="w-full px-4 py-3 rounded-lg bg-[#D8E5DC] outline-none"
+  className="w-full px-4 py-3 xxxl:px-4 xxxl:py-3 laptop:px-3 laptop:py-2 hd:px-4 hd:py-2 rounded-lg bg-[#D8E5DC] outline-none"
 />
 <input
   type="password"
@@ -331,7 +317,7 @@ const renderOtpInput = (boxSize = "w-12 h-12") => (
   value={form.confirmPassword}
   onChange={handleChange}
   required
-  className="w-full px-4 py-3 rounded-lg bg-[#D8E5DC] outline-none"
+  className="w-full px-4 py-3 xxxl:px-4 xxxl:py-3 laptop:px-3 laptop:py-2 hd:px-4 hd:py-2 rounded-lg bg-[#D8E5DC] outline-none"
 />
 
       </div>
@@ -345,7 +331,7 @@ const renderOtpInput = (boxSize = "w-12 h-12") => (
   value={form.password}
   onChange={handleChange}
   required
-  className="w-full px-4 py-3 rounded-lg bg-[#D8E5DC] outline-none"
+  className="w-full px-4 py-3 xxxl:px-4 xxxl:py-3 laptop:px-3 laptop:py-2 hd:px-4 hd:py-2 rounded-lg bg-[#D8E5DC] outline-none"
 />
 <input
   type="password"
@@ -355,7 +341,7 @@ const renderOtpInput = (boxSize = "w-12 h-12") => (
   value={form.confirmPassword}
   onChange={handleChange}
   required
-  className="w-full px-4 py-3 rounded-lg bg-[#D8E5DC] outline-none"
+  className="w-full px-4 py-3 xxxl:px-4 xxxl:py-3 laptop:px-3 laptop:py-2 hd:px-4 hd:py-2 rounded-lg bg-[#D8E5DC] outline-none"
 />
 
       </>
@@ -369,7 +355,7 @@ const renderOtpInput = (boxSize = "w-12 h-12") => (
       value={form.street_address}
       onChange={handleChange}
       required
-      className="w-full px-4 py-3 rounded-lg bg-[#D8E5DC] outline-none"
+      className="w-full px-4 py-3 xxxl:px-4 xxxl:py-3 laptop:px-3 laptop:py-2 hd:px-4 hd:py-2 rounded-lg bg-[#D8E5DC] outline-none"
     />
 
     {/* State, City, Pincode */}
@@ -382,7 +368,7 @@ const renderOtpInput = (boxSize = "w-12 h-12") => (
           value={form.state}
           onChange={handleChange}
           required
-          className="w-1/3 px-4 py-3 rounded-lg bg-[#D8E5DC] outline-none"
+          className="w-1/3 px-4 py-3 xxxl:px-4 xxxl:py-3 laptop:px-3 laptop:py-2 hd:px-4 hd:py-2 rounded-lg bg-[#D8E5DC] outline-none"
         />
         <input
           type="text"
@@ -391,17 +377,20 @@ const renderOtpInput = (boxSize = "w-12 h-12") => (
           value={form.city}
           onChange={handleChange}
           required
-          className="w-1/3 px-4 py-3 rounded-lg bg-[#D8E5DC] outline-none"
+          className="w-1/3 px-4 py-3 xxxl:px-4 xxxl:py-3 laptop:px-3 laptop:py-2 hd:px-4 hd:py-2 rounded-lg bg-[#D8E5DC] outline-none"
         />
-        <input
-          type="text"
-          name="postal_code"
-          placeholder="Pincode*"
-          value={form.postal_code}
-          onChange={handleChange}
-          required
-          className="w-1/3 px-4 py-3 rounded-lg bg-[#D8E5DC] outline-none"
-        />
+     <input
+  type="text"
+  name="postal_code"
+  pattern="[0-9]{6}"
+  title="Pincode must be exactly 6 digits"
+  placeholder="Pincode*"
+  value={form.postal_code}
+  onChange={handleChange}
+  required
+  className="w-full px-4 py-3 xxxl:px-4 xxxl:py-3 laptop:px-3 laptop:py-2 hd:px-4 hd:py-2 rounded-lg bg-[#D8E5DC] outline-none"
+/>
+
       </div>
     ) : (
       <>
@@ -423,23 +412,26 @@ const renderOtpInput = (boxSize = "w-12 h-12") => (
           required
           className="w-full px-4 py-3 rounded-lg bg-[#D8E5DC] outline-none"
         />
-        <input
-          type="text"
-          name="postal_code"
-          placeholder="Pincode*"
-          value={form.postal_code}
-          onChange={handleChange}
-          required
-          className="w-full px-4 py-3 rounded-lg bg-[#D8E5DC] outline-none"
-        />
+       <input
+  type="text"
+  name="postal_code"
+  pattern="[0-9]{6}"
+  title="Pincode must be exactly 6 digits"
+  placeholder="Pincode*"
+  value={form.postal_code}
+  onChange={handleChange}
+  required
+  className="w-full px-4 py-3 rounded-lg bg-[#D8E5DC] outline-none"
+/>
+
       </>
     )}
 
     {/* Submit Button */}
-    <div className="text-center pt-4">
+    <div className="text-center pt-4 xxxl:pt-4 laptop:pt-2 hd:pt-3">
       <button
         type="submit"
-        className="bg-[#2F623A] text-white rounded-full py-3 px-28 text-[22px] font-semibold"
+        className="bg-[#2F623A] text-white rounded-full py-3 px-28 xxxl:px-28 xxxl:py-3 laptop:px-20 laptop:py-1 hd:px-28 hd:py-2 text-[22px] xxxl:text-[22px] laptop:text-[18px] hd:text-[20px] font-semibold"
       >
         Sign Up
       </button>
@@ -461,7 +453,7 @@ const renderOtpInput = (boxSize = "w-12 h-12") => (
         <div className="relative z-20 flex h-full w-full justify-center items-center">
           <div className="w-[70%] h-[80%] rounded-2xl overflow-hidden shadow-2xl flex">
             <div className="w-1/2 bg-white p-10 flex flex-col justify-center">
-              <p className="text-center font-tenor text-[#2E3A27] text-[22px] mb-6">
+              <p className="text-center font-tenor text-[#2E3A27] xxxl:text-[22px] mb-6 laptop:text-[14px] hd:text-[16px]">
                 Create Your Account
               </p>
               {renderForm(true)}
@@ -474,15 +466,15 @@ const renderOtpInput = (boxSize = "w-12 h-12") => (
               />
               <div className="absolute inset-0 bg-black/20" />
               <div className="relative z-10 flex flex-col justify-evenly items-center text-white h-full px-8 text-center gap-4">
-                <h1 className="text-[52px] leading-snug">
+                <h1 className="xxxl:text-[52px] laptop:text-[36px] hd:text-[42px] leading-snug">
                   Your Herbal Beauty <br /> Journey Starts Here
                 </h1>
                 <img
                   src="images/zia-white.png"
                   alt="Zia Logo"
-                  className="w-[250px] h-[130px]"
+                  className="xxxl:w-[250px] xxxl:h-[130px] laptop:w-[180px] laptop:h-[90px] hd:w-[220px] hd:h-[110px] "
                 />
-                <p className="mt-8 text-[32px]">
+                <p className="mt-8 xxxl:text-[32px] laptop:text-[24px] hd:text-[28px]">
                   Do you have an account?{" "}
                   <span
                     onClick={() => navigate("/login")}

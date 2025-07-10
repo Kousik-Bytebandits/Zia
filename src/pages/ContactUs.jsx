@@ -9,17 +9,17 @@ const ContactUs = () => {
           <img
             src="/images/header-products.png"
             alt="Products Header"
-            className="h-[185px] lg:h-[884px] mx-auto w-full object-cover"
+            className="h-[185px] xxxl:h-[884px] laptop:h-[600px] hd:h-[700px] mx-auto w-full object-cover"
           />
         </div>
 
         {/* Contact Info + Form Section */}
         <div className="p-6 lg:flex lg:justify-center lg:items-start lg:gap-20">
           {/* Left Contact Info */}
-          <div className="lg:w-[600px] lg:mt-28 ">
+          <div className="xxxl:w-[600px] laptop:w-[300px] hd:w-[400px] lg:mt-28 ">
             <p className="text-[16px] mb-4">Contact Us</p>
 
-            <h2 className="text-[24px] lg:text-[32px] mb-8 font-tenor leading-tight tracking-widest">
+            <h2 className="text-[24px] xxxl:text-[32px] laptop:text-[24px] hd:text-[30px]  mb-8 font-tenor leading-tight tracking-widest">
               OUR BRANCH <br /> OFFICE -
             </h2>
 
@@ -31,8 +31,8 @@ const ContactUs = () => {
             <div className=" flex items-start gap-4 mb-10">
               <img src="/icons/chat-icon.png" alt="Chat "className="lg:mt-2" />
               <div>
-                <p className="lg:text-[20px] uppercase text-[14px] font-tenor tracking-widest">Chat To Us</p>
-                <p className="lg:text-[20px] text-[14px] mt-2 tracking-wider">Info@example.com</p>
+                <p className="xxxl:text-[20px] laptop:text-[16px] hd:text-[18px] uppercase text-[14px] font-tenor tracking-widest">Chat To Us</p>
+                <p className="xxxl:text-[20px] laptop:text-[16px] hd:text-[18px] text-[14px] mt-2 tracking-wider">Info@example.com</p>
               </div>
             </div>
 
@@ -40,8 +40,8 @@ const ContactUs = () => {
             <div className="flex items-start gap-4 mb-10">
               <img src="/icons/location-icon.png" alt="Location" className="lg:mt-2"/>
               <div>
-                <p className="lg:text-[20px] uppercase text-[14px] font-tenor tracking-widest">Visit Our Office Branch</p>
-                <p className="lg:text-[20px] text-[14px] mt-2 tracking-wider">
+                <p className="xxxl:text-[20px] laptop:text-[16px] hd:text-[18px] uppercase text-[14px] font-tenor tracking-widest">Visit Our Office Branch</p>
+                <p className="xxxl:text-[20px] laptop:text-[16px] hd:text-[18px] text-[14px] mt-2 tracking-wider">
                   800 Nicollet Mall, Minneapolis, MN 55402,<br />United States
                 </p>
               </div>
@@ -51,35 +51,35 @@ const ContactUs = () => {
             <div className="flex items-start gap-4">
               <img src="/icons/call-icon.png" alt="Call"className="lg:mt-2" />
               <div>
-                <p className="lg:text-[20px] uppercase text-[14px] font-tenor tracking-widest">Call Us</p>
-                <p className="lg:text-[20px] text-[14px] mt-2 tracking-wider">+1 502-240-6226 / +1 502-350-7116</p>
+                <p className="xxxl:text-[20px] laptop:text-[16px] hd:text-[18px] uppercase text-[14px] font-tenor tracking-widest">Call Us</p>
+                <p className="xxxl:text-[20px] laptop:text-[16px] hd:text-[18px] text-[14px] mt-2 tracking-wider">+1 502-240-6226 / +1 502-350-7116</p>
               </div>
             </div>
           </div>
 
           {/* Right Contact Form */}
           <div className="mt-10 lg:mt-16 ">
-            <form className="border border-[#B2BA98] lg:w-[890px] lg:h-[700px] rounded-xl p-6 space-y-4">
+            <form className="border border-[#B2BA98] xxxl:w-[890px] xxxl:h-[700px] laptop:w-[700px] hd:w-[700px] laptop:h-[600px] hd:h-[600px] rounded-xl p-6 space-y-4">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 <input
                   type="text"
                   placeholder="First Name"
-                  className="w-full border-b border-[#B2BA98] outline-none py-3 lg:py-5 text-[16px] placeholder:text-[#676A5E]"
+                  className="w-full border-b border-[#B2BA98] outline-none py-3 xxxl:py-5 laptop:py-3 text-[16px] placeholder:text-[#676A5E]"
                 />
                 <input
                   type="text"
                   placeholder="Last Name"
-                  className="w-full border-b border-[#B2BA98] outline-none py-3 lg:py-5 text-[16px] placeholder:text-[#676A5E]"
+                  className="w-full border-b border-[#B2BA98] outline-none py-3 xxxl:py-5 laptop:py-3 text-[16px] placeholder:text-[#676A5E]"
                 />
                 <input
                   type="text"
                   placeholder="Mobile Number"
-                  className="w-full border-b border-[#B2BA98] outline-none py-3 lg:py-5 text-[16px] placeholder:text-[#676A5E]"
+                  className="w-full border-b border-[#B2BA98] outline-none py-3 xxxl:py-5 laptop:py-3 text-[16px] placeholder:text-[#676A5E]"
                 />
                 <input
                   type="email"
                   placeholder="Email id"
-                  className="w-full border-b border-[#B2BA98] outline-none py-3 lg:py-5 text-[16px] placeholder:text-[#676A5E]"
+                  className="w-full border-b border-[#B2BA98] outline-none py-3 xxxl:py-5 laptop:py-3 text-[16px] placeholder:text-[#676A5E]"
                 />
               </div>
 
@@ -94,7 +94,7 @@ const ContactUs = () => {
                 className="w-full lg:hidden border-b border-[#B2BA98] outline-none py-3 text-[16px] placeholder:text-[#676A5E] resize-none"
               />
 
-              <div className="flex justify-center pt-4 lg:justify-start  lg:pt-16">
+              <div className="flex justify-center pt-4 lg:justify-start  xxxl:pt-16 laptop:pt-8 hd:pt-10">
                 <button
                   type="submit"
                   className="bg-black text-white px-6 py-3 rounded-full flex items-center gap-2"

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { FaSync, FaRupeeSign, FaPercent } from "react-icons/fa";
 import { FiCalendar } from "react-icons/fi";
 import { IoIosArrowDown } from "react-icons/io";
-import DatePicker from "react-datepicker";
+
 import "react-datepicker/dist/react-datepicker.css";
 import { forwardRef } from "react";
 
@@ -450,18 +450,19 @@ const handleSubmit = async () => {
 
    <div className='relative '>
   <label className="text-[14px] font-bold text-[#102B01] mb-1 block">Manufacturing Date</label>
-  <DatePicker
-    selected={formData.mfgDate ? new Date(formData.mfgDate.split("-").reverse().join("-")) : null}
-    onChange={(date) => {
-      if (date) {
-        const formatted = date.toLocaleDateString("en-GB"); // dd-mm-yyyy
-        setFormData((prev) => ({ ...prev, mfgDate: formatted }));
-      }
-    }}
-    dateFormat="dd-MM-yyyy"
-    customInput={<CalendarInput placeholder="DD-MM-YYYY" />}
-   
-  />
+  <input
+  name="mfgDate"
+  value={formData.mfgDate}
+  onChange={handleChange}
+  type="text"
+  className={`${inputClasses} pr-10`}
+  placeholder="DD-MM-YYYY"
+/>
+<FiCalendar
+  className="absolute right-3 top-[35px] text-gray-500"
+ />
+
+
 </div>
 
     <div className="relative">
@@ -488,19 +489,22 @@ const handleSubmit = async () => {
       <FaPercent className="absolute right-3 top-[40px] text-gray-500" />
     </div>
 
-   <div>
+   <div className='relative '>
   <label className="text-[14px] font-bold text-[#102B01] mb-1 block">Expiry Date</label>
-  <DatePicker
-    selected={formData.expDate ? new Date(formData.expDate.split("-").reverse().join("-")) : null}
-    onChange={(date) => {
-      if (date) {
-        const formatted = date.toLocaleDateString("en-GB"); // dd-mm-yyyy
-        setFormData((prev) => ({ ...prev, expDate: formatted }));
-      }
-    }}
-    dateFormat="dd-MM-yyyy"
-    customInput={<CalendarInput placeholder="DD-MM-YYYY" />}
+  <input
+  name="expDate"
+  value={formData.expDate}
+  onChange={handleChange}
+  type="text"
+  className={`${inputClasses} pr-2`}
+  placeholder="DD-MM-YYYY"
+/>
+<FiCalendar
+  className="absolute right-3 top-[35px] text-gray-500 cursor-pointer"
   />
+
+
+
 </div>
 
 

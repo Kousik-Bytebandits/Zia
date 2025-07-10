@@ -28,20 +28,20 @@ export default function StartScreen() {
 
           {/* Content */}
           <div className="relative z-10 flex flex-col lg:justify-evenly justify-center items-center h-full gap-8 text-white px-10 text-center">
-            <h1 className="text-[52px] font-medium leading-snug">
+            <h1 className="xxxl:text-[52px] laptop:text-[40px] hd:text-[48px] font-medium leading-snug">
               Your Herbal Beauty Journey Starts Here
             </h1>
 
             <img
               src="images/zia-white.png"
               alt="Zia Logo"
-              className="w-[255px] h-[130px] -mt-16"
+              className="xxxl:w-[255px] xxxl:h-[130px] laptop:w-[200px] laptop:h-[100px] hd:w-[220px] hd:h-[110px] -mt-16"
             />
 
             <div className="w-[40%] -mt-16 flex flex-col items-center gap-3">
               <button
                 onClick={() => navigate('/login')}
-                className="w-full bg-[#788F7966]/35 rounded-lg py-5 text-white text-[24px]"
+                className="w-full bg-[#788F7966]/35 rounded-lg xxxl:py-5 laptop:py-2 hd:py-3 text-white text-[24px]"
               >
                 Sign in
               </button>

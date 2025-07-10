@@ -99,15 +99,15 @@ export default function Login() {
             />
             <div className="absolute inset-0 bg-black/20" />
             <div className="relative z-10 flex flex-col justify-evenly items-center text-white h-full px-8 text-center gap-4">
-              <h1 className="text-[52px] leading-snug">
+              <h1 className="xxxl:text-[52px] laptop:text-[36px] hd:text-[42px] leading-snug">
                 Your Herbal Beauty <br /> Journey Starts Here
               </h1>
               <img
                 src="images/zia-white.png"
                 alt="Zia Logo"
-                className="w-[250px] h-[130px] mt-4"
+                className="xxxl:w-[250px] xxxl:h-[130px] laptop:w-[180px] laptop:h-[90px] hd:w-[220px] hd:h-[110px] mt-4"
               />
-              <p className="mt-8 text-[32px]">
+              <p className="mt-8 xxxl:text-[32px] laptop:text-[24px] hd:text-[28px]">
                 Don’t have an account?{' '}
                 <span
                   className="underline cursor-pointer"
@@ -120,40 +120,40 @@ export default function Login() {
           </div>
 
           {/* Right */}
-          <div className="w-1/2 text-center bg-white flex flex-col justify-center px-36">
-            <h2 className="text-[45px] text-[#2B452C] font-semibold">
+          <div className="w-1/2 text-center bg-white flex flex-col justify-center xxxl:px-36 laptop:px-20 hd:px-24">
+            <h2 className="xxxl:text-[45px] laptop:text-[28px] hd:text-[36px] text-[#2B452C] font-semibold">
               Welcome Back!
             </h2>
-            <p className="text-[16px] mb-10">Login to your account</p>
+            <p className="xxxl:text-[16px] laptop:text-[12px] hd:text-[14px] mb-10 font-tenor">Login to your account</p>
 
             <form
               onSubmit={(e) => {
                 e.preventDefault();
                 handleLogin();
               }}
-              className="space-y-5"
+              className="xxxl:space-y-5 laptop:space-y-2 hd:space-y-3"
             >
-              <div className="flex items-center bg-[#D8E5DC] px-4 py-4 rounded-lg">
+              <div className="flex items-center bg-[#D8E5DC] xxxl:px-4 xxxl:py-3 laptop:px-3 laptop:py-2 hd:px-4 hd:py-2 rounded-lg">
                 <FaUser className="mr-3 text-[#41734C]" />
                 <input
                   type="email"
                   placeholder="Email Id"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="bg-transparent w-full outline-none placeholder-[#41734C] text-[18px]"
+                  className="bg-transparent w-full outline-none placeholder-[#41734C] xxxl:text-[18px] laptop:text-[14px] hd:text-[16px]"
                   required
                   autoComplete="email"
                 />
               </div>
 
-              <div className="flex items-center bg-[#D8E5DC] px-4 py-3 rounded-lg">
+              <div className="flex items-center bg-[#D8E5DC] xxxl:px-4 xxxl:py-3 laptop:px-3 laptop:py-2 hd:px-4 hd:py-2 rounded-lg">
                 <FaLock className="mr-3 text-[#41734C]" />
                 <input
                   type="password"
                   placeholder="Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="bg-transparent w-full outline-none placeholder-[#41734C] text-[18px]"
+                  className="bg-transparent w-full outline-none placeholder-[#41734C] xxxl:text-[18px] laptop:text-[14px] hd:text-[16px]"
                   required
                   autoComplete="current-password"
                 />
@@ -175,13 +175,13 @@ export default function Login() {
               <div className="pt-10">
                 <button
                   type="submit"
-                  className="w-full bg-[#2F623A] mb-4 text-[22px] text-white rounded-full py-3"
+                  className="w-full bg-[#2F623A] mb-4 xxxl:text-[22px] laptop:text-[16px] hd:text-[18px] text-white rounded-full xxxl:py-3 laptop:py-2 hd:py-2"
                 >
                   Login
                 </button>
               </div>
 
-              <p className="text-center text-[14px] text-[#89A28A]">
+              <p className="text-center xxxl:text-[14px] laptop:text-[10px] hd:text-[12px] text-[#89A28A]">
                 Don’t have an account?{' '}
                 <span
                   className="text-[#41734C] font-semibold underline cursor-pointer"
