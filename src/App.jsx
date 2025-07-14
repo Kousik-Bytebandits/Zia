@@ -18,7 +18,7 @@ import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import ShopCart from './pages/ShopCart';
 import AdminRoutes from './adminPanel/AdminRoutes';
-import DisclaimerPage from './pages/disclaimer';
+import DisclaimerPage from './pages/Disclaimer';
 import CookiePolicyPage from './pages/CookiesPolicy';
 import LegalCompliancePage from './pages/LegalComplaince';
 import PrivacyPolicyPage from './pages/PrivacyPolicy';
