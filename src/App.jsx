@@ -17,8 +17,14 @@ import StartScreen from './pages/StartScreen';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import ShopCart from './pages/ShopCart';
-import AdminRoutes from './admin panel/AdminRoutes';
-
+import AdminRoutes from './adminPanel/AdminRoutes';
+import DisclaimerPage from './pages/disclaimer';
+import CookiePolicyPage from './pages/CookiesPolicy';
+import LegalCompliancePage from './pages/LegalComplaince';
+import PrivacyPolicyPage from './pages/PrivacyPolicy';
+import ReturnRefundPolicyPage from './pages/ReturnRefundPolicy';
+import ShippingPolicyPage from './pages/ShippingPolicy';
+import TermsAndConditionsPage from './pages/TermsCondition';
 function App() {
   const location = useLocation();
   const hideNavbarRoutes = ['/startscreen', '/login', '/signup','/admin/home', '/admin/grid'];
@@ -46,12 +52,20 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/profile" element={isAuthenticated ? <Profile /> : <Navigate to="/login" />} />
           <Route path="/shoplist" element={<ShopList />} />
-          <Route path="/shopdetails" element={<ShopDetails />} />
+          <Route path="/shopdetails/:productId" element={<ShopDetails />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/contactus" element={<ContactUs />} />
           <Route path="/ordertracking" element={<OrderTracking />} />
           <Route path="/faq" element={<Faq />} />
           <Route path="/shopcart" element={<ShopCart />} />
+          <Route path="/disclaimer" element={<DisclaimerPage />} />
+<Route path="/cookie-policy" element={<CookiePolicyPage />} />
+<Route path="/legal-compliance" element={<LegalCompliancePage />} />
+<Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+<Route path="/return-refund-policy" element={<ReturnRefundPolicyPage />} />
+<Route path="/shipping-policy" element={<ShippingPolicyPage />} />
+<Route path="/terms-and-conditions" element={<TermsAndConditionsPage />} />
+
 
           {/* Admin Route  */}
           <Route path="/admin/*" element={<AdminRoutes />} />
