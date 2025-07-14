@@ -39,6 +39,9 @@ export default function Home() {
         "Zia Herbals has changed my wellness routine for the better. Their products are 100% natural and actually work. I feel so much more clean!",
     },
   ]
+const handleAddToCart = () => {
+  window.open("https://www.whatsapp.com/catalog/918939843483/?app_absent=0", "_blank");
+};
 
 const handleAbout=()=>{
   navigate('/about')
@@ -321,7 +324,7 @@ useEffect(() => {
 
      <div className="px-4 py-10 laptop:px-10 hd:px-12 xxxl:px-16">
   {/* Text + Button */}
-  <div className="text-center lg:text-left lg:flex lg:items-center lg:justify-between lg:mb-10">
+  <div className="text-center lg:text-left lg:flex lg:items-center  lg:mb-10">
     
     {/* Text Column */}
     <div data-aos="fade-up" data-aos-delay="100" className="lg:w-1/4 laptop:w-[30%] hd:w-[28%] xxxl:w-1/4">
@@ -344,58 +347,58 @@ useEffect(() => {
 
     {/* Product Grid */}
   <div data-aos="fade-up" data-aos-delay="100" className="mt-10 overflow-x-auto scrollbar-none">
-  <div className="flex space-x-5 w-max lg:grid lg:grid-cols-5 laptop:grid-cols-5 hd:grid-cols-5 xxxl:grid-cols-5 laptop:gap-2 hd:gap-3 xxxl:gap-6">
-    {Array.isArray(products) && products.length > 0 ? (
-      products.map((product) => (
+  <div className="flex gap-4 overflow-x-auto scrollbar-none lg:max-w-[100%]">
+  {Array.isArray(products) && products.length > 0 ? (
+    products.slice(0, 4).map((product) => (  
+      <div
+        key={product.product_id || product.id || Math.random()}
+        className="relative min-w-[250px] laptop:min-w-[220px] hd:min-w-[240px] xxxl:min-w-[290px] h-[340px] laptop:h-[280px] hd:h-[320px] xxxl:h-[360px] font-archivo bg-white border-2 border-[#D8DCCB] rounded-xl overflow-hidden shadow-sm flex flex-col justify-between"
+      >
+        {product.inStock === false && (
+          <span className="absolute hidden top-2 left-2 bg-[#D12034] text-white text-[12px] px-3 py-[2px] rounded-full font-semibold z-10">
+            out of stock
+          </span>
+        )}
+
         <div
-          key={product.product_id || product.id || Math.random()}
-          className="relative min-w-[250px] laptop:min-w-[150px] hd:min-w-[200px] xxxl:min-w-[270px] h-[340px] laptop:h-[280px] hd:h-[340px] xxxl:h-[360px] font-archivo bg-white border-2 border-[#D8DCCB] rounded-xl overflow-hidden shadow-sm flex flex-col justify-between"
+          onClick={() => navigate(`/shopdetails/${product.product_id}`)}
+          className="p-4 flex flex-col  space-y-2 items-center cursor-pointer"
         >
-          {/* Out of Stock Badge */}
-          {product.inStock === false && (
-            <span className="absolute hidden top-2 left-2 bg-[#D12034] text-white text-[12px] px-3 py-[2px] rounded-full font-semibold z-10">
-              out of stock
-            </span>
-          )}
+          <img
+            src={product.primary_image_url || "/images/default-product.png"}
+            alt={product.name || "Product Image"}
+            className="h-32 laptop:h-24 hd:h-32 xxxl:h-36 object-contain"
+          />
+          <h3 className="text-center text-[20px] laptop:text-[14px] hd:text-[18px] xxxl:text-[24px] text-[#676A5E] mt-2">
+            {product.name || "Unnamed Product"}
+          </h3>
 
-          {/* Product Content */}
-          <div
-            onClick={() => navigate(`/shopdetails/${product.product_id}`)}
-            className="p-4 flex flex-col items-center cursor-pointer"
-          >
-            <img
-              src={product.primary_image_url || "/images/default-product.png"}
-              alt={product.name || "Product Image"}
-              className="h-32 laptop:h-24 hd:h-28 xxxl:h-36 object-contain"
-            />
-            <h3 className="text-center text-[20px] laptop:text-[18px] hd:text-[22px] xxxl:text-[24px] text-[#676A5E] mt-2">
-              {product.name || "Unnamed Product"}
-            </h3>
-
-            {/* Static Rating */}
-            <div className="flex text-yellow-500 items-center">
-              {[...Array(4)].map((_, i) => (
-                <RiStarSFill key={i} />
-              ))}
-              <RiStarHalfSFill />
-              <p className="text-[#676A5E] ml-1 text-[12px]">(79)</p>
-            </div>
-
-            <div className="text-[22px] laptop:text-[20px] hd:text-[22px] xxxl:text-[28px] font-bold">
-              ₹{product.price || "0.00"}
-            </div>
+          <div className="flex text-yellow-500 items-center">
+            {[...Array(4)].map((_, i) => (
+              <RiStarSFill key={i} />
+            ))}
+            <RiStarHalfSFill />
+            <p className="text-[#676A5E] ml-1 text-[12px]">(79)</p>
           </div>
 
-          {/* Add to Cart Button */}
-          <button className="w-full py-3 text-[20px] laptop:text-[18px] xxxl:text-[24px] bg-[#2B452C] text-white tracking-wide">
-            Add to Cart
-          </button>
+          <div className="text-[22px] laptop:text-[19px] hd:text-[22px] xxxl:text-[28px] font-bold">
+            ₹{product.price || "0.00"}
+          </div>
         </div>
-      ))
-    ) : (
-      <p className="text-center text-gray-500 w-full">No featured products available.</p>
-    )}
-  </div>
+
+        <button 
+          onClick={handleAddToCart}
+          className="w-full py-3 text-[20px] laptop:text-[18px] xxxl:text-[24px] bg-[#2B452C] text-white tracking-wide"
+        >
+          Add to Cart
+        </button>
+      </div>
+    ))
+  ) : (
+    <p className="text-center text-gray-500 w-full">No featured products available.</p>
+  )}
+</div>
+
 </div>
 
   </div>

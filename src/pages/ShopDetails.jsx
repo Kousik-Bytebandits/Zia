@@ -10,24 +10,34 @@ function ProductCard({ product }) {
 
 
   const navigate = useNavigate();
-  const handleChange = () => {
-    navigate("/shopdetails/" + product.product_id);
-  };
+  
+  const handleAddToCart = () => {
+  window.open("https://www.whatsapp.com/catalog/918939843483/?app_absent=0", "_blank");
+};
+
+  
   return (
-    <div className=" bg-white lg:rounded-md xxxl:w-[270px] xxxl:h-[430px] laptop:w-[180px] laptop:h-[300px] hd:w-[200px] hd:h-[350px] shadow-xl border border-[#D8DCCB] flex flex-col">
+    <div onClick={() => navigate(`/shopdetails/${product.product_id}`)} 
+     className=" bg-white  lg:rounded-md xxxl:w-[270px] xxxl:h-[430px] laptop:w-[180px] laptop:h-[300px] hd:w-[200px] hd:h-[350px] shadow-xl border border-[#D8DCCB] flex flex-col">
       <img
         src={product.image}
         alt={product.name}
-        className="w-full xxxl:w-[100px] xxxl:h-[200px] laptop:w-[70px] laptop:h-[140px] hd:w-[80px] hd:h-[150px] object-contain mx-auto p-2 lg:mt-2 lg:mb-2"
+        className="w-[140px]  xxxl:w-[200px] xxxl:h-[200px] laptop:w-[140px] laptop:h-[140px] hd:w-[150px] hd:h-[150px] object-contain mx-auto p-2 lg:mt-2 lg:mb-2"
       />
       <div className=" flex flex-col  items-center text-center flex-grow justify-between">
-        <h2 className="laptop:text-[18px] hd:text-[20px] xxxl:text-[24px] font-medium leading-snug">{product.name}</h2>
-        <img src="/images/stars-num.png" className="w-[95px]  lg:my-0 lg:h-[22px] lg:w-[120px]" alt="rating" />
+        <h2 className="laptop:text-[15px] hd:text-[18px] xxxl:text-[24px] font-medium leading-snug">{product.name}</h2>
+        <div className="flex text-yellow-500 items-center lg:text-[14px]">
+                <p className="text-[#676A5E]   text-[12px] xxxl:text-[18px] hd:text-[15px] laptop:text-[12px] mr-1">4.5</p>
+    {[...Array(4)].map((_, i) => (
+      <RiStarSFill key={i} className="xxxl:text-[18px] hd:text-[15px] laptop:text-[12px]" />
+    ))}
+    <RiStarHalfSFill className="xxxl:text-[18px] hd:text-[15px] laptop:text-[12px]" /> <p className="text-[#676A5E] ml-1  text-[12px] xxxl:text-[18px] hd:text-[15px] laptop:text-[12px]">(79)</p>
+  </div>
         <div className="font-semibold tracking-wide font-archivo mb-2">
-          <span className="line-through xxxl:text-[28px] laptop:text-[24px] hd:text-[18px] mr-1 lg:hidden text-gray-400">₹{product.originalPrice}</span>
+          <span className="line-through xxxl:text-[28px] laptop:text-[24px] hd:text-[18px] mr-1 lg:hidden text-gray-400">{product.originalPrice}</span>
           <span className="text-black  xxxl:text-[28px] laptop:text-[24px] hd:text-[26px]">₹{product.salePrice}</span>
         </div>
-        <button onClick={handleChange} className="w-full bg-[#2B452C] text-white py-3 xxxl:py-4 laptop:py-2 hd:py-3 lg:rounded-b text-[18px] xxxl:text-[24px] laptop:text-[20px] tracking-wider font-medium rounded-none">
+        <button onClick={handleAddToCart} className="w-full bg-[#2B452C] text-white py-3 xxxl:py-4 laptop:py-2 hd:py-3 lg:rounded-b text-[18px] xxxl:text-[24px] laptop:text-[20px] tracking-wider font-medium rounded-none">
           Add to Cart
         </button>
       </div>
@@ -123,6 +133,9 @@ useEffect(() => {
   const toggleSection = (section) => {
     setOpenSections((prev) => ({ ...prev, [section]: !prev[section] }));
   };
+const handleAddToCart = () => {
+  window.open("https://www.whatsapp.com/catalog/918939843483/?app_absent=0", "_blank");
+};
 
   return (
     <>
@@ -138,7 +151,7 @@ useEffect(() => {
                   className="xxxl:w-[750px] xxxl:h-[700px] laptop:w-[500px] laptop:h-[500px] hd:w-[600px] hd:h-[600px] object-contain rounded-md border-2 px-8 "
                 />
                 {currentIndex === 0 && (
-                  <div className="absolute top-10 left-6 bg-[#C50000] text-white text-[18px] w-20 h-20 flex items-center justify-center text-center font-semibold rounded-full">
+                  <div className="hiiden lg:hidden absolute top-10 left-6 bg-[#C50000] text-white text-[18px] w-20 h-20 flex items-center justify-center text-center font-semibold rounded-full">
                     28% <br /> Off
                   </div>
                 )}
@@ -149,7 +162,7 @@ useEffect(() => {
       key={i}
       src={src}
       onClick={() => setCurrentIndex(i)}
-      className={`w-[170px] h-[150px] object-contain border ${
+      className={`xxxl:w-[170px] xxxl:h-[150px] hd:w-[135px] hd:w-[150px] laptop:w-[110px] laptop:h-[100px] object-contain border ${
         i === currentIndex ? 'border-black' : 'border-gray-300'
       } rounded-md cursor-pointer`}
       alt="thumb"
@@ -161,8 +174,8 @@ useEffect(() => {
 
             {/* Right Details */}
             <div className="w-1/2 space-y-4">
-              <div className="flex items-start justify-between">
-                <h1 className="xxxl:text-[40px] laptop:text-[28px] hd:text-[32px] tracking-widest text-[#676A5E] font-bold">{productDetails?.name?.toUpperCase()}</h1>
+              <div className="flex items-center justify-between">
+                <h1 className="xxxl:text-[40px] laptop:text-[28px] hd:text-[30px] tracking-widest text-[#676A5E] font-bold">{productDetails?.name?.toUpperCase()}</h1>
                <div className="flex text-yellow-500 items-center lg:text-[14px]">
                 <p className="text-[#676A5E]   text-[12px] lg:text-[18px] mr-1">4.5</p>
     {[...Array(4)].map((_, i) => (
@@ -205,10 +218,10 @@ useEffect(() => {
                   </select>
                 </div>
                 <div className="flex items-center gap-4">
-                <button className="w-[40%] py-2 tracking-wide border border-[#2F3A27] bg-[#AEBCA466] rounded-full text-[#2F3A27] text-[18px] font-semibold">
+                <button onClick={handleAddToCart} className="w-[40%] py-2 tracking-wide border border-[#2F3A27] bg-[#AEBCA466] rounded-full text-[#2F3A27] text-[18px] font-semibold">
                   Buy Now
                 </button>
-                <button className="w-[40%] py-2 tracking-wide rounded-full bg-[#2F3A27] border border-black text-white font-semibold text-[18px]">
+                <button onClick={handleAddToCart} className="w-[40%] py-2 tracking-wide rounded-full bg-[#2F3A27] border border-black text-white font-semibold text-[18px]">
                   Add to Cart
                 </button>
                 </div>
@@ -332,9 +345,9 @@ useEffect(() => {
           </div>
 
           {/* Related Products */}
-          <div className="hidden lg:block  mx-auto px-6 pt-16 pb-10">
+          <div  className="hidden lg:block  mx-auto px-6 pt-16 pb-10">
           <h2 className="xxxl:text-[32px] laptop:text-[26px] hd:text-[28px] font-tenor text-center mb-8 text-[#2B452C]">Related Products</h2>
-          <div className="grid grid-cols-2 lg:grid-cols-6 gap-6 ">
+          <div  className=" grid grid-cols-2 lg:grid-cols-6 gap-6 ">
           {relatedProducts.slice(0, 12).map((product, idx) => (
   <ProductCard
     key={idx}
@@ -342,7 +355,8 @@ useEffect(() => {
       name: product.name,
       image: product.primary_image_url,
       originalPrice: product.mrp,
-      salePrice: product.price
+      salePrice: product.price,
+      product_id: product.product_id
     }}
   />
 ))}
@@ -355,8 +369,8 @@ useEffect(() => {
         <div className="lg:hidden">
           <div className="p-2 py-10 max-w-lg mx-auto font-archivo">
       {/* Header */}
-      <div className="flex items-start px-2">
-       <h1 className="text-[28px]">{productDetails?.Product_details?.name}</h1>
+      <div className="flex items-start px-2 justify-between">
+      <h1 className="text-[28px] text-[#676A5E] uppercase font-semibold">{productDetails?.name}</h1>
 
         <div className="flex items-center gap-1 mt-3 text-[12px] text-[#676A5E] ">
           <div className="flex items-center gap-1">
@@ -386,7 +400,7 @@ useEffect(() => {
             className="w-[380px] mx-auto h-auto object-contain transition-all duration-500"
           /> 
           {currentIndex === 0 && (
-            <div className="absolute top-4 left-6 bg-[#C50000] text-white text-[14px] w-14 h-14 flex text-center items-center justify-center font-semibold rounded-full">
+            <div className="hidden lg:hidden absolute top-4 left-6 bg-[#C50000] text-white text-[14px] w-14 h-14 flex text-center items-center justify-center font-semibold rounded-full">
               28% <br/> Off
             </div>
           )}
@@ -427,9 +441,7 @@ useEffect(() => {
     </p>
   </>
 )}
-        <p className="text-[#FF1010] mx-2 text-[42px]">-{productDetails?.Product_details?.discount}% <span className="text-[#151515] font-bold ml-2"> ₹{productDetails?.Product_details?.price}</span></p>
-
-        <p className="text-[#757878] line-through text-[18px]">M.R.P: ₹320.00</p>
+  
         <p className="text-[18px] text-[#757878]">Inclusive of all taxes</p>
         <p className="text-[18px] text-black">Use by: 31 AUG 2027</p>
 
@@ -460,10 +472,10 @@ useEffect(() => {
       </div>
 
       {/* Buttons */}
-      <button className="mt-4 w-full py-2 tracking-wide border border-[#2F3A27] bg-[#AEBCA466] rounded-full text-[#2F3A27] text-[18px] font-semibold">
+      <button onClick={handleAddToCart} className="mt-4 w-full py-2 tracking-wide border border-[#2F3A27] bg-[#AEBCA466] rounded-full text-[#2F3A27] text-[18px] font-semibold">
         Buy Now
       </button>
-      <button className="mt-2 w-full py-2 tracking-wide rounded-full bg-[#2F3A27] border border-black text-white font-semibold text-[18px] ">
+      <button onClick={handleAddToCart} className="mt-2 w-full py-2 tracking-wide rounded-full bg-[#2F3A27] border border-black text-white font-semibold text-[18px] ">
         Add to Cart
       </button>
 
@@ -475,16 +487,9 @@ useEffect(() => {
 
         {/* Description */}
         <div className="text-[16px]  text-[#2B452C] space-y-2 mb-4">
-          <p className="text-[18px] uppercase">
-           Description
-          </p>
-          <ul className="list-disc ml-5">
-            <li> Zia Herbal Hair Shampoo is a gentle yet effective herbal cleanser infused with time-honoured Ayurvedic ingredients known for their hair-strengthening and scalp-nourishing properties.</li>
-            <li>This unique formula removes dirt, excess oil, and impurities without stripping away natural moisture, leaving your hair clean, soft, and vibrant.</li>
-            <li>Enriched with Aloe Vera, Hibiscus, Amla, Neem, and Bhringraj, this shampoo deeply hydrates, enhances hair texture, and promotes natural shine.</li>
-            <li>Its antibacterial and anti-inflammatory properties soothe the scalp, preventing dandruff and irritation.</li>
-            <li>Regular use results in stronger, healthier, and more manageable hair.</li>
-          </ul>
+         <p className="text-[18px] uppercase">Description</p>
+<p>{productDetails?.description}</p>
+
         </div>
 
         {/* Collapsible Sections */}
@@ -497,14 +502,14 @@ useEffect(() => {
     <table className="w-full text-[16px] text-left border border-[#B2BA98]">
       <tbody>
         {[
-          ["Item Length", "5.5 cm"],
-          ["Item Width", "5.5 cm"],
-          ["Item Height", "12.5 cm"],
-          ["Package Length", "6 cm"],
-          ["Package Width", "6 cm"],
-          ["Package Height", "15.5 cm"],
-          ["Package Weight", "340 ml"]
-        ].map(([label, value], idx) => (
+  ["Item Length", `${productDetails?.item_length} cm`],
+  ["Item Width", `${productDetails?.item_width} cm`],
+  ["Item Height", `${productDetails?.item_height} cm`],
+  ["Package Length", `${productDetails?.package_length} cm`],
+  ["Package Width", `${productDetails?.package_width} cm`],
+  ["Package Height", `${productDetails?.package_height} cm`],
+  ["Package Weight", `${productDetails?.package_weight} g`]
+].map(([label, value], idx) => (
           <tr key={idx} className="border-b border-[#B2BA98]">
             <td className="px-3 py-2 font-medium border-r border-[#B2BA98] w-1/2">{label}</td>
             <td className="px-3 py-2">{value}</td>
@@ -516,46 +521,54 @@ useEffect(() => {
 )
           },
           {
-            key: "usage",
+            key: "how_to_use",
             label: "HOW TO USE",
             content: (
-              <ul className="text-[16px] text-[#2B452C] list-disc ml-5">
-                <li>Wet your hair thoroughly.</li>
-                <li>Take a sufficient amount of Zia Herbal Hair Shampoo and apply it to the scalp and hair.</li>
-                <li> Gently massage for a few minutes, working up a rich lather.</li>
-                <li> Rinse thoroughly with lukewarm water.</li>
-                <li> For best results, follow up with Zia Herbal Hair Oil for deep nourishment.</li>
-              </ul>
-            )
+    productDetails && productDetails.how_to_use ? (
+      <div className="text-[16px] text-[#2B452C] space-y-1">
+       
+        <ul className="list-disc ml-5">
+          {productDetails.how_to_use.split(',').map((step, index) => (
+            <li key={index}>{step.trim()}</li>
+          ))}
+        </ul>
+      </div>
+    ) : null
+  )
           },
           {
             key: "ingredients",
             label: "INGREDIENTS",
             content: (
-              <ul className="text-[16px] text-[#2B452C] list-disc ml-5">
-                <li> Aloe Vera – Hydrates and repairs damaged hair, reducing frizz and dryness.</li>
-                <li> Hibiscus – Strengthens roots, adds volume, and enhances natural shine.</li>
-                <li> Neem & Tulsi – Detoxifies the scalp, prevents dandruff, and soothes irritation.</li>
-                <li>Amla (Indian Gooseberry) – Rich in Vitamin C to promote hair growth and prevent premature graying</li>
-                <li> Bhringraj – Revitalizes hair follicles, reduces hair fall, and nourishes the scalp.</li>
-            <li> Shikakai & Reetha – Natural cleansers that gently wash away impurities while keeping hair soft and manageable.</li>
-            <li> Fenugreek & Brahmi – Strengthen hair from the roots, preventing thinning and hair loss.</li>
-              </ul>
-            )
+    productDetails && productDetails.ingredients ? (
+      <div className="text-[16px] text-[#2B452C] space-y-1">
+       
+        <ul className="list-disc ml-5">
+          {productDetails.ingredients.split(',').map((ing, index) => (
+            <li key={index}>{ing.trim()}</li>
+          ))}
+        </ul>
+      </div>
+    ) : null
+  )
           },
           {
             key: "features",
             label: "FEATURES",
             content: (
-              <ul className="text-[16px] text-[#2B452C] list-disc ml-5 ">
-                <li> 100% Natural Formula – A powerful blend of herbal extracts and essential nutrients to gently cleanse and revitalize hair.</li>
-                <li> Strengthens Hair & Reduces Breakage – Fortifies hair strands, prevents split ends, and minimizes hair fall.</li>
-                <li> Promotes Hair Growth – Stimulates the scalp, nourishes roots, and encourages healthier hair growth.</li>
-                <li>Soothes Scalp & Controls Dandruff – Fights dryness, flakiness, and itchiness while maintaining scalp balance.</li>
-                <li> No Harsh Chemicals – Free from sulfates, parabens, artificial fragrances, and preservatives.</li>
-              </ul>
-            )
-          }
+    productDetails && productDetails.features ? (
+      <div className="text-[16px] text-[#2B452C] space-y-1">
+      
+        <ul className="list-disc ml-5">
+          {productDetails.features.split(',').map((feature, index) => (
+            <li key={index}>{feature.trim()}</li>
+          ))}
+        </ul>
+      </div>
+    ) : null
+  )
+}
+          
         ].map(({ key, label, content }) => (
           <div key={key}>
             <div
@@ -578,53 +591,20 @@ useEffect(() => {
     Related Products
   </h2>
 
-  <div className="grid grid-cols-2 gap-2 mb-10">
-    {/* Product 1 */}
-    <div className="border rounded-xl p-3 w-[100%] ">
-      <img
-        src="/images/hairoil.png"
-        alt="Zia Herbal Hair Shampoo"
-        className="w-full h-[180px] object-contain"
-      />
-      <p className="mt-2 text-[16px] font-semibold text-[#676A5E]">
-        Zia Herbal Hair Shampoo 300ml
-      </p>
-      <div className="flex items-center gap-1 mt-1">
-    
-            <img  src="/images/4star.png" alt="star" className="" />
-         
-      </div>
-      <p className="text-[14px] text-[#676A5E] mt-1">10 Reviews</p>
-      <div className="flex items-center gap-2 mt-2">
-        <p className="text-[18px] text-[#FF1010] ">-28%</p>
-        <p className="line-through text-[#757878] text-[16px]">₹320.00</p>
-        <p className="text-[18px] font-bold">₹400</p>
-      </div>
-    </div>
+  <div className="grid grid-cols-2 lg:grid-cols-6 gap-6 ">
+          {relatedProducts.slice(0, 12).map((product, idx) => (
+  <ProductCard
+    key={idx}
+    product={{
+      name: product.name,
+      image: product.primary_image_url,
+      originalPrice: product.mrp,
+      salePrice: product.price
+    }}
+  />
+))}
 
-    {/* Product 2 */}
-    <div className="border rounded-xl p-3 w-[100%]">
-      <img
-        src="/images/hairoil.png"
-        alt="Zia Herbal Hair Oil"
-        className="w-full h-[180px] object-contain"
-      />
-      <p className="mt-2 text-[16px] w-[80%] font-semibold text-[#676A5E]">
-        Zia Herbal Hair Oil 300ml
-      </p>
-      <div className="flex items-center gap-1 mt-1">
-      
-            <img  src="/images/4star.png" alt="star" className="" />
-          
-      </div>
-      <p className="text-[14px] text-[#676A5E] mt-1">10 Reviews</p>
-      <div className="flex items-center gap-2 mt-2">
-        <p className="text-[18px] text-[#FF1010] ">-28%</p>
-        <p className="line-through text-[#757878] text-[16px]">₹320.00</p>
-        <p className="text-[18px] font-bold">₹400</p>
-      </div>
-    </div>
-  </div>
+          </div>
 </div>
 
     </div>

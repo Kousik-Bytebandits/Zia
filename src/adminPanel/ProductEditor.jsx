@@ -7,7 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { forwardRef } from "react";
 
 export default function ProductEditor() {
-  const inputClasses = "w-full p-2 border border-gray-300 rounded-md bg-white text-sm";
+  const inputClasses = "w-full p-2 border border-gray-300 rounded-md  text-sm";
   
   const [createdProductId, setCreatedProductId] = useState(null);
   const CalendarInput = forwardRef(({ value, onClick, placeholder }, ref) => (
@@ -143,8 +143,8 @@ const fetchProductDetails = async (productId = 1) => {
       discount: product.Discount || product.discount || "",
       warehouse: batch.warehouse_location || "",
       batchCode: product.Stock || batch.quantity || "",
-      isActive: product.Is_Active === "true" ? "Active" : "Inactive",
-      isFeatured: product.is_featured === "true" ? "Yes" : "No",
+      isActive: Number(product.is_active) === 1 ? "Active" : "Inactive",
+      isFeatured: Number(product.is_featured) === 1 ? "Yes" : "No",
       description: product.Description || "",
       features: product.Features || "",
       howToUse: product.How_To_Use || "",
@@ -490,7 +490,7 @@ setCreatedProductId(id); // triggers useEffect
         type="number"
         className={`${inputClasses} pr-10`}
       />
-      <FaRupeeSign className="absolute right-3 top-[40px] text-gray-500" />
+      <FaRupeeSign className="absolute right-3 top-[35px] text-gray-500" />
     </div>
 
     <div className="relative">
@@ -502,7 +502,7 @@ setCreatedProductId(id); // triggers useEffect
         type="number"
         className={`${inputClasses} pr-10`}
       />
-      <FaPercent className="absolute right-3 top-[40px] text-gray-500" />
+      <FaPercent className="absolute right-3 top-[35px] text-gray-500" />
     </div>
 
   <div>
@@ -522,7 +522,7 @@ setCreatedProductId(id); // triggers useEffect
       <input
         name="warehouse"
         value="Zia-guindy"
-        onChange={handleChange}
+      
         type="text"
         className={`${inputClasses} bg-[#D9D9D9]`}
         readOnly
@@ -533,7 +533,7 @@ setCreatedProductId(id); // triggers useEffect
  <div className="relative">
       <label className="text-[14px] font-bold text-[#102B01] mb-1 block">Is Featured</label>
       <select
-        name="isActive"
+        name="isFeatured"
         value={formData.isFeatured}
         onChange={handleChange}
         className={`${inputClasses} pr-10 appearance-none`}

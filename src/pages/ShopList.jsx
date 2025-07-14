@@ -1,22 +1,21 @@
 import { useState, useEffect, useRef } from "react";
 import { FaFilter } from "react-icons/fa";
 import Footer from "../components/Footer";
-import { useNavigate } from "react-router-dom";
 import { RiStarSFill,RiStarHalfSFill } from "react-icons/ri";
-
+import { useNavigate } from "react-router-dom";
 function ProductCard({ product }) {
-  const navigate = useNavigate();
+ const navigate = useNavigate();
+  const handleAddToCart = () => {
+  window.open("https://www.whatsapp.com/catalog/918939843483/?app_absent=0", "_blank");
+};
 
-  const handleChange = () => {
-   navigate(`/shopdetails/${product.product_id}`);
-
-  };
-
- const primaryImage = product.primary_image_url;
+  const primaryImage = product.primary_image_url;
  
 
+
   return (
-    <div className="bg-white lg:rounded-lg xxxl:w-[270px] xxxl:h-[400px] laptop:w-[180px] laptop:h-[320px] hd:w-[220px] hd:h-[350px] shadow-around-soft border border-[#D8DCCB] flex flex-col">
+    <div onClick={() => navigate(`/shopdetails/${product.product_id}`)}  
+    className="bg-white lg:rounded-lg xxxl:w-[270px] xxxl:h-[400px] laptop:w-[180px] laptop:h-[320px] hd:w-[220px] hd:h-[350px] shadow-around-soft border border-[#D8DCCB] flex flex-col">
       <img
         src={primaryImage || "/images/lemonwash.png"}
         alt={product.name}
@@ -38,7 +37,7 @@ function ProductCard({ product }) {
             ₹{product.price}
           </span>
         </div>
-        <button onClick={handleChange} className="w-full bg-[#2B452C] text-white py-3 xxxl:py-4 laptop:py-2 hd:py-3 lg:rounded-b text-[18px] xxxl:text-[24px] laptop:text-[20px] tracking-wider font-medium rounded-none">
+        <button onClick={handleAddToCart} className="w-full bg-[#2B452C] text-white py-3 xxxl:py-4 laptop:py-2 hd:py-3 lg:rounded-b text-[18px] xxxl:text-[24px] laptop:text-[20px] tracking-wider font-medium rounded-none">
           Add to Cart
         </button>
       </div>
@@ -48,7 +47,7 @@ function ProductCard({ product }) {
 
 export default function ShopList() {
   const [products, setProducts] = useState([]);
-  const [priceRange, setPriceRange] = useState([50, 500]);
+  const [priceRange, setPriceRange] = useState([50, 1500]);
   const [sortOption, setSortOption] = useState("price-high_to_low");
    const [showFilter, setShowFilter] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -74,11 +73,11 @@ const handleApplyFilter = () => {
 
 
  useEffect(() => {
-  fetch(`https://booksemporium.in/Microservices_zia/prod/04_userProducts/api/user_products/all-products?sort_by=${sortOption}&min_price=${priceRange[0]}&max_price=${priceRange[1]}&categories=handwash,soap,hairoil,body_massage_oil,shampoo,lip_balm,face_pack,serum&discounts=10,15`)
+  fetch(`https://booksemporium.in/Microservices_zia/prod/04_userProducts/api/user_products/all-products?sort_by=${sortOption}&min_price=${priceRange[0]}&max_price=${priceRange[1]}`)
     .then(res => res.json())
     .then(data => {
       if (Array.isArray(data)) {
-        console.log(data);
+        console.log("Initial Load Products:", data);
         setProducts(data);
       } else {
         console.error("Unexpected response format:", data);
@@ -87,6 +86,7 @@ const handleApplyFilter = () => {
     })
     .catch(err => console.error("Failed to fetch products", err));
 }, [sortOption, priceRange]);
+
 
 
   useEffect(() => {
@@ -109,7 +109,7 @@ const handleApplyFilter = () => {
 
  const FilterSidebar = (
   
-  <div className="relative lg:mt-[24.5%] top-[4%] -left-[56%] w-[111%] lg:w-[300px]     lg:left-[1%] lg:z-0 z-50  border-2 rounded-lg lg:border-[#D8DCCB] font-archivo text-[#2B452C]">
+  <div className="relative lg:mt-[6%] top-[4%] -left-[56%] w-[111%] lg:w-[280px] bg-white    lg:left-[0%] lg:z-0 z-0  border-2 rounded-lg lg:border-[#D8DCCB] font-archivo text-[#2B452C]">
 
    
 
@@ -150,7 +150,7 @@ const handleApplyFilter = () => {
         <input
           type="range"
           min={49}
-          max={1500}
+          max={2500}
           value={priceRange[1]}
           onChange={(e) => setPriceRange([49, parseInt(e.target.value)])}
           className="w-full h-1 bg-[#3A753C] rounded-lg appearance-none cursor-pointer"

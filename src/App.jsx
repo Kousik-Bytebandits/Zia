@@ -16,7 +16,6 @@ import Faq from './pages/Faq';
 import StartScreen from './pages/StartScreen';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
-import ShopCart from './pages/ShopCart';
 import AdminRoutes from './adminPanel/AdminRoutes';
 import DisclaimerPage from './pages/Disclaimer';
 import CookiePolicyPage from './pages/CookiesPolicy';
@@ -57,7 +56,6 @@ function App() {
           <Route path="/contactus" element={<ContactUs />} />
           <Route path="/ordertracking" element={<OrderTracking />} />
           <Route path="/faq" element={<Faq />} />
-          <Route path="/shopcart" element={<ShopCart />} />
           <Route path="/disclaimer" element={<DisclaimerPage />} />
 <Route path="/cookie-policy" element={<CookiePolicyPage />} />
 <Route path="/legal-compliance" element={<LegalCompliancePage />} />

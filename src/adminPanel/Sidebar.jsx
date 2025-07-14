@@ -8,13 +8,13 @@ export default function Sidebar() {
   const [openDropdown, setOpenDropdown] = useState(true);
 
   return (
-    <aside className=" lg:min-w-[16%]  bg-[#102B01] text-white flex flex-col justify-between h-screen lg:h-auto shadow-lg">
+    <aside className=" xxxl:min-w-[16%] laptop:min-w-[11%] hd:min-w-[15%]  bg-[#102B01] text-white flex flex-col justify-between h-screen lg:h-auto shadow-lg">
 
       
       <div>
         {/* Logo */}
         <div className="p-4 flex justify-center">
-          <img src="/images/zia_logo.png" alt="Zia Logo" className="h-[71px] object-contain" />
+          <img src="/images/zia_logo.png" alt="Zia Logo" className="xxxl:h-[71px] laptop:h-[55px] hd:h-[60px] object-contain" />
         </div>
 
         {/* Title */}
