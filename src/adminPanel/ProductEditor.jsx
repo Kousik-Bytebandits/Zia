@@ -31,8 +31,7 @@ export default function ProductEditor() {
  const [formData, setFormData] = useState({
   productName: "",
   sku: "",
-  ean: "",
-  category: "Shampoo",
+ category: "Shampoo",
   mfgDate: "",
   price: "",
   discount: "",
@@ -40,12 +39,13 @@ export default function ProductEditor() {
   warehouse: "",
   batchCode: "",
   isActive: "Active",
+  isFeatured:"No",
   description: "",
   features: "",
   howToUse: "",
   ingredients: "",
   specifications: {
-    Units: "g",
+    Units: "ml",
     Item_LWH: "0x0x0",
     Package_LWH: "0x0x0",
     Item_Weight: "0",
@@ -105,88 +105,93 @@ export default function ProductEditor() {
     document.getElementById(key).click();
   };
 
-const fetchProductDetails = async () => {
+const fetchProductDetails = async (productId = 1) => {
   try {
-    const res = await fetch("https://booksemporium.in/Microservices_zia/prod/03_Admin_Panel/api/products/6");
+    const res = await fetch(`https://booksemporium.in/Microservices_zia/prod/03_Admin_Panel/api/products/${productId}`);
     const json = await res.json();
-    const product = json.data.product;
-    const batch = json.data.batch;
-    const images = json.data.images;
+     const product = json.data.product;
+    
+
+    // Check structure
+    const data = json.data || json;
+
+    if (!data.product) {
+      console.error("No 'product' key found in response");
+      return;
+    }
+
+   
+    const batch = data.batch || {};
+    const images = data.images || [];
+
     const formatDate = (isoDate) => {
-  if (!isoDate) return "";
-  const d = new Date(isoDate);
-  const day = String(d.getDate()).padStart(2, '0');
-  const month = String(d.getMonth() + 1).padStart(2, '0');
-  const year = d.getFullYear();
-  return `${day}-${month}-${year}`;
-};
+      if (!isoDate) return "";
+      const d = new Date(isoDate);
+      const day = String(d.getDate()).padStart(2, '0');
+      const month = String(d.getMonth() + 1).padStart(2, '0');
+      const year = d.getFullYear();
+      return `${day}-${month}-${year}`;
+    };
 
-
-    // Set input values
     setFormData({
-      productName: product.name || "",
+      productName: product.product_name || product.name || "",
       sku: product.sku || "",
-      ean: product.ean || "",
       category: product.category || "Shampoo",
-      mfgDate: formatDate(batch.manufacture_date),
-      expDate: formatDate(batch.expiry_date),
-      price: product.price || "",
-      discount: product.discount || "",
+      mfgDate: formatDate(batch.manufacturing_Date || batch.manufacture_date),
+      expDate: formatDate(batch.Expiry_Date || batch.expiry_date),
+      price: product.Price || product.price || "",
+      discount: product.Discount || product.discount || "",
       warehouse: batch.warehouse_location || "",
-      batchCode: batch.quantity?.toString() || "",
-      isActive: product.is_active === 1 ? "Active" : "Inactive",
-      description: product.description || "",
-      features: product.features || "",
-      howToUse: product.how_to_use || "",
-      ingredients: product.ingredients || "",
+      batchCode: product.Stock || batch.quantity || "",
+      isActive: product.Is_Active === "true" ? "Active" : "Inactive",
+      isFeatured: product.is_featured === "true" ? "Yes" : "No",
+      description: product.Description || "",
+      features: product.Features || "",
+      howToUse: product.How_To_Use || "",
+      ingredients: product.Ingredients || "",
       specifications: {
-        Units: product.units || "g",
-        Item_LWH: `${product.item_length || 0}x${product.item_width || 0}x${product.item_height || 0}`,
-        Package_LWH: `${product.package_length || 0}x${product.package_width || 0}x${product.package_height || 0}`,
-        Item_Weight: product.net_weight || "0",
-        Package_Weight: product.package_weight || "0",
+        Units: product.Units || "ml",
+        Item_LWH: JSON.parse(product.Product_Spesifications || "{}")["item-LWH"] || "0x0x0",
+        Package_LWH: JSON.parse(product.Product_Spesifications || "{}")["Package-LWH"] || "0x0x0",
+        Item_Weight: JSON.parse(product.Product_Spesifications || "{}")["item-Weight"] || "0",
+        Package_Weight: JSON.parse(product.Product_Spesifications || "{}")["Package-Weight"] || "0",
       },
     });
-console.log("Fetched images:", images);
 
-    // Set image previews
+    const previewData = {};
     const imageMap = {
       primary: "Primary_Image",
       secondary: "Secondary_Image",
       normal1: "Normal_Image1",
       normal2: "Normal_Image2",
     };
-    const previewData = {};
-    images.forEach(img => {
-      const mappedKey = imageMap[img.image_type];
-      if (mappedKey) {
-        previewData[mappedKey] = img.image_url;
+    images.forEach((img) => {
+      const key = imageMap[img.image_type];
+      if (key) {
+        previewData[key] = img.image_url;
       }
     });
-    setImagePreviews(previewData);
 
-    // Set product ID so future submits go to update API
-    setCreatedProductId(product.product_id);
+    setImagePreviews(previewData);
   } catch (err) {
-    console.error(" Failed to fetch product details:", err);
+    console.error("Failed to fetch product details:", err);
   }
 };
 
 
 
 
-  useEffect(() => {
-    fetchProductDetails();
-    
-  }, []);
+
+useEffect(() => {
+  if (createdProductId) {
+    fetchProductDetails(createdProductId);
+  }
+}, [createdProductId]);
 
 
 
 
-const toNumber = (val, fallback = 0) => {
-  const num = parseFloat(val?.toString().trim());
-  return isNaN(num) ? fallback : num;
-};
+
 
 const handleSubmit = async () => {
   const requiredFields = [
@@ -195,62 +200,58 @@ const handleSubmit = async () => {
     { field: formData.category, name: "Category" },
     { field: formData.price, name: "Price" },
   ];
-   
+
+  const toNumber = (val, fallback = 0) => {
+    const num = parseFloat(val?.toString().trim());
+    return isNaN(num) ? fallback : num;
+  };
+
   const convertToISODate = (ddmmyyyy) => {
-  if (!ddmmyyyy) return "";
-  const [day, month, year] = ddmmyyyy.split("-");
-  return `${year}-${month}-${day}`;
-};
+    if (!ddmmyyyy) return "";
+    const [day, month, year] = ddmmyyyy.split("-");
+    return `${year}-${month}-${day}`;
+  };
 
   for (const { field, name } of requiredFields) {
     if (!field?.trim()) {
-      alert(` ${name} is required`);
+      alert(`${name} is required`);
       return;
     }
   }
 
-  const safePrice = toNumber(formData.price);
-  const safeDiscount = toNumber(formData.discount);
-  const safeQuantity = toNumber(formData.batchCode);
-
-  const safeSpecifications = {
-    ...formData.specifications,
-    Item_Weight: toNumber(formData.specifications.Item_Weight),
-    Package_Weight: toNumber(formData.specifications.Package_Weight),
-  };
-
-  const productData = {
-    name: formData.productName.trim(),
-    sku: formData.sku.trim(),
-    ean: formData.ean.trim(),
-    category: formData.category.trim(),
-    price: safePrice,
-    discount: safeDiscount,
-    warehouse_location: formData.warehouse.trim(),
-    quantity: safeQuantity,
-    is_active: formData.isActive === "Active" ? "true" : "false",
-    description: formData.description.trim(),
-    features: formData.features.trim(),
-    how_to_use: formData.howToUse.trim(),
-    ingredients: formData.ingredients.trim(),
-    manufacture_date: convertToISODate(formData.mfgDate.trim()),
-    expiry_date: convertToISODate(formData.expDate.trim()),
-    Product_Specifications: safeSpecifications,
-  };
-
   const payload = new FormData();
-  Object.entries(productData).forEach(([key, val]) => {
-    if (key === "Product_Specifications") {
-      payload.append(key, JSON.stringify(val));
-    } else {
-      payload.append(key, val);
-    }
-  });
 
-  // Add images
-  Object.entries(images).forEach(([key, file]) => {
-    if (file) payload.append(key, file);
-  });
+  // Core fields
+  payload.append("product_name", formData.productName.trim());
+  payload.append("sku", formData.sku.trim());
+  payload.append("category", formData.category.trim());
+  payload.append("Price", toNumber(formData.price));
+  payload.append("Discount", toNumber(formData.discount));
+  payload.append("Stock", toNumber(formData.batchCode));
+  payload.append("Units", formData.specifications.Units || "ml");
+  payload.append("Is_Active", formData.isActive === "Active" ? "true" : "false");
+  payload.append("is_featured", formData.isFeatured === "Yes" ? "true" : "false");
+  payload.append("Description", formData.description.trim());
+  payload.append("Features", formData.features.trim());
+  payload.append("How_To_Use", formData.howToUse.trim());
+  payload.append("Ingredients", formData.ingredients.trim());
+  payload.append("manufacturing_Date", convertToISODate(formData.mfgDate.trim()));
+  payload.append("Expiry_Date", convertToISODate(formData.expDate.trim()));
+
+  // Specification object
+  const safeSpecs = {
+    "item-LWH": formData.specifications.Item_LWH,
+    "item-Weight": toNumber(formData.specifications.Item_Weight),
+    "Package-LWH": formData.specifications.Package_LWH,
+    "Package-Weight": toNumber(formData.specifications.Package_Weight),
+  };
+  payload.append("Product_Spesifications", JSON.stringify(safeSpecs));
+
+  // Images
+  if (images.Primary_Image) payload.append("primary_image", images.Primary_Image);
+  if (images.Secondary_Image) payload.append("secondary_image", images.Secondary_Image);
+  if (images.Normal_Image1) payload.append("normal1_image", images.Normal_Image1);
+  if (images.Normal_Image2) payload.append("normal2_image", images.Normal_Image2);
 
   // Dynamic endpoint and method
   const isUpdate = createdProductId !== null;
@@ -266,20 +267,24 @@ const handleSubmit = async () => {
 
     if (res.ok) {
       const msg = isUpdate ? "Product updated successfully!" : "Product created successfully!";
-      alert(` ${msg}`);
+      alert(msg);
 
       if (!isUpdate) {
         const result = await res.json();
-        setCreatedProductId(result.product_id || 5); // fallback to latest ID if not returned
+       const id = result.product_id || null;
+setCreatedProductId(id); // triggers useEffect
+
+
       }
     } else {
       const errorText = await res.text();
-      alert(" Failed: " + errorText);
+      alert("Failed: " + errorText);
     }
   } catch (error) {
-    alert(" Error: " + error.message);
+    alert("Error: " + error.message);
   }
 };
+
 
 
 
@@ -417,16 +422,7 @@ const handleSubmit = async () => {
 
  
   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-    <div>
-      <label className="text-[14px] font-bold text-[#102B01] mb-1 block">EAN</label>
-      <input
-        name="ean"
-        value={formData.ean}
-        onChange={handleChange}
-        type="text"
-        className={inputClasses}
-      />
-    </div>
+   
 
     <div className="relative">
       <label className="text-[14px] font-bold text-[#102B01] mb-1 block">Category</label>
@@ -442,8 +438,11 @@ const handleSubmit = async () => {
                   <option value="hairoil">Hair Oil</option>
                   <option value="body_massage_oil">Body Massage Oil</option>
                   <option value="lip_balm">Lip Balm</option>
-                  <option value="face_pack">Face Wash</option>
+                  <option value="face_pack">Face Pack</option>
                   <option value="serum">Serum</option>
+                  <option value="face_wash">Face Wash</option>
+                  <option value="foot_gel">Foot Gel</option>
+                  <option value="foot_cream">Foot Cream</option>
       </select>
       <IoIosArrowDown className="absolute right-3 top-[40px] text-gray-500" />
     </div>
@@ -461,6 +460,23 @@ const handleSubmit = async () => {
 <FiCalendar
   className="absolute right-3 top-[35px] text-gray-500"
  />
+
+
+</div>
+  <div className='relative '>
+  <label className="text-[14px] font-bold text-[#102B01] mb-1 block">Expiry Date</label>
+  <input
+  name="expDate"
+  value={formData.expDate}
+  onChange={handleChange}
+  type="text"
+  className={`${inputClasses} pr-2`}
+  placeholder="DD-MM-YYYY"
+/>
+<FiCalendar
+  className="absolute right-3 top-[35px] text-gray-500 cursor-pointer"
+  />
+
 
 
 </div>
@@ -489,37 +505,7 @@ const handleSubmit = async () => {
       <FaPercent className="absolute right-3 top-[40px] text-gray-500" />
     </div>
 
-   <div className='relative '>
-  <label className="text-[14px] font-bold text-[#102B01] mb-1 block">Expiry Date</label>
-  <input
-  name="expDate"
-  value={formData.expDate}
-  onChange={handleChange}
-  type="text"
-  className={`${inputClasses} pr-2`}
-  placeholder="DD-MM-YYYY"
-/>
-<FiCalendar
-  className="absolute right-3 top-[35px] text-gray-500 cursor-pointer"
-  />
-
-
-
-</div>
-
-
-    <div>
-      <label className="text-[14px] font-bold text-[#102B01] mb-1 block">Warehouse Location</label>
-      <input
-        name="warehouse"
-        value={formData.warehouse}
-        onChange={handleChange}
-        type="text"
-        className={inputClasses}
-      />
-    </div>
-
-    <div>
+  <div>
       <label className="text-[14px] font-bold text-[#102B01] mb-1 block">Stock</label>
       <input
         name="batchCode"
@@ -530,6 +516,33 @@ const handleSubmit = async () => {
       />
     </div>
 
+
+    <div>
+      <label className="text-[14px] font-bold text-[#102B01] mb-1 block">Warehouse Location</label>
+      <input
+        name="warehouse"
+        value="Zia-guindy"
+        onChange={handleChange}
+        type="text"
+        className={`${inputClasses} bg-[#D9D9D9]`}
+        readOnly
+      />
+    </div>
+
+   
+ <div className="relative">
+      <label className="text-[14px] font-bold text-[#102B01] mb-1 block">Is Featured</label>
+      <select
+        name="isActive"
+        value={formData.isFeatured}
+        onChange={handleChange}
+        className={`${inputClasses} pr-10 appearance-none`}
+      >
+        <option>Yes</option>
+        <option>No</option>
+      </select>
+      <IoIosArrowDown className="absolute right-3 top-[40px] text-gray-500" />
+    </div>
     <div className="relative">
       <label className="text-[14px] font-bold text-[#102B01] mb-1 block">Is Active</label>
       <select

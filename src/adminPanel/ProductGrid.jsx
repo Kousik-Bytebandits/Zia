@@ -153,8 +153,12 @@ export default function ProductGrid() {
                   <option value="body_massage_oil">Body Massage Oil</option>
                   <option value="shampoo">Shampoo</option>
                   <option value="lip_balm">Lip Balm</option>
-                  <option value="face_pack">Face Wash</option>
+                   <option value="face_pack">Face Pack</option>
                   <option value="serum">Serum</option>
+                  <option value="face_wash">Face Wash</option>
+                  <option value="foot_gel">Foot Gel</option>
+                  <option value="foot_cream">Foot Cream</option>
+                  
                 </select>
                 <FaChevronDown className="absolute top-4 right-3 text-[#B7B7B7]" />
               </div>
@@ -174,11 +178,11 @@ export default function ProductGrid() {
                   key={index}
                   className="bg-white rounded-xl shadow-md border hover:shadow-lg transition p-3 flex flex-col"
                 >
-                  <div className="bg-[#F5F6F0] border border-[#E3E3E3] aspect-[4/3] flex items-center justify-center rounded-md mb-4">
+                  <div className=" border border-[#E3E3E3] aspect-[4/3] flex items-center justify-center rounded-md mb-4">
                     <img
                       src={product.banner_image || "/images/h_shampoo.png "}
                       alt={product.name}
-                      className="h-[125px] object-contain"
+                      className="h-[140px]  object-contain"
                     />
                   </div>
                   <h2 className="font-semibold text-[15px] leading-snug">{product.product_name}</h2>

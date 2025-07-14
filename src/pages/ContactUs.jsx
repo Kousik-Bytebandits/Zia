@@ -14,141 +14,215 @@ const ContactUs = () => {
         </div>
 
         {/* Contact Info + Form Section */}
-        <div className="p-6 lg:flex lg:justify-center lg:items-start lg:gap-20">
-          {/* Left Contact Info */}
-          <div className="xxxl:w-[600px] laptop:w-[300px] hd:w-[400px] lg:mt-28 ">
-            <p className="text-[16px] mb-4">Contact Us</p>
+     {/* Main Section */}
+<div className="w-full px-6 py-10 lg:px-16 lg:py-20 bg-white">
+  <h2 className="lg:text-center  text-[16px] xxxl:text-[60px] laptop:text-[32px] hd:text-[40px] text-left mb-2 lg:mb-10">Contact Us</h2>
 
-            <h2 className="text-[24px] xxxl:text-[32px] laptop:text-[24px] hd:text-[30px]  mb-8 font-tenor leading-tight tracking-widest">
-              OUR BRANCH <br /> OFFICE -
-            </h2>
+  <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-y-10 lg:gap-x-4 items-start">
 
-            <h3 className="text-[#B2BA98] lg:text-[20px] mb-8 tracking-widest font-tenor text-[18px] uppercase">
-              Mumbai Head Office
-            </h3>
 
-            {/* Chat */}
-            <div className=" flex items-start gap-4 mb-10">
-              <img src="/icons/chat-icon.png" alt="Chat "className="lg:mt-2" />
-              <div>
-                <p className="xxxl:text-[20px] laptop:text-[16px] hd:text-[18px] uppercase text-[14px] font-tenor tracking-widest">Chat To Us</p>
-                <p className="xxxl:text-[20px] laptop:text-[16px] hd:text-[18px] text-[14px] mt-2 tracking-wider">Info@example.com</p>
-              </div>
-            </div>
+    {/* Left Column - Contact Info */}
+    <div className="lg:ml-20 ">
+      <h2 className="text-[23px] xxxl:text-[32px] laptop:text-[24px] hd:text-[28px] font-tenor tracking-widest mb-2">OUR BRANCH OFFICE</h2>
+      <p className="text-[16px] xxxl:text-[30px] laptop:text-[18px] hd:text-[20px] mb-6">Chennai Head office</p>
 
-            {/* Address */}
-            <div className="flex items-start gap-4 mb-10">
-              <img src="/icons/location-icon.png" alt="Location" className="lg:mt-2"/>
-              <div>
-                <p className="xxxl:text-[20px] laptop:text-[16px] hd:text-[18px] uppercase text-[14px] font-tenor tracking-widest">Visit Our Office Branch</p>
-                <p className="xxxl:text-[20px] laptop:text-[16px] hd:text-[18px] text-[14px] mt-2 tracking-wider">
-                  800 Nicollet Mall, Minneapolis, MN 55402,<br />United States
-                </p>
-              </div>
-            </div>
-
-            {/* Call */}
-            <div className="flex items-start gap-4">
-              <img src="/icons/call-icon.png" alt="Call"className="lg:mt-2" />
-              <div>
-                <p className="xxxl:text-[20px] laptop:text-[16px] hd:text-[18px] uppercase text-[14px] font-tenor tracking-widest">Call Us</p>
-                <p className="xxxl:text-[20px] laptop:text-[16px] hd:text-[18px] text-[14px] mt-2 tracking-wider">+1 502-240-6226 / +1 502-350-7116</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Right Contact Form */}
-          <div className="mt-10 lg:mt-16 ">
-            <form className="border border-[#B2BA98] xxxl:w-[890px] xxxl:h-[700px] laptop:w-[700px] hd:w-[700px] laptop:h-[600px] hd:h-[600px] rounded-xl p-6 space-y-4">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                <input
-                  type="text"
-                  placeholder="First Name"
-                  className="w-full border-b border-[#B2BA98] outline-none py-3 xxxl:py-5 laptop:py-3 text-[16px] placeholder:text-[#676A5E]"
-                />
-                <input
-                  type="text"
-                  placeholder="Last Name"
-                  className="w-full border-b border-[#B2BA98] outline-none py-3 xxxl:py-5 laptop:py-3 text-[16px] placeholder:text-[#676A5E]"
-                />
-                <input
-                  type="text"
-                  placeholder="Mobile Number"
-                  className="w-full border-b border-[#B2BA98] outline-none py-3 xxxl:py-5 laptop:py-3 text-[16px] placeholder:text-[#676A5E]"
-                />
-                <input
-                  type="email"
-                  placeholder="Email id"
-                  className="w-full border-b border-[#B2BA98] outline-none py-3 xxxl:py-5 laptop:py-3 text-[16px] placeholder:text-[#676A5E]"
-                />
-              </div>
-
-              <textarea
-                rows="12"
-                placeholder="Message"
-                className="w-full hidden lg:block border-b border-[#B2BA98] outline-none py-3 text-[16px] placeholder:text-[#676A5E] resize-none"
-              />
-              <textarea
-                rows="3"
-                placeholder="Message"
-                className="w-full lg:hidden border-b border-[#B2BA98] outline-none py-3 text-[16px] placeholder:text-[#676A5E] resize-none"
-              />
-
-              <div className="flex justify-center pt-4 lg:justify-start  xxxl:pt-16 laptop:pt-8 hd:pt-10">
-                <button
-                  type="submit"
-                  className="bg-black text-white px-6 py-3 rounded-full flex items-center gap-2"
-                >
-                  Send Message <span className="text-lg">→</span>
-                </button>
-              </div>
-            </form>
-          </div>
+      {/* Visit Branch */}
+      <div className="flex items-start gap-4 mb-6">
+        <img src="/icons/loc.png" alt="Location" className="mt-2" />
+        <div>
+          <p className="text-[16px] xxxl:text-[26px] laptop:text-[16px] hd:text-[18px] font-bold tracking-wide uppercase">Visit Our Office Branch</p>
+          <p className="text-[14px] xxxl:text-[24px] laptop:text-[14px] hd:text-[16px] mt-2">
+            ZIA HERBAL PRO PVT LTD.,<br />
+            ISO 9001:2015 Certified Company<br />
+            No. 5-9, I Floor,<br />
+            Thiru Vi Ka Industrial Estate,<br />
+            Guindy, Chennai - 600 032, Tamilnadu
+          </p>
         </div>
+      </div>
 
-{/* Desktop Footer Section with Lines */}
-<div className="hidden lg:flex items-start justify-evenly w-full lg:mt-20 mb-20">
-  <div className="flex w-full max-w-8xl text-center divide-x divide-[#B2BA98]">
+      {/* Email */}
+      <div className="flex items-start gap-4 mb-6">
+        <img src="/icons/e-mail.png" alt="Email" className="mt-2" />
+        <div>
+          <p className="text-[16px] xxxl:text-[26px] laptop:text-[16px] hd:text-[18px] font-bold tracking-wide uppercase">Mail Us</p>
+          <p className="text-[14px] xxxl:text-[24px] laptop:text-[14px] hd:text-[16px] mt-2">ziaherbalpro@gmail.com</p>
+        </div>
+      </div>
+
+      {/* Phone */}
+      <div className="flex items-start gap-4 mb-6">
+        <img src="/icons/call.png" alt="Call" className="mt-2" />
+        <div>
+          <p className="text-[16px] xxxl:text-[26px] laptop:text-[16px] hd:text-[18px] font-bold tracking-wide uppercase">Contact Us</p>
+          <p className="text-[14px] xxxl:text-[24px] laptop:text-[14px] hd:text-[16px] mt-2">+91 - 8939834383</p>
+        </div>
+      </div>
+
+      {/* WhatsApp */}
+      <div className="flex items-start gap-4 mb-6">
+        <img src="/icons/w-app.png" alt="WhatsApp" className="mt-2" />
+        <div>
+          <p className="text-[16px] xxxl:text-[26px] laptop:text-[16px] hd:text-[18px] font-bold tracking-wide uppercase">Reach Us Via WhatsApp</p>
+          <p className="text-[14px] xxxl:text-[24px] laptop:text-[14px] hd:text-[16px] mt-2">+91 - 8939834383</p>
+        </div>
+      </div>
+       <div className="flex items-start gap-4">
+        <img src="/icons/clock.png" alt="Office timing" className="mt-2" />
+        <div>
+          <p className="text-[16px] xxxl:text-[26px] laptop:text-[16px] hd:text-[18px] font-bold tracking-wide uppercase">Office Timings</p>
+          <p className="text-[14px] xxxl:text-[24px] laptop:text-[14px] hd:text-[16px] mt-2">10 am - 5:00 pm</p>
+        </div>
+      </div>
+    </div>
+
+    {/* Mobile Map View - Above Form */}
+<div className="block lg:hidden mb-8 mt-10">
+  <iframe
+    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15549.931697979102!2d80.2065843!3d13.0048898!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5267406d32d9e9%3A0x615eb3769de88ef6!2sGuindy%20Industrial%20Estate%2C%20SIDCO%20Industrial%20Estate%2C%20Guindy%2C%20Chennai%2C%20Tamil%20Nadu%20600032!5e0!3m2!1sen!2sin!4v1752207883505!5m2!1sen!2sin"
+    width="100%"
+    height="250"
+    style={{ border: 0 }}
+    allowFullScreen=""
+    loading="lazy"
+    referrerPolicy="no-referrer-when-downgrade"
+    className="rounded-lg"
+  ></iframe>
+</div>
+
+
+    {/* Right Column - Form */}
+  <div className="w-full  ">
+ 
+
+  
+  <p className="mb-4 text-[16px] font-semibold text-center lg:text-left xxxl:text-[30px] laptop:text-[18px] hd:text-[20px]">
+    Leave us a message and we’ll get back to you
+  </p>
+
+  <form className="space-y-4 bg-white border border-[#B2BA98] p-6  rounded-xl w-full ">
+    {/* Name & Contact Inputs */}
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+      <div>
+        <label className="hidden lg:block text-black text-[16px] mb-2">First Name*</label>
+        <input
+          type="text"
+          placeholder="First Name*"
+          required
+          className="w-full bg-[#E6F2E9] border border-[#8EB490] rounded-md p-4 xxxl:p-4 laptop:p-2 hd:p-2 placeholder:text-[#41734C66] text-[18px] outline-none"
+        />
+      </div>
+      <div>
+        <label className="hidden lg:block text-black text-[16px] mb-2">Last Name</label>
+        <input
+          type="text"
+          placeholder="Last Name"
+          className="w-full bg-[#E6F2E9] border border-[#8EB490] rounded-md p-4 xxxl:p-4 laptop:p-2 hd:p-2 placeholder:text-[#41734C66] text-[18px] outline-none"
+        />
+      </div>
+      <div>
+        <label className="hidden lg:block text-black text-[16px] mb-2">Email Address*</label>
+        <input
+          type="email"
+          placeholder="Email Address*"
+          className="w-full bg-[#E6F2E9] border border-[#8EB490] rounded-md p-4 xxxl:p-4 laptop:p-2 hd:p-2 placeholder:text-[#41734C66] text-[18px] outline-none"
+          required
+        />
+      </div>
+      <div>
+        <label className="hidden lg:block text-black text-[16px] mb-2">Phone Number</label>
+        <input
+          type="text"
+          placeholder="Phone Number"
+          className="w-full bg-[#E6F2E9] border border-[#8EB490] rounded-md p-4 xxxl:p-4 laptop:p-2 hd:p-2 placeholder:text-[#41734C66] text-[18px] outline-none"
+        />
+      </div>
+    </div>
+
+    {/* Message Textarea */}
+    <div>
+      <label className="hidden lg:block text-black text-[16px] mb-2">Message*</label>
+      <textarea
+      
+        placeholder="Message*"
+        required
+        className="w-full hd:h-[200px] laptop:h-[150px] xxxl:h-[300px] h-[150px] bg-[#E6F2E9] border border-[#8EB490] rounded-md p-4 xxxl:p-4 laptop:p-2 hd:p-2 placeholder:text-[#41734C66] text-[18px] outline-none resize-none"
+      />
+    </div>
+
+    {/* Submit Button */}
+    <div className="pt-4 w-[60%] lg:w-[30%] mx-auto">
+      <button
+        type="submit"
+        className="w-full font-tenor text-[14px] xxxl:text-[18px] laptop:text-[14px] bg-black text-white py-4 xxxl:p-5 laptop:p-4 hd:p-4 rounded-full hover:opacity-90"
+      >
+        Send Message
+        <span className="ml-4">→</span>
+      </button>
+    </div>
+  </form>
+</div>
+
+  </div>
+</div>
+
+{/* Features Row Below */}
+<div className="hidden lg:flex items-start justify-evenly w-full mt-20 mb-20">
+  <div className="flex w-full max-w-[1400px] mx-auto text-center divide-x divide-[#B2BA98]">
     {/* Returns */}
     <div className="w-1/3 px-6">
       <img src="/icons/return-icon.png" alt="Returns" className="mx-auto mb-4" />
-      <h4 className="uppercase lg:text-[20px] tracking-widest mb-2 text-[#676A5E] text-[18px] font-tenor">
-        Returns & Exchange
-      </h4>
+      <h4 className="uppercase lg:text-[20px] tracking-widest mb-2 text-[#676A5E] font-tenor">Returns & Exchange</h4>
       <p className="text-[14px] lg:text-[16px] text-[#676A5E]">
-        Duis aute irure dolor in reprehenderit in voluptate <br />
-        velit esse cillum dolore eu nulla pariatur.
+        Hassle-free returns and easy exchanges within 30<br/> days of purchase.
       </p>
     </div>
-
-    {/* Fast Shipping */}
+    {/* Shipping */}
     <div className="w-1/3 px-6">
       <img src="/icons/shipping-icon.png" alt="Shipping" className="mx-auto mb-4" />
-      <h4 className="uppercase tracking-widest mb-2 text-[#676A5E] lg:text-[20px] text-[18px] font-tenor">
-        Fast Shipping
-      </h4>
-      <p className="text-[14px] text-[#676A5E] lg:text-[16px]">
-        Duis aute irure dolor in reprehenderit in voluptate <br />
-        velit esse cillum dolore eu nulla pariatur.
+      <h4 className="uppercase tracking-widest mb-2 text-[#676A5E] lg:text-[20px] font-tenor">Fast Shipping</h4>
+      <p className="text-[14px] lg:text-[16px] text-[#676A5E]">
+        Get your order delivered quickly with our reliable,<br/> express shipping service.
       </p>
     </div>
-
     {/* Support */}
     <div className="w-1/3 px-6">
       <img src="/icons/support-icon.png" alt="Support" className="mx-auto mb-4" />
-      <h4 className="uppercase tracking-widest mb-2 lg:text-[20px] text-[#676A5E] text-[18px] font-tenor">
-        Support 24 / 7
-      </h4>
-      <p className="text-[14px] text-[#676A5E] lg:text-[16px]">
-        Duis aute irure dolor in reprehenderit in voluptate <br />
-        velit esse cillum dolore eu nulla pariatur.
+      <h4 className="uppercase tracking-widest mb-2 lg:text-[20px] text-[#676A5E] font-tenor">Support 24 / 7</h4>
+      <p className="text-[14px] lg:text-[16px] text-[#676A5E]">
+        Our customer support team is here for you anytime, <br/>day or night.
       </p>
     </div>
   </div>
 </div>
 
+{/* Desktop Map View - Below Features */}
+<div className="hidden lg:block w-full  px-4 lg:px-16 mb-16">
+  <iframe
+    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15549.931697979102!2d80.2065843!3d13.0048898!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5267406d32d9e9%3A0x615eb3769de88ef6!2sGuindy%20Industrial%20Estate%2C%20SIDCO%20Industrial%20Estate%2C%20Guindy%2C%20Chennai%2C%20Tamil%20Nadu%20600032!5e0!3m2!1sen!2sin!4v1752207883505!5m2!1sen!2sin"
+    width="100%"
+    height="400"
+    style={{ border: 0 }}
+    allowFullScreen=""
+    loading="lazy"
+    referrerPolicy="no-referrer-when-downgrade"
+    className=" shadow-lg h-[700px]"
+  ></iframe>
+</div>
 
+
+
+ <div className="text-center px-6 lg:hidden">
+      <img src="/icons/return-icon.png" alt="Returns" className="mx-auto mb-4" />
+      <h4 className="uppercase lg:text-[20px] tracking-widest mb-2 text-[#676A5E] text-[18px] font-tenor">
+        Returns & Exchange
+      </h4>
+      <p className="text-[16px] lg:text-[16px] text-[#676A5E]">
+        Hassle-free returns and easy exchanges within 30<br/> days of purchase.
+      </p>
+    </div>
 <div className="text-center px-6 py-10 lg:hidden">
+  
   <img
     src="/icons/shipping-icon.png"
     alt="Shipping Icon"
@@ -158,11 +232,18 @@ const ContactUs = () => {
     Fast Shipping
   </h4>
   <p className="text-[16px] text-[#676A5E] leading-snug">
-    Duis aute irure dolor in reprehenderit in voluptate <br />
-    velit esse cillum dolore eunulla pariatur.
+   Get your order delivered quickly with our reliable,<br/> express shipping service.
   </p>
 </div>
-
+ <div className="text-center px-6 mb-10 lg:hidden">
+      <img src="/icons/support-icon.png" alt="Support" className="mx-auto mb-4" />
+      <h4 className="uppercase tracking-widest mb-2 lg:text-[20px] text-[#676A5E] text-[18px] font-tenor">
+        Support 24 / 7
+      </h4>
+      <p className="text-[16px] text-[#676A5E] lg:text-[16px]">
+        Our customer support team is here for you anytime,<br/> day or night.
+      </p>
+    </div>
       </div>
 
       <Footer />
