@@ -12,7 +12,8 @@ export default function ShopCart() {
       id: 1,
       name: "ZIA HERBAL HAIR SHAMPOO",
       size: "100 ML",
-      price: 800,
+      originalPrice: 400,
+       price: 320,
       quantity: 2,
       img: "/images/h_shampoo.png",
     },
@@ -20,7 +21,8 @@ export default function ShopCart() {
       id: 2,
       name: "ZIA  HERBAL HAIR SHAMPOO",
       size: "100 ML",
-      price: 800,
+        originalPrice: 400,
+       price: 320,
       quantity: 1,
       img: "/images/h_shampoo.png",
     },
@@ -28,7 +30,8 @@ export default function ShopCart() {
       id: 3,
       name: "ZIA  HERBAL HAIR SHAMPOO",
       size: "100 ML",
-      price: 800,
+        originalPrice: 400,
+       price: 320,
       quantity: 3,
       img: "/images/h_shampoo.png",
     },
@@ -36,7 +39,8 @@ export default function ShopCart() {
       id: 4,
       name: "ZIA  HERBAL HAIR SHAMPOO",
       size: "100 ML",
-      price: 800,
+        originalPrice: 400,
+       price: 320,
       quantity: 1,
       img: "/images/h_shampoo.png",
     },
@@ -84,85 +88,75 @@ export default function ShopCart() {
 
   return (
     <>
-      <div className="max-w-[1600px] pt-20 mx-auto py-8 font-archivo">
-        <h2 className="lg:text-[32px] text-center lg:mt-10 lg:mb-10 py-4 font-tenor text-[#2E3A27] text-[28px]">
+      <div className="xxxl:max-w-[80%] laptop:max-w-[90%]  pt-20 mx-auto py-8 font-archivo">
+        <h2 className="xxxl:text-[50px] text-center laptop:text-[35px] hd:text-[40px] lg:mb-10 py-4 font-tenor text-[#2E3A27] text-[28px]">
           Shopping Cart
         </h2>
 
         {items.length === 0 ? (
           <div className="text-center py-20">
-            <p className="text-[24px]">Your cart is empty.</p>
+            <p className="text-[35px]">Your cart is empty.</p>
           </div>
         ) : (
           <>
-            {/* ✅ Desktop View */}
+            {/*  Desktop View */}
             <div className="hidden lg:flex gap-6 mb-20">
-              <div className="w-[100%] bg-white rounded-lg shadow-around-soft p-8">
-                <div className="grid grid-cols-5 text-[26px] py-4 text-center text-[#373737] font-semibold border-b border-[#A3A3A3]">
-                  <p className="text-left col-span-2 pl-16">Product Details</p>
-                  <p>Price</p>
-                  <p>Quantity</p>
-                  <p className="text-left ml-6">Total</p>
-                </div>
-
-                <div className="overflow-y-auto scrollbar-none max-h-[calc(100vh-400px)] mt-4 p-2 space-y-4">
-                  {items.map((item) => (
-                    <div
-                      key={item.id}
-                      className="flex items-center justify-between p-4 shadow-around-soft rounded-lg"
-                    >
-                      <div className="flex gap-4 w-[40%] items-center">
-                        <img
-                          src={item.img}
-                          alt="product"
-                          className="w-[108px] h-[140px] object-contain"
-                        />
-                        <div>
-                          <h3 className="text-[20px] font-semibold">
-                            {item.name.split(" ").slice(0, 2).join(" ")} <br />
-                            {item.name.split(" ").slice(2).join(" ")}
-                          </h3>
-                          <p className="text-[#AEAEAE] text-[18px] mt-4">
-                            {item.size}
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="text-[24px] w-[15%] text-center font-semibold">
-                        ₹ {item.price}
-                      </div>
-
-                      <div className="text-[20px] w-[15%] flex justify-center">
-            <div className="shadow-around-soft flex items-center gap-2 border border-[#D5D5D5] rounded-full h-[35px] text-[18px]">
-              <button className="px-3" onClick={() => handleDecrement(item.id)}>
-                -
-              </button>
-              <span>{item.quantity}</span>
-              <div className=" rounded-full border border-[#D5D5D5] px-3 py-[3px] ml-1">
-                <button onClick={() => handleIncrement(item.id)}>+</button>
-              </div>
-            </div>
+             <div className="w-full bg-white shadow-around-soft rounded-xl p-6 font-archivo">
+  {items.map((item) => (
+    <div
+      key={item.id}
+      className="flex justify-between py-6 items-center border-b-2 border-dashed border-[#B7B7B7] last:border-none"
+    >
+      {/* Product Image + Details */}
+      <div className="flex items-center gap-6 xxxl:w-[40%] laptop:w-[50%] hd:w-[45%]">
+        <img src={item.img} alt="product" className="xxxl:w-[110px] xxxl:h-[150px] laptop:w-[88px] laptop:h-[110px] hd:w-[100px] hd:h-[120px] object-contain" />
+        <div className="space-y-1">
+          <p className="text-[18px] xxxl:text-[24px] laptop:text-[20px] hd:text-[22px] font-semibold uppercase text-[#202020]">
+            {item.name}
+          </p>
+          <p className="text-[#A0A0A0] text-[20px]">100 ML</p>
+          <div className="flex items-center gap-1 mt-2 text-[#676A5E] text-[18px]">
+            <span>5.0</span>
+            <img src="/images/5star.png" alt="star" />
+            <span className="ml-1">(10)</span>
           </div>
+        </div>
+      </div>
 
-                      <div className="text-[24px] w-[15%] text-center font-semibold">
-                        ₹ {item.price * item.quantity}
-                      </div>
+      {/* Price Column */}
+      <div className=" text-[20px] font-semibold text-right w-[16%]">
+        <div className="flex  items-center justify-end gap-4">
+          <span className="text-[#FF1010]">-28%</span>
+          <div className="flex items-center gap-4">
+            <span className="line-through text-[#A3A3A3] text-[20px]">₹{item.originalPrice}</span>
+            <span className="text-black text-[20px]">₹{item.price}</span>
+          </div>
+        </div>
+      </div>
 
-                      <button
-                        onClick={() => handleRemove(item.id)}
-                        className="text-3xl font-bold mr-4"
-                      >
-                        ✕
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              </div>
+      {/* Quantity + Delete */}
+      <div className="flex items-center gap-3 w-[30%] justify-center">
+        <div className="flex items-center border border-[#D5D5D5] rounded-full px-6 py-1 gap-3">
+          <button className="text-[14px]" onClick={() => handleDecrement(item.id)}><FaMinus/></button>
+          <span className="text-[22px] font-medium">{item.quantity}</span>
+          <button className="text-[14px]" onClick={() => handleIncrement(item.id)}><FaPlus/></button>
+        </div>
+        <button
+          onClick={() => handleRemove(item.id)}
+          className="bg-[#BE0000] text-white px-8 py-2 text-[16px] font-semibold rounded-full"
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+  ))}
+</div>
+
 
               {/* ✅ Right Sidebar */}
               <div className="w-[35%] space-y-6">
-                <div className="bg-[#EFEFEF] rounded-lg shadow-around-soft px-6 pt-4">
-                  <h3 className="text-[24px] border-b border-[#A3A3A3] pb-3 mb-4">
+                <div className="bg-[#EFEFEF] rounded-lg shadow-around-soft px-6 pt-6">
+                  <h3 className="text-[24px] border-b border-[#A3A3A3] pb-6 mb-6">
                     Order Summary
                   </h3>
 
@@ -187,7 +181,7 @@ export default function ShopCart() {
                     </div>
                   </div>
 
-                  <div className="bg-[#E8E8E8] rounded-b-lg -mx-6 mt-4">
+                  <div className="bg-[#E8E8E8] rounded-b-lg -mx-6 mt-8">
                     <div className="flex justify-between px-6 pt-5 pb-2 font-semibold text-[20px]">
                       <span>Total:</span>
                       <span>₹ {total.toFixed(2)} INR</span>
@@ -195,34 +189,22 @@ export default function ShopCart() {
                     <p className="flex justify-end px-6 text-[#929292] text-[10px] pb-4">
                       Free Shipping
                     </p>
-                  </div>
-                </div>
-
-                <button
+                  
+                    <button
                   onClick={handleCheckout}
-                  className="w-full bg-[#111111] text-[26px] text-white font-tenor py-4 rounded-lg"
+                  className="w-[80%] mx-10 bg-[#111111] xxxl:text-[26px] laptop:text-[16px] hd:text-[18px] text-white font-tenor xxxl:py-4 laptop:py-2 hd:py-3 rounded-lg mb-8 mt-4"
                 >
                   Proceed to checkout
                 </button>
+                </div>
+                </div>
 
-                <div className="bg-white rounded-lg shadow-around-soft p-6 space-y-10 ">
-      <div className="flex gap-4 items-center">
-        <img src="/icons/box.png" alt="box" className="" />
-        <p className="text-[18px] text-[#7F7F7F] uppercase w-[55%]">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry.
-        </p>
-      </div>
-      <div className="flex gap-4 items-center ">
-        <img src="/icons/wallet.png" alt="card" className="" />
-        <p className="text-[18px] text-[#7F7F7F] uppercase  w-[55%]">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry.
-        </p>
+              
+
+               
       </div>
       </div>
-      </div>
-            </div>
+           
 
             {/* ✅ Mobile View */}
             <div className="lg:hidden">
@@ -266,11 +248,11 @@ export default function ShopCart() {
                   className="px-3"
                   onClick={() => handleDecrement(item.id)}
                 >
-                  <FaMinus/>
+                  <FaMinus size={16}/>
                 </button>
-                <span className="text-[#4C4B4B] text-[20px] font-bold">{item.quantity}</span>
-                <div className="rounded-full border border-[#D5D5D5] px-2 py-2 bg-black  flex ml-3 ">
-                  <button onClick={() => handleIncrement(item.id)}><FaPlus className="text-white " size={18}/></button>
+                <span className="text-[#4C4B4B] text-[20px] ">{item.quantity}</span>
+                <div className="px-3 items-center flex">
+                  <button onClick={() => handleIncrement(item.id)}><FaPlus className=" " size={16}/></button>
                 </div>
               </div>
               <div>

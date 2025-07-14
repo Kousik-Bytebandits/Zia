@@ -1,35 +1,44 @@
-import  { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FaFilter } from "react-icons/fa";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
-
-const products = Array(20).fill({
-  name: "Good Mood + Sun Skin",
-  image: "/images/lemonwash.png",
-  originalPrice: 900,
-  salePrice: 400,
-});
+import { RiStarSFill,RiStarHalfSFill } from "react-icons/ri";
 
 function ProductCard({ product }) {
   const navigate = useNavigate();
-const handleChange=()=>{
-navigate("/shopdetails");
-}
+
+  const handleChange = () => {
+   navigate(`/shopdetails/${product.product_id}`);
+
+  };
+
+ const primaryImage = product.primary_image_url;
+ 
+
   return (
-    <div className=" bg-white lg:rounded-md lg:h-[430px] shadow-xl border border-gray-200 flex flex-col">
+    <div className="bg-white lg:rounded-lg xxxl:w-[270px] xxxl:h-[400px] laptop:w-[180px] laptop:h-[320px] hd:w-[220px] hd:h-[350px] shadow-around-soft border border-[#D8DCCB] flex flex-col">
       <img
-        src={product.image}
+        src={primaryImage || "/images/lemonwash.png"}
         alt={product.name}
-        className="w-full h-[160px] lg:h-[200px] object-contain p-2 lg:mt-4 lg:mb-3"
+        className="h-[130px] xxxl:w-[200px] xxxl:h-[200px] laptop:w-[150px] laptop:h-[140px] hd:w-[150px] hd:h-[150px] object-contain mx-auto p-2 lg:mt-2 lg:mb-2"
       />
-      <div className=" flex flex-col  items-center text-center flex-grow justify-between">
-        <h2 className="text-[16px] lg:text-[24px] font-medium leading-snug">{product.name}</h2>
-        <img src="/images/stars-num.png" className="w-[95px] my-2 lg:my-0 lg:h-[22px] lg:w-[120px]" alt="rating" />
+      <div className="flex flex-col items-center text-center flex-grow justify-between">
+        <h2 className="text-[16px] laptop:text-[18px] hd:text-[20px] xxxl:text-[22px] font-medium leading-snug">
+          {product.name}
+        </h2>
+           <div className="flex text-yellow-500 items-center ">
+    {[...Array(4)].map((_, i) => (
+      <RiStarSFill key={i} />
+    ))}
+    <RiStarHalfSFill /> <p className="text-[#676A5E] ml-1  text-[12px]">(79)</p>
+  </div>
         <div className="font-semibold tracking-wide font-archivo mb-2">
-          <span className="line-through text-[18px]  mr-1 lg:hidden text-gray-400">₹{product.originalPrice}</span>
-          <span className="text-black  text-[18px] lg:text-[28px]">₹{product.salePrice}</span>
+          
+          <span className="text-black text-[20px] xxxl:text-[28px] laptop:text-[24px] hd:text-[26px]">
+            ₹{product.price}
+          </span>
         </div>
-        <button onClick={handleChange} className="w-full bg-[#2B452C] text-white py-3 lg:py-4 lg:rounded-b text-[18px] lg:text-[24px] tracking-wider font-medium rounded-none">
+        <button onClick={handleChange} className="w-full bg-[#2B452C] text-white py-3 xxxl:py-4 laptop:py-2 hd:py-3 lg:rounded-b text-[18px] xxxl:text-[24px] laptop:text-[20px] tracking-wider font-medium rounded-none">
           Add to Cart
         </button>
       </div>
@@ -37,13 +46,48 @@ navigate("/shopdetails");
   );
 }
 
-
 export default function ShopList() {
-  const [showFilter, setShowFilter] = useState(false);
-  const [priceRange, setPriceRange] = useState([54, 2500]);
-  const [sortOption, setSortOption] = useState("Relevance");
+  const [products, setProducts] = useState([]);
+  const [priceRange, setPriceRange] = useState([50, 500]);
+  const [sortOption, setSortOption] = useState("price-high_to_low");
+   const [showFilter, setShowFilter] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const filterRef = useRef(null);
+const [selectedCategories, setSelectedCategories] = useState([]);
+const toggleCategory = (category) => {
+  setSelectedCategories((prev) =>
+    prev.includes(category)
+      ? prev.filter((c) => c !== category)
+      : [...prev, category]
+  );
+};
+const handleApplyFilter = () => {
+  const categoryString = selectedCategories.join(",");
+  fetch(`https://booksemporium.in/Microservices_zia/prod/04_userProducts/api/user_products/all-products?sort_by=${sortOption}&min_price=${priceRange[0]}&max_price=${priceRange[1]}&categories=${categoryString}`)
+    .then(res => res.json())
+    .then(data => {
+      setProducts(Array.isArray(data) ? data : []);
+      setShowFilter(false); // Close mobile filter
+    })
+    .catch(err => console.error("Failed to fetch filtered products", err));
+};
+
+
+ useEffect(() => {
+  fetch(`https://booksemporium.in/Microservices_zia/prod/04_userProducts/api/user_products/all-products?sort_by=${sortOption}&min_price=${priceRange[0]}&max_price=${priceRange[1]}&categories=handwash,soap,hairoil,body_massage_oil,shampoo,lip_balm,face_pack,serum&discounts=10,15`)
+    .then(res => res.json())
+    .then(data => {
+      if (Array.isArray(data)) {
+        console.log(data);
+        setProducts(data);
+      } else {
+        console.error("Unexpected response format:", data);
+        setProducts([]);
+      }
+    })
+    .catch(err => console.error("Failed to fetch products", err));
+}, [sortOption, priceRange]);
+
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -59,72 +103,134 @@ export default function ShopList() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [showFilter]);
 
-  const totalProducts = 518;
+  const totalProducts = 350;
   const perPage = 20;
   const totalPages = Math.ceil(totalProducts / perPage);
 
-  const FilterSidebar = (
-    <div ref={filterRef} className="lg:mt-[24.5%] bg-white shadow-xl border border-[#D8DCCB] rounded-md p-4 text-[#676A5E] font-archivo w-full lg:w-[270px]">
-      <div className="flex justify-between items-center mb-2">
-        <h2 className="text-sm ">51 Results</h2>
-        <button
-          className="font-tenor bg-[#3A753C] text-[14px] text-white tracking-wide px-3 py-1 rounded-full"
-          onClick={() => setPriceRange([54, 2500])}
-        >
-          Clear Filter
-        </button>
-      </div>
-      <div className="w-full h-px bg-[#C5C5C5] mb-3" />
+ const FilterSidebar = (
+  
+  <div className="relative lg:mt-[24.5%] top-[4%] -left-[56%] w-[111%] lg:w-[300px]     lg:left-[1%] lg:z-0 z-50  border-2 rounded-lg lg:border-[#D8DCCB] font-archivo text-[#2B452C]">
 
-      <div className="mb-4">
-        <h3 className="text-[15px] lg:text-[20px] text-center font-tenor mb-2 tracking-widest">FILTER BY PRICE</h3>
+   
+
+    <div className="bg-[#C7C7C7] lg:bg-white font-archivo flex justify-between items-center px-4 py-3">
+      <button
+        className="bg-[#3A753C] font-tenor text-white text-[14px] px-4 py-[6px] rounded-full "
+        onClick={() => {
+          setPriceRange([49, 1500]);
+          setSelectedCategories([]);
+        }}
+      >
+        Clear Filter
+      </button>
+      <button
+        onClick={() => setShowFilter(false)}
+        className="text-[24px] font-bold lg:hidden"
+      >
+        ✕
+      </button>
+       <button
+            onClick={handleApplyFilter}
+            className="bg-[#3A753C] hidden lg:block text-white px-4 py-[6px] font-tenor rounded-full text-[14px] "
+          >
+            Apply Filter
+          </button>
+    </div>
+<div className="w-full hidden  lg:block h-px bg-[#C5C5C5] mb-3" />
+
+    <div className="px-4 pb-6">
+
+      {/* Price Filter */}
+      <div className="mb-6">
+        <div className="flex justify-between text-sm font-medium mb-2">
+          <h3 className="tracking-wide text-[#676A5E] mt-4 text-[16px] lg:text-[22px] font-tenor uppercase">FILTER BY PRICE</h3>
+          <span className="text-[16px] lg:hidden text-[#676A5E] mt-4">1 - 20 of 350 Products</span>
+        </div>
+
         <input
           type="range"
-          min={54}
-          max={2500}
+          min={49}
+          max={1500}
           value={priceRange[1]}
-          onChange={(e) => setPriceRange([54, parseInt(e.target.value)])}
-          className="w-full accent-[#3A753C] mb-4"
+          onChange={(e) => setPriceRange([49, parseInt(e.target.value)])}
+          className="w-full h-1 bg-[#3A753C] rounded-lg appearance-none cursor-pointer"
+          style={{ accentColor: "#3A753C" }}
         />
-        <div className="text-[#768445] flex justify-between items-center text-sm">
-          <p>Price: ${priceRange[0]} — ${priceRange[1]}</p>
-          <button className="font-tenor bg-[#3A753C] text-white px-5 text-[16px] py-[4px] rounded-full tracking-wide">
-            Filter
+
+        <div className="flex justify-between items-center mt-2 text-sm">
+          <p className="text-[16px] text-[#768445] ">Price: ₹{priceRange[0]} — ₹{priceRange[1]}</p>
+          <button
+            onClick={handleApplyFilter}
+            className="bg-[#3A753C] text-white lg:hidden px-4 py-[6px] font-tenor rounded-full text-[14px] "
+          >
+            Apply Filter
           </button>
         </div>
       </div>
 
-      <div className="mb-4 ">
-        <h3 className="text-md lg:text-[20px] font-tenor mb-2 tracking-widest">PRODUCT TYPE</h3>
-        {["Beauty Cosmetic", "Meli Cream", "Skin Care", "Costume Care", "JUJU Cream"].map((type) => (
-          <div key={type} className="mb-2 lg:mb-4 ">
-            <label className="text-[14px] lg:text-[16px] ">
-              <input type="checkbox" className="mr-2 lg:mr-4 accent-[#676A5E] rounded-none" />
-              {type}
-            </label>
+      {/* PRODUCT TYPE (Left column short, Right column long) */}
+      <div className="mb-6">
+        <p className="text-[18px] text-[#676A5E] font-tenor lg:text-[22px] uppercase mb-3">PRODUCT TYPE</p>
+        <div className="grid grid-cols-2 gap-3 text-[14px]">
+
+          {/* Left Column (Fewer items) */}
+          <div className="space-y-2">
+            {["Hand Wash", "Herbal Soap", "Hair Oil", "Body Oil","Hair Shampoo", ].map((label, index) => (
+              <label key={index} className="flex text-[#676A5E] text-[18px] lg:text-[17px] items-center space-x-2">
+                <input
+                  type="checkbox"
+                  className="accent-[#676A5E] w-[18px] h-[18px]"
+                  checked={selectedCategories.includes(label.toLowerCase().replace(/ /g, "_"))}
+                  onChange={() => toggleCategory(label.toLowerCase().replace(/ /g, "_"))}
+                />
+                <span>{label}</span>
+              </label>
+            ))}
           </div>
-        ))}
+
+          {/* Right Column (More items) */}
+          <div className="space-y-2">
+            {[ "Face Pack", "Lip Balm", "Serum", "Face Wash", "Shower Gel", "Foot Cream"].map((label, index) => (
+              <label key={index} className="flex text-[#676A5E] text-[18px] lg:text-[17px] items-center space-x-2">
+                <input
+                  type="checkbox"
+                  className="accent-[#B2BA98] w-[18px] h-[18px]"
+                  checked={selectedCategories.includes(label.toLowerCase().replace(/ /g, "_"))}
+                  onChange={() => toggleCategory(label.toLowerCase().replace(/ /g, "_"))}
+                />
+                <span>{label}</span>
+              </label>
+            ))}
+          </div>
+
+        </div>
       </div>
 
-      <div className="mb-2">
-        <h3 className="text-md lg:text-[20px] font-tenor mb-2 tracking-widest">DISCOUNT</h3>
-        {["10% Off or more", "25% Off or more", "35% Off or more", "50% Off or more", "60% Off or more"].map((discount) => (
-          <div key={discount} className="mb-2 lg:mb-4">
-            <label className="text-[14px] lg:text-[16px]">
-              <input type="checkbox" className="mr-2 lg:mr-4 accent-[#676A5E] rounded-none" />
-              {discount}
+      {/* DISCOUNT */}
+      <div>
+        <p className="text-[18px] font-tenor lg:text-[22px]  text-[#676A5E]  uppercase mb-3">discount</p>
+        <div className="grid grid-cols-3 lg:grid-cols-2 gap-3 text-[14px]">
+          {["5%", "10%", "15%", "20%", "25%", "30%"].map((discount) => (
+            <label key={discount} className="flex items-center text-[#676A5E] text-[18px] space-x-2">
+              <input
+                type="checkbox"
+                className="accent-[#B2BA98] w-[18px] h-[18px]"
+              />
+              <span>{discount} Off</span>
             </label>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
-      <img src="/images/beauty.png" alt="banner" className="mt-6 hidden lg:block absolute left-8 top-100 w-[270px]" />
     </div>
-  );
+   <img src="/images/beauty.png" alt="banner" className="mt-6 hidden lg:block   top-100 w-[300px]" />
+  </div>
+  
+);
 
   return (
     <div>
-    <div className="pt-[18%] min-h-screen mb-20 bg-white pt-[17px] lg:px-8 lg:pt-8 overflow-hidden font-archivo text-[#676A5E]">
+    <div className="pt-[18%] min-h-screen overflow-hidden  mb-20 bg-white  lg:px-8 lg:pt-8 font-archivo text-[#676A5E]">
       <div className="hidden lg:flex justify-between items-center mb-4 px-4">
        
       </div>
@@ -145,31 +251,36 @@ export default function ShopList() {
         </div>
 
         <div className="w-px h-10 bg-gray-900 "></div>
+<div className="flex-1 relative flex justify-center">
+  <button
+    onClick={() => setShowFilter(!showFilter)}
+    className="font-archivo tracking-wider text-md flex items-center gap-1"
+  >
+    Filter By <FaFilter className="text-sm" />
+  </button>
 
-        <div className="flex-1 relative flex justify-center">
-          <button
-            onClick={() => setShowFilter(!showFilter)}
-            className="font-archivo tracking-wider text-md flex items-center gap-1"
-          >
-            Filter By <FaFilter className="text-sm" />
-          </button>
+  {showFilter && (
+    <div className="absolute top-full left-0 z-0 mt-3 w-[90vw]  rounded-lg  ">
+      {/* Triangle */}
+      <div className="absolute -top-2 left-[25%] w-5 h-5 bg-[#C7C7C7] rotate-45 " />
 
-          {showFilter && (
-            <div className="absolute -right-2 top-[calc(100%+15px)] w-[300px] z-40">
-              <div
-                className="w-4 h-4 bg-white absolute right-[35%] -top-4 shadow-xl z-10"
-                style={{ clipPath: "polygon(50% 0%, 0% 100%, 100% 100%)" }}
-              ></div>
-              {FilterSidebar}
-            </div>
-          )}
-        </div>
+      {/* Filter Panel */}
+      <div ref={filterRef} className="">
+        {FilterSidebar}
+      </div>
+    </div>
+  )}
+</div>
+
+
       </div>
 
       <div className="grid grid-cols-2 gap-3 px-3 pb-4 pt-2 font-archivo text-[#676A5E] lg:hidden">
-        {products.map((product, index) => (
-          <ProductCard key={index} product={product} />
-        ))}
+       {Array.isArray(products) && products.map((product) => (
+  <ProductCard key={product.product_id} product={product} />
+))}
+
+
       </div>
 
       <div className="grid lg:grid-cols-[270px_1fr] gap-8 hidden lg:grid">
@@ -192,12 +303,16 @@ export default function ShopList() {
         </div>
         </div>
 
-          <div className="grid grid-cols-2  sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 ">
+          <div className="grid grid-cols-2   lg:grid-cols-5 gap-4 ">
             {products.map((product, index) => (
               <ProductCard key={index} product={product} />
             ))}
           </div>
 
+      
+
+        </div>
+      </div>
          <div className="hidden lg:flex justify-end items-center text-[18px] text-[#676A5E] mt-8 mb-20">
   <div className="flex gap-2">
     <button
@@ -238,10 +353,6 @@ export default function ShopList() {
     </button>
   </div>
 </div>
-
-        </div>
-      </div>
-      
     </div>
     <Footer/>
     </div>

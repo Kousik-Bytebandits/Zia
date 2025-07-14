@@ -158,95 +158,196 @@ const handleUpdate = async () => {
 
 
   return (
-    <div className="min-h-screen pt-[25%] lg:pt-[0] flex flex-col items-center font-archivo px-10 py-6 bg-white">
-      <h1 className="text-[30px] text-[#2E3A27] font-bold mb-4">User Profile</h1>
+  <div className="min-h-screen font-archivo bg-white">
+  {/* Mobile View */}
+  <div className="lg:hidden pt-[25%] px-10 py-6 flex flex-col items-center">
+    <h1 className="text-[30px] text-[#2E3A27] font-bold mb-4">User Profile</h1>
 
-      <div className="bg-white shadow-lg rounded-lg p-6 flex flex-col items-center w-full max-w-sm mb-8">
-        <img
-          src="images/profile.png"
-          alt="Profile"
-          className="object-cover"
-        />
-        <p className="mt-2 text-lg font-semibold text-[#2E3A27]">
-          {form.first_name} {form.last_name}
-        </p>
-        <p className="text-[#AEAEAE] text-[18px]">{form.email}</p>
+    <div className="bg-white shadow-lg rounded-lg p-6 flex flex-col items-center w-full max-w-sm mb-8">
+      <img src="images/profile.png" alt="Profile" className="object-cover" />
+      <p className="mt-2 text-lg font-semibold text-[#2E3A27]">
+        {form.first_name} {form.last_name}
+      </p>
+      <p className="text-[#AEAEAE] text-[18px]">{form.email}</p>
+      <p className="text-[#AEAEAE] text-[18px]">{form.phone}</p>
+    </div>
+
+    <div className="w-full max-w-sm space-y-4">
+      <h2 className="text-[20px] text-[#2E3A27] font-semibold">Personal Information</h2>
+      <p className="text-sm text-[#AEAEAE]">Manage your details and update your password</p>
+
+      <input
+        name="first_name"
+        value={form.first_name}
+        onChange={handleChange}
+        placeholder="First Name"
+        className="w-full p-3 rounded-lg bg-[#D8E5DC] placeholder:text-[#41734C66] placeholder:text-[18px]"
+      />
+      <input
+        name="last_name"
+        value={form.last_name}
+        onChange={handleChange}
+        placeholder="Last Name"
+        className="w-full p-3 rounded-lg bg-[#D8E5DC] placeholder:text-[#41734C66] placeholder:text-[18px]"
+      />
+      <input
+        name="phone"
+        value={form.phone}
+        onChange={handleChange}
+        placeholder="Phone No"
+        className="w-full p-3 rounded-lg bg-[#D8E5DC] placeholder:text-[#41734C66] placeholder:text-[18px]"
+      />
+
+      <h2 className="pt-4 text-[20px] text-[#2E3A27] font-semibold">Delivery Address</h2>
+      <textarea
+        name="street_address"
+        value={form.address.street_address}
+        onChange={handleChange}
+        rows={4}
+        placeholder="Street Address"
+        className="w-full p-3 rounded-xl bg-[#D8E5DC] placeholder:text-[#41734C66] placeholder:text-[18px]"
+      />
+      <input
+        name="city"
+        value={form.address.city}
+        onChange={handleChange}
+        placeholder="City"
+        className="w-full p-3 rounded-lg bg-[#D8E5DC] placeholder:text-[#41734C66] placeholder:text-[18px]"
+      />
+      <input
+        name="state"
+        value={form.address.state}
+        onChange={handleChange}
+        placeholder="State"
+        className="w-full p-3 rounded-lg bg-[#D8E5DC] placeholder:text-[#41734C66] placeholder:text-[18px]"
+      />
+      <input
+        name="postal_code"
+        value={form.address.postal_code}
+        onChange={handleChange}
+        placeholder="Pincode"
+        className="w-full p-3 rounded-lg bg-[#D8E5DC] placeholder:text-[#41734C66] placeholder:text-[18px]"
+      />
+    </div>
+
+    <button
+      className="mt-6 bg-[#2F623A] text-white text-[22px] w-full py-3 rounded-full"
+      onClick={handleUpdate}
+    >
+      Update
+    </button>
+
+    <NotificationPopup
+      show={popup.show}
+      type={popup.type}
+      message={popup.message}
+      onClose={() => setPopup({ ...popup, show: false })}
+    />
+  </div>
+
+  {/* Desktop View */}
+  <div className="hidden lg:flex flex-col items-center py-16 px-10 bg-white">
+    <h1 className="xxxl:text-[32px] laptop:text-[24px] hd:text-[26px] font-bold text-[#2E3A27] mb-10">User Profile</h1>
+
+    <div className="flex gap-10 w-full justify-center">
+      {/* Profile Card */}
+      <div className="bg-white shadow-around-soft rounded-xl p-8 flex flex-col items-center xxxl:w-[400px] xxxl:h-[300px] laptop:w-[350px] laptop:h-[250px] hd:w-[350px] hd:h-[260px]">
+        <img src="images/profile.png" alt="Profile" className="object-cover" />
+<p className="mt-4 xxxl:text-[28px] laptop:text-[22px] hd:text-[26px] font-semibold text-black uppercase text-center">
+  {form.first_name} {form.last_name}
+</p>
+
+        <p className="text-[#AEAEAE] mt-1 text-[18px]">{form.email}</p>
         <p className="text-[#AEAEAE] text-[18px]">{form.phone}</p>
       </div>
 
-      <div className="w-full max-w-sm space-y-4">
-        <h2 className="text-[20px] text-[#2E3A27] font-semibold">Personal Information</h2>
-        <p className="text-sm text-[#AEAEAE]">
-          Manage your details and update your password
-        </p>
-
-        <input
-          name="first_name"
-          value={form.first_name}
-          onChange={handleChange}
-          placeholder="First Name"
-          className="w-full p-3 rounded-lg bg-[#D8E5DC] placeholder:text-[#41734C66] placeholder:text-[18px]"
-        />
-        <input
-          name="last_name"
-          value={form.last_name}
-          onChange={handleChange}
-          placeholder="Last Name"
-          className="w-full p-3 rounded-lg bg-[#D8E5DC] placeholder:text-[#41734C66] placeholder:text-[18px]"
-        />
-        <input
-          name="phone"
-          value={form.phone}
-          onChange={handleChange}
-          placeholder="Phone No"
-          className="w-full p-3 rounded-lg bg-[#D8E5DC] placeholder:text-[#41734C66] placeholder:text-[18px]"
-        />
-
-        <h2 className="pt-4 text-[20px] text-[#2E3A27] font-semibold">Delivery Address</h2>
-        <textarea
-          name="street_address"
-          value={form.address.street_address}
-          onChange={handleChange}
-          rows={4}
-          placeholder="Street Address"
-          className="w-full p-3 rounded-xl bg-[#D8E5DC] placeholder:text-[#41734C66] placeholder:text-[18px]"
-        />
-         <input
-          name="city"
-          value={form.address.city}
-          onChange={handleChange}
-          placeholder="City"
-          className="w-full p-3 rounded-lg bg-[#D8E5DC] placeholder:text-[#41734C66] placeholder:text-[18px]"
-        />
-        <input
-          name="state"
-          value={form.address.state}
-          onChange={handleChange}
-          placeholder="State"
-          className="w-full p-3 rounded-lg bg-[#D8E5DC] placeholder:text-[#41734C66] placeholder:text-[18px]"
-        />
-       
-        <input
-          name="postal_code"
-          value={form.address.postal_code}
-          onChange={handleChange}
-          placeholder="Pincode"
-          className="w-full p-3 rounded-lg bg-[#D8E5DC] placeholder:text-[#41734C66] placeholder:text-[18px]"
-        />
-      </div>
-
-      <button
-        className="mt-6 bg-[#2F623A] text-white text-[22px]  w-full py-3 rounded-full"
-        onClick={handleUpdate}
-      >
-        Update
-      </button>
-        <NotificationPopup
-              show={popup.show}
-              type={popup.type}
-              message={popup.message}
-              onClose={() => setPopup({ ...popup, show: false })}
+      {/* Form Section */}
+      <div className="bg-white shadow-around-soft rounded-xl p-8 xxxl:w-[850px] xxxl:h-[550px] laptop:w-[600px] laptop:h-[500px] hd:w-[600px] hd:h-[500px] flex flex-col gap-6">
+        <div className="grid grid-cols-2 gap-6">
+          <div>
+            <h2 className="xxxl:text-[18px] laptop:text-[15px] hd:text-[16px] font-semibold mb-2">Personal Information</h2>
+            <input
+              name="first_name"
+              value={form.first_name}
+              onChange={handleChange}
+              placeholder="First Name"
+              className="w-full xxxl:p-3 laptop:p-2 hd:p-2 rounded-lg bg-[#D8E5DC] placeholder:text-[#41734C66]"
             />
+            <input
+              name="last_name"
+              value={form.last_name}
+              onChange={handleChange}
+              placeholder="Last Name"
+              className="w-full mt-3 xxxl:p-3 laptop:p-2 hd:p-2 rounded-lg bg-[#D8E5DC] placeholder:text-[#41734C66]"
+            />
+            <input
+              name="phone"
+              value={form.phone}
+              onChange={handleChange}
+              placeholder="Phone No"
+              className="w-full mt-3 xxxl:p-3 laptop:p-2 hd:p-2 rounded-lg bg-[#D8E5DC] placeholder:text-[#41734C66]"
+            />
+          </div>
+          <div>
+            <h2 className="xxxl:text-[18px] laptop:text-[15px] hd:text-[16px] font-semibold mb-2">Delivery Address</h2>
+           <textarea
+  name="street_address"
+  value={form.address.street_address}
+  onChange={handleChange}
+  rows={5}
+  className="w-full p-4 h-[130px] rounded-lg bg-[#D8E5DC] placeholder:text-[#41734C66] placeholder:text-[16px]"
+  placeholder="Street Address"
+/>
+
+            <input
+              name="state"
+              value={form.address.state}
+              onChange={handleChange}
+              placeholder="State"
+              className="w-full mt-3 xxxl:p-3 laptop:p-2 hd:p-2 rounded-lg bg-[#D8E5DC] placeholder:text-[#41734C66]"
+            />
+            <input
+              name="city"
+              value={form.address.city}
+              onChange={handleChange}
+              placeholder="City"
+              className="w-full mt-3 xxxl:p-3 laptop:p-2 hd:p-2 rounded-lg bg-[#D8E5DC] placeholder:text-[#41734C66]"
+            />
+            <input
+              name="postal_code"
+              value={form.address.postal_code}
+              onChange={handleChange}
+              placeholder="Pincode"
+              className="w-full mt-3 xxxl:p-3 laptop:p-2 hd:p-2 rounded-lg bg-[#D8E5DC] placeholder:text-[#41734C66]"
+            />
+          </div>
+        </div>
+        <button
+          className="self-center mt-6 bg-[#2F623A] text-white xxxl:text-[20px] laptop:text-[15px] hd:text-[16px] w-[30%] xxxl:py-3 laptop:py-2 rounded-full"
+          onClick={handleUpdate}
+        >
+          Update
+        </button>
+      </div>
+     
     </div>
+      {/* Save Button */}
+  <button
+    className="mt-16 bg-[#2F623A] text-white text-[18px] w-[20%] xxxl:py-3 laptop:py-2 rounded-full"
+   
+  >
+    Save
+  </button>
+
+
+    <NotificationPopup
+      show={popup.show}
+      type={popup.type}
+      message={popup.message}
+      onClose={() => setPopup({ ...popup, show: false })}
+    />
+  </div>
+</div>
+
   );
 }
