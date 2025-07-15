@@ -206,7 +206,7 @@ const StyledWrapper = styled.div`
   }
 
   .hex-brick {
-    background: #000000;
+    background:#2b452c;
     width: 30px;
     height: 17px;
     position: absolute;
@@ -520,11 +520,11 @@ const StyledWrapper = styled.div`
 
   @keyframes fade00 {
     0% {
-      background: #252525;
+      background: #2b452c;
     }
 
     50% {
-      background: #000000;
+      background: #2b452c;
     }
 
     100% {
