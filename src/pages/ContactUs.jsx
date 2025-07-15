@@ -1,6 +1,69 @@
 import Footer from "../components/Footer";
+import { useState } from "react";
+import endpoint_prefix from "../config/ApiConfig";
+import NotificationPopup from "./NotificatioPopup"
 
 const ContactUs = () => {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phoneNumber: "",
+    message: "",
+  });
+
+   const [popup, setPopup] = useState({
+    show: false,
+    type: "success",
+    message: "",
+  });
+
+  const showPopup = (type, message) => {
+    setPopup({ show: true, type, message });
+  };
+
+  const handleChange = (e) => {
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const raw = JSON.stringify(formData);
+
+    const requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    };
+
+    fetch(`${endpoint_prefix}05_contact/submit-form`, requestOptions)
+      .then((response) => response.text())
+      .then((result) => {
+        console.log(result);
+        showPopup("success","Message sent successfully!");
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          phoneNumber: "",
+          message: "",
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+        showPopup("error","Failed to send message.");
+      });
+  };
+
+
   return (
     <>
       <div className="pt-[17%] lg:pt-[0] bg-white  text-[#676A5E] w-full text-[#4A4A4A] font-archivo py-3">
@@ -79,7 +142,7 @@ const ContactUs = () => {
     {/* Mobile Map View - Above Form */}
 <div className="block lg:hidden mb-8 mt-10">
   <iframe
-    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15549.931697979102!2d80.2065843!3d13.0048898!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5267406d32d9e9%3A0x615eb3769de88ef6!2sGuindy%20Industrial%20Estate%2C%20SIDCO%20Industrial%20Estate%2C%20Guindy%2C%20Chennai%2C%20Tamil%20Nadu%20600032!5e0!3m2!1sen!2sin!4v1752207883505!5m2!1sen!2sin"
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.4156299442507!2d80.20612547598967!3d13.009183487309697!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5267145aaaaaab%3A0x1d2abba58b5d7aba!2sZIA%20HERBAL%20PRO%20PVT%20LTD!5e0!3m2!1sen!2sin!4v1752570630044!5m2!1sen!2sin%22"
     width="100%"
     height="250"
     style={{ border: 0 }}
@@ -100,23 +163,31 @@ const ContactUs = () => {
     Leave us a message and we’ll get back to you
   </p>
 
-  <form className="space-y-4 bg-white border border-[#B2BA98] p-6  rounded-xl w-full ">
+  <form  onSubmit={handleSubmit} className="space-y-4 bg-white border border-[#B2BA98] p-6  rounded-xl w-full ">
     {/* Name & Contact Inputs */}
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
       <div>
         <label className="hidden lg:block text-black text-[16px] mb-2">First Name*</label>
-        <input
-          type="text"
-          placeholder="First Name*"
-          required
-          className="w-full bg-[#E6F2E9] border border-[#8EB490] rounded-md p-4 xxxl:p-4 laptop:p-2 hd:p-2 placeholder:text-[#41734C66] text-[18px] outline-none"
-        />
+       <input
+  type="text"
+  name="firstName"
+  placeholder="First Name*"
+  required
+  value={formData.firstName}
+  onChange={handleChange}
+    className="w-full bg-[#E6F2E9] border border-[#8EB490] rounded-md p-4 xxxl:p-4 laptop:p-2 hd:p-2 placeholder:text-[#41734C66] text-[18px] outline-none"
+/>
       </div>
+      
+
       <div>
         <label className="hidden lg:block text-black text-[16px] mb-2">Last Name</label>
         <input
           type="text"
-          placeholder="Last Name"
+          name="lastName"
+  placeholder="Last Name"
+  value={formData.lastName}
+  onChange={handleChange}
           className="w-full bg-[#E6F2E9] border border-[#8EB490] rounded-md p-4 xxxl:p-4 laptop:p-2 hd:p-2 placeholder:text-[#41734C66] text-[18px] outline-none"
         />
       </div>
@@ -124,16 +195,23 @@ const ContactUs = () => {
         <label className="hidden lg:block text-black text-[16px] mb-2">Email Address*</label>
         <input
           type="email"
-          placeholder="Email Address*"
+           name="email"
+  placeholder="Email Address*"
+  required
+  value={formData.email}
+  onChange={handleChange}
           className="w-full bg-[#E6F2E9] border border-[#8EB490] rounded-md p-4 xxxl:p-4 laptop:p-2 hd:p-2 placeholder:text-[#41734C66] text-[18px] outline-none"
-          required
+       
         />
       </div>
       <div>
         <label className="hidden lg:block text-black text-[16px] mb-2">Phone Number</label>
         <input
           type="text"
-          placeholder="Phone Number"
+         name="phoneNumber"
+  placeholder="Phone Number"
+  value={formData.phoneNumber}
+  onChange={handleChange}
           className="w-full bg-[#E6F2E9] border border-[#8EB490] rounded-md p-4 xxxl:p-4 laptop:p-2 hd:p-2 placeholder:text-[#41734C66] text-[18px] outline-none"
         />
       </div>
@@ -143,9 +221,11 @@ const ContactUs = () => {
     <div>
       <label className="hidden lg:block text-black text-[16px] mb-2">Message*</label>
       <textarea
-      
-        placeholder="Message*"
-        required
+       name="message"
+  placeholder="Message*"
+  required
+  value={formData.message}
+  onChange={handleChange}
         className="w-full hd:h-[200px] laptop:h-[150px] xxxl:h-[300px] h-[150px] bg-[#E6F2E9] border border-[#8EB490] rounded-md p-4 xxxl:p-4 laptop:p-2 hd:p-2 placeholder:text-[#41734C66] text-[18px] outline-none resize-none"
       />
     </div>
@@ -199,7 +279,7 @@ const ContactUs = () => {
 {/* Desktop Map View - Below Features */}
 <div className="hidden lg:block w-full  px-4 lg:px-16 mb-16">
   <iframe
-    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15549.931697979102!2d80.2065843!3d13.0048898!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5267406d32d9e9%3A0x615eb3769de88ef6!2sGuindy%20Industrial%20Estate%2C%20SIDCO%20Industrial%20Estate%2C%20Guindy%2C%20Chennai%2C%20Tamil%20Nadu%20600032!5e0!3m2!1sen!2sin!4v1752207883505!5m2!1sen!2sin"
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.4156299442507!2d80.20612547598967!3d13.009183487309697!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5267145aaaaaab%3A0x1d2abba58b5d7aba!2sZIA%20HERBAL%20PRO%20PVT%20LTD!5e0!3m2!1sen!2sin!4v1752570630044!5m2!1sen!2sin%22"
     width="100%"
     height="400"
     style={{ border: 0 }}
@@ -244,6 +324,12 @@ const ContactUs = () => {
         Our customer support team is here for you anytime,<br/> day or night.
       </p>
     </div>
+     <NotificationPopup
+        show={popup.show}
+        type={popup.type}
+        message={popup.message}
+        onClose={() => setPopup({ ...popup, show: false })}
+      />
       </div>
 
       <Footer />
