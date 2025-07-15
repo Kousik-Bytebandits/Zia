@@ -24,6 +24,7 @@ import PrivacyPolicyPage from './pages/PrivacyPolicy';
 import ReturnRefundPolicyPage from './pages/ReturnRefundPolicy';
 import ShippingPolicyPage from './pages/ShippingPolicy';
 import TermsAndConditionsPage from './pages/TermsCondition';
+import RouteLoader from './components/RouterLoader';
 function App() {
   const location = useLocation();
   const hideNavbarRoutes = ['/startscreen', '/login', '/signup','/admin/home', '/admin/grid'];
@@ -42,6 +43,7 @@ function App() {
       <ScrollToTop />
       {!hideNavbarRoutes.includes(location.pathname) && <Navbar />}
       <div className={!hideNavbarRoutes.includes(location.pathname) ? 'pt-[50px]' : ''}>
+        <RouteLoader>
         <Routes>
           {/* Public Routes */}
           <Route path="/" element={<Navigate to="/home" />} />
@@ -71,6 +73,7 @@ function App() {
           {/* 404 */}
           <Route path="*" element={<ErrorPage />} />
         </Routes>
+        </RouteLoader>
       </div>
     </>
   );

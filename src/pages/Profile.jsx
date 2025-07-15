@@ -1,7 +1,7 @@
 import  { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NotificationPopup from './NotificatioPopup';
-
+import endpoint_prefix from "../config/ApiConfig";
 
 
 export default function Profile() {
@@ -43,7 +43,7 @@ useEffect(() => {
 const fetchUserData = async () => {
   try {
     const res = await fetch(
-      "https://booksemporium.in/Microservices_zia/prod/02_Authentication/auth/profile",
+      `${endpoint_prefix}02_Authentication/auth/profile`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -117,7 +117,7 @@ const handleUpdate = async () => {
 
   try {
     const res = await fetch(
-      "https://booksemporium.in/Microservices_zia/prod/02_Authentication/auth/update",
+      `${endpoint_prefix}02_Authentication/auth/update`,
       {
         method: "PUT",
         headers: {

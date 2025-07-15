@@ -3,7 +3,7 @@ import Footer from "../components/Footer";
 import { GoArrowDown, GoArrowRight } from "react-icons/go";
 import { useNavigate, useParams } from "react-router-dom";
 import { RiStarSFill, RiStarHalfSFill } from "react-icons/ri";
-
+import endpoint_prefix from "../config/ApiConfig";
 
 
 function ProductCard({ product }) {
@@ -64,7 +64,7 @@ const imgs = productDetails?.images?.map((img) => img.image_url) || [];
  useEffect(() => {
    console.log("useEffect triggered, productId =", productId);
   if (productId) {
-    fetch(`https://booksemporium.in/Microservices_zia/prod/04_userProducts/api/user_products/product-details/${productId}`)
+    fetch(`${endpoint_prefix}04_userProducts/api/user_products/product-details/${productId}`)
       .then((res) => res.json())
       .then((data) => {
         console.log("API Response:", data); 
@@ -85,7 +85,7 @@ const imgs = productDetails?.images?.map((img) => img.image_url) || [];
 
 useEffect(() => {
   if (productDetails?.category) {
-    fetch(`https://booksemporium.in/Microservices_zia/prod/04_userProducts/api/user_products/products-by-category?category=${productDetails.category}`)
+    fetch(`${endpoint_prefix}04_userProducts/api/user_products/products-by-category?category=${productDetails.category}`)
       .then((res) => res.json())
       .then((data) => {
         const products = data[productDetails.category] || [];

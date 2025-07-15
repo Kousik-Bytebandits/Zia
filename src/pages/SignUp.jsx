@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import NotificationPopup from "./NotificatioPopup"
-
+import endpoint_prefix from "../config/ApiConfig";
 export default function SignUp() {
   const navigate = useNavigate();
 
@@ -54,7 +54,7 @@ export default function SignUp() {
     }
     try {
       const res = await fetch(
-        "https://booksemporium.in/Microservices_zia/prod/02_Authentication/auth/request-otp",
+        `${endpoint_prefix}02_Authentication/auth/request-otp`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -84,7 +84,7 @@ export default function SignUp() {
     }
     try {
       const res = await fetch(
-        "https://booksemporium.in/Microservices_zia/prod/02_Authentication/auth/verify-otp",
+        `${endpoint_prefix}02_Authentication/auth/verify-otp`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -136,7 +136,7 @@ export default function SignUp() {
 
   try {
     const res = await fetch(
-      "https://booksemporium.in/Microservices_zia/prod/02_Authentication/auth/register",
+      `${endpoint_prefix}02_Authentication/auth/register`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

@@ -3,6 +3,7 @@ import { FaLock, FaUser } from 'react-icons/fa';
 import { RiArrowLeftSLine } from 'react-icons/ri';
 import { useState } from 'react';
 import NotificationPopup from './NotificatioPopup';
+import endpoint_prefix from '../config/ApiConfig';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ export default function Login() {
 
   const handleLogin = async () => {
     try {
-      const res = await fetch('https://booksemporium.in/Microservices_zia/prod/02_Authentication/auth/login', {
+      const res = await fetch(`${endpoint_prefix}02_Authentication/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -58,7 +59,7 @@ export default function Login() {
     if (!email) return showPopup("error", "Enter your email first");
 
     try {
-      const res = await fetch('https://booksemporium.in/ziaherbalpro/apirouting/user/forgot-password', {
+      const res = await fetch(`${endpoint_prefix}apirouting/user/forgot-password`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),

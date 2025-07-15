@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react';
 import { FaSync, FaRupeeSign, FaPercent } from "react-icons/fa";
 import { FiCalendar } from "react-icons/fi";
 import { IoIosArrowDown } from "react-icons/io";
-
+import endpoint_prefix from '../config/ApiConfig';
 import "react-datepicker/dist/react-datepicker.css";
 import { forwardRef } from "react";
+import NotificationPopup from '../pages/NotificatioPopup';
 
 export default function ProductEditor() {
   const inputClasses = "w-full p-2 border border-gray-300 rounded-md  text-sm";
@@ -27,6 +28,16 @@ export default function ProductEditor() {
     />
   </div>
 ));
+
+ const [popup, setPopup] = useState({
+    show: false,
+    type: "success",
+    message: "",
+  });
+ 
+  const showPopup = (type, message) => {
+    setPopup({ show: true, type, message });
+  };
 
  const [formData, setFormData] = useState({
   productName: "",
@@ -107,7 +118,7 @@ export default function ProductEditor() {
 
 const fetchProductDetails = async (productId = 1) => {
   try {
-    const res = await fetch(`https://booksemporium.in/Microservices_zia/prod/03_Admin_Panel/api/products/${productId}`);
+    const res = await fetch(`${endpoint_prefix}03_Admin_Panel/api/products/${productId}`);
     const json = await res.json();
      const product = json.data.product;
     
@@ -214,7 +225,7 @@ const handleSubmit = async () => {
 
   for (const { field, name } of requiredFields) {
     if (!field?.trim()) {
-      alert(`${name} is required`);
+      showPopup("error", `${name} is required`);
       return;
     }
   }
@@ -256,8 +267,8 @@ const handleSubmit = async () => {
   // Dynamic endpoint and method
   const isUpdate = createdProductId !== null;
   const endpoint = isUpdate
-    ? `https://booksemporium.in/Microservices_zia/prod/03_Admin_Panel/api/products/${createdProductId}`
-    : "https://booksemporium.in/Microservices_zia/prod/03_Admin_Panel/api/products/";
+    ? `${endpoint_prefix}03_Admin_Panel/api/products/${createdProductId}`
+    : `${endpoint_prefix}03_Admin_Panel/api/products/`;
 
   try {
     const res = await fetch(endpoint, {
@@ -267,7 +278,7 @@ const handleSubmit = async () => {
 
     if (res.ok) {
       const msg = isUpdate ? "Product updated successfully!" : "Product created successfully!";
-      alert(msg);
+      showPopup("success",msg);
 
       if (!isUpdate) {
         const result = await res.json();
@@ -278,10 +289,11 @@ setCreatedProductId(id); // triggers useEffect
       }
     } else {
       const errorText = await res.text();
-      alert("Failed: " + errorText);
+      showPopup("error" ,  errorText);
     }
   } catch (error) {
-    alert("Error: " + error.message);
+    showPopup("error",  error.message);
+    console.log(error);
   }
 };
 
@@ -327,12 +339,12 @@ setCreatedProductId(id); // triggers useEffect
       </section>
 
       {/* Product Images */}
-      <h1 className="text-[20px] sm:text-[24px] font-bold text-[#102B01] ">Product Settings</h1>
+      <h1 className="xxxl:text-[20px] laptop:text-[20px] hd:text-[20px] sm:text-[24px] font-bold text-[#102B01] ">Product Settings</h1>
       <h2 className="text-[16px] font-bold text-[#102B01]  -mb-4 ">Product Images</h2>
-      <div className="flex flex-col lg:flex-row  gap-6 items-center justify-between">
+      <div className="flex flex-col lg:flex-row  xxxl:gap-6 laptop:gap-3   items-center justify-between">
        
         
-        <div className="flex  gap-4 lg:mt-6">
+        <div className="flex  gap-4 xxxl:mt-6 laptop:mt-4 hd:mt-4">
           {[
             { key: "Primary_Image", label: "Click to upload" },
             { key: "Secondary_Image", label: "Click to upload" },
@@ -340,7 +352,7 @@ setCreatedProductId(id); // triggers useEffect
             <div
               key={key}
               onClick={() => triggerImageUpload(key)}
-              className="cursor-pointer flex-col w-[270px] h-[270px] border-2 border-dashed border-[#102B01] rounded-md bg-white flex items-center justify-center "
+              className="cursor-pointer flex-col xxxl:w-[270px] xxxl:h-[270px] laptop:w-[220px] laptop:h-[250px] border-2 border-dashed border-[#102B01] rounded-md bg-white flex items-center justify-center "
             >
               {imagePreviews[key] ? (
                 <img src={imagePreviews[key]} alt={label} className="w-full h-full object-cover rounded-md" />
@@ -362,7 +374,7 @@ setCreatedProductId(id); // triggers useEffect
         </div>
 
         
-        <div className="flex flex-col gap-4 lg:mt-6">
+        <div className="flex flex-col xxxl:gap-4 hd:gap-3 laptop:gap-6  xxxl:mt-6 laptop:mt-4 hd:mt-4">
           {[
             { key: "Normal_Image1", label: "Click to upload" },
             { key: "Normal_Image2", label: "Click to upload" },
@@ -370,7 +382,7 @@ setCreatedProductId(id); // triggers useEffect
             <div
               key={key}
               onClick={() => triggerImageUpload(key)}
-              className="cursor-pointer w-[125px] h-[125px] border-2 border-dashed border-[#102B01] rounded-md bg-white flex items-center justify-center flex-col"
+              className="cursor-pointer xxxl:w-[125px] xxxl:h-[125px] laptop:w-[100px] laptop:h-[110px] hd:w-[120px] hd:h-[120px] border-2 border-dashed border-[#102B01] rounded-md bg-white flex items-center justify-center flex-col"
             >
               {imagePreviews[key] ? (
                 <img src={imagePreviews[key]} alt={label} className="w-full h-full object-cover rounded-md" />
@@ -393,11 +405,11 @@ setCreatedProductId(id); // triggers useEffect
     
         
       {/* Input Fields */}
-     <div className="flex-1 space-y-4">
+     <div className="flex-1 xxxl:space-y-4 laptop:space-y-1">
  
-  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+  <div className="grid grid-cols-1 sm:grid-cols-2 xxxl:gap-4 laptop:gap-2 hd:gap-4">
     <div>
-      <label className="text-[14px] font-bold text-[#102B01] mb-1 block">Product Name</label>
+      <label className="xxxl:text-[14px] laptop:text-[12px] hd:text-[14px] font-bold text-[#102B01] mb-1 block">Product Name</label>
       <input
         name="productName"
         value={formData.productName}
@@ -408,7 +420,7 @@ setCreatedProductId(id); // triggers useEffect
       />
     </div>
     <div>
-      <label className="text-[14px] font-bold text-[#102B01] mb-1 block">SKU</label>
+      <label className="xxxl:text-[14px] laptop:text-[12px] hd:text-[14px] font-bold text-[#102B01] mb-1 block">SKU</label>
       <input
         name="sku"
         value={formData.sku}
@@ -425,7 +437,7 @@ setCreatedProductId(id); // triggers useEffect
    
 
     <div className="relative">
-      <label className="text-[14px] font-bold text-[#102B01] mb-1 block">Category</label>
+      <label className="xxxl:text-[14px] laptop:text-[12px] hd:text-[14px] font-bold text-[#102B01] mb-1 block">Category</label>
       <select
         name="category"
         value={formData.category}
@@ -444,45 +456,40 @@ setCreatedProductId(id); // triggers useEffect
                   <option value="foot_gel">Foot Gel</option>
                   <option value="foot_cream">Foot Cream</option>
       </select>
-      <IoIosArrowDown className="absolute right-3 top-[40px] text-gray-500" />
+      <IoIosArrowDown className="absolute xxxl:right-3 xxxl:top-[40px] laptop:top-[35px] laptop:right-3 text-gray-500" />
     </div>
 
    <div className='relative '>
-  <label className="text-[14px] font-bold text-[#102B01] mb-1 block">Manufacturing Date</label>
+  <label className="xxxl:text-[14px] laptop:text-[12px] hd:text-[14px] font-bold text-[#102B01] mb-1 block">Manufacturing Date</label>
   <input
   name="mfgDate"
   value={formData.mfgDate}
   onChange={handleChange}
-  type="text"
-  className={`${inputClasses} pr-10`}
+  type="date"
+  className={`${inputClasses} pr-2`}
   placeholder="DD-MM-YYYY"
 />
-<FiCalendar
-  className="absolute right-3 top-[35px] text-gray-500"
- />
 
 
 </div>
   <div className='relative '>
-  <label className="text-[14px] font-bold text-[#102B01] mb-1 block">Expiry Date</label>
+  <label className="xxxl:text-[14px] laptop:text-[12px] hd:text-[14px] font-bold text-[#102B01] mb-1 block">Expiry Date</label>
   <input
   name="expDate"
   value={formData.expDate}
   onChange={handleChange}
-  type="text"
+  type="date"
   className={`${inputClasses} pr-2`}
   placeholder="DD-MM-YYYY"
 />
-<FiCalendar
-  className="absolute right-3 top-[35px] text-gray-500 cursor-pointer"
-  />
+
 
 
 
 </div>
 
     <div className="relative">
-      <label className="text-[14px] font-bold text-[#102B01] mb-1 block">Price</label>
+      <label className="xxxl:text-[14px] laptop:text-[12px] hd:text-[14px] font-bold text-[#102B01] mb-1 block">Price</label>
       <input
         name="price"
         value={formData.price}
@@ -494,7 +501,7 @@ setCreatedProductId(id); // triggers useEffect
     </div>
 
     <div className="relative">
-      <label className="text-[14px] font-bold text-[#102B01] mb-1 block">Discount </label>
+      <label className="xxxl:text-[14px] laptop:text-[12px] hd:text-[14px] font-bold text-[#102B01] mb-1 block">Discount </label>
       <input
         name="discount"
         value={formData.discount}
@@ -506,7 +513,7 @@ setCreatedProductId(id); // triggers useEffect
     </div>
 
   <div>
-      <label className="text-[14px] font-bold text-[#102B01] mb-1 block">Stock</label>
+      <label className="xxxl:text-[14px] laptop:text-[12px] hd:text-[14px] font-bold text-[#102B01] mb-1 block">Stock</label>
       <input
         name="batchCode"
         value={formData.batchCode}
@@ -518,7 +525,7 @@ setCreatedProductId(id); // triggers useEffect
 
 
     <div>
-      <label className="text-[14px] font-bold text-[#102B01] mb-1 block">Warehouse Location</label>
+      <label className="xxxl:text-[14px] laptop:text-[12px] hd:text-[14px] font-bold text-[#102B01] mb-1 block">Warehouse Location</label>
       <input
         name="warehouse"
         value="Zia-guindy"
@@ -531,7 +538,7 @@ setCreatedProductId(id); // triggers useEffect
 
    
  <div className="relative">
-      <label className="text-[14px] font-bold text-[#102B01] mb-1 block">Is Featured</label>
+      <label className="xxxl:text-[14px] laptop:text-[12px] hd:text-[14px] font-bold text-[#102B01] mb-1 block">Is Featured</label>
       <select
         name="isFeatured"
         value={formData.isFeatured}
@@ -544,7 +551,7 @@ setCreatedProductId(id); // triggers useEffect
       <IoIosArrowDown className="absolute right-3 top-[40px] text-gray-500" />
     </div>
     <div className="relative">
-      <label className="text-[14px] font-bold text-[#102B01] mb-1 block">Is Active</label>
+      <label className="xxxl:text-[14px] laptop:text-[12px] hd:text-[14px] font-bold text-[#102B01] mb-1 block">Is Active</label>
       <select
         name="isActive"
         value={formData.isActive}
@@ -586,7 +593,7 @@ setCreatedProductId(id); // triggers useEffect
           <div className="bg-white rounded-xl shadow-md border border-[#E4E4E4] p-4">
             <h2 className="text-[16px] font-bold text-[#102B01] mb-4">Product Specifications</h2>
             <div className="overflow-auto rounded-2xl border border-[#E4E4E4]">
-              <table className="w-full text-[14px] text-left border border-[#E4E4E4]">
+              <table className="w-full xxxl:text-[14px] laptop:text-[12px] hd:text-[14px] text-left border border-[#E4E4E4]">
                 <thead className="text-[#534D59]">
                   <tr className="bg-[#F9FAFC]">
                     <th className="px-4 py-3 border border-[#E4E4E4]">Name</th>
@@ -630,6 +637,12 @@ setCreatedProductId(id); // triggers useEffect
           </div>
         </div>
       </div>
+       <NotificationPopup
+        show={popup.show}
+        type={popup.type}
+        message={popup.message}
+        onClose={() => setPopup({ ...popup, show: false })}
+      />
     </div>
   );
 }

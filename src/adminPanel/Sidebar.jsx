@@ -8,7 +8,7 @@ export default function Sidebar() {
   const [openDropdown, setOpenDropdown] = useState(true);
 
   return (
-    <aside className=" xxxl:min-w-[16%] laptop:min-w-[11%] hd:min-w-[15%]  bg-[#102B01] text-white flex flex-col justify-between h-screen lg:h-auto shadow-lg">
+    <aside className=" xxxl:min-w-[16%] laptop:min-w-[15%] hd:min-w-[15%]  bg-[#102B01] text-white flex flex-col justify-between h-screen lg:h-auto shadow-lg">
 
       
       <div>
@@ -18,20 +18,20 @@ export default function Sidebar() {
         </div>
 
         {/* Title */}
-        <div className="text-center text-[26px] font-bold uppercase tracking-wider">
+        <div className="text-center xxxl:text-[26px] laptop:text-[18px] hd:text-[20px] font-bold uppercase tracking-wider">
           Zia Herbal Pro
         </div>
         <div className="border-t-2 border-[#074D41] mx-6 my-2"></div>
 
        
-        <nav className="px-4 mt-4">
+        <nav className="xxxl:px-4 laptop:px-2 hd:px-3 mt-4">
           <div className="border border-[#FFFFFF] rounded mb-1 ">
             <button
               onClick={() => setOpenDropdown(!openDropdown)}
               className="w-full text-left px-3 py-2 flex items-center justify-between"
             ><span className="flex items-center gap-2">
               <FaBox className='text-[#D3AA40]' />
-              <span className="font-bold text-[18px] ">Products</span></span>
+              <span className="font-bold xxxl:text-[18px] laptop:text-[14px] hd:text-[16px] ">Products</span></span>
               {openDropdown ? (
                 <IoIosArrowUp className="text-[#102B01] bg-white rounded-full text-[20px]" />
               ) : (
@@ -48,7 +48,7 @@ export default function Sidebar() {
                 <NavLink
                   to="/admin/grid"
                   className={({ isActive }) =>
-                    `block text-[16px] w-full px-3 py-2 rounded ${
+                    `block xxxl:text-[16px] laptop:text-[12px] hd:text-[14px] w-full px-3 py-2 rounded ${
                       isActive
                         ? 'bg-[#FFD25D] text-[#102B01] font-bold'
                         : 'hover:bg-green-700'
@@ -63,7 +63,7 @@ export default function Sidebar() {
                 <NavLink
                   to="/admin/home"
                   className={({ isActive }) =>
-                    `block text-[16px] w-full px-3 py-2 rounded ${
+                    `block xxxl:text-[16px] laptop:text-[12px] hd:text-[14px] w-full px-3 py-2 rounded ${
                       isActive
                         ? 'bg-[#FFD25D] text-[#102B01] font-bold'
                         : 'hover:bg-green-700'
@@ -84,7 +84,7 @@ export default function Sidebar() {
           <CgProfile className="text-[24px]" />
           <span>Profile</span>
         </div>
-        <div className="border-t border-[#074D41] pt-8 text-xs text-white/50 text-center">
+        <div className="border-t border-[#074D41] pt-8 xxxl:text-xs laptop:text-[10px] text-white/50 text-center">
           Powered By Byte Bandits
         </div>
       </div>

@@ -3,6 +3,7 @@ import { FaFilter } from "react-icons/fa";
 import Footer from "../components/Footer";
 import { RiStarSFill,RiStarHalfSFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
+import endpoint_prefix from "../config/ApiConfig";
 function ProductCard({ product }) {
  const navigate = useNavigate();
   const handleAddToCart = () => {
@@ -51,6 +52,8 @@ export default function ShopList() {
   const [sortOption, setSortOption] = useState("price-high_to_low");
    const [showFilter, setShowFilter] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedDiscounts, setSelectedDiscounts] = useState([]);
+
   const filterRef = useRef(null);
 const [selectedCategories, setSelectedCategories] = useState([]);
 const toggleCategory = (category) => {
@@ -60,20 +63,49 @@ const toggleCategory = (category) => {
       : [...prev, category]
   );
 };
-const handleApplyFilter = () => {
-  const categoryString = selectedCategories.join(",");
-  fetch(`https://booksemporium.in/Microservices_zia/prod/04_userProducts/api/user_products/all-products?sort_by=${sortOption}&min_price=${priceRange[0]}&max_price=${priceRange[1]}&categories=${categoryString}`)
-    .then(res => res.json())
-    .then(data => {
-      setProducts(Array.isArray(data) ? data : []);
-      setShowFilter(false); // Close mobile filter
-    })
-    .catch(err => console.error("Failed to fetch filtered products", err));
+const toggleDiscount = (Value) => {
+  setSelectedDiscounts((prev) =>
+    prev.includes(Value)
+      ? prev.filter((d) => d !== Value)
+      : [...prev, Value]
+  );
 };
 
 
+const handleApplyFilter = () => {
+  const categoryString = selectedCategories.join(",");
+  fetch(`${endpoint_prefix}04_userProducts/api/user_products/all-products?sort_by=${sortOption}&min_price=${priceRange[0]}&max_price=${priceRange[1]}&categories=${categoryString}`)
+    .then((res) => res.json())
+    .then((data) => {
+      let filteredProducts = Array.isArray(data) ? data : [];
+
+      if (selectedDiscounts.length > 0) {
+        filteredProducts = filteredProducts.filter((product) => {
+          const discount = parseFloat(product.discount || "0");
+
+          return selectedDiscounts.some((value) => {
+            const threshold = parseInt(value);
+            if (threshold === 30) {
+              return discount >= 30;
+            } else {
+              return discount <= threshold;
+            }
+          });
+        });
+      }
+
+      setProducts(filteredProducts);
+      setShowFilter(false);
+    })
+    .catch((err) => console.error("Failed to fetch filtered products", err));
+};
+
+
+
+
+
  useEffect(() => {
-  fetch(`https://booksemporium.in/Microservices_zia/prod/04_userProducts/api/user_products/all-products?sort_by=${sortOption}&min_price=${priceRange[0]}&max_price=${priceRange[1]}`)
+  fetch(`${endpoint_prefix}04_userProducts/api/user_products/all-products?sort_by=${sortOption}&min_price=${priceRange[0]}&max_price=${priceRange[1]}`)
     .then(res => res.json())
     .then(data => {
       if (Array.isArray(data)) {
@@ -175,30 +207,31 @@ const handleApplyFilter = () => {
 
           {/* Left Column (Fewer items) */}
           <div className="space-y-2">
-            {["Hand Wash", "Herbal Soap", "Hair Oil", "Body Oil","Hair Shampoo", ].map((label, index) => (
-              <label key={index} className="flex text-[#676A5E] text-[18px] lg:text-[17px] items-center space-x-2">
-                <input
-                  type="checkbox"
-                  className="accent-[#676A5E] w-[18px] h-[18px]"
-                  checked={selectedCategories.includes(label.toLowerCase().replace(/ /g, "_"))}
-                  onChange={() => toggleCategory(label.toLowerCase().replace(/ /g, "_"))}
-                />
-                <span>{label}</span>
-              </label>
-            ))}
+            {["handwash", "soap", "hair_oil", "body_oil", "shampoo"].map((key, index) => (
+  <label key={index} className="flex text-[#676A5E] text-[18px] lg:text-[17px] items-center space-x-2">
+    <input
+      type="checkbox"
+      className="accent-[#676A5E] w-[18px] h-[18px]"
+      checked={selectedCategories.includes(key)}
+      onChange={() => toggleCategory(key)}
+    />
+    <span>{key.replace(/_/g, " ").replace(/\b\w/g, l => l.toUpperCase())}</span>
+  </label>
+))}
+
           </div>
 
           {/* Right Column (More items) */}
           <div className="space-y-2">
-            {[ "Face Pack", "Lip Balm", "Serum", "Face Wash", "Shower Gel", "Foot Cream"].map((label, index) => (
+            {[ "face_pack", "lip_balm", "serum", "face_wash", "foot_gel", "foot_cream"].map((key, index) => (
               <label key={index} className="flex text-[#676A5E] text-[18px] lg:text-[17px] items-center space-x-2">
                 <input
                   type="checkbox"
                   className="accent-[#B2BA98] w-[18px] h-[18px]"
-                  checked={selectedCategories.includes(label.toLowerCase().replace(/ /g, "_"))}
-                  onChange={() => toggleCategory(label.toLowerCase().replace(/ /g, "_"))}
+                  checked={selectedCategories.includes(key)}
+      onChange={() => toggleCategory(key)}
                 />
-                <span>{label}</span>
+                 <span>{key.replace(/_/g, " ").replace(/\b\w/g, l => l.toUpperCase())}</span>
               </label>
             ))}
           </div>
@@ -207,20 +240,23 @@ const handleApplyFilter = () => {
       </div>
 
       {/* DISCOUNT */}
-      <div>
-        <p className="text-[18px] font-tenor lg:text-[22px]  text-[#676A5E]  uppercase mb-3">discount</p>
-        <div className="grid grid-cols-3 lg:grid-cols-2 gap-3 text-[14px]">
-          {["5%", "10%", "15%", "20%", "25%", "30%"].map((discount) => (
-            <label key={discount} className="flex items-center text-[#676A5E] text-[18px] space-x-2">
-              <input
-                type="checkbox"
-                className="accent-[#B2BA98] w-[18px] h-[18px]"
-              />
-              <span>{discount} Off</span>
-            </label>
-          ))}
-        </div>
-      </div>
+<div>
+  <p className="text-[18px] font-tenor lg:text-[22px]  text-[#676A5E] uppercase mb-3">Discount</p>
+  <div className="grid grid-cols-3 lg:grid-cols-2 gap-3 text-[14px]">
+    {["5", "10", "15", "20", "25", "30"].map((discount) => (
+      <label key={discount} className="flex items-center text-[#676A5E] text-[18px] space-x-2">
+        <input
+          type="checkbox"
+          className="accent-[#B2BA98] w-[18px] h-[18px]"
+          checked={selectedDiscounts.includes(discount)}
+          onChange={() => toggleDiscount(discount)}
+        />
+        <span>{discount === "30" ? "30% Off" : `${discount}% Off`}</span>
+      </label>
+    ))}
+  </div>
+</div>
+
 
     </div>
    <img src="/images/beauty.png" alt="banner" className="mt-6 hidden lg:block   top-100 w-[300px]" />

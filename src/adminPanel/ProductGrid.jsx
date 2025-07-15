@@ -1,6 +1,6 @@
 import { useState, useEffect ,useCallback} from "react";
 import { FaSync, FaChevronDown } from "react-icons/fa";
-
+import endpoint_prefix from "../config/ApiConfig";
 
 export default function ProductGrid() {
   const [category, setCategory] = useState("shampoo");
@@ -35,7 +35,7 @@ export default function ProductGrid() {
   const fetchProducts = useCallback(async () => {
     try {
       const res = await fetch(
-        `https://booksemporium.in/Microservices_zia/prod/03_Admin_Panel/api/products/category/${category}?page=${page}&limit=${limit}`
+        `${endpoint_prefix}03_Admin_Panel/api/products/category/${category}?page=${page}&limit=${limit}`
       );
       const json = await res.json();
       setProducts(json.data.products || []);
@@ -133,14 +133,14 @@ export default function ProductGrid() {
       </section>
 
       <div className="">
-        <div className="border border-[#CFCFCF] w-full shadow-lg bg-white rounded-xl p-4 lg:p-6">
+        <div className="border border-[#CFCFCF] w-full shadow-lg bg-white rounded-xl p-4 xxxl:p-6 laptop:p-4 hd:p-4">
           {/* Category + View Count */}
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <div>
-              <label className="font-semibold text-[18px] md:text-[20px] block mb-2">Category</label>
-              <div className="relative w-full md:w-[300px]">
+              <label className="font-semibold text-[18px] xxxl:text-[20px] hd:text-[18px] laptop:text-[16px] block mb-2">Category</label>
+              <div className="relative w-full xxxl:w-[300px] hd:w-[250px] laptop:w-[200px] ">
                 <select
-                  className="border border-[#D9D9D9] text-[#504F4F] rounded-md py-3 px-4 pr-8 w-full text-[15px] focus:outline-none appearance-none"
+                  className="border border-[#D9D9D9] text-[#504F4F] rounded-md xxxl:py-3 hd:py-3 laptop:py-2 px-4 pr-8 w-full text-[15px] focus:outline-none appearance-none"
                   value={category}
                   onChange={(e) => {
                     setPage(1);
@@ -160,10 +160,10 @@ export default function ProductGrid() {
                   <option value="foot_cream">Foot Cream</option>
                   
                 </select>
-                <FaChevronDown className="absolute top-4 right-3 text-[#B7B7B7]" />
+                <FaChevronDown className="absolute xxxl:top-4 laptop:top-3 hd:top-4 right-3 text-[#B7B7B7]" />
               </div>
             </div>
-            <div className="text-[18px] md:text-[22px] font-semibold text-right w-full md:w-auto">
+            <div className="text-[18px] xxxl:text-[22px] hd:text-[18px] laptop:text-[16px] font-semibold text-right w-full md:w-auto">
               View Products : {products.length}/{limit}
             </div>
           </div>
@@ -171,7 +171,7 @@ export default function ProductGrid() {
           {/* Product Grid */}
           <div className={`$ {
             products.length === 0 ? 'min-h-[300px]' : ''
-          } grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 mt-6`}>
+          } grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xxxl:grid-cols-6 gap-4 mt-6`}>
             {products.length > 0 ? (
               products.map((product, index) => (
                 <div
@@ -182,10 +182,10 @@ export default function ProductGrid() {
                     <img
                       src={product.banner_image || "/images/h_shampoo.png "}
                       alt={product.name}
-                      className="h-[140px]  object-contain"
+                      className="xxxl:h-[140px] laptop:h-[105px] hd:h-[125px] object-contain"
                     />
                   </div>
-                  <h2 className="font-semibold text-[15px] leading-snug">{product.product_name}</h2>
+                  <h2 className="font-semibold xxxl:text-[15px] laptop:text-[14px] hd:text-[15px] leading-snug">{product.product_name}</h2>
                   <p className="text-[14px] text-[#555] mt-1">
                     Stock Available: <strong>{product.stock_available}</strong>
                   </p>

@@ -7,7 +7,7 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useEffect,useState } from 'react';
 import { RiStarSFill, RiStarHalfSFill } from "react-icons/ri";
-
+import endpoint_prefix from "../config/ApiConfig";
 
 
 export default function Home() {
@@ -46,9 +46,7 @@ const handleAddToCart = () => {
 const handleAbout=()=>{
   navigate('/about')
 }
-const handleProducts=()=>{
-  navigate('/shopdetails')
-}
+
 
   const handleChange=()=>{
     navigate('/shoplist');
@@ -67,7 +65,7 @@ useEffect(() => {
     redirect: "follow"
   };
 
-  fetch("https://booksemporium.in/Microservices_zia/prod/04_userProducts/api/user_products/featured-products", requestOptions)
+  fetch(`${endpoint_prefix}04_userProducts/api/user_products/featured-products`, requestOptions)
     .then((response) => response.json())
     .then((result) => {
        console.log("Fetched Products:", result);
@@ -94,7 +92,7 @@ useEffect(() => {
     </p>
 
     <div data-aos="fade-up" data-aos-delay="100" className="flex justify-around mb-24 lg:justify-start lg:gap-20 font-tenor">
-      <button onClick={handleProducts} className="bg-black text-white text-[14px] px-5 py-2 rounded-full flex items-center gap-2">
+      <button onClick={handleChange} className="bg-black text-white text-[14px] px-5 py-2 rounded-full flex items-center gap-2">
         Shop Now <span className="text-lg ml-2">→</span>
       </button>
       <button onClick={handleChange} className="border text-[#2B452C] border-[#2B452C] text-[14px] px-5 py-2 rounded-full flex items-center gap-2">

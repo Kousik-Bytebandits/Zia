@@ -1,3 +1,3 @@
-const endpoint_prefix = 'https://booksemporium.in/ziaherbalpro/apirouting/';
+const endpoint_prefix = 'https://api.ziaherbalpro.com/Microservices/';
 
 export default endpoint_prefix;
