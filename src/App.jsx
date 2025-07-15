@@ -10,13 +10,11 @@ import ShopList from './pages/ShopList';
 import ShopDetails from './pages/ShopDetails';
 import AboutUs from './pages/AboutUs';
 import ErrorPage from './pages/ErrorPage';
-import OrderTracking from './pages/OrderTracking';
 import ContactUs from './pages/ContactUs';
 import Faq from './pages/Faq';
 import StartScreen from './pages/StartScreen';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
-import AdminRoutes from './adminPanel/AdminRoutes';
 import DisclaimerPage from './pages/Disclaimer';
 import CookiePolicyPage from './pages/CookiesPolicy';
 import LegalCompliancePage from './pages/LegalComplaince';
@@ -27,7 +25,7 @@ import TermsAndConditionsPage from './pages/TermsCondition';
 import RouteLoader from './components/RouterLoader';
 function App() {
   const location = useLocation();
-  const hideNavbarRoutes = ['/startscreen', '/login', '/signup','/admin/home', '/admin/grid'];
+  const hideNavbarRoutes = ['/startscreen', '/login', '/signup'];
 
   const [isAuthenticated, setIsAuthenticated] = useState(
     !!localStorage.getItem('accessToken')
@@ -56,7 +54,6 @@ function App() {
           <Route path="/shopdetails/:productId" element={<ShopDetails />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/contactus" element={<ContactUs />} />
-          <Route path="/ordertracking" element={<OrderTracking />} />
           <Route path="/faq" element={<Faq />} />
           <Route path="/disclaimer" element={<DisclaimerPage />} />
 <Route path="/cookie-policy" element={<CookiePolicyPage />} />
@@ -67,8 +64,7 @@ function App() {
 <Route path="/terms-and-conditions" element={<TermsAndConditionsPage />} />
 
 
-          {/* Admin Route  */}
-          <Route path="/admin/*" element={<AdminRoutes />} />
+          
 
           {/* 404 */}
           <Route path="*" element={<ErrorPage />} />

@@ -166,12 +166,7 @@ const handleCart=()=>{
       >
         Contact Us
       </NavLink>
-      <NavLink
-        to="/ordertracking"
-        className={({ isActive }) => `${isActive ? 'border-b-2 border-white' : ''}`}
-      >
-        Track Order
-      </NavLink>
+     
     </ul>
   </div>
 
@@ -238,7 +233,7 @@ const handleCart=()=>{
       <li><a href="/shoplist">Shop</a></li>
       <li><a href="/about">About Us</a></li>
       <li><a href="/contactus">Contact Us</a></li>
-      <li><a href="/ordertracking">Track Order</a></li>
+     
 
     </ul>
   </div>

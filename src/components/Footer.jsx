@@ -41,7 +41,7 @@ export default function Footer() {
               <h3 className="text-[20px] laptop:text-[17px] font-semibold mb-2">Customer Care</h3>
               <ul className="space-y-2 text-[16px] text-white">
                 <li><Link to="/contactus" className="hover:underline">Contact Us</Link></li>
-                <li><Link to="/ordertracking" className="hover:underline">Track Order</Link></li>
+                
                 <li className="flex items-center gap-2">
                   <img src="/icons/whatsapp.png" className="w-[16px] h-[16px] -ml-6" alt="whatsapp" />
                   +91 - 8939843483
