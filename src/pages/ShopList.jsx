@@ -207,7 +207,7 @@ const handleApplyFilter = () => {
 
           {/* Left Column (Fewer items) */}
           <div className="space-y-2">
-            {["handwash", "soap", "hair_oil", "body_oil", "shampoo"].map((key, index) => (
+            {["handwash", "soap", "hairoil", "body_oil", "shampoo"].map((key, index) => (
   <label key={index} className="flex text-[#676A5E] text-[18px] lg:text-[17px] items-center space-x-2">
     <input
       type="checkbox"

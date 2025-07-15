@@ -448,7 +448,7 @@ setCreatedProductId(id); // triggers useEffect
                   <option value="handwash">Handwash</option>
                   <option value="soap">Soap</option>
                   <option value="hairoil">Hair Oil</option>
-                  <option value="body_massage_oil">Body Massage Oil</option>
+                  <option value="body_oil">Body Massage Oil</option>
                   <option value="lip_balm">Lip Balm</option>
                   <option value="face_pack">Face Pack</option>
                   <option value="serum">Serum</option>
