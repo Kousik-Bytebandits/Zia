@@ -15,7 +15,7 @@ const [discountAmount, setDiscountAmount] = useState(0);
 
 const fetchCart = async () => {
   try {
-    const res = await fetch("http://api.ziaherbalpro.com/Microservices/06_cart/cart", {
+    const res = await fetch("https://api.ziaherbalpro.com/Microservices/06_cart/cart", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -50,7 +50,7 @@ const fetchCart = async () => {
 
    
     const res = await fetch(
-      "http://api.ziaherbalpro.com/Microservices/06_cart/cart",
+      "https://api.ziaherbalpro.com/Microservices/06_cart/cart",
       {
         method: "PUT",
         headers: {
@@ -76,7 +76,7 @@ const fetchCart = async () => {
   const removeItem = async (productId) => {
     try {
       const res = await fetch(
-        `http://api.ziaherbalpro.com/Microservices/06_cart/cart/${productId}`,
+        `https://api.ziaherbalpro.com/Microservices/06_cart/cart/${productId}`,
         {
           method: "DELETE",
           headers: {

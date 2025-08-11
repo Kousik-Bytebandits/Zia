@@ -22,7 +22,7 @@ export default function CareCollectionsSection() {
   
     try {
       const response = await fetch(
-        "http://api.ziaherbalpro.com/Microservices/06_cart/cart",
+        "https://api.ziaherbalpro.com/Microservices/06_cart/cart",
         {
           method: "POST",
           headers: {
