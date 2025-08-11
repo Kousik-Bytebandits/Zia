@@ -2,12 +2,53 @@ import { useState, useEffect } from "react";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { RiStarSFill,RiStarHalfSFill } from "react-icons/ri";
-import { useNavigate } from "react-router-dom";
+import endpoint_prefix from "../config/ApiConfig";
+import {  useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 export default function CareCollectionsSection() {
    const [selectedCategory, setSelectedCategory] = useState("handwash");
     const [products, setProducts] = useState([]);
   const navigate = useNavigate();
- 
+
+  const handleAddToCart = async (productId) => {
+    const token = localStorage.getItem("accessToken");
+  
+    if (!token || token === "forbidden") {
+      navigate("/login");
+      return;
+    }
+  
+    try {
+      const response = await fetch(
+        "http://api.ziaherbalpro.com/Microservices/06_cart/cart",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            product_id: productId,
+            quantity: 1,
+          }),
+        }
+      );
+  
+      const data = await response.json();
+  
+      if (response.ok) {
+        toast.success( "Product added to cart", { autoClose: 2000 });
+      } else {
+        toast.error(data.message || "Failed to add item", { autoClose: 2000 });
+      }
+    } catch (err) {
+      console.error("Error adding to cart:", err);
+      toast.error("Failed to add item", { autoClose: 2000 });
+    }
+  };
+
    useEffect(() => {
   AOS.init({
     duration: 1000,  
@@ -28,9 +69,10 @@ useEffect(() => {
   };
 
   fetch(
-    `https://booksemporium.in/Microservices_zia/prod/04_userProducts/api/user_products/products-by-category?category=${selectedCategory}`,
+    `${endpoint_prefix}04_userProducts/api/user_products/products-by-category?category=${selectedCategory}`,
     requestOptions
   )
+  
     .then((response) => response.json())
     .then((result) => {
       // Extract product array from response object
@@ -89,7 +131,7 @@ useEffect(() => {
   <div
      onClick={() => navigate(`/shopdetails/${product.product_id}`)}  
     key={product.product_id || index}
-    className="min-w-[250px]  laptop:min-w-[260px] hd:min-w-[270px] xxxl:w-[320px] xxxl:h-[405px] h-[340px] laptop:h-[312px] hd:h-[347px] xxxl:h-[405px] border-2 border-[#D8DCCB] rounded-xl flex flex-col items-center flex-shrink-0 bg-white shadow-sm"
+    className="min-w-[250px]  laptop:min-w-[260px] hd:min-w-[270px] xxxl:w-[320px] xxxl:h-[405px] h-[335px] laptop:h-[312px] hd:h-[347px] xxxl:h-[405px] border-2 border-[#D8DCCB] rounded-xl flex flex-col items-center flex-shrink-0 bg-white shadow-sm"
   >
     {/* Product Image */}
     <img
@@ -118,7 +160,12 @@ useEffect(() => {
     </div>
 
     {/* Add to Cart Button */}
-    <button className="bg-[#2B452C] tracking-wide text-white w-full py-3 laptop:py-3 text-[18px] laptop:text-[20px] xxxl:text-[24px] rounded-b-xl">
+    <button 
+   onClick={(e) => {
+    e.stopPropagation(); 
+    handleAddToCart(product.product_id);
+  }}
+    className="bg-[#2B452C] tracking-wide text-white w-full py-3 laptop:py-3 text-[18px] laptop:text-[20px] xxxl:text-[24px] rounded-b-xl">
       Add to Cart
     </button>
   </div>

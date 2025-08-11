@@ -2,8 +2,12 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { FaLock, FaUser } from 'react-icons/fa';
 import { RiArrowLeftSLine } from 'react-icons/ri';
 import { useState } from 'react';
-import NotificationPopup from './NotificatioPopup';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 import endpoint_prefix from '../config/ApiConfig';
+
 
 export default function Login() {
   const navigate = useNavigate();
@@ -13,15 +17,7 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const [popup, setPopup] = useState({
-    show: false,
-    type: "success",
-    message: "",
-  });
-
-  const showPopup = (type, message) => {
-    setPopup({ show: true, type, message });
-  };
+ 
 
   const handleLogin = async () => {
     try {
@@ -32,7 +28,7 @@ export default function Login() {
       });
 
       const data = await res.json();
-      console.log("Login Response", data);
+     
 
 
       if (res.ok && data.accessToken) {
@@ -40,23 +36,23 @@ export default function Login() {
   localStorage.setItem('accessToken', data.accessToken);
   localStorage.setItem('refreshToken', data.refreshToken);
 
-  showPopup('success', 'Login successful!');
+  toast.success('Login successful!', { autoClose: 2000 });
 
   setTimeout(() => {
     navigate(fromCheckout ? '/shopcart' : '/home', { replace: true });
   }, 1500);
 } else {
-  showPopup('error', data.message || 'Login failed');
+  toast.error(data.message || 'Login failed', { autoClose: 2000 });
 }
 
     } catch (err) {
       console.error(err);
-      showPopup("error", "Something went wrong.");
+      toast.error("Something went wrong.", { autoClose: 2000 });
     }
   };
 
   const handleForgotPassword = async () => {
-    if (!email) return showPopup("error", "Enter your email first");
+    if (!email) return toast.error("Enter your email first", { autoClose: 2000 });
 
     try {
       const res = await fetch(`${endpoint_prefix}apirouting/user/forgot-password`, {
@@ -67,13 +63,13 @@ export default function Login() {
       const data = await res.json();
 
       if (res.ok) {
-        showPopup("success", "Password reset email sent!");
+        toast.success("Password reset email sent!", { autoClose: 2000 });
       } else {
-        showPopup("error", data.message || "Request failed");
+        toast.error(data.message || "Request failed", { autoClose: 2000 });
       }
     } catch (err) {
       console.error(err);
-      showPopup("error", "An error occurred");
+      toast.error("An error occurred", { autoClose: 2000 });
     }
   };
   return (
@@ -294,12 +290,7 @@ export default function Login() {
           </p>
         </div>
       </div>
-       <NotificationPopup
-        show={popup.show}
-        type={popup.type}
-        message={popup.message}
-        onClose={() => setPopup({ ...popup, show: false })}
-      />
+      <ToastContainer position="top-center" />
     </div>
   );
 }

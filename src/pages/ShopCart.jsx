@@ -1,91 +1,133 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import { FaMinus, FaPlus } from "react-icons/fa";
 
 export default function ShopCart() {
   const navigate = useNavigate();
+  const [items, setItems] = useState([]);
 
- 
-  const [items, setItems] = useState([
-    {
-      id: 1,
-      name: "ZIA HERBAL HAIR SHAMPOO",
-      size: "100 ML",
-      originalPrice: 400,
-       price: 320,
-      quantity: 2,
-      img: "/images/h_shampoo.png",
-    },
-    {
-      id: 2,
-      name: "ZIA  HERBAL HAIR SHAMPOO",
-      size: "100 ML",
-        originalPrice: 400,
-       price: 320,
-      quantity: 1,
-      img: "/images/h_shampoo.png",
-    },
-    {
-      id: 3,
-      name: "ZIA  HERBAL HAIR SHAMPOO",
-      size: "100 ML",
-        originalPrice: 400,
-       price: 320,
-      quantity: 3,
-      img: "/images/h_shampoo.png",
-    },
-    {
-      id: 4,
-      name: "ZIA  HERBAL HAIR SHAMPOO",
-      size: "100 ML",
-        originalPrice: 400,
-       price: 320,
-      quantity: 1,
-      img: "/images/h_shampoo.png",
-    },
-  ]);
+  const token = localStorage.getItem("accessToken");
+const [subtotal, setSubtotal] = useState(0);
+const [total, setTotal] = useState(0);
+const [discountPercent, setDiscountPercent] = useState(0);
+const [discountAmount, setDiscountAmount] = useState(0);
 
-  // ✅ Cart Calculations
-  const subtotal = items.reduce(
-    (acc, item) => acc + item.price * item.quantity,
-    0
-  );
-  const discount = 0.1;
-  const total = subtotal - subtotal * discount;
+const fetchCart = async () => {
+  try {
+    const res = await fetch("http://api.ziaherbalpro.com/Microservices/06_cart/cart", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (!res.ok) throw new Error("Failed to fetch cart");
 
-  // ✅ Functions
-  const handleIncrement = (id) => {
-    setItems((prev) =>
-      prev.map((item) =>
-        item.id === id ? { ...item, quantity: item.quantity + 1 } : item
-      )
-    );
-  };
+    const data = await res.json();
 
-  const handleDecrement = (id) => {
-    setItems((prev) =>
-      prev.map((item) =>
-        item.id === id && item.quantity > 1
-          ? { ...item, quantity: item.quantity - 1 }
+    setItems(data.items || []);
+    setSubtotal(Number(data.cart_items || 0));
+    setTotal(Number(data.totalPrice || 0));
+    setDiscountPercent(Number(data.discount_percent || 0));
+    setDiscountAmount(Number(data.discount_amount || discountAmount));
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+
+
+
+ const updateQuantity = async (productId, quantity) => {
+  try {
+   
+    setItems(prevItems =>
+      prevItems.map(item =>
+        item.product_id === productId
+          ? { ...item, quantity }
           : item
       )
     );
+
+   
+    const res = await fetch(
+      "http://api.ziaherbalpro.com/Microservices/06_cart/cart",
+      {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ product_id: productId, quantity }),
+      }
+    );
+
+    if (!res.ok) throw new Error("Failed to update quantity");
+
+    await fetchCart();
+
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+
+
+
+  const removeItem = async (productId) => {
+    try {
+      const res = await fetch(
+        `http://api.ziaherbalpro.com/Microservices/06_cart/cart/${productId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (!res.ok) throw new Error("Failed to remove item");
+      await fetchCart(); // Refresh cart
+    } catch (err) {
+      console.error(err);
+    }
   };
+
+
+
+const handleIncrement = (id, currentQty) => {
+  updateQuantity(id, currentQty + 1);
+};
+
+const handleDecrement = (id, currentQty) => {
+  if (currentQty > 1) {
+    updateQuantity(id, currentQty - 1);
+  }
+};
+
+
 
   const handleRemove = (id) => {
-    const updated = items.filter((item) => item.id !== id);
-    setItems(updated);
+    removeItem(id);
   };
 
+  
   const handleCheckout = () => {
-   const token = localStorage.getItem("accessToken");
     if (!token) {
-      navigate("/startscreen"); 
+      navigate("/startscreen");
     } else {
-      navigate("/home");     }
+      navigate("/home");
+    }
   };
 
+
+  useEffect(() => {
+    if (!token) {
+      navigate("/startscreen");
+    } else {
+      fetchCart();
+    }
+  }, []);
+
+  
   return (
     <>
       <div className="xxxl:max-w-[80%] laptop:max-w-[90%]  pt-20 mx-auto py-8 font-archivo">
@@ -104,12 +146,12 @@ export default function ShopCart() {
              <div className="w-full bg-white shadow-around-soft rounded-xl p-6 font-archivo">
   {items.map((item) => (
     <div
-      key={item.id}
+      key={item.product_id}
       className="flex justify-between py-6 items-center border-b-2 border-dashed border-[#B7B7B7] last:border-none"
     >
       {/* Product Image + Details */}
       <div className="flex items-center gap-6 xxxl:w-[40%] laptop:w-[50%] hd:w-[45%]">
-        <img src={item.img} alt="product" className="xxxl:w-[110px] xxxl:h-[150px] laptop:w-[88px] laptop:h-[110px] hd:w-[100px] hd:h-[120px] object-contain" />
+        <img src={item.image_url} alt="product" className="xxxl:w-[110px] xxxl:h-[150px] laptop:w-[88px] laptop:h-[110px] hd:w-[100px] hd:h-[120px] object-contain" />
         <div className="space-y-1">
           <p className="text-[18px] xxxl:text-[24px] laptop:text-[20px] hd:text-[22px] font-semibold uppercase text-[#202020]">
             {item.name}
@@ -124,11 +166,11 @@ export default function ShopCart() {
       </div>
 
       {/* Price Column */}
-      <div className=" text-[20px] font-semibold text-right w-[16%]">
+      <div className=" text-[20px] font-semibold text-right w-[20%]">
         <div className="flex  items-center justify-end gap-4">
-          <span className="text-[#FF1010]">-28%</span>
+          <span className="text-[#FF1010]">- {item.discount}%</span>
           <div className="flex items-center gap-4">
-            <span className="line-through text-[#A3A3A3] text-[20px]">₹{item.originalPrice}</span>
+            <span className="line-through text-[#A3A3A3] text-[20px]">₹{item.old_price}</span>
             <span className="text-black text-[20px]">₹{item.price}</span>
           </div>
         </div>
@@ -137,12 +179,12 @@ export default function ShopCart() {
       {/* Quantity + Delete */}
       <div className="flex items-center gap-3 w-[30%] justify-center">
         <div className="flex items-center border border-[#D5D5D5] rounded-full px-6 py-1 gap-3">
-          <button className="text-[14px]" onClick={() => handleDecrement(item.id)}><FaMinus/></button>
+          <button  type="button" className="text-[14px]" onClick={() => handleDecrement(item.product_id, item.quantity)}><FaMinus/></button>
           <span className="text-[22px] font-medium">{item.quantity}</span>
-          <button className="text-[14px]" onClick={() => handleIncrement(item.id)}><FaPlus/></button>
+          <button type="button" className="text-[14px]" onClick={() => handleIncrement(item.product_id, item.quantity)}><FaPlus/></button>
         </div>
-        <button
-          onClick={() => handleRemove(item.id)}
+        <button type="button"
+          onClick={() => handleRemove(item.product_id)}
           className="bg-[#BE0000] text-white px-8 py-2 text-[16px] font-semibold rounded-full"
         >
           Delete
@@ -170,7 +212,7 @@ export default function ShopCart() {
                     <div className="flex justify-between text-[18px] text-[#5E5C5C]">
                       <span>Discount</span>
                       <span className="text-[#FF6565] font-semibold">
-                        -10%
+                        -{discountPercent.toFixed(0)}%
                       </span>
                     </div>
                     <div className="flex justify-between text-[18px] text-[#5E5C5C]">
@@ -211,14 +253,14 @@ export default function ShopCart() {
               <div className="max-w-md mx-auto bg-white rounded-lg p-4">
                 {items.map((item) => (
                   <div
-                    key={item.id}
+                    key={item.product_id}
                     className="border-b-2 mt-8 ...987\l
                     border-dashed border-[#D1D1D1] pb-4 relative"
                   >
                   
                     <div className="flex gap-">
                       <img
-                        src={item.img}
+                        src={item.image_url}
                         alt="product"
                         className="w-[117px] h-[155px] "
                       />
@@ -228,7 +270,7 @@ export default function ShopCart() {
                             {item.name}
                           </h3>
                           <p className="text-[14px] text-[#AEAEAE]">
-                            {item.size}
+                            100 ML
                           </p>
                         </div>
                          <div className="flex items-center gap-2 text-[12px] text-[#676A5E] ">
@@ -237,26 +279,26 @@ export default function ShopCart() {
                       <span className="text-[#676A5E] mr-2">(10)</span>
                         </div>
                          <div className="flex items-center gap-3">
-        <p className="text-[20px] text-[#FF1010] ">-28%</p>
-        <p className="line-through text-[#AEAEAE] text-[20px]">₹320.00</p>
-        <p className="text-[24px] font-bold">₹400</p>
+        <p className="text-[20px] text-[#FF1010] ">- {item.discount}%</p>
+        <p className="line-through text-[#AEAEAE] text-[20px]">₹ {item.old_price}</p>
+        <p className="text-[24px] font-bold">₹ {item.price}</p>
       </div>
                         <div className="flex justify-start gap-4 items-center mt-2">
                          
                          <div className="shadow-around-soft flex items-center gap-1 border border-[#D5D5D5] rounded-full h-[34px]">
                 <button
                   className="px-3"
-                  onClick={() => handleDecrement(item.id)}
+                  onClick={() => handleDecrement(item.product_id, item.quantity)}
                 >
                   <FaMinus size={16}/>
                 </button>
                 <span className="text-[#4C4B4B] text-[20px] ">{item.quantity}</span>
                 <div className="px-3 items-center flex">
-                  <button onClick={() => handleIncrement(item.id)}><FaPlus className=" " size={16}/></button>
+                  <button onClick={() => handleIncrement(item.product_id, item.quantity)}><FaPlus className=" " size={16}/></button>
                 </div>
               </div>
               <div>
-                <button  onClick={() => handleRemove(item.id)} className="rounded-full bg-[#BE0000] text-white px-8 py-1.5">Delete</button>
+                <button  onClick={() => handleRemove(item.product_id)} className="rounded-full bg-[#BE0000] text-white px-8 py-1.5">Delete</button>
                 </div>
                         </div>
                       </div>
@@ -275,7 +317,7 @@ export default function ShopCart() {
                 <div className="flex justify-between text-[14px] text-[#5E5C5C]">
                   <span>Discount</span>
                   <span className="text-[#FF6565] font-semibold text-[16px]">
-                    -10%
+                     - {discountPercent.toFixed(0)}%
                   </span>
                 </div>
                 <div className="flex justify-between text-[14px] text-[#5E5C5C]">

@@ -4,11 +4,61 @@ import Footer from "../components/Footer";
 import { RiStarSFill,RiStarHalfSFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import endpoint_prefix from "../config/ApiConfig";
+import { ToastContainer, toast } from "react-toastify";
+
 function ProductCard({ product }) {
+  
  const navigate = useNavigate();
-  const handleAddToCart = () => {
-  window.open("https://www.whatsapp.com/catalog/918939843483/?app_absent=0", "_blank");
-};
+  const handleAddToCart = async (id) => {
+    const token = localStorage.getItem("accessToken");
+
+   console.log("Adding product ID:",id);
+
+
+
+    if (!token || token === "forbidden") {
+        navigate("/login");
+
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        "http://api.ziaherbalpro.com/Microservices/06_cart/cart",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+              product_id: id,
+            quantity: 1,
+            
+          }),
+        }
+      );
+
+      const contentType = response.headers.get("content-type");
+
+      if (!response.ok) {
+        if (contentType && contentType.includes("application/json")) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || "Failed to add product to cart");
+        } else {
+          const errorText = await response.text();
+          throw new Error(errorText || "Failed to add product to cart");
+        }
+      }
+
+      const result = await response.json();
+      console.log(result);
+      toast.success("Product added to cart successfully!");
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+      toast.error("Error: " + error.message);
+    }
+  };
 
   const primaryImage = product.primary_image_url;
  
@@ -38,7 +88,7 @@ function ProductCard({ product }) {
             ₹{product.price}
           </span>
         </div>
-        <button onClick={handleAddToCart} className="w-full bg-[#2B452C] text-white py-3 xxxl:py-4 laptop:py-2 hd:py-3 lg:rounded-b text-[18px] xxxl:text-[24px] laptop:text-[20px] tracking-wider font-medium rounded-none">
+        <button onClick={(e) => { e.stopPropagation(); handleAddToCart(product.product_id); }} className="w-full bg-[#2B452C] text-white py-3 xxxl:py-4 laptop:py-2 hd:py-3 lg:rounded-b text-[18px] xxxl:text-[24px] laptop:text-[20px] tracking-wider font-medium rounded-none">
           Add to Cart
         </button>
       </div>
@@ -48,7 +98,7 @@ function ProductCard({ product }) {
 
 export default function ShopList() {
   const [products, setProducts] = useState([]);
-  const [priceRange, setPriceRange] = useState([50, 1500]);
+  const [priceRange, setPriceRange] = useState([40, 1500]);
   const [sortOption, setSortOption] = useState("price-high_to_low");
    const [showFilter, setShowFilter] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -109,7 +159,7 @@ const handleApplyFilter = () => {
     .then(res => res.json())
     .then(data => {
       if (Array.isArray(data)) {
-        console.log("Initial Load Products:", data);
+       
         setProducts(data);
       } else {
         console.error("Unexpected response format:", data);
@@ -391,6 +441,7 @@ const handleApplyFilter = () => {
 </div>
     </div>
     <Footer/>
+    <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );
 }

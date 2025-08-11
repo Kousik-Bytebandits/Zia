@@ -166,6 +166,12 @@ const handleCart=()=>{
       >
         Contact Us
       </NavLink>
+       <NavLink
+        to="/order-tracking"
+        className={({ isActive }) => `${isActive ? 'border-b-2 border-white' : ''}`}
+      >
+        Track Order
+      </NavLink>
      
     </ul>
   </div>

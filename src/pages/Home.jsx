@@ -8,7 +8,8 @@ import 'aos/dist/aos.css';
 import { useEffect,useState } from 'react';
 import { RiStarSFill, RiStarHalfSFill } from "react-icons/ri";
 import endpoint_prefix from "../config/ApiConfig";
-
+import { ToastContainer , toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Home() {
   const [products, setProducts] = useState([]);
@@ -39,16 +40,52 @@ export default function Home() {
         "Zia Herbals has changed my wellness routine for the better. Their products are 100% natural and actually work. I feel so much more clean!",
     },
   ]
-const handleAddToCart = () => {
-  window.open("https://www.whatsapp.com/catalog/918939843483/?app_absent=0", "_blank");
+
+
+const handleAddToCart = async (productId) => {
+  const token = localStorage.getItem("accessToken");
+
+  if (!token || token === "forbidden") {
+    navigate("/login");
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      "http://api.ziaherbalpro.com/Microservices/06_cart/cart",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          product_id: productId,
+          quantity: 1,
+        }),
+      }
+    );
+
+    const data = await response.json();
+ console.log("Add to cart response:", data);
+    if (response.ok) {
+      toast.success( "Product added to cart", { autoClose: 2000 });
+    } else {
+      toast.error( "Failed to add item", { autoClose: 2000 });
+    }
+  } catch (err) {
+    console.error("Error adding to cart:", err);
+    toast.error("Failed to add item", { autoClose: 2000 });
+  }
 };
 
-const handleAbout=()=>{
-  navigate('/about')
+
+const handleAbout = () => {
+  navigate('/about');
 }
 
 
-  const handleChange=()=>{
+  const handleChange = () => {
     navigate('/shoplist');
   }
   useEffect(() => {
@@ -68,7 +105,7 @@ useEffect(() => {
   fetch(`${endpoint_prefix}04_userProducts/api/user_products/featured-products`, requestOptions)
     .then((response) => response.json())
     .then((result) => {
-       console.log("Fetched Products:", result);
+      
       setProducts(result);
     })
     .catch((error) => console.error("Error fetching products:", error));
@@ -371,12 +408,12 @@ useEffect(() => {
             {product.name || "Unnamed Product"}
           </h3>
 
-          <div className="flex text-yellow-500 items-center">
+          <div className="flex text-yellow-500 items-center ">
             {[...Array(4)].map((_, i) => (
               <RiStarSFill key={i} />
             ))}
             <RiStarHalfSFill />
-            <p className="text-[#676A5E] ml-1 text-[12px]">(79)</p>
+            <p className="text-[#676A5E] ml-1 text-[14px]">(79)</p>
           </div>
 
           <div className="text-[22px] laptop:text-[19px] hd:text-[22px] xxxl:text-[28px] font-bold">
@@ -385,11 +422,12 @@ useEffect(() => {
         </div>
 
         <button 
-          onClick={handleAddToCart}
+          onClick={() => handleAddToCart(product.product_id)}
           className="w-full py-3 text-[20px] laptop:text-[18px] xxxl:text-[24px] bg-[#2B452C] text-white tracking-wide"
         >
           Add to Cart
         </button>
+        
       </div>
     ))
   ) : (
@@ -738,6 +776,8 @@ useEffect(() => {
 
 
     <Footer/>
+    
+   
      </div>
   );
 }

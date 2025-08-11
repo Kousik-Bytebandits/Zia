@@ -4,6 +4,8 @@ import { GoArrowDown, GoArrowRight } from "react-icons/go";
 import { useNavigate, useParams } from "react-router-dom";
 import { RiStarSFill, RiStarHalfSFill } from "react-icons/ri";
 import endpoint_prefix from "../config/ApiConfig";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 function ProductCard({ product }) {
@@ -11,9 +13,46 @@ function ProductCard({ product }) {
 
   const navigate = useNavigate();
   
-  const handleAddToCart = () => {
-  window.open("https://www.whatsapp.com/catalog/918939843483/?app_absent=0", "_blank");
+  const handleAddToCart = async (productId) => {
+  // Force a test toast first
+  toast.info("Test toast triggered!", { autoClose: 2000 });
+
+  const token = localStorage.getItem("accessToken");
+
+  if (!token || token === "forbidden") {
+    navigate("/login");
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      "http://api.ziaherbalpro.com/Microservices/06_cart/cart",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          product_id: productId,
+          quantity: 1,
+        }),
+      }
+    );
+
+    const data = await response.json();
+
+    if (response.ok) {
+      toast.success( "Product added to cart", { autoClose: 2000 });
+    } else {
+      toast.error(data.message || "Failed to add item", { autoClose: 2000 });
+    }
+  } catch (err) {
+    console.error("Error adding to cart:", err);
+    toast.error("Failed to add item", { autoClose: 2000 });
+  }
 };
+
 
   
   return (
@@ -37,7 +76,10 @@ function ProductCard({ product }) {
           <span className="line-through xxxl:text-[28px] laptop:text-[24px] hd:text-[18px] mr-1 lg:hidden text-gray-400">{product.originalPrice}</span>
           <span className="text-black  xxxl:text-[28px] laptop:text-[24px] hd:text-[26px]">₹{product.salePrice}</span>
         </div>
-        <button onClick={handleAddToCart} className="w-full bg-[#2B452C] text-white py-3 xxxl:py-4 laptop:py-2 hd:py-3 lg:rounded-b text-[18px] xxxl:text-[24px] laptop:text-[20px] tracking-wider font-medium rounded-none">
+        <button  onClick={(e) => {
+    e.stopPropagation(); 
+    handleAddToCart(product.product_id);
+  }} className="w-full bg-[#2B452C] text-white py-3 xxxl:py-4 laptop:py-2 hd:py-3 lg:rounded-b text-[18px] xxxl:text-[24px] laptop:text-[20px] tracking-wider font-medium rounded-none">
           Add to Cart
         </button>
       </div>
@@ -58,16 +100,16 @@ export default function ShopDetails() {
     ingredients: false,
     features: false,
   });
-
+ const navigate = useNavigate();
 const imgs = productDetails?.images?.map((img) => img.image_url) || [];
 
  useEffect(() => {
-   console.log("useEffect triggered, productId =", productId);
+  
   if (productId) {
     fetch(`${endpoint_prefix}04_userProducts/api/user_products/product-details/${productId}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log("API Response:", data); 
+       
 
         const details = data.Product_details;
         setProductDetails(details);
@@ -133,9 +175,42 @@ useEffect(() => {
   const toggleSection = (section) => {
     setOpenSections((prev) => ({ ...prev, [section]: !prev[section] }));
   };
-const handleAddToCart = () => {
-  window.open("https://www.whatsapp.com/catalog/918939843483/?app_absent=0", "_blank");
-};
+  const handleAddToCart = async () => {
+    const token = localStorage.getItem("accessToken");
+
+    if (!token || token === "forbidden") {
+      navigate("/login");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        "http://api.ziaherbalpro.com/Microservices/06_cart/cart",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            product_id: productId,
+            quantity: 1,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        toast.success( "Product added to cart", { autoClose: 2000 });
+      } else {
+        toast.error(data.message || "Failed to add item", { autoClose: 2000 });
+      }
+    } catch (err) {
+      console.error("Error adding to cart:", err);
+      toast.error("Failed to add item", { autoClose: 2000 });
+    }
+  };
 
   return (
     <>
