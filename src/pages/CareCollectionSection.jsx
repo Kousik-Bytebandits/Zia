@@ -4,7 +4,7 @@ import 'aos/dist/aos.css';
 import { RiStarSFill,RiStarHalfSFill } from "react-icons/ri";
 import endpoint_prefix from "../config/ApiConfig";
 import {  useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function CareCollectionsSection() {
@@ -192,6 +192,7 @@ useEffect(() => {
       className="mx-auto mt-16 w-[85%]"
     />
   </div>
+    <ToastContainer position="top-right" />
 </div>
 
   );

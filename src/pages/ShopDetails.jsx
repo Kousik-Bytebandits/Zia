@@ -6,14 +6,16 @@ import { RiStarSFill, RiStarHalfSFill } from "react-icons/ri";
 import endpoint_prefix from "../config/ApiConfig";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import AddressPopup from "./AddressPopup";
+import Loader from "../components/Loader";
 
 function ProductCard({ product }) {
 
 
+
   const navigate = useNavigate();
   
-  const handleAddToCart = async (productId) => {
+  const handleAddToCart = async () => {
   // Force a test toast first
   toast.info("Test toast triggered!", { autoClose: 2000 });
 
@@ -34,12 +36,12 @@ function ProductCard({ product }) {
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          product_id: productId,
+          product_id: product.product_id,
           quantity: 1,
         }),
       }
     );
-
+    console.log("product" , product)
     const data = await response.json();
 
     if (response.ok) {
@@ -102,7 +104,8 @@ export default function ShopDetails() {
   });
  const navigate = useNavigate();
 const imgs = productDetails?.images?.map((img) => img.image_url) || [];
-
+const [showPopup, setShowPopup] = useState(false);
+const [loading, setLoading] = useState(false);
  useEffect(() => {
   
   if (productId) {
@@ -193,7 +196,7 @@ useEffect(() => {
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
-            product_id: productId,
+            product_id: productDetails?.product_id,
             quantity: 1,
           }),
         }
@@ -211,9 +214,133 @@ useEffect(() => {
       toast.error("Failed to add item", { autoClose: 2000 });
     }
   };
+ 
+   const handleBuyNow = () => {
+  setShowPopup(true);
+};
+
+const processBuyNowPayment = async () => {
+  const token = localStorage.getItem("accessToken");
+
+  if (!token) {
+    toast.error("Please log in to continue");
+    return;
+  }
+
+
+  setLoading(true);
+
+  try {
+    // Step 1 — Create order
+    const orderRes = await fetch(
+      "https://api.ziaherbalpro.com/Microservices/07_orders/order_management/create_order",
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          payment_method: "online",
+          items: [{ product_id: productDetails?.product_id, quantity: 1 }],
+        }),
+      }
+    );
+
+    const data = await orderRes.json();
+    console.log("Order API Response:", data);
+
+    if (!orderRes.ok) {
+      throw new Error(data.message || "Order creation failed");
+    }
+
+    // Step 2 — Razorpay payment
+    const options = {
+      key: data.RazorPay_key_ID,
+      amount: data.razorpayOrder.amount,
+      currency: data.razorpayOrder.currency,
+      name: data.customer_details?.name,
+      description: "Purchase from Zia Herbal",
+      image: data.theme?.logo || "/zia_logo.png",
+      order_id: data.razorpayOrder.id,
+      handler: async function (response) {
+        // Step 3 — Verify payment
+        await verifyCratePayment(response, token);
+      },
+      prefill: {
+        name: data.customer_details?.name,
+        email: data.customer_details?.email,
+        contact: data.customer_details?.Phone,
+      },
+      notes: {
+        address: data.customer_details?.address,
+      },
+      theme: {
+        color: data.theme?.color || "#00aaff",
+      },
+    };
+
+    const rzp = new window.Razorpay(options);
+    rzp.open();
+  } catch (error) {
+    console.error("Checkout error:", error);
+    toast.error(error.message || "An error occurred during checkout.");
+  } finally {
+    setLoading(false);
+  }
+};
+
+
+const verifyCratePayment = async (response, token) => {
+  try {
+    const verifyRes = await fetch(
+      "https://api.ziaherbalpro.com/Microservices/07_orders/order_management/verify_payment",
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          razorpay_payment_id: response.razorpay_payment_id,
+          razorpay_order_id: response.razorpay_order_id,
+          razorpay_signature: response.razorpay_signature,
+        }),
+      }
+    );
+
+    const data = await verifyRes.json();
+    console.log("Verify Payment Response:", data);
+
+    if (verifyRes.ok) {
+      toast.success("Payment successful!");
+      // optionally redirect to order confirmation page
+    } else {
+      toast.error(data.message || "Payment verification failed");
+    }
+  } catch (error) {
+    console.error("Payment verification error:", error);
+    toast.error("An error occurred while verifying payment");
+  }
+};
+
+ 
+
 
   return (
     <>
+     {loading && <Loader />}
+     <AddressPopup
+    isOpen={showPopup}
+    onClose={() => {
+      
+      setShowPopup(false);
+    }}
+    onProceed={() => {
+      setShowPopup(false);
+      processBuyNowPayment();
+    }}
+  />
       <div className="p-4 py-10 font-archivo  mx-auto ">
        
       <div className="hidden lg:flex flex-col   mx-auto py-10 px-6">
@@ -293,7 +420,7 @@ useEffect(() => {
                   </select>
                 </div>
                 <div className="flex items-center gap-4">
-                <button onClick={handleAddToCart} className="w-[40%] py-2 tracking-wide border border-[#2F3A27] bg-[#AEBCA466] rounded-full text-[#2F3A27] text-[18px] font-semibold">
+                <button onClick={handleBuyNow} className="w-[40%] py-2 tracking-wide border border-[#2F3A27] bg-[#AEBCA466] rounded-full text-[#2F3A27] text-[18px] font-semibold">
                   Buy Now
                 </button>
                 <button onClick={handleAddToCart} className="w-[40%] py-2 tracking-wide rounded-full bg-[#2F3A27] border border-black text-white font-semibold text-[18px]">

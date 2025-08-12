@@ -453,9 +453,11 @@ const renderOtpInput = () => (
         <div className="relative z-20 flex h-full w-full justify-center items-center">
           <div className="w-[70%] h-[80%] rounded-2xl overflow-hidden shadow-2xl flex">
             <div className="w-1/2 bg-white p-10 flex flex-col justify-center">
-              <p className="text-center font-tenor text-[#2E3A27] xxxl:text-[22px] mb-6 laptop:text-[14px] hd:text-[16px]">
+            
+              <p className="text-center font-tenor text-[#2E3A27] xxxl:text-[22px] mb-5 laptop:text-[14px] hd:text-[16px]">
                 Create Your Account
               </p>
+              <div className='absolute -mt-[35%] xxxl:ml-[30%] hd:ml-[28%] laptop:ml-[29%]' onClick={() => navigate('/')}>  <img src='images/close.webp' alt='Close' className='w-6 '/></div>
               {renderForm(true)}
             </div>
             <div className="w-1/2 relative">

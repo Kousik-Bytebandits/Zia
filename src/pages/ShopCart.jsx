@@ -2,6 +2,10 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import { FaMinus, FaPlus } from "react-icons/fa";
+import AddressPopup from "./AddressPopup";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Loader from "../components/Loader";
 
 export default function ShopCart() {
   const navigate = useNavigate();
@@ -12,6 +16,8 @@ const [subtotal, setSubtotal] = useState(0);
 const [total, setTotal] = useState(0);
 const [discountPercent, setDiscountPercent] = useState(0);
 const [discountAmount, setDiscountAmount] = useState(0);
+const [showPopup, setShowPopup] = useState(false);
+const [loading, setLoading] = useState(false);
 
 const fetchCart = async () => {
   try {
@@ -112,11 +118,121 @@ const handleDecrement = (id, currentQty) => {
   
   const handleCheckout = () => {
     if (!token) {
-      navigate("/startscreen");
+      navigate("/login");
     } else {
-      navigate("/home");
+      setShowPopup(true);
     }
   };
+
+  const processBuyNowPayment = async () => {
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+    toast.error("Session expired. Please log in again.");
+    return;
+  }
+  
+    try {
+      setLoading(true);
+     
+     
+      const orderRes = await fetch(
+       "https://api.ziaherbalpro.com/Microservices/07_orders/order_management/create_order",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            payment_method: "online",
+            items: items,
+          }),
+        }
+      );
+  
+      const data = await orderRes.json();
+      console.log("Order API Response:", data);
+console.log("Customer details:", data.customer_details);
+
+      if (!orderRes.ok || !data.razorpayOrder) {
+      toast.error("Failed to create order.");
+      setLoading(false);
+      return;
+    }
+
+      if (data?.razorpayOrder) {
+        const options = {
+          key: "rzp_test_qQ40l1wBMtOxc0",
+          amount: data.razorpayOrder.amount,
+          currency: "INR",
+          name: data.customer_details.name,
+          description: "Purchase from Zia Herbal",
+          image: data.theme?.logo || "/zia_logo.png",
+          order_id: data.razorpayOrder.id,
+          handler: async function (response) {
+            await verifyCratePayment(response, token);
+          },
+          prefill: {
+            name: data.customer_details.name,
+            email: data.customer_details.email,
+            contact: data.customer_details.Phone,
+          },
+          notes: {
+            address: data.customer_details.address,
+          },
+          theme: {
+            color: data.theme?.color || "#00aaff",
+          },
+        };
+  
+        const rzp = new window.Razorpay(options);
+        rzp.open();
+      } else {
+        toast.error(data.message || "Order creation failed");
+      }
+    } catch (error) {
+      console.error("Checkout failed:", error);
+      toast.error("An error occurred during checkout.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
+const verifyCratePayment = async (response, token) => {
+  try {
+    const verifyRes = await fetch("https://api.ziaherbalpro.com/Microservices/07_orders/order_management/verify_payment", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        razorpay_order_id: response.razorpay_order_id,
+        razorpay_payment_id: response.razorpay_payment_id,
+        razorpay_signature: response.razorpay_signature,
+      }),
+    });
+
+    if (!verifyRes.ok) {
+      toast.error("Payment verification failed");
+      return;
+    }
+
+    const result = await verifyRes.json();
+    console.log("Payment verified:", result);
+
+   if (result.success) {
+     toast.success("Payment verified successfully");
+   } else {
+     toast.error("Payment verification failed");
+   }
+
+  } catch (error) {
+    console.error("Verification or callback error:", error);
+    alert("Error verifying payment or sending payment ID.");
+  }
+};
 
 
   useEffect(() => {
@@ -130,6 +246,18 @@ const handleDecrement = (id, currentQty) => {
   
   return (
     <>
+     {loading && <Loader />}
+         <AddressPopup
+        isOpen={showPopup}
+        onClose={() => {
+          
+          setShowPopup(false);
+        }}
+        onProceed={() => {
+          setShowPopup(false);
+          processBuyNowPayment();
+        }}
+      />
       <div className="xxxl:max-w-[80%] laptop:max-w-[90%]  pt-20 mx-auto py-8 font-archivo">
         <h2 className="xxxl:text-[50px] text-center laptop:text-[35px] hd:text-[40px] lg:mb-10 py-4 font-tenor text-[#2E3A27] text-[28px]">
           Shopping Cart
@@ -166,7 +294,7 @@ const handleDecrement = (id, currentQty) => {
       </div>
 
       {/* Price Column */}
-      <div className=" text-[20px] font-semibold text-right w-[20%]">
+      <div className=" text-[20px] font-semibold text-right w-[24%]">
         <div className="flex  items-center justify-end gap-4">
           <span className="text-[#FF1010]">- {item.discount}%</span>
           <div className="flex items-center gap-4">

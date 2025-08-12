@@ -1,4 +1,3 @@
-
 import { useNavigate, useLocation } from 'react-router-dom';
 import { FaLock, FaUser } from 'react-icons/fa';
 import { RiArrowLeftSLine } from 'react-icons/ri';
@@ -21,36 +20,44 @@ export default function Login() {
  
 
   const handleLogin = async () => {
-    try {
-      const res = await fetch(`${endpoint_prefix}02_Authentication/auth/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
+  try {
+    const res = await fetch(`${endpoint_prefix}02_Authentication/auth/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email.trim(), password: password.trim() }),
+    });
 
-      const data = await res.json();
-     
+    const data = await res.json();
 
+    if (res.ok && data.accessToken) {
+      localStorage.setItem('user', JSON.stringify(data));
+      localStorage.setItem('accessToken', data.accessToken);
+      localStorage.setItem('refreshToken', data.refreshToken);
 
-      if (res.ok && data.accessToken) {
-  localStorage.setItem('user', JSON.stringify(data));
-  localStorage.setItem('accessToken', data.accessToken);
-  localStorage.setItem('refreshToken', data.refreshToken);
+      toast.success('Login successful!', { autoClose: 2000 });
 
-  toast.success('Login successful!', { autoClose: 2000 });
+      setTimeout(() => {
+        navigate(fromCheckout ? '/shopcart' : '/home', { replace: true });
+      }, 1500);
+    } else {
+      const errorMessage = data.error || data.message || data.msg || 'Login failed';
 
-  setTimeout(() => {
-    navigate(fromCheckout ? '/shopcart' : '/home', { replace: true });
-  }, 1500);
-} else {
-  toast.error(data.message || 'Login failed', { autoClose: 2000 });
-}
-
-    } catch (err) {
-      console.error(err);
-      toast.error("Something went wrong.", { autoClose: 2000 });
+      if (/password/i.test(errorMessage)) {
+        toast.error("Invalid password. Please try again.");
+      } else if (/email|username|not registered|no user|not found/i.test(errorMessage)) {
+        toast.error("User not found. Please create an account.");
+      } else if (/not active/i.test(errorMessage)) {
+        toast.error("Your account is not active. Please contact support.");
+      } else {
+        toast.error(errorMessage);
+      }
     }
-  };
+  } catch (err) {
+    console.error(err);
+    toast.error("Something went wrong. Please try again.");
+  }
+};
+
 
   const handleForgotPassword = async () => {
     if (!email) return toast.error("Enter your email first", { autoClose: 2000 });
@@ -119,6 +126,8 @@ export default function Login() {
 
           {/* Right */}
           <div className="w-1/2 text-center bg-white flex flex-col justify-center xxxl:px-36 laptop:px-20 hd:px-24">
+         <div className='absolute top-8 right-10' onClick={() => navigate('/')}>  <img src='images/close.webp' alt='Close' className='w-8 '/></div>
+
             <h2 className="xxxl:text-[45px] laptop:text-[28px] hd:text-[36px] text-[#2B452C] font-semibold">
               Welcome Back!
             </h2>
