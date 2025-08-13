@@ -3,9 +3,9 @@ import { toast } from "react-toastify";
 import endpoint_prefix from "../config/ApiConfig";
 
 const AddressPopup = ({ isOpen, onClose, onProceed }) => {
-  const [profile, setProfile] = useState({
-    firstName: "",
-    lastName: "",
+  const [form, setForm] = useState({
+    first_name: "",
+    last_name: "",
     phone: "",
     email: "",
     address: "",
@@ -14,85 +14,86 @@ const AddressPopup = ({ isOpen, onClose, onProceed }) => {
     pincode: "",
   });
 
-  useEffect(() => {
+  // Fetch profile whenever popup opens
+  const fetchProfile = async () => {
     const token = localStorage.getItem("accessToken");
-    const fetchProfile = async () => {
-      try {
-        const res = await fetch(
-          "https://booksemporium.in/Microservices/Prod/02_Authentication/auth/profile",
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+    if (!token) return;
 
-        const result = await res.json();
-        const { user = {}, address = {} } = result;
-
-        const updatedProfile = {
-          firstName: user.firstName ?? "",
-          lastName: user.lastName ?? "",
+    try {
+      const res = await fetch(`${endpoint_prefix}02_Authentication/auth/profile`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+      if (res.ok && data.user) {
+        const { user = {}, address = {} } = data;
+        setForm({
+          first_name: user.first_name ?? "",
+          last_name: user.last_name ?? "",
           phone: user.phone ?? "",
           email: user.email ?? "",
           address: address.street ?? "",
           city: address.city ?? "",
           state: address.state ?? "",
           pincode: address.postal_code ?? "",
-        };
-
-        setProfile(updatedProfile);
-      } catch (err) {
-        console.error("Error fetching profile:", err);
+        });
+      } else {
+        console.error("Failed to fetch user profile");
       }
-    };
+    } catch (err) {
+      console.error("Error fetching profile:", err);
+      toast.error("Failed to load profile.");
+    }
+  };
 
-    if (token && isOpen) fetchProfile();
+  useEffect(() => {
+    if (isOpen) fetchProfile();
   }, [isOpen]);
 
   const handleChange = (e) => {
-    setProfile({ ...profile, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async () => {
     const token = localStorage.getItem("accessToken");
-    const { firstName, lastName, phone, email, address, city, state, pincode } = profile;
+    if (!token) {
+      toast.error("Please login first.");
+      return;
+    }
 
-    if (!firstName || !lastName || !phone || !address || !city || !state || !pincode) {
-      toast.error("Please fill out all address fields before proceeding.");
+    const { first_name, last_name, phone, email, address, city, state, pincode } = form;
+    if (!first_name || !last_name || !phone || !address || !city || !state || !pincode) {
+      toast.error("Please fill out all fields.");
       return;
     }
 
     try {
-      const res = await fetch(
-        `${endpoint_prefix}02_Authentication/auth/update`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+      const res = await fetch(`${endpoint_prefix}02_Authentication/auth/update`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          first_name,
+          last_name,
+          phone,
+          email,
+          address: {
+            street: address,
+            city,
+            state,
+            postal_code: pincode,
           },
-          body: JSON.stringify({
-            first_name: firstName,
-            last_name: lastName,
-            phone,
-            email,
-            address: {
-              street: address,
-              city,
-              state,
-              postal_code: pincode,
-            },
-          }),
-        }
-      );
+        }),
+      });
 
       if (res.ok) {
         toast.success("Address updated successfully!");
-        onProceed();
+        await fetchProfile(); // refresh data after update
+        onProceed?.();
       } else {
-        toast.error("Failed to update Address.");
+        toast.error("Failed to update address.");
       }
     } catch (err) {
       console.error("Error updating profile:", err);
@@ -103,19 +104,18 @@ const AddressPopup = ({ isOpen, onClose, onProceed }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed font-archivo inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 font-archivo">
       <div className="bg-white w-[90%] max-w-3xl p-6 rounded-lg relative">
         <button
-          onClick={() => {
-            toast.error("Please fill in your address to proceed with payment.");
-            onClose();
-          }}
+          onClick={onClose}
           className="absolute top-4 right-4 text-2xl font-bold text-gray-700"
         >
-         <img src="/images/close.webp" alt="Close" className="h-6 mt-4 mr-4"/>
+          <img src="/images/close.webp" alt="Close" className="h-6 mt-4 mr-4" />
         </button>
 
-        <h2 className="text-[32px] font-archivo font-bold mb-6 text-[#3A261A]">Deliver To This Address</h2>
+        <h2 className="text-[32px] font-bold mb-6 text-[#3A261A]">
+          Deliver To This Address
+        </h2>
 
         <form className="space-y-4">
           <div className="flex gap-4">
@@ -123,8 +123,8 @@ const AddressPopup = ({ isOpen, onClose, onProceed }) => {
               <label className="block text-[#624534] text-[16px] mb-1">First Name</label>
               <input
                 type="text"
-                name="firstName"
-                value={profile.firstName}
+                name="first_name"
+                value={form.first_name}
                 onChange={handleChange}
                 className="w-full p-2 bg-[#D8E5DC] rounded-md"
               />
@@ -133,8 +133,8 @@ const AddressPopup = ({ isOpen, onClose, onProceed }) => {
               <label className="block text-[#624534] text-[16px] mb-1">Last Name</label>
               <input
                 type="text"
-                name="lastName"
-                value={profile.lastName}
+                name="last_name"
+                value={form.last_name}
                 onChange={handleChange}
                 className="w-full p-2 bg-[#D8E5DC] rounded-md"
               />
@@ -145,7 +145,7 @@ const AddressPopup = ({ isOpen, onClose, onProceed }) => {
             <label className="block text-[#624534] text-[16px] mb-1">Street Address</label>
             <textarea
               name="address"
-              value={profile.address}
+              value={form.address}
               onChange={handleChange}
               className="w-full p-2 bg-[#D8E5DC] rounded-md h-24 resize-none"
             />
@@ -157,7 +157,7 @@ const AddressPopup = ({ isOpen, onClose, onProceed }) => {
               <input
                 type="text"
                 name="phone"
-                value={profile.phone}
+                value={form.phone}
                 onChange={handleChange}
                 className="w-full p-2 bg-[#D8E5DC] rounded-md"
               />
@@ -167,7 +167,7 @@ const AddressPopup = ({ isOpen, onClose, onProceed }) => {
               <input
                 type="text"
                 name="city"
-                value={profile.city}
+                value={form.city}
                 onChange={handleChange}
                 className="w-full p-2 bg-[#D8E5DC] rounded-md"
               />
@@ -177,7 +177,7 @@ const AddressPopup = ({ isOpen, onClose, onProceed }) => {
               <input
                 type="text"
                 name="state"
-                value={profile.state}
+                value={form.state}
                 onChange={handleChange}
                 className="w-full p-2 bg-[#D8E5DC] rounded-md"
               />
@@ -187,7 +187,7 @@ const AddressPopup = ({ isOpen, onClose, onProceed }) => {
               <input
                 type="text"
                 name="pincode"
-                value={profile.pincode}
+                value={form.pincode}
                 onChange={handleChange}
                 className="w-full p-2 bg-[#D8E5DC] rounded-md"
               />
@@ -197,7 +197,7 @@ const AddressPopup = ({ isOpen, onClose, onProceed }) => {
           <button
             type="button"
             onClick={handleSubmit}
-            className="bg-[#2F623A] text-white text-[20px] font-bold w-[40%] py-3 rounded mt-4 "
+            className="bg-[#2F623A] text-white text-[20px] font-bold w-[40%] py-3 rounded mt-4"
           >
             Proceed To Checkout
           </button>

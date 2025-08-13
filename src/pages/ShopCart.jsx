@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState,useEffect,useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import { FaMinus, FaPlus } from "react-icons/fa";
@@ -6,7 +6,8 @@ import AddressPopup from "./AddressPopup";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loader from "../components/Loader";
-
+import { showLoginToast } from "../components/ShowLoginToast";
+  
 export default function ShopCart() {
   const navigate = useNavigate();
   const [items, setItems] = useState([]);
@@ -18,6 +19,20 @@ const [discountPercent, setDiscountPercent] = useState(0);
 const [discountAmount, setDiscountAmount] = useState(0);
 const [showPopup, setShowPopup] = useState(false);
 const [loading, setLoading] = useState(false);
+  const toastShown = useRef(false);
+
+
+useEffect(() => {
+  if (!token && !toastShown.current || token === "forbidden") {
+    toastShown.current = true;
+    showLoginToast(navigate);  // pass navigate directly
+  } else if (token) {
+    fetchCart();
+  }
+}, [token]);
+
+
+
 
 const fetchCart = async () => {
   try {
@@ -118,7 +133,8 @@ const handleDecrement = (id, currentQty) => {
   
   const handleCheckout = () => {
     if (!token) {
-      navigate("/login");
+       showLoginToast(navigate);
+
     } else {
       setShowPopup(true);
     }
@@ -149,10 +165,11 @@ const handleDecrement = (id, currentQty) => {
           }),
         }
       );
-  
+     
+      
       const data = await orderRes.json();
-      console.log("Order API Response:", data);
-console.log("Customer details:", data.customer_details);
+    
+
 
       if (!orderRes.ok || !data.razorpayOrder) {
       toast.error("Failed to create order.");
@@ -201,18 +218,22 @@ console.log("Customer details:", data.customer_details);
 
 const verifyCratePayment = async (response, token) => {
   try {
-    const verifyRes = await fetch("https://api.ziaherbalpro.com/Microservices/07_orders/order_management/verify_payment", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        razorpay_order_id: response.razorpay_order_id,
-        razorpay_payment_id: response.razorpay_payment_id,
-        razorpay_signature: response.razorpay_signature,
-      }),
-    });
+    // Step 1: Verify payment
+    const verifyRes = await fetch(
+      "https://api.ziaherbalpro.com/Microservices/07_orders/order_management/verify_payment",
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          razorpay_order_id: response.razorpay_order_id,
+          razorpay_payment_id: response.razorpay_payment_id,
+          razorpay_signature: response.razorpay_signature,
+        }),
+      }
+    );
 
     if (!verifyRes.ok) {
       toast.error("Payment verification failed");
@@ -222,12 +243,39 @@ const verifyCratePayment = async (response, token) => {
     const result = await verifyRes.json();
     console.log("Payment verified:", result);
 
-   if (result.success) {
-     toast.success("Payment verified successfully");
-   } else {
-     toast.error("Payment verification failed");
-   }
+    if (result.success) {
+      toast.success("Payment verified successfully");
 
+      // Step 2: Call contact/payment API
+      try {
+        const contactRes = await fetch(
+          "https://api.ziaherbalpro.com/Microservices/05_contact/payment",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              payment_id: response.razorpay_payment_id, // from Razorpay
+            }),
+          }
+        );
+
+        const contactData = await contactRes.json();
+        console.log("Contact Payment Response:", contactData);
+
+        if (contactRes.ok) {
+          toast.success("Contact payment recorded successfully");
+        } else {
+          toast.error(contactData.message || "Failed to record contact payment");
+        }
+      } catch (contactErr) {
+        console.error("Error sending payment_id to contact API:", contactErr);
+        toast.error("Error recording contact payment");
+      }
+    } else {
+      toast.error("Payment verification failed");
+    }
   } catch (error) {
     console.error("Verification or callback error:", error);
     alert("Error verifying payment or sending payment ID.");
@@ -235,13 +283,6 @@ const verifyCratePayment = async (response, token) => {
 };
 
 
-  useEffect(() => {
-    if (!token) {
-      navigate("/startscreen");
-    } else {
-      fetchCart();
-    }
-  }, []);
 
   
   return (

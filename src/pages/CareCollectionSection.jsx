@@ -4,17 +4,17 @@ import 'aos/dist/aos.css';
 import { RiStarSFill,RiStarHalfSFill } from "react-icons/ri";
 import endpoint_prefix from "../config/ApiConfig";
 import {  useNavigate } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast , ToastContainer} from "react-toastify";
+
 
 export default function CareCollectionsSection() {
    const [selectedCategory, setSelectedCategory] = useState("handwash");
     const [products, setProducts] = useState([]);
   const navigate = useNavigate();
-
+  
   const handleAddToCart = async (productId) => {
     const token = localStorage.getItem("accessToken");
-  
+  console.log("productId:", productId);
     if (!token || token === "forbidden") {
       navigate("/login");
       return;
@@ -35,17 +35,24 @@ export default function CareCollectionsSection() {
           }),
         }
       );
-  
-      const data = await response.json();
-  
-      if (response.ok) {
-        toast.success( "Product added to cart", { autoClose: 2000 });
-      } else {
-        toast.error(data.message || "Failed to add item", { autoClose: 2000 });
+   const contentType = response.headers.get("content-type");
+
+      if (!response.ok) {
+        if (contentType && contentType.includes("application/json")) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || "Failed to add product to cart");
+        } else {
+          const errorText = await response.text();
+          throw new Error(errorText || "Failed to add product to cart");
+        }
       }
-    } catch (err) {
-      console.error("Error adding to cart:", err);
-      toast.error("Failed to add item", { autoClose: 2000 });
+      const data = await response.json();
+       console.log("Add to cart from home:", data);
+       
+     toast.success("Product added to cart successfully!");
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+      toast.error("Error: " + error.message);
     }
   };
 
@@ -129,7 +136,7 @@ useEffect(() => {
       <div className="flex gap-4 w-[1000px]">
       {Array.isArray(products) && products.map((product, index) => (
   <div
-     onClick={() => navigate(`/shopdetails/${product.product_id}`)}  
+       
     key={product.product_id || index}
     className="min-w-[250px]  laptop:min-w-[260px] hd:min-w-[270px] xxxl:w-[320px] xxxl:h-[405px] h-[335px] laptop:h-[312px] hd:h-[347px] xxxl:h-[405px] border-2 border-[#D8DCCB] rounded-xl flex flex-col items-center flex-shrink-0 bg-white shadow-sm"
   >
@@ -138,12 +145,14 @@ useEffect(() => {
       src={product.primary_image_url}
       alt={product.name}
       className="h-32 laptop:h-24 hd:h-32 xxxl:h-44 object-contain mt-6"
+      onClick={() => navigate(`/shopdetails/${product.product_id}`)}
     />
 
     {/* Product Details */}
-    <div className="text-center px-3 py-4">
+    <div className="text-center px-3 py-4" onClick={() => navigate(`/shopdetails/${product.product_id}`)}>
       <p className="text-[20px] laptop:text-[22px] xxxl:text-[24px] text-[#676A5E] mb-1">
         {product.name}
+
       </p>
 
       <div className="flex justify-center text-yellow-500 items-center ">
@@ -161,8 +170,10 @@ useEffect(() => {
 
     {/* Add to Cart Button */}
     <button 
+    type="button"
    onClick={(e) => {
     e.stopPropagation(); 
+    e.preventDefault();
     handleAddToCart(product.product_id);
   }}
     className="bg-[#2B452C] tracking-wide text-white w-full py-3 laptop:py-3 text-[18px] laptop:text-[20px] xxxl:text-[24px] rounded-b-xl">
@@ -192,7 +203,7 @@ useEffect(() => {
       className="mx-auto mt-16 w-[85%]"
     />
   </div>
-    <ToastContainer position="top-right" />
+   <ToastContainer position="top-right" autoClose={3000} />
 </div>
 
   );

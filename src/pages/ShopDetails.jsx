@@ -4,8 +4,8 @@ import { GoArrowDown, GoArrowRight } from "react-icons/go";
 import { useNavigate, useParams } from "react-router-dom";
 import { RiStarSFill, RiStarHalfSFill } from "react-icons/ri";
 import endpoint_prefix from "../config/ApiConfig";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast , ToastContainer} from "react-toastify";
+
 import AddressPopup from "./AddressPopup";
 import Loader from "../components/Loader";
 
@@ -16,8 +16,7 @@ function ProductCard({ product }) {
   const navigate = useNavigate();
   
   const handleAddToCart = async () => {
-  // Force a test toast first
-  toast.info("Test toast triggered!", { autoClose: 2000 });
+ 
 
   const token = localStorage.getItem("accessToken");
 
@@ -37,22 +36,29 @@ function ProductCard({ product }) {
         },
         body: JSON.stringify({
           product_id: product.product_id,
-          quantity: 1,
+          quantity: product.quantity,
         }),
       }
     );
-    console.log("product" , product)
-    const data = await response.json();
+       const contentType = response.headers.get("content-type");
 
-    if (response.ok) {
-      toast.success( "Product added to cart", { autoClose: 2000 });
-    } else {
-      toast.error(data.message || "Failed to add item", { autoClose: 2000 });
+      if (!response.ok) {
+        if (contentType && contentType.includes("application/json")) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || "Failed to add product to cart");
+        } else {
+          const errorText = await response.text();
+          throw new Error(errorText || "Failed to add product to cart");
+        }
+      }
+
+    const data = await response.json();
+   console.log("Add to cart response:", data);
+    toast.success("Product added to cart successfully!");
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+      toast.error("Error: " + error.message);
     }
-  } catch (err) {
-    console.error("Error adding to cart:", err);
-    toast.error("Failed to add item", { autoClose: 2000 });
-  }
 };
 
 
@@ -106,6 +112,9 @@ export default function ShopDetails() {
 const imgs = productDetails?.images?.map((img) => img.image_url) || [];
 const [showPopup, setShowPopup] = useState(false);
 const [loading, setLoading] = useState(false);
+const [quantity, setQuantity] = useState(1);
+
+
  useEffect(() => {
   
   if (productId) {
@@ -197,7 +206,7 @@ useEffect(() => {
           },
           body: JSON.stringify({
             product_id: productDetails?.product_id,
-            quantity: 1,
+            quantity: quantity,
           }),
         }
       );
@@ -242,57 +251,61 @@ const processBuyNowPayment = async () => {
         },
         body: JSON.stringify({
           payment_method: "online",
-          items: [{ product_id: productDetails?.product_id, quantity: 1 }],
+          items: [{ product_id: productDetails?.product_id, quantity: quantity }],
         }),
       }
     );
-
+  
     const data = await orderRes.json();
     console.log("Order API Response:", data);
-
-    if (!orderRes.ok) {
-      throw new Error(data.message || "Order creation failed");
+    if (!orderRes.ok || !data.razorpayOrder) {
+      toast.error("Failed to create order.");
+      setLoading(false);
+      return;
     }
 
-    // Step 2 — Razorpay payment
-    const options = {
-      key: data.RazorPay_key_ID,
-      amount: data.razorpayOrder.amount,
-      currency: data.razorpayOrder.currency,
-      name: data.customer_details?.name,
-      description: "Purchase from Zia Herbal",
-      image: data.theme?.logo || "/zia_logo.png",
-      order_id: data.razorpayOrder.id,
-      handler: async function (response) {
-        // Step 3 — Verify payment
-        await verifyCratePayment(response, token);
-      },
-      prefill: {
-        name: data.customer_details?.name,
-        email: data.customer_details?.email,
-        contact: data.customer_details?.Phone,
-      },
-      notes: {
-        address: data.customer_details?.address,
-      },
-      theme: {
-        color: data.theme?.color || "#00aaff",
-      },
-    };
-
-    const rzp = new window.Razorpay(options);
-    rzp.open();
-  } catch (error) {
-    console.error("Checkout error:", error);
-    toast.error(error.message || "An error occurred during checkout.");
-  } finally {
-    setLoading(false);
-  }
+     if (data?.razorpayOrder) {
+        const options = {
+          key: "rzp_test_qQ40l1wBMtOxc0",
+          amount: data.razorpayOrder.amount,
+          currency: "INR",
+          name: data.customer_details.name,
+          description: "Purchase from Zia Herbal",
+          image: data.theme?.logo || "/zia_logo.png",
+          order_id: data.razorpayOrder.id,
+          handler: async function (response) {
+            await verifyCratePayment(response, token);
+          },
+          prefill: {
+            name: data.customer_details.name,
+            email: data.customer_details.email,
+            contact: data.customer_details.Phone,
+          },
+          notes: {
+            address: data.customer_details.address,
+          },
+          theme: {
+            color: data.theme?.color || "#00aaff",
+          },
+        };
+  
+        const rzp = new window.Razorpay(options);
+        rzp.open();
+      } else {
+        toast.error(data.message || "Order creation failed");
+      }
+    } catch (error) {
+      console.error("Checkout failed:", error);
+      toast.error("An error occurred during checkout.");
+    } finally {
+      setLoading(false);
+    }
 };
 
 
 const verifyCratePayment = async (response, token) => {
   try {
+    // Step 1: Verify payment with the orders API
     const verifyRes = await fetch(
       "https://api.ziaherbalpro.com/Microservices/07_orders/order_management/verify_payment",
       {
@@ -313,8 +326,31 @@ const verifyCratePayment = async (response, token) => {
     console.log("Verify Payment Response:", data);
 
     if (verifyRes.ok) {
-      toast.success("Payment successful!");
-      // optionally redirect to order confirmation page
+      toast.success("Payment verified successfully!");
+
+      // Step 2: Call contact/payment API with payment_id
+      const contactRes = await fetch(
+        "https://api.ziaherbalpro.com/Microservices/05_contact/payment",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            payment_id: response.razorpay_payment_id, // from Razorpay response
+          }),
+        }
+      );
+
+      const contactData = await contactRes.json();
+      console.log("Contact Payment Response:", contactData);
+
+      if (contactRes.ok) {
+        toast.success("Contact payment recorded successfully!");
+        // Optional: redirect or update UI
+      } else {
+        toast.error(contactData.message || "Failed to record contact payment");
+      }
     } else {
       toast.error(data.message || "Payment verification failed");
     }
@@ -323,6 +359,7 @@ const verifyCratePayment = async (response, token) => {
     toast.error("An error occurred while verifying payment");
   }
 };
+
 
  
 
@@ -413,11 +450,16 @@ const verifyCratePayment = async (response, token) => {
                 <p className="text-[#08650B] xxxl:text-[20px] laptop:text-[14px] hd:text-[16px] font-bold">In Stock</p>
                 <div className="flex items-center bg-[#F0F2F2] xxxl:w-[100px] laptop:w-[80px] hd:w-[90px] border border-black gap-2 rounded-full px-4 py-1">
                   <label htmlFor="qty" className="xxxl:text-[18px] laptop:text-[12px] hd:text-[14px] text-[#151515]">Qty:</label>
-                  <select id="qty" className="bg-[#F0F2F2] xxxl:text-[18px] laptop:text-[12px] hd:text-[14px] text-[#151515]">
-                    {[1, 2, 3, 4, 5].map((q) => (
-                      <option key={q} value={q}>{q}</option>
-                    ))}
-                  </select>
+                   <select
+    id="qty"
+    value={quantity}
+    onChange={(e) => setQuantity(Number(e.target.value))}
+    className="bg-[#F0F2F2] xxxl:text-[18px] laptop:text-[12px] hd:text-[14px] text-[#151515]"
+  >
+    {[1, 2, 3, 4, 5].map((q) => (
+      <option key={q} value={q}>{q}</option>
+    ))}
+  </select>
                 </div>
                 <div className="flex items-center gap-4">
                 <button onClick={handleBuyNow} className="w-[40%] py-2 tracking-wide border border-[#2F3A27] bg-[#AEBCA466] rounded-full text-[#2F3A27] text-[18px] font-semibold">
@@ -814,6 +856,7 @@ const verifyCratePayment = async (response, token) => {
       </div>
 
       <Footer />
+      <ToastContainer position="top-right" autoClose={2000} />
     </>
   );
 }

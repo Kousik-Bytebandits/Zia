@@ -9,7 +9,7 @@ import { useEffect,useState } from 'react';
 import { RiStarSFill, RiStarHalfSFill } from "react-icons/ri";
 import endpoint_prefix from "../config/ApiConfig";
 import { ToastContainer , toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+
 
 export default function Home() {
   const [products, setProducts] = useState([]);
@@ -45,7 +45,7 @@ export default function Home() {
 const handleAddToCart = async (productId) => {
   const token = localStorage.getItem("accessToken");
 
-  if (!token || token === "forbidden") {
+  if (!token ) {
     navigate("/login");
     return;
   }
@@ -65,18 +65,25 @@ const handleAddToCart = async (productId) => {
         }),
       }
     );
+      const contentType = response.headers.get("content-type");
+
+      if (!response.ok) {
+        if (contentType && contentType.includes("application/json")) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || "Failed to add product to cart");
+        } else {
+          const errorText = await response.text();
+          throw new Error(errorText || "Failed to add product to cart");
+        }
+      }
 
     const data = await response.json();
  console.log("Add to cart response:", data);
-    if (response.ok) {
-      toast.success( "Product added to cart", { autoClose: 2000 });
-    } else {
-      toast.error( "Failed to add item", { autoClose: 2000 });
+   toast.success("Product added to cart successfully!");
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+      toast.error("Error: " + error.message);
     }
-  } catch (err) {
-    console.error("Error adding to cart:", err);
-    toast.error("Failed to add item", { autoClose: 2000 });
-  }
 };
 
 
@@ -112,6 +119,7 @@ useEffect(() => {
 }, []);
 
   return (
+    <>
     <div className="w-full bg-white  text-center font-sans "data-aos="fade-up">
      
   
@@ -777,7 +785,9 @@ useEffect(() => {
 
     <Footer/>
     
-   
+
      </div>
+     <ToastContainer position="top-right" autoClose={2000} />
+     </>
   );
 }
