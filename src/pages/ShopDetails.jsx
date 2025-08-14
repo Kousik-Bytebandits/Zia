@@ -66,14 +66,14 @@ sessionStorage.removeItem("tokenReason");
   
   return (
     <div onClick={() => navigate(`/shopdetails/${product.product_id}`)} 
-     className=" bg-white  lg:rounded-md xxxl:w-[270px] xxxl:h-[430px] laptop:w-[180px] laptop:h-[300px] hd:w-[200px] hd:h-[350px] shadow-xl border border-[#D8DCCB] flex flex-col">
+     className=" bg-white  w-[170px] h-[250px]  lg:rounded-md xxxl:w-[270px] xxxl:h-[430px] laptop:w-[180px] laptop:h-[300px] hd:w-[200px] hd:h-[350px] shadow-xl border border-[#D8DCCB] flex flex-col">
       <img
         src={product.image}
         alt={product.name}
-        className="w-[140px]  xxxl:w-[180px] xxxl:h-[180px] laptop:w-[140px] laptop:h-[140px] hd:w-[150px] hd:h-[150px] object-contain mx-auto p-2 lg:mt-2 lg:mb-2"
+        className="w-[140px] h-[95px] xxxl:w-[180px] xxxl:h-[180px] laptop:w-[140px] laptop:h-[140px] hd:w-[150px] hd:h-[150px] object-contain mx-auto p-2 lg:mt-2 lg:mb-2"
       />
       <div className=" flex flex-col  items-center text-center flex-grow justify-between">
-         <h2 className="text-[16px] mx-4 laptop:text-[18px] hd:text-[20px] xxxl:text-[24px] font-medium xxxl:h-[70px] laptop:h-[55px] hd:h-[60px]">
+         <h2 className="text-[14px] h-[34px] mx-4 laptop:text-[18px] hd:text-[20px] xxxl:text-[24px] font-medium xxxl:h-[70px] laptop:h-[55px] hd:h-[60px]">
           {product.name}
         </h2>
         <div className="flex text-yellow-500 items-center lg:text-[14px]">
@@ -85,12 +85,12 @@ sessionStorage.removeItem("tokenReason");
   </div>
         <div className="font-semibold tracking-wide font-archivo mb-2">
           <span className="line-through xxxl:text-[28px] laptop:text-[24px] hd:text-[18px] mr-1 lg:hidden text-gray-400">{product.originalPrice}</span>
-          <span className="text-black  xxxl:text-[28px] laptop:text-[24px] hd:text-[26px]">₹{product.salePrice}</span>
+          <span className="text-black text-[18px] xxxl:text-[28px] laptop:text-[24px] hd:text-[26px]">₹{product.salePrice}</span>
         </div>
         <button  onClick={(e) => {
     e.stopPropagation(); 
     handleAddToCart(product.product_id);
-  }} className="w-full bg-[#2B452C] text-white py-3 xxxl:py-4 laptop:py-2 hd:py-3 lg:rounded-b text-[18px] xxxl:text-[24px] laptop:text-[20px] tracking-wider font-medium rounded-none">
+  }} className="w-full bg-[#2B452C]  text-white py-3 xxxl:py-4 laptop:py-2 hd:py-3 lg:rounded-b text-[18px] xxxl:text-[24px] laptop:text-[20px] tracking-wider font-medium rounded-none">
           Add to Cart
         </button>
       </div>

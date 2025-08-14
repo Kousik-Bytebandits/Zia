@@ -135,15 +135,15 @@ useEffect(() => {
     >
       <div className="flex gap-4 w-[1000px]">
       {Array.isArray(products) && products.map((product) => (
-  <div onClick={() => navigate(`/shopdetails/${product.product_id}`)}  
-    className="bg-white lg:rounded-lg xxxl:w-[270px] xxxl:h-[430px] laptop:w-[180px] laptop:h-[320px] hd:w-[220px] hd:h-[350px] shadow-around-soft border border-[#D8DCCB] flex flex-col ">
+   <div onClick={() => navigate(`/shopdetails/${product.product_id}`)}  
+    className="bg-white w-[170px] h-[250px] lg:rounded-lg xxxl:w-[270px] xxxl:h-[430px] laptop:w-[180px] laptop:h-[320px] hd:w-[220px] hd:h-[350px] shadow-around-soft border border-[#D8DCCB] flex flex-col ">
       <img
         src={product.primary_image_url || "/images/lemonwash.png"}
         alt={product.name}
-        className="h-[130px] xxxl:w-[180px] xxxl:h-[180px] laptop:w-[150px] laptop:h-[140px] hd:w-[150px] hd:h-[150px] object-contain mx-auto p-2 lg:mt-2 lg:mb-2"
-      />
+        className="w-[140px] h-[95px] xxxl:w-[180px] xxxl:h-[180px] laptop:w-[150px] laptop:h-[140px] hd:w-[150px] hd:h-[150px] object-contain mx-auto p-2 lg:mt-2 lg:mb-2"
+      /> 
       <div className="flex flex-col items-center text-center flex-grow justify-between">
-        <h2 className="text-[16px] mx-4 laptop:text-[18px] hd:text-[20px] xxxl:text-[24px] font-medium xxxl:h-[70px] laptop:h-[55px] hd:h-[60px]">
+        <h2 className="text-[14px] h-[34px] mx-4 laptop:text-[18px] hd:text-[20px] xxxl:text-[24px] font-medium xxxl:h-[70px] laptop:h-[55px] hd:h-[60px]">
           {product.name}
         </h2>
            <div className="flex text-yellow-500 items-center  ">
@@ -154,7 +154,7 @@ useEffect(() => {
   </div>
         <div className="font-semibold tracking-wide font-archivo mb-2">
           
-          <span className="text-black text-[20px] xxxl:text-[28px] laptop:text-[24px] hd:text-[26px]">
+          <span className="text-black text-[18px] text-[20px] xxxl:text-[28px] laptop:text-[24px] hd:text-[26px]">
             ₹{product.price}
           </span>
         </div>
