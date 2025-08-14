@@ -9,8 +9,8 @@ import { useEffect,useState } from 'react';
 import { RiStarSFill, RiStarHalfSFill } from "react-icons/ri";
 import endpoint_prefix from "../config/ApiConfig";
 import { ToastContainer , toast } from "react-toastify";
-
-
+import { showLoginToast } from "../components/ShowLoginToast";
+import { showSessionExpiredToast } from "../components/showSessionExpiredToast";
 export default function Home() {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
@@ -46,7 +46,7 @@ const handleAddToCart = async (productId) => {
   const token = localStorage.getItem("accessToken");
 
   if (!token ) {
-    navigate("/login");
+    showLoginToast(navigate);
     return;
   }
 
@@ -82,7 +82,7 @@ const handleAddToCart = async (productId) => {
    toast.success("Product added to cart successfully!");
     } catch (error) {
       console.error("Error adding to cart:", error);
-      toast.error("Error: " + error.message);
+      showSessionExpiredToast(navigate);
     }
 };
 

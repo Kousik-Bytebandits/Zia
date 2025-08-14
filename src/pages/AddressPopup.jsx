@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import endpoint_prefix from "../config/ApiConfig";
+import { showSessionExpiredToast } from "../components/showSessionExpiredToast";
+import { useNavigate } from "react-router-dom";
 
 const AddressPopup = ({ isOpen, onClose, onProceed }) => {
   const [form, setForm] = useState({
@@ -13,7 +15,7 @@ const AddressPopup = ({ isOpen, onClose, onProceed }) => {
     state: "",
     pincode: "",
   });
-
+const navigate = useNavigate();
   // Fetch profile whenever popup opens
   const fetchProfile = async () => {
     const token = localStorage.getItem("accessToken");
@@ -41,7 +43,11 @@ const AddressPopup = ({ isOpen, onClose, onProceed }) => {
       }
     } catch (err) {
       console.error("Error fetching profile:", err);
-      toast.error("Failed to load profile.");
+      if (err.message.includes("expired")) {
+        showSessionExpiredToast(navigate);
+      } else {
+        toast.error("Failed to fetch profile. Please try again.");
+      }
     }
   };
 

@@ -5,10 +5,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import { RiStarSFill, RiStarHalfSFill } from "react-icons/ri";
 import endpoint_prefix from "../config/ApiConfig";
 import { toast , ToastContainer} from "react-toastify";
-
+import { showLoginToast } from "../components/ShowLoginToast";
 import AddressPopup from "./AddressPopup";
 import Loader from "../components/Loader";
-
+import { showSessionExpiredToast } from "../components/showSessionExpiredToast";
 function ProductCard({ product }) {
 
 
@@ -19,11 +19,12 @@ function ProductCard({ product }) {
  
 
   const token = localStorage.getItem("accessToken");
+      const reason = sessionStorage.getItem("tokenReason");
+    if (!token && reason !== "expired") {
+    showLoginToast(navigate);
+}
 
-  if (!token || token === "forbidden") {
-    navigate("/login");
-    return;
-  }
+sessionStorage.removeItem("tokenReason");
 
   try {
     const response = await fetch(
@@ -57,7 +58,7 @@ function ProductCard({ product }) {
     toast.success("Product added to cart successfully!");
     } catch (error) {
       console.error("Error adding to cart:", error);
-      toast.error("Error: " + error.message);
+     showSessionExpiredToast(navigate);
     }
 };
 
@@ -108,12 +109,12 @@ export default function ShopDetails() {
     ingredients: false,
     features: false,
   });
- const navigate = useNavigate();
+ 
 const imgs = productDetails?.images?.map((img) => img.image_url) || [];
 const [showPopup, setShowPopup] = useState(false);
 const [loading, setLoading] = useState(false);
 const [quantity, setQuantity] = useState(1);
-
+const navigate = useNavigate();
 
  useEffect(() => {
   
@@ -189,11 +190,12 @@ useEffect(() => {
   };
   const handleAddToCart = async () => {
     const token = localStorage.getItem("accessToken");
+      const reason = sessionStorage.getItem("tokenReason");
+    if (!token && reason !== "expired") {
+    showLoginToast(navigate);
+}
 
-    if (!token || token === "forbidden") {
-      navigate("/login");
-      return;
-    }
+sessionStorage.removeItem("tokenReason");
 
     try {
       const response = await fetch(
@@ -220,23 +222,28 @@ useEffect(() => {
       }
     } catch (err) {
       console.error("Error adding to cart:", err);
-      toast.error("Failed to add item", { autoClose: 2000 });
+      showSessionExpiredToast(navigate);
     }
   };
  
    const handleBuyNow = () => {
+      const token = localStorage.getItem("accessToken");
+      const reason = sessionStorage.getItem("tokenReason");
+    if (!token && reason !== "expired") {
+    showLoginToast(navigate);
+}
+
+sessionStorage.removeItem("tokenReason");
   setShowPopup(true);
 };
 
 const processBuyNowPayment = async () => {
-  const token = localStorage.getItem("accessToken");
 
+  const token = localStorage.getItem("accessToken");
   if (!token) {
-    toast.error("Please log in to continue");
+    showLoginToast();
     return;
   }
-
-
   setLoading(true);
 
   try {

@@ -1,7 +1,8 @@
-
 import { toast } from "react-toastify";
 
 export const showSessionExpiredToast = (navigate) => {
+  // Mark that this is an expired token case
+  sessionStorage.setItem("tokenReason", "expired");
 
   toast(
     ({ closeToast }) => (
@@ -9,8 +10,8 @@ export const showSessionExpiredToast = (navigate) => {
         <p className="mb-2">Your session has expired. Please login again.</p>
         <button
           onClick={() => {
+            closeToast();
             navigate('/login');
-            closeToast(); 
           }}
           style={{
             marginTop: '8px',

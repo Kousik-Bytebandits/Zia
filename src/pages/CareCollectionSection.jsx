@@ -5,8 +5,8 @@ import { RiStarSFill,RiStarHalfSFill } from "react-icons/ri";
 import endpoint_prefix from "../config/ApiConfig";
 import {  useNavigate } from "react-router-dom";
 import { toast , ToastContainer} from "react-toastify";
-
-
+import { showLoginToast } from "../components/ShowLoginToast";
+import { showSessionExpiredToast } from "../components/showSessionExpiredToast";
 export default function CareCollectionsSection() {
    const [selectedCategory, setSelectedCategory] = useState("handwash");
     const [products, setProducts] = useState([]);
@@ -16,7 +16,7 @@ export default function CareCollectionsSection() {
     const token = localStorage.getItem("accessToken");
   console.log("productId:", productId);
     if (!token || token === "forbidden") {
-      navigate("/login");
+      showLoginToast(navigate);
       return;
     }
   
@@ -52,7 +52,7 @@ export default function CareCollectionsSection() {
      toast.success("Product added to cart successfully!");
     } catch (error) {
       console.error("Error adding to cart:", error);
-      toast.error("Error: " + error.message);
+      showSessionExpiredToast(navigate);
     }
   };
 
