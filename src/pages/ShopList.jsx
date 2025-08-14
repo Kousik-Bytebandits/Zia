@@ -66,21 +66,21 @@ sessionStorage.removeItem("tokenReason");
 
   return (
     <div onClick={() => navigate(`/shopdetails/${product.product_id}`)}  
-    className="bg-white lg:rounded-lg xxxl:w-[270px] xxxl:h-[400px] laptop:w-[180px] laptop:h-[320px] hd:w-[220px] hd:h-[350px] shadow-around-soft border border-[#D8DCCB] flex flex-col">
+    className="bg-white lg:rounded-lg xxxl:w-[270px] xxxl:h-[430px] laptop:w-[180px] laptop:h-[320px] hd:w-[220px] hd:h-[350px] shadow-around-soft border border-[#D8DCCB] flex flex-col ">
       <img
         src={primaryImage || "/images/lemonwash.png"}
         alt={product.name}
-        className="h-[130px] xxxl:w-[200px] xxxl:h-[200px] laptop:w-[150px] laptop:h-[140px] hd:w-[150px] hd:h-[150px] object-contain mx-auto p-2 lg:mt-2 lg:mb-2"
+        className="h-[130px] xxxl:w-[180px] xxxl:h-[180px] laptop:w-[150px] laptop:h-[140px] hd:w-[150px] hd:h-[150px] object-contain mx-auto p-2 lg:mt-2 lg:mb-2"
       />
       <div className="flex flex-col items-center text-center flex-grow justify-between">
-        <h2 className="text-[16px] laptop:text-[18px] hd:text-[20px] xxxl:text-[22px] font-medium leading-snug">
+        <h2 className="text-[16px] mx-4 laptop:text-[18px] hd:text-[20px] xxxl:text-[24px] font-medium xxxl:h-[70px] laptop:h-[55px] hd:h-[60px]">
           {product.name}
         </h2>
-           <div className="flex text-yellow-500 items-center ">
+           <div className="flex text-yellow-500 items-center  ">
     {[...Array(4)].map((_, i) => (
       <RiStarSFill key={i} />
     ))}
-    <RiStarHalfSFill /> <p className="text-[#676A5E] ml-1  text-[12px]">(79)</p>
+    <RiStarHalfSFill /> <p className="text-[#676A5E] ml-1  laptop:text-[12px] hd:text-[14px] xxxl:text-[18px]">(79)</p>
   </div>
         <div className="font-semibold tracking-wide font-archivo mb-2">
           

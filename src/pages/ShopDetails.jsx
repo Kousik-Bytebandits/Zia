@@ -70,10 +70,12 @@ sessionStorage.removeItem("tokenReason");
       <img
         src={product.image}
         alt={product.name}
-        className="w-[140px]  xxxl:w-[200px] xxxl:h-[200px] laptop:w-[140px] laptop:h-[140px] hd:w-[150px] hd:h-[150px] object-contain mx-auto p-2 lg:mt-2 lg:mb-2"
+        className="w-[140px]  xxxl:w-[180px] xxxl:h-[180px] laptop:w-[140px] laptop:h-[140px] hd:w-[150px] hd:h-[150px] object-contain mx-auto p-2 lg:mt-2 lg:mb-2"
       />
       <div className=" flex flex-col  items-center text-center flex-grow justify-between">
-        <h2 className="laptop:text-[15px] hd:text-[18px] xxxl:text-[24px] font-medium leading-snug">{product.name}</h2>
+         <h2 className="text-[16px] mx-4 laptop:text-[18px] hd:text-[20px] xxxl:text-[24px] font-medium xxxl:h-[70px] laptop:h-[55px] hd:h-[60px]">
+          {product.name}
+        </h2>
         <div className="flex text-yellow-500 items-center lg:text-[14px]">
                 <p className="text-[#676A5E]   text-[12px] xxxl:text-[18px] hd:text-[15px] laptop:text-[12px] mr-1">4.5</p>
     {[...Array(4)].map((_, i) => (

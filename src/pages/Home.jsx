@@ -393,50 +393,34 @@ useEffect(() => {
   <div className="flex gap-4 overflow-x-auto scrollbar-none lg:max-w-[100%]">
   {Array.isArray(products) && products.length > 0 ? (
     products.slice(0, 4).map((product) => (  
-      <div
-        key={product.product_id || product.id || Math.random()}
-        className="relative min-w-[250px] laptop:min-w-[220px] hd:min-w-[240px] xxxl:min-w-[290px] h-[340px] laptop:h-[280px] hd:h-[320px] xxxl:h-[360px] font-archivo bg-white border-2 border-[#D8DCCB] rounded-xl overflow-hidden shadow-sm flex flex-col justify-between"
-      >
-        {product.inStock === false && (
-          <span className="absolute hidden top-2 left-2 bg-[#D12034] text-white text-[12px] px-3 py-[2px] rounded-full font-semibold z-10">
-            out of stock
+     <div onClick={() => navigate(`/shopdetails/${product.product_id}`)}  
+    className="bg-white lg:rounded-lg xxxl:w-[270px] xxxl:h-[430px] laptop:w-[180px] laptop:h-[320px] hd:w-[220px] hd:h-[350px] shadow-around-soft border border-[#D8DCCB] flex flex-col font-archivo">
+      <img
+        src={product.primary_image_url || "/images/lemonwash.png"}
+        alt={product.name}
+        className="h-[130px] xxxl:w-[180px] xxxl:h-[180px] laptop:w-[150px] laptop:h-[140px] hd:w-[150px] hd:h-[150px] object-contain mx-auto p-2 lg:mt-2 lg:mb-2"
+      />
+      <div className="flex flex-col items-center text-center flex-grow justify-between">
+        <h2 className="text-[16px] mx-4 laptop:text-[18px] hd:text-[20px] xxxl:text-[24px] font-medium xxxl:h-[70px] laptop:h-[55px] hd:h-[60px]">
+          {product.name}
+        </h2>
+           <div className="flex text-yellow-500 items-center  ">
+    {[...Array(4)].map((_, i) => (
+      <RiStarSFill key={i} />
+    ))}
+    <RiStarHalfSFill /> <p className="text-[#676A5E] ml-1  laptop:text-[12px] hd:text-[14px] xxxl:text-[18px]">(79)</p>
+  </div>
+        <div className="font-semibold tracking-wide font-archivo mb-2">
+          
+          <span className="text-black text-[20px] xxxl:text-[28px] laptop:text-[24px] hd:text-[26px]">
+            ₹{product.price}
           </span>
-        )}
-
-        <div
-          onClick={() => navigate(`/shopdetails/${product.product_id}`)}
-          className="p-4 flex flex-col  space-y-2 items-center cursor-pointer"
-        >
-          <img
-            src={product.primary_image_url || "/images/default-product.png"}
-            alt={product.name || "Product Image"}
-            className="h-32 laptop:h-24 hd:h-32 xxxl:h-36 object-contain"
-          />
-          <h3 className="text-center text-[20px] laptop:text-[14px] hd:text-[18px] xxxl:text-[24px] text-[#676A5E] mt-2">
-            {product.name || "Unnamed Product"}
-          </h3>
-
-          <div className="flex text-yellow-500 items-center ">
-            {[...Array(4)].map((_, i) => (
-              <RiStarSFill key={i} />
-            ))}
-            <RiStarHalfSFill />
-            <p className="text-[#676A5E] ml-1 text-[14px]">(79)</p>
-          </div>
-
-          <div className="text-[22px] laptop:text-[19px] hd:text-[22px] xxxl:text-[28px] font-bold">
-            ₹{product.price || "0.00"}
-          </div>
         </div>
-
-        <button 
-          onClick={() => handleAddToCart(product.product_id)}
-          className="w-full py-3 text-[20px] laptop:text-[18px] xxxl:text-[24px] bg-[#2B452C] text-white tracking-wide"
-        >
+        <button onClick={(e) => { e.stopPropagation(); handleAddToCart(product.product_id); }} className="w-full bg-[#2B452C] text-white py-3 xxxl:py-4 laptop:py-2 hd:py-3 lg:rounded-b text-[18px] xxxl:text-[24px] laptop:text-[20px] tracking-wider font-medium rounded-none">
           Add to Cart
         </button>
-        
       </div>
+    </div>
     ))
   ) : (
     <p className="text-center text-gray-500 w-full">No featured products available.</p>

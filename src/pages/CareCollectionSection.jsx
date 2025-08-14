@@ -134,52 +134,35 @@ useEffect(() => {
       className="overflow-x-auto scrollbar-none lg:max-w-[100%]"
     >
       <div className="flex gap-4 w-[1000px]">
-      {Array.isArray(products) && products.map((product, index) => (
-  <div
-       
-    key={product.product_id || index}
-    className="min-w-[250px]  laptop:min-w-[260px] hd:min-w-[270px] xxxl:w-[320px] xxxl:h-[405px] h-[335px] laptop:h-[312px] hd:h-[347px] xxxl:h-[405px] border-2 border-[#D8DCCB] rounded-xl flex flex-col items-center flex-shrink-0 bg-white shadow-sm"
-  >
-    {/* Product Image */}
-    <img
-      src={product.primary_image_url}
-      alt={product.name}
-      className="h-32 laptop:h-24 hd:h-32 xxxl:h-44 object-contain mt-6"
-      onClick={() => navigate(`/shopdetails/${product.product_id}`)}
-    />
-
-    {/* Product Details */}
-    <div className="text-center px-3 py-4" onClick={() => navigate(`/shopdetails/${product.product_id}`)}>
-      <p className="text-[20px] laptop:text-[22px] xxxl:text-[24px] text-[#676A5E] mb-1">
-        {product.name}
-
-      </p>
-
-      <div className="flex justify-center text-yellow-500 items-center ">
-         {[...Array(4)].map((_, i) => (
-           <RiStarSFill key={i} />
-         ))}
-         <RiStarHalfSFill /> <p className="text-[#676A5E] ml-1  text-[12px]">(79)</p>
-       </div>
-
-      {/* Price */}
-      <div className="text-[24px] laptop:text-[26px] hd:text-[28px] mb-2">
-        ₹ {product.price}
+      {Array.isArray(products) && products.map((product) => (
+  <div onClick={() => navigate(`/shopdetails/${product.product_id}`)}  
+    className="bg-white lg:rounded-lg xxxl:w-[270px] xxxl:h-[430px] laptop:w-[180px] laptop:h-[320px] hd:w-[220px] hd:h-[350px] shadow-around-soft border border-[#D8DCCB] flex flex-col ">
+      <img
+        src={product.primary_image_url || "/images/lemonwash.png"}
+        alt={product.name}
+        className="h-[130px] xxxl:w-[180px] xxxl:h-[180px] laptop:w-[150px] laptop:h-[140px] hd:w-[150px] hd:h-[150px] object-contain mx-auto p-2 lg:mt-2 lg:mb-2"
+      />
+      <div className="flex flex-col items-center text-center flex-grow justify-between">
+        <h2 className="text-[16px] mx-4 laptop:text-[18px] hd:text-[20px] xxxl:text-[24px] font-medium xxxl:h-[70px] laptop:h-[55px] hd:h-[60px]">
+          {product.name}
+        </h2>
+           <div className="flex text-yellow-500 items-center  ">
+    {[...Array(4)].map((_, i) => (
+      <RiStarSFill key={i} />
+    ))}
+    <RiStarHalfSFill /> <p className="text-[#676A5E] ml-1  laptop:text-[12px] hd:text-[14px] xxxl:text-[18px]">(79)</p>
+  </div>
+        <div className="font-semibold tracking-wide font-archivo mb-2">
+          
+          <span className="text-black text-[20px] xxxl:text-[28px] laptop:text-[24px] hd:text-[26px]">
+            ₹{product.price}
+          </span>
+        </div>
+        <button onClick={(e) => { e.stopPropagation(); handleAddToCart(product.product_id); }} className="w-full bg-[#2B452C] text-white py-3 xxxl:py-4 laptop:py-2 hd:py-3 lg:rounded-b text-[18px] xxxl:text-[24px] laptop:text-[20px] tracking-wider font-medium rounded-none">
+          Add to Cart
+        </button>
       </div>
     </div>
-
-    {/* Add to Cart Button */}
-    <button 
-    type="button"
-   onClick={(e) => {
-    e.stopPropagation(); 
-    e.preventDefault();
-    handleAddToCart(product.product_id);
-  }}
-    className="bg-[#2B452C] tracking-wide text-white w-full py-3 laptop:py-3 text-[18px] laptop:text-[20px] xxxl:text-[24px] rounded-b-xl">
-      Add to Cart
-    </button>
-  </div>
 ))}
 
       </div>
