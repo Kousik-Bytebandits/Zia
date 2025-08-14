@@ -330,8 +330,8 @@ const handleApplyFilter = () => {
             className="bg-transparent text-[16px] tracking-wide font-archivo focus:outline-none"
           >
             <option value="Relevance">Bestselling</option>
-            <option value="PriceLowHigh"> Low to High</option>
-            <option value="PriceHighLow"> High to Low</option>
+            <option value="price-low_to_high"> Low to High</option>
+            <option value="price-high_to_low"> High to Low</option>
             <option value="Newest">Newest Arrivals</option>
           </select>
         </div>
@@ -382,8 +382,8 @@ const handleApplyFilter = () => {
             className="bg-[#F0F0F0] text-[14px] text-[#797979] tracking-wider focus:outline-none"
           >
             <option value="Relevance">Bestselling</option>
-            <option value="PriceLowHigh"> Low to High</option>
-            <option value="PriceHighLow"> High to Low</option>
+            <option value="price-low_to_high"> Low to High</option>
+            <option value="price-high_to_low"> High to Low</option>
             <option value="Newest">Newest Arrivals</option>
           </select>
         </div>

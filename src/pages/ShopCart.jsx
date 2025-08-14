@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loader from "../components/Loader";
 import { showLoginToast } from "../components/ShowLoginToast";
-  
+ import { showSessionExpiredToast } from "../components/showSessionExpiredToast"; 
 export default function ShopCart() {
   const navigate = useNavigate();
   const [items, setItems] = useState([]);
@@ -41,6 +41,11 @@ const fetchCart = async () => {
         Authorization: `Bearer ${token}`,
       },
     });
+      if (res.status === 401 || res.status === 403) {
+      localStorage.removeItem("accessToken");
+      showSessionExpiredToast(navigate);
+      return null;
+    }
     if (!res.ok) throw new Error("Failed to fetch cart");
 
     const data = await res.json();
@@ -325,11 +330,11 @@ const verifyCratePayment = async (response, token) => {
           <p className="text-[18px] xxxl:text-[24px] laptop:text-[20px] hd:text-[22px] font-semibold uppercase text-[#202020]">
             {item.name}
           </p>
-          <p className="text-[#A0A0A0] text-[20px]">100 ML</p>
-          <div className="flex items-center gap-1 mt-2 text-[#676A5E] text-[18px]">
-            <span>5.0</span>
+         
+          <div className="flex items-center gap-2 mt-2  text-[#676A5E] text-[18px]">
+            <span>4.5</span>
             <img src="/images/5star.png" alt="star" />
-            <span className="ml-1">(10)</span>
+            <span className="ml-1">(79)</span>
           </div>
         </div>
       </div>
@@ -438,14 +443,12 @@ const verifyCratePayment = async (response, token) => {
                           <h3 className="font-medium text-[18px] leading-tight tracking-wider">
                             {item.name}
                           </h3>
-                          <p className="text-[14px] text-[#AEAEAE]">
-                            100 ML
-                          </p>
+                         
                         </div>
                          <div className="flex items-center gap-2 text-[12px] text-[#676A5E] ">
-                         <span>5.0</span>
+                         <span>4.5</span>
                       <img src="/images/5star.png" alt="star" className="" />
-                      <span className="text-[#676A5E] mr-2">(10)</span>
+                      <span className="text-[#676A5E] mr-2">(79)</span>
                         </div>
                          <div className="flex items-center gap-3">
         <p className="text-[20px] text-[#FF1010] ">- {item.discount}%</p>

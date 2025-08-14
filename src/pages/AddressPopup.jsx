@@ -197,7 +197,7 @@ const AddressPopup = ({ isOpen, onClose, onProceed }) => {
           <button
             type="button"
             onClick={handleSubmit}
-            className="bg-[#2F623A] text-white text-[20px] font-bold w-[40%] py-3 rounded mt-4"
+            className="bg-[#2F623A] text-white text-[20px] font-bold  lg:w-[40%] p-3 rounded mt-4"
           >
             Proceed To Checkout
           </button>

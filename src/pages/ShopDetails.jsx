@@ -716,7 +716,7 @@ const verifyCratePayment = async (response, token) => {
       </div>
 
       {/* Buttons */}
-      <button onClick={handleAddToCart} className="mt-4 w-full py-2 tracking-wide border border-[#2F3A27] bg-[#AEBCA466] rounded-full text-[#2F3A27] text-[18px] font-semibold">
+      <button onClick={handleBuyNow} className="mt-4 w-full py-2 tracking-wide border border-[#2F3A27] bg-[#AEBCA466] rounded-full text-[#2F3A27] text-[18px] font-semibold">
         Buy Now
       </button>
       <button onClick={handleAddToCart} className="mt-2 w-full py-2 tracking-wide rounded-full bg-[#2F3A27] border border-black text-white font-semibold text-[18px] ">
