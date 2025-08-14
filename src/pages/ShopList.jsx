@@ -5,22 +5,20 @@ import { RiStarSFill,RiStarHalfSFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import endpoint_prefix from "../config/ApiConfig";
 import { ToastContainer, toast } from "react-toastify";
-
+import { showLoginToast } from "../components/ShowLoginToast";
+import { showSessionExpiredToast } from "../components/showSessionExpiredToast";
 function ProductCard({ product }) {
   
  const navigate = useNavigate();
   const handleAddToCart = async (id) => {
+   
     const token = localStorage.getItem("accessToken");
+      const reason = sessionStorage.getItem("tokenReason");
+    if (!token && reason !== "expired") {
+    showLoginToast(navigate);
+}
 
-   console.log("Adding product ID:",id);
-
-
-
-    if (!token || token === "forbidden") {
-        navigate("/login");
-
-      return;
-    }
+sessionStorage.removeItem("tokenReason");
 
     try {
       const response = await fetch(
@@ -56,7 +54,7 @@ function ProductCard({ product }) {
       toast.success("Product added to cart successfully!");
     } catch (error) {
       console.error("Error adding to cart:", error);
-      toast.error("Error: " + error.message);
+      showSessionExpiredToast(navigate);
     }
   };
 
