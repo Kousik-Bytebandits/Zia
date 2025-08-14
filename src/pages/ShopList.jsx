@@ -66,7 +66,7 @@ sessionStorage.removeItem("tokenReason");
 
   return (
     <div onClick={() => navigate(`/shopdetails/${product.product_id}`)}  
-    className="bg-white w-[170px] h-[250px] lg:rounded-lg xxxl:w-[270px] xxxl:h-[430px] laptop:w-[180px] laptop:h-[320px] hd:w-[220px] hd:h-[350px] shadow-around-soft border border-[#D8DCCB] flex flex-col ">
+    className="bg-white mx-auto w-[170px] h-[250px] lg:rounded-lg xxxl:w-[270px] xxxl:h-[430px] laptop:w-[180px] laptop:h-[320px] hd:w-[220px] hd:h-[350px] shadow-around-soft border border-[#D8DCCB] flex flex-col ">
       <img
         src={primaryImage || "/images/lemonwash.png"}
         alt={product.name}
