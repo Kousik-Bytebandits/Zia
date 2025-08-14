@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
 import Footer from "../components/Footer";
+import { showSessionExpiredToast } from "../components/showSessionExpiredToast";
+import { useNavigate } from "react-router-dom";
+
+
 
 // ------------------ Mobile Components ------------------ //
 
@@ -184,14 +188,19 @@ const OrderTrackingCard = ({ orderId, products, orderStatus }) => (
 );
 
 
-// ------------------ Main Component ------------------ //
 export default function OrderTracking() {
   const [orders, setOrders] = useState([]);
-  const token = localStorage.getItem("accessToken");
+  const navigate = useNavigate();
+  
 
   useEffect(() => {
+    
+    fetchOrders();
+  }, []);
+
     const fetchOrders = async () => {
       try {
+           const token = localStorage.getItem("accessToken");
         const res = await fetch(
           "https://api.ziaherbalpro.com/Microservices/07_orders/order_management/user_orders",
           {
@@ -200,6 +209,8 @@ export default function OrderTracking() {
             },
           }
         );
+
+        
 
         const rawData = await res.json();
         const ordersArray = Array.isArray(rawData) ? rawData : [rawData];
@@ -230,49 +241,49 @@ export default function OrderTracking() {
         setOrders(groupedOrders);
       } catch (error) {
         console.error("Error fetching orders:", error);
+        if (error.message.includes("expired")) {
+          showSessionExpiredToast(navigate);
+        } 
       }
     };
 
-    fetchOrders();
-  }, [token]);
-
-  
-
-   if (!token) {
-    return (
-      <div className="text-center mt-[20%] text-[40px] font-semibold text-gray-700">
-        Please Login to track the order
-      </div>
-    );
-  }
+   
 
   return (
     <>
-      <div className="min-h-screen pt-24 bg-white px-4 py-6 xxxl:px-60 xxxl:py-20 hd:px-36 laptop:px-36 font-archivo mx-auto">
-        <h1 className="text-center text-[24px] font-tenor text-[#2E3A27] mb-5 hd:text-[40px] laptop:text-[36px] xxxl:text-[50px]">
-          Track Order
-        </h1>
+      <div className=" pt-24 bg-white px-4 py-6 xxxl:px-60 xxxl:py-20 hd:px-36 laptop:px-36 font-archivo mx-auto">
+  <h1 className="text-center text-[24px] font-tenor text-[#2E3A27] mb-5 hd:text-[40px] laptop:text-[36px] xxxl:text-[50px]">
+    Track Order
+  </h1>
 
-        <div className="space-y-6">
-          {orders.map((order) => (
-            <div key={order.razorpay_order_id}>
-              {/* Mobile */}
-              <MobileOrderTrackingCard
-                orderId={order.razorpay_order_id}
-                products={order.products}
-                orderStatus={order.status}
-              />
+  { !localStorage.getItem("accessToken") ? (
+    <div className="text-center  py-20">
+      <p className="text-[35px] ">Please Login to track the order.</p>
+    </div>
+  ) : (
+    <div className="space-y-6">
+      {orders.map((order) => (
+        <div key={order.razorpay_order_id}>
+          {/* Mobile */}
+          <MobileOrderTrackingCard
+            orderId={order.razorpay_order_id}
+            products={order.products}
+            orderStatus={order.status}
+          />
 
-              {/* Desktop */}
-              <OrderTrackingCard
-                orderId={order.razorpay_order_id}
-                products={order.products}
-                orderStatus={order.status}
-              />
-            </div>
-          ))}
+          {/* Desktop */}
+          <OrderTrackingCard
+            orderId={order.razorpay_order_id}
+            products={order.products}
+            orderStatus={order.status}
+          />
         </div>
-      </div>
+      ))}
+    </div>
+  )}
+</div>
+
+        
       <Footer />
     </>
   );
