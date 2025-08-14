@@ -222,20 +222,22 @@ sessionStorage.removeItem("tokenReason");
       }
     } catch (err) {
       console.error("Error adding to cart:", err);
-      showSessionExpiredToast(navigate);
+      if(token) {showSessionExpiredToast(navigate);}
     }
   };
  
    const handleBuyNow = () => {
       const token = localStorage.getItem("accessToken");
-      const reason = sessionStorage.getItem("tokenReason");
-    if (!token && reason !== "expired") {
+     
+    if (!token ) {
     showLoginToast(navigate);
+     setShowPopup(false);
 }
-
-sessionStorage.removeItem("tokenReason");
+else{
   setShowPopup(true);
-};
+}
+   }
+
 
 const processBuyNowPayment = async () => {
 

@@ -7,7 +7,7 @@ export const showSessionExpiredToast = (navigate) => {
   toast(
     ({ closeToast }) => (
       <div>
-        <p className="mb-2">Your session has expired. Please login again.</p>
+        <p className="mb-2">Please login again to continue.</p>
         <button
           onClick={() => {
             closeToast();

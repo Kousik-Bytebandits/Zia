@@ -209,7 +209,11 @@ export default function OrderTracking() {
             },
           }
         );
-
+       if (res.status === 401 || res.status === 403) {
+      localStorage.removeItem("accessToken");
+      showSessionExpiredToast(navigate);
+      return null;
+    }
         
 
         const rawData = await res.json();
@@ -241,7 +245,7 @@ export default function OrderTracking() {
         setOrders(groupedOrders);
       } catch (error) {
         console.error("Error fetching orders:", error);
-        if (error.message.includes("expired")) {
+        if (error.message) {
           showSessionExpiredToast(navigate);
         } 
       }

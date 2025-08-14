@@ -54,7 +54,9 @@ sessionStorage.removeItem("tokenReason");
       toast.success("Product added to cart successfully!");
     } catch (error) {
       console.error("Error adding to cart:", error);
-      showSessionExpiredToast(navigate);
+      if(token) {
+        showSessionExpiredToast(navigate);
+      }
     }
   };
 
