@@ -119,12 +119,12 @@ const Navbar = () => {
                 <FaArrowLeft />
               </button>
 
-              <div className="bg-[#E9F8E5] flex items-center px-3 py-[6px] rounded-lg w-full mx-2">
+              <div className="bg-[#E9F8E5] flex items-center px-3 py-[8px] rounded-lg w-full mx-2">
                 <GoSearch className="w-6 h-6 mr-2 text-[#555]" />
                 <input
                   type="text"
                   placeholder="Search for Products"
-                  className="bg-[#E9F8E5] outline-none text-lg w-full text-black placeholder:text-gray-700"
+                  className="bg-[#E9F8E5] outline-none text-lg w-full text-black placeholder:text-gray-400"
                 />
               </div>
 

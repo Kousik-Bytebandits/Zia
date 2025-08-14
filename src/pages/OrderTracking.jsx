@@ -32,18 +32,18 @@ const MobileOrderTrackingCard = ({ orderId, products, orderStatus }) => {
       {/* Top Row: Image + Details */}
       <div className="flex space-x-4">
         {/* Image */}
-        <div className=" flex items-center justify-center w-[80px] h-[120px] rounded-md">
+        <div className=" flex items-center justify-center w-[120px] h-[140px] rounded-md">
           <img
             src={products[0].primary_image_url}
             alt={products[0].name}
-            className="w-[90px] h-[120px] object-contain"
+            className="w-[120px] h-[130px] object-contain"
           />
         </div>
 
         {/* Details */}
         <div className="flex-1">
-          <p className="text-[12px] text-[#555] mb-1">Order Id : {orderId}</p>
-          <p className="uppercase text-[#333] font-semibold text-[20px]">{products[0].name}</p>
+          <p className="text-[12px] text-[#2B452C] mb-1 mt-1">Order Id : {orderId}</p>
+          <p className=" text-[#333333] tracking-[0.3px] font-semibold text-[20px] w-[92%]">{products[0].name}</p>
           <p className="text-[28px] font-bold text-black mt-1">₹{products[0].price}</p>
         </div>
       </div>
@@ -52,11 +52,11 @@ const MobileOrderTrackingCard = ({ orderId, products, orderStatus }) => {
      {/* Step line */}
 <div className="mt-4 relative">
   {/* Background line */}
-  <div className="absolute top-[10px] left-[14px] right-[16px] h-[2px] bg-[#A9A9A9]"></div>
+  <div className="absolute top-[11px] left-[14px] right-[16px] h-[2px] bg-[#A9A9A9]"></div>
 
   {/* Completed line */}
   <div
-    className="absolute top-[10px] left-[14px] right-[16px] h-[2px] bg-[#388E3C]"
+    className="absolute top-[11px] left-[14px] right-[16px] h-[2px] bg-[#388E3C]"
     style={{
       width: `${(completedSteps / (steps.length - 1)) * 88}%`,
     }}
@@ -67,11 +67,11 @@ const MobileOrderTrackingCard = ({ orderId, products, orderStatus }) => {
     {steps.map((step, idx) => (
       <div key={step.title} className="flex flex-col items-center">
         <div
-          className={`w-5 h-5 rounded-full border-2 border-white ${
-            idx <= completedSteps ? "bg-[#388E3C]" : "bg-[#A9A9A9]"
+          className={`w-6 h-6 rounded-full border-2 border-black-200 ${
+            idx <= completedSteps ? "bg-[#388E3C]" : "bg-white"
           }`}
         ></div>
-        <p className="text-[15px] mt-1 text-[#4A4A4A]">{step.title}</p>
+        <p className="text-[15px] mt-1 text-black ">{step.title}</p>
       </div>
     ))}
   </div>
@@ -249,7 +249,7 @@ export default function OrderTracking() {
   return (
     <>
       <div className="min-h-screen pt-24 bg-white px-4 py-6 xxxl:px-60 xxxl:py-20 hd:px-36 laptop:px-36 font-archivo mx-auto">
-        <h1 className="text-center text-[22px] font-tenor text-[#2E3A27] mb-5 hd:text-[40px] laptop:text-[36px] xxxl:text-[50px]">
+        <h1 className="text-center text-[24px] font-tenor text-[#2E3A27] mb-5 hd:text-[40px] laptop:text-[36px] xxxl:text-[50px]">
           Track Order
         </h1>
 
