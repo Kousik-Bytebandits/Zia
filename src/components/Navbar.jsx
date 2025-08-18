@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { FaTimes, FaShoppingCart } from 'react-icons/fa';
+import { FaTimes } from 'react-icons/fa';
 import { BiSearchAlt } from 'react-icons/bi';
 import { GoLocation } from 'react-icons/go';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
@@ -8,7 +8,7 @@ import { IoMenu } from "react-icons/io5";
 import { GoSearch } from "react-icons/go";
 import { FaUser } from "react-icons/fa6";
 import { showLoginToast } from "../components/ShowLoginToast";
-import { HiShoppingCart } from "react-icons/hi";
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
