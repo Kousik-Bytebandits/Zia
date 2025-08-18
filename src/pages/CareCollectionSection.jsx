@@ -142,7 +142,7 @@ useEffect(() => {
         alt={product.name}
         className="w-[180px] h-[179px] rounded-t-2xl xxxl:w-[270px] xxxl:h-[270px] laptop:w-[180px] laptop:h-[180px] hd:w-[220px] hd:h-[220px] object-contain  "
       />
-      <div className=" flex flex-col items-center text-center flex-grow justify-between">
+      <div className=" flex flex-col  items-center text-center flex-grow justify-between">
         <h2 className="text-[16px] h-[25px] truncate max-w-[150px] xxxl:max-w-[240px] laptop:max-w-[160px] hd:max-w-[190px] mx-4 laptop:text-[18px] hd:text-[20px] xxxl:text-[24px] font-medium xxxl:h-[40px] laptop:h-[25px] hd:h-[30px]">
           {product.name}
         </h2>
@@ -152,8 +152,8 @@ useEffect(() => {
     ))}
     <RiStarHalfSFill /> <p className="text-[#676A5E] ml-1  laptop:text-[12px] hd:text-[14px] xxxl:text-[18px]">(79)</p>
   </div>
-        <div className="font-semibold tracking-wide font-archivo mb-2">
-          
+        <div className="font-semibold tracking-wide font-archivo ">
+
           <span className="text-black text-[18px] text-[20px] xxxl:text-[28px] laptop:text-[24px] hd:text-[26px]">
             ₹{product.price}
           </span>

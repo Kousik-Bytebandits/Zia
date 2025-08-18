@@ -8,7 +8,7 @@ import { IoMenu } from "react-icons/io5";
 import { GoSearch } from "react-icons/go";
 import { FaUser } from "react-icons/fa6";
 import { showLoginToast } from "../components/ShowLoginToast";
-
+import { HiShoppingCart } from "react-icons/hi";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -113,7 +113,7 @@ useEffect(() => {
                 <div className="flex items-center gap-4">
                   <FaUser onClick={handleChange} className="text-white text-3xl" />
                   <div className="relative">
-                    <FaShoppingCart onClick={handleCart} className="text-white text-[30px]" />
+                    <img src='/icons/cart.svg' onClick={handleCart} className="text-white w-9" />
                     <span className="absolute -top-2 -right-1 bg-red-600 text-[10px] leading-none font-semibold text-white rounded-full px-[4px] py-[3px]">
                       0
                     </span>
@@ -122,10 +122,10 @@ useEffect(() => {
               </div>
             <div className="relative w-full">
   <div className="bg-[#E9F8E5] flex items-center px-3 py-[8px] rounded-lg">
-    <GoSearch className="w-6 h-6 mr-2 text-[#555]" />
+    <GoSearch className="w-6 h-6 mr-2 text-[#849982] font-medium font-sans" />
     <input
       type="text"
-      className="bg-transparent outline-none text-lg w-full text-black placeholder:text-gray-700"
+      className="bg-transparent outline-none text-[16px] w-full text-black placeholder:text-[#849982] font-medium font-sans"
       placeholder="Search for Products"
       value={searchTerm}
       onChange={(e) => setSearchTerm(e.target.value)}
@@ -164,10 +164,10 @@ useEffect(() => {
 
                 <div className="relative w-full">
   <div className="bg-[#E9F8E5] flex items-center px-3 py-[6px] rounded-lg">
-    <GoSearch className="w-6 h-6 mr-2 text-[#555]" />
+    <GoSearch className="w-6 h-6 mr-2 text-[#849982] font-medium font-sans" />
     <input
       type="text"
-      className="bg-transparent outline-none text-lg w-full text-black placeholder:text-gray-700"
+      className="bg-transparent outline-none text-lg w-full text-black placeholder:text-[#849982] font-medium font-sans"
       placeholder="Search for Products"
       value={searchTerm}
       onChange={(e) => setSearchTerm(e.target.value)}
@@ -198,7 +198,7 @@ useEffect(() => {
 
 
               <div className="relative ml-2">
-                <FaShoppingCart className="text-white text-[28px]" onClick={handleCart} />
+                <img src='/icons/cart.svg' className="text-white-200 w-12" onClick={handleCart} />
                 <span className="absolute -top-2 -right-1 bg-red-600 text-[10px] leading-none font-semibold text-white rounded-full px-[4px] py-[3px]">
                   0
                 </span>
@@ -212,10 +212,10 @@ useEffect(() => {
 
                     <div className="relative w-full">
   <div className="bg-[#E9F8E5] flex items-center px-3 py-[6px] rounded-lg">
-    <GoSearch className="w-6 h-6 mr-2 text-[#555]" />
+    <GoSearch className="w-6 h-6 mr-2 text-[#849982] font-medium font-sans" />
     <input
       type="text"
-      className="bg-transparent outline-none text-lg w-full text-black placeholder:text-gray-700"
+      className="bg-transparent outline-none text-lg w-full text-black placeholder:text-[#849982] font-medium font-sans"
       placeholder="Search for Products"
       value={searchTerm}
       onChange={(e) => setSearchTerm(e.target.value)}
@@ -246,7 +246,7 @@ useEffect(() => {
 
 
               <div className="relative ml-2">
-                <FaShoppingCart className="text-white text-[28px]" onClick={handleCart} />
+                <img src='/icons/cart.svg' className="text-white w-12" onClick={handleCart} />
                 <span className="absolute -top-2 -right-1 bg-red-600 text-[10px] leading-none font-semibold text-white rounded-full px-[4px] py-[3px]">
                   0
                 </span>
@@ -306,7 +306,7 @@ useEffect(() => {
 
             </div>
 
-            <FaShoppingCart className="text-2xl laptop:text-2xl xxxl:text-3xl cursor-pointer shrink-0" onClick={handleCart} />
+            <img src='/icons/cart.svg' className="text-2xl laptop:w-8 xxxl:w-10 cursor-pointer shrink-0" onClick={handleCart} />
             <FaUser onClick={handleChange} className="cursor-pointer text-2xl laptop:text-2xl xxxl:text-3xl shrink-0" />
           </div>
         </div>

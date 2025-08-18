@@ -49,40 +49,61 @@ function ProductCard({ product }) {
 
   
   return (
-    <div
-      onClick={() => {
-        navigate(`/shopdetails/${productId}`);
-      }}
-      className="bg-white  w-[180px] h-[320px] lg:rounded-t-2xl xxxl:w-[270px] xxxl:h-[460px] laptop:w-[180px] laptop:h-[320px] hd:w-[220px] hd:h-[375px] shadow-around-soft rounded-t-2xl border border-[#D8DCCB] flex flex-col">
-      
-      <img
-        src={product.image}
-        alt={product.name}
-         className="w-[180px] h-[179px] rounded-t-2xl xxxl:w-[270px] xxxl:h-[270px] laptop:w-[180px] laptop:h-[180px] hd:w-[220px] hd:h-[220px] object-contain  "
-      />
-      <div className=" flex flex-col  items-center text-center flex-grow justify-between">
-        <h2 className="text-[16px] h-[25px] truncate max-w-[150px] xxxl:max-w-[240px] laptop:max-w-[160px] hd:max-w-[190px] mx-4 laptop:text-[18px] hd:text-[20px] xxxl:text-[24px] font-medium xxxl:h-[40px] laptop:h-[25px] hd:h-[30px]">
-          {product.name}
-        </h2>
-        <div className="flex text-yellow-500 items-center lg:text-[14px]">
-                <p className="text-[#676A5E]   text-[12px] xxxl:text-[18px] hd:text-[15px] laptop:text-[12px] mr-1">4.5</p>
-    {[...Array(4)].map((_, i) => (
-      <RiStarSFill key={i} className="xxxl:text-[18px] hd:text-[15px] laptop:text-[12px]" />
-    ))}
-    <RiStarHalfSFill className="xxxl:text-[18px] hd:text-[15px] laptop:text-[12px]" /> <p className="text-[#676A5E] ml-1  text-[12px] xxxl:text-[18px] hd:text-[15px] laptop:text-[12px]">(79)</p>
-  </div>
-        <div className="font-semibold tracking-wide font-archivo mb-2">
-          <span className="line-through xxxl:text-[28px] laptop:text-[24px] hd:text-[18px] mr-1 lg:hidden text-gray-400">{product.originalPrice}</span>
-          <span className="text-black text-[18px] xxxl:text-[28px] laptop:text-[24px] hd:text-[26px]">₹{product.salePrice}</span>
-        </div>
-        <button  onClick={(e) => {
-    e.stopPropagation(); 
-    handleAddToCart(productId);
-  }} className="w-full bg-[#2B452C]  text-white py-3 xxxl:py-4 laptop:py-2 hd:py-3 lg:rounded-b text-[18px] xxxl:text-[24px] laptop:text-[20px] tracking-wider font-medium rounded-none">
-          Add to Cart
-        </button>
-      </div>
+   <div 
+  onClick={() => navigate(`/shopdetails/${product.product_id}`)}  
+  className="bg-white mx-auto w-full h-auto sm:w-[180px] sm:h-[320px] lg:rounded-t-2xl 
+             laptop:w-[180px] laptop:h-[320px] hd:w-[220px] hd:h-[375px] xxxl:w-[270px] xxxl:h-[460px] 
+             shadow-around-soft rounded-t-2xl border border-[#D8DCCB] flex flex-col mt-4"
+>
+ 
+  <img
+    src={product.image || "/images/lemonwash.webp"}
+    alt={product.name}
+    className="w-full h-full sm:h-[179px] laptop:h-[180px] hd:h-[220px] xxxl:h-[270px] 
+               object-contain rounded-t-2xl"
+  />
+
+  {/* Content */}
+  <div className="flex flex-col items-center text-center flex-grow justify-between px-3 py-1">
+    {/* Title */}
+    <h2 className="text-[16px] laptop:text-[18px] hd:text-[20px] xxxl:text-[24px] 
+                   font-medium truncate max-w-[150px] laptop:max-w-[160px] hd:max-w-[190px] 
+                   xxxl:max-w-[240px] mx-auto h-[22px] laptop:h-[25px] hd:h-[30px] xxxl:h-[40px]">
+      {product.name}
+    </h2>
+
+    {/* Stars */}
+    <div className="flex text-yellow-500 items-center">
+      {[...Array(4)].map((_, i) => (
+        <RiStarSFill key={i} />
+      ))}
+      <RiStarHalfSFill />
+      <p className="text-[#676A5E] ml-1 text-[12px] laptop:text-[12px] hd:text-[14px] xxxl:text-[18px]">
+        (79)
+      </p>
     </div>
+
+    {/* Price */}
+    <div className="font-semibold tracking-wide font-archivo">
+      <span className="text-black text-[18px] laptop:text-[20px] hd:text-[26px] xxxl:text-[28px]">
+        ₹{product.salePrice}
+      </span>
+    </div>
+  </div>
+
+  {/* Button - full width, touches left & right */}
+  <button
+    onClick={(e) => { 
+      e.stopPropagation(); 
+      handleAddToCart(product.product_id); 
+    }}
+    className="w-full bg-[#2B452C] text-white py-3 sm:py-3 laptop:py-2 hd:py-3 xxxl:py-4 
+               lg:rounded-b text-[16px] sm:text-[18px] laptop:text-[20px] hd:text-[22px] xxxl:text-[24px] 
+               tracking-wider font-medium rounded-none"
+  >
+    Add to Cart
+  </button>
+</div>
   );
 }
 
