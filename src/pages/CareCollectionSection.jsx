@@ -133,7 +133,7 @@ useEffect(() => {
       data-aos-delay="100"
       className="overflow-x-auto scrollbar-none lg:max-w-[100%]"
     >
-      <div className="flex gap-4 w-[1000px]">
+      <div className="flex gap-4 min-w-[1000px]">
       {Array.isArray(products) && products.map((product) => (
     <div onClick={() => navigate(`/shopdetails/${product.product_id}`)}  
     className="bg-white w-[180px] h-[320px] lg:rounded-t-2xl xxxl:w-[270px] xxxl:h-[460px] laptop:w-[180px] laptop:h-[320px] hd:w-[220px] hd:h-[375px] shadow-around-soft rounded-t-2xl border border-[#D8DCCB] flex flex-col mb-10">
