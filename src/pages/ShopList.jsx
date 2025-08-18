@@ -66,14 +66,14 @@ sessionStorage.removeItem("tokenReason");
 
   return (
     <div onClick={() => navigate(`/shopdetails/${product.product_id}`)}  
-    className="bg-white mx-auto w-[170px] h-[250px] lg:rounded-lg xxxl:w-[270px] xxxl:h-[430px] laptop:w-[180px] laptop:h-[320px] hd:w-[220px] hd:h-[350px] shadow-around-soft border border-[#D8DCCB] flex flex-col ">
+    className="bg-white mx-auto w-[180px] h-[320px] lg:rounded-t-2xl xxxl:w-[270px] xxxl:h-[460px] laptop:w-[180px] laptop:h-[320px] hd:w-[220px] hd:h-[375px] shadow-around-soft rounded-t-2xl border border-[#D8DCCB] flex flex-col mb-10">
       <img
-        src={primaryImage || "/images/lemonwash.png"}
+        src={primaryImage || "/images/lemonwash.webp"}
         alt={product.name}
-        className="w-[140px] h-[95px] xxxl:w-[180px] xxxl:h-[180px] laptop:w-[150px] laptop:h-[140px] hd:w-[150px] hd:h-[150px] object-contain mx-auto p-2 lg:mt-2 lg:mb-2"
-      /> 
-      <div className="flex flex-col items-center text-center flex-grow justify-between">
-        <h2 className="text-[14px] h-[34px] mx-4 laptop:text-[18px] hd:text-[20px] xxxl:text-[24px] font-medium xxxl:h-[70px] laptop:h-[55px] hd:h-[60px]">
+        className="w-[180px] h-[179px] rounded-t-2xl xxxl:w-[270px] xxxl:h-[270px] laptop:w-[180px] laptop:h-[180px] hd:w-[220px] hd:h-[220px] object-contain  "
+      />
+      <div className=" flex flex-col items-center text-center flex-grow justify-between">
+        <h2 className="text-[16px] h-[25px] truncate max-w-[150px] xxxl:max-w-[240px] laptop:max-w-[160px] hd:max-w-[190px] mx-4 laptop:text-[18px] hd:text-[20px] xxxl:text-[24px] font-medium xxxl:h-[40px] laptop:h-[25px] hd:h-[30px]">
           {product.name}
         </h2>
            <div className="flex text-yellow-500 items-center  ">
@@ -309,7 +309,7 @@ const handleApplyFilter = () => {
 
 
     </div>
-   <img src="/images/beauty.png" alt="banner" className="mt-6 hidden lg:block   top-100 w-[300px]" />
+   <img src="/images/beauty.webp" alt="banner" className="mt-6 hidden lg:block   top-100 w-[300px]" />
   </div>
   
 );
@@ -389,7 +389,7 @@ const handleApplyFilter = () => {
         </div>
         </div>
 
-          <div className="grid grid-cols-2   lg:grid-cols-5 gap-4 ">
+          <div className="grid grid-cols-2  lg:grid-cols-5 lg:gap-4 ">
             {products.map((product, index) => (
               <ProductCard key={index} product={product} />
             ))}

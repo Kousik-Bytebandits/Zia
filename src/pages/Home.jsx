@@ -148,7 +148,7 @@ useEffect(() => {
     {/* Left Image  */}
     <div data-aos="fade-up" data-aos-delay="100" className="hidden relative lg:flex items-center justify-start gap-32 mt-8 -ml-[41%]">
       <img
-        src="images/bg_left.png"
+        src="images/bg_left.webp"
         alt="Left Product"
         className="w-[600px] laptop:w-[400px] xxxl:w-[600px] hd:w-[500px]"
       />
@@ -160,12 +160,12 @@ useEffect(() => {
 
   {/* Right Side Image - curved only bottom-left */}
   <img
-    src="images/zia_shampoo_bg.png"
+    src="images/zia_shampoo_bg.webp"
     alt="Zia Herbal Products"
     className="w-full lg:hidden"
   />
   <img
-    src="images/bg_right.png"
+    src="images/bg_right.webp"
     className="hidden lg:block w-[55%] xxxl:h-[750px] laptop:h-[500px] hd:h-[600px]  xxxl:-mt-[7.5%] laptop:-mt-[15%] hd:-mt-[9%] rounded-bl-[200px]"
     alt="Background Right"
   />
@@ -175,7 +175,7 @@ useEffect(() => {
 {/* Bottom NEXT Section */}
 <section data-aos="fade-up" data-aos-delay="100" className="relative lg:bg-[#F5F5F5]  py-5 flex items-center justify-between lg:justify-left   ">
   <img
-    src="images/serum.png"
+    src="images/serum.webp"
     alt="Packshot"
     className="w-[55%] hidden lg:hidden"
   />
@@ -320,7 +320,7 @@ useEffect(() => {
       <h3 className="text-[36px] laptop:text-[32px] hd:text-[40px] xxxl:text-[50px]">
         6<span className="mx-2">M</span>+
       </h3>
-      <img src="images/stars.png" className="mb-3 laptop:mb-4" />
+      <img src="images/stars.webp" className="mb-3 laptop:mb-4" />
       <p className="text-[13px] laptop:text-[12px] hd:text-[14px] xxxl:text-[16px] font-archivo">
         Worldwide Products<br />Sale Per Year
       </p>
@@ -329,7 +329,7 @@ useEffect(() => {
       <h3 className="text-[36px] laptop:text-[32px] hd:text-[40px] xxxl:text-[50px]">
         4<span className="mx-2">.</span>8
       </h3>
-      <img src="images/stars.png" className="mb-3 laptop:mb-4" />
+      <img src="images/stars.webp" className="mb-3 laptop:mb-4" />
       <p className="text-[13px] laptop:text-[12px] hd:text-[14px] xxxl:text-[16px] font-archivo">
         2564+ Ratings<br />World Wide
       </p>
@@ -354,7 +354,7 @@ useEffect(() => {
     {Array(6).fill(0).map((_, i) => (
       <img
         key={i}
-        src="/images/BrandMarque.png"
+        src="/images/BrandMarque.webp"
         alt="Brand Marque"
         className="h-[50px] object-cover"
       />
@@ -399,17 +399,16 @@ useEffect(() => {
           <div
             key={product.product_id}
             onClick={() => navigate(`/shopdetails/${product.product_id}`)}
-            className="bg-white flex-shrink-0 w-[170px] h-[250px] lg:rounded-lg xxxl:w-[270px] xxxl:h-[430px] laptop:w-[180px] laptop:h-[320px] hd:w-[220px] hd:h-[350px] shadow-around-soft border border-[#D8DCCB] flex flex-col font-archivo"
-          >
+            className="bg-white mx-auto w-[180px] h-[320px] lg:rounded-t-2xl xxxl:w-[270px] xxxl:h-[460px] laptop:w-[180px] laptop:h-[320px] hd:w-[220px] hd:h-[375px] shadow-around-soft rounded-t-2xl border border-[#D8DCCB] flex flex-col mb-10">
             <img
-              src={product.primary_image_url || "/images/lemonwash.png"}
+              src={product.primary_image_url || "/images/lemonwash.webp"}
               alt={product.name}
-              className="w-[140px] h-[95px] xxxl:w-[180px] xxxl:h-[180px] laptop:w-[150px] laptop:h-[140px] hd:w-[150px] hd:h-[150px] object-contain mx-auto p-2 lg:mt-2 lg:mb-2"
+               className="w-[180px] h-[179px] rounded-t-2xl xxxl:w-[270px] xxxl:h-[270px] laptop:w-[180px] laptop:h-[180px] hd:w-[220px] hd:h-[220px] object-contain  "
             />
             <div className="flex flex-col items-center text-center flex-grow justify-between">
-              <h2 className="text-[14px] h-[34px] mx-4 laptop:text-[18px] hd:text-[20px] xxxl:text-[24px] font-medium xxxl:h-[70px] laptop:h-[55px] hd:h-[60px]">
-                {product.name}
-              </h2>
+              <h2 className="text-[16px] h-[25px] truncate max-w-[150px] xxxl:max-w-[240px] laptop:max-w-[160px] hd:max-w-[190px] mx-4 laptop:text-[18px] hd:text-[20px] xxxl:text-[24px] font-medium xxxl:h-[40px] laptop:h-[25px] hd:h-[30px]">
+          {product.name}
+        </h2>
               <div className="flex text-yellow-500 items-center">
                 {[...Array(4)].map((_, i) => (
                   <RiStarSFill key={i} />
@@ -445,7 +444,7 @@ useEffect(() => {
 <div className="mx-auto px-4 laptop:px-10 hd:px-14 xxxl:px-16 py-10 lg:mt-10">
   <div data-aos="fade-up" data-aos-delay="100" className="overflow-hidden">
     <img
-      src="images/handwash.png"
+      src="images/handwash.webp"
       alt="Product Highlight"
       className="w-full mb-10 lg:hidden block"
     />
@@ -502,7 +501,7 @@ useEffect(() => {
             className="text-center lg:flex lg:items-center lg:gap-4 lg:mb-20"
           >
             <img
-              src={`images/${item.icon}.png`}
+              src={`images/${item.icon}.webp`}
               alt={`Icon ${i + 1}`}
               className="mx-auto mb-2 w-12 h-12 laptop:w-[55px] laptop:h-[55px] hd:w-[60px] hd:h-[60px] xxxl:w-[75px] xxxl:h-[75px] lg:mb-0"
             />
@@ -523,7 +522,7 @@ useEffect(() => {
           className="flex items-center justify-center lg:hidden block"
         >
           <img
-            src="images/review.png"
+            src="images/review.webp"
             alt="Reviews"
             className="max-w-[300px] laptop:max-w-[260px] hd:max-w-[300px] my-10"
           />
@@ -546,7 +545,7 @@ useEffect(() => {
           className="flex items-center justify-center hidden lg:block"
         >
           <img
-            src="images/review.png"
+            src="images/review.webp"
             alt="Reviews"
             className="lg:max-w-[350px] laptop:max-w-[320px] hd:max-w-[340px] xxxl:max-w-[360px] lg:my-5"
           />
@@ -561,7 +560,7 @@ useEffect(() => {
       className="relative w-full lg:w-[650px] laptop:w-[550px] hd:w-[580px] xxxl:w-[650px]"
     >
       <img
-        src="images/bg_lemon.png"
+        src="images/bg_lemon.webp"
         alt="Product Highlight"
         className="w-full h-auto rounded-xl object-contain hidden lg:block"
       />
@@ -577,7 +576,7 @@ useEffect(() => {
   <div className="lg:flex lg:h-[100vh] mx-auto py-16 lg:space-x-12 text-[#676A5E] space-y-10 lg:space-y-0 items-center lg:bg-[#2B452C] lg:text-white  lg:px-0">
     <div data-aos="fade-up" data-aos-delay="100" className="relative lg:w-1/2 ">
       <img
-        src="images/before-after.jpg"
+        src="images/before-after.webp"
         alt="Before and After"
         className="lg:z-10 relative lg:-top-80 laptop:w-[550px] laptop:h-[440px] hd:w-[700px] hd:h-[500px] xxxl:w-[850px] xxxl:h-[680px] lg:left-20"
       />
@@ -632,7 +631,7 @@ useEffect(() => {
       </h2>
     </div>
     <div data-aos="fade-up" data-aos-delay="100" className="flex flex-col lg:flex-row lg:space-x-14 lg:justify-center space-y-8 lg:space-y-0 text-center">
-      {[{ src: "images/herbal-handwash.png", label: "Herbal Handwash" }, { src: "images/herbal-shampoo.png", label: "Herbal Shampoo" }, { src: "images/herbal-soap.png", label: "Herbal Soap" }].map((item, index) => (
+      {[{ src: "images/herbal-handwash.webp", label: "Herbal Handwash" }, { src: "images/herbal-shampoo.webp", label: "Herbal Shampoo" }, { src: "images/herbal-soap.webp", label: "Herbal Soap" }].map((item, index) => (
         <div key={index} className="relative laptop:w-[340px] hd:w-[400px] xxxl:w-[500px] laptop:h-[250px] hd:h-[280px] xxxl:h-[340px]">
           <img src={item.src} alt={item.label} className="w-full h-full" />
           <div className="backdrop-blur-sm tracking-widest font-tenor uppercase w-full absolute bottom-0 lg:py-4 py-2 left-1/2 transform -translate-x-1/2 bg-white/70 text-[#1F1F1F] text-[20px] laptop:text-[22px] xxxl:text-[24px]">
@@ -655,7 +654,7 @@ useEffect(() => {
       {/* Packs Image */}
       <div className="lg:w-2/3">
         <img
-          src="images/packs.png"
+          src="images/packs.webp"
           alt="Zia Herbal Face Pack"
           className="w-full laptop:w-[400px] hd:w-[500px] xxxl:w-[560px] h-auto object-contain"
         />
@@ -663,9 +662,9 @@ useEffect(() => {
 
       {/* ISO and Smile Images */}
       <div data-aos="fade-up" data-aos-delay="100" className="flex flex-row lg:flex-col justify-center items-center gap-6 lg:pl-6 mt-6 lg:mt-0">
-        <img src="images/iso.png" alt="Certified" className="h-auto lg:hidden" />
-        <img src="images/iso.png" alt="Certified" className="h-auto hidden lg:block mb-10" />
-        <img src="images/smile.png" alt="Smiling Woman" className="h-auto laptop:w-[150px] hd:w-[180px] xxxl:w-[210px]" />
+        <img src="images/iso.webp" alt="Certified" className="h-auto lg:hidden" />
+        <img src="images/iso.webp" alt="Certified" className="h-auto hidden lg:block mb-10" />
+        <img src="images/smile.webp" alt="Smiling Woman" className="h-auto laptop:w-[150px] hd:w-[180px] xxxl:w-[210px]" />
       </div>
     </div>
 
@@ -684,7 +683,7 @@ useEffect(() => {
 
       {/* Feature #1 */}
       <div data-aos="fade-up" data-aos-delay="100" className="flex items-start gap-4 lg:gap-8 text-left mb-6">
-        <img src="images/ph.png" alt="pH icon" className="mt-2 " />
+        <img src="images/ph.webp" alt="pH icon" className="mt-2 " />
         <div>
           <h3 className="text-[18px] laptop:text-[16px] hd:text-[18px] xxxl:text-[22px] text-[#B2BA98] font-semibold mb-4">
             Premium Natural Ingredients
@@ -698,7 +697,7 @@ useEffect(() => {
 
       {/* Feature #2 */}
       <div data-aos="fade-up" data-aos-delay="100" className="flex items-start gap-4 lg:gap-8 text-left">
-        <img src="images/spray.png" alt="Bottle icon" className="mt-2 " />
+        <img src="images/spray.webp" alt="Bottle icon" className="mt-2 " />
         <div>
           <h3 className="text-[18px] laptop:text-[16px] hd:text-[18px] xxxl:text-[22px] text-[#B2BA98] mb-4">
             High-quality Raw Materials
@@ -728,7 +727,7 @@ useEffect(() => {
     <p>ON BEAUTY</p>
   </div>
 
-  <img src="/images/Star1.png" alt="star" className="w-4 h-4 laptop:w-5 laptop:h-5 hd:w-6 hd:h-6" />
+  <img src="/images/Star1.webp" alt="star" className="w-4 h-4 laptop:w-5 laptop:h-5 hd:w-6 hd:h-6" />
 
   {/* Block 2 */}
   <div data-aos="fade-up" data-aos-delay="100" className="text-left leading-relaxed lg:flex  items-start">
@@ -736,7 +735,7 @@ useEffect(() => {
     <p>SHINE</p>
   </div>
 
-  <img src="/images/Star1.png" alt="star" className="hidden lg:block w-4 h-4 laptop:w-5 laptop:h-5 hd:w-6 hd:h-6" />
+  <img src="/images/Star1.webp" alt="star" className="hidden lg:block w-4 h-4 laptop:w-5 laptop:h-5 hd:w-6 hd:h-6" />
 
   {/* Block 3 */}
   <div data-aos="fade-up" data-aos-delay="100" className="hidden lg:flex  items-start text-left leading-relaxed">
@@ -756,13 +755,13 @@ useEffect(() => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:px-24 xxxl:w-[85%] mx-auto lg:mb-40">
           {testimonials.map((item, index) => (
             <div key={index} className="flex flex-col text-left text-[#686257]">
-              <img src="images/quotes.png" alt="Quotes" className="mb-4 " />
+              <img src="images/quotes.webp" alt="Quotes" className="mb-4 " />
               <p className="font-archivo text-[#686257] text-[18px] leading-relaxed">
                 {item.comment}
               </p>
               <div className="flex items-center mt-4 space-x-4">
                 <img
-                  src={item.gender === "male" ? "images/male.png" : "images/female.png"}
+                  src={item.gender === "male" ? "images/male.webp" : "images/female.webp"}
                   alt="User"
                   className="w-10 h-10 rounded-full"
                 />

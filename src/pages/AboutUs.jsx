@@ -100,7 +100,7 @@ export default function AboutUs() {
   {/* 1st Item */}
   <div className="flex flex-col items-center text-center gap-2 laptop:flex-row laptop:text-left laptop:items-center">
     <img
-      src="images/drops.png"
+      src="images/drops.webp"
       className="w-[60px] xxxl:w-[80px] laptop:w-[60px] hd:w-[70px]"
     />
     <p className="text-[14px] xxxl:text-[20px] laptop:text-[14px] hd:text-[16px]">
@@ -112,7 +112,7 @@ export default function AboutUs() {
   <div className="flex flex-col items-center text-center gap-2 laptop:flex-row laptop:text-left laptop:items-center">
     <div className="border rounded-full border-[#B2BA98] w-[60px] h-[60px] xxxl:w-[80px] laptop:w-[60px] laptop:h-[60px] xxxl:h-[80px] hd:w-[70px] hd:h-[70px] flex items-center justify-center">
       <img
-        src="images/fs.png"
+        src="images/fs.webp"
         className="w-[35px] h-[40px] xxxl:w-[45px] xxxl:h-[50px] laptop:w-[35px] laptop:h-[40px] hd:w-[40px] hd:h-[45px]"
       />
     </div>
@@ -124,7 +124,7 @@ export default function AboutUs() {
   {/* 3rd Item */}
   <div className="flex flex-col items-center text-center gap-2 laptop:flex-row laptop:text-left laptop:items-center">
     <img
-      src="images/leaf.png"
+      src="images/leaf.webp"
       className="w-[60px] xxxl:w-[80px] laptop:w-[60px] hd:w-[70px]"
     />
     <p className="text-[14px] xxxl:text-[20px] laptop:text-[14px] hd:text-[16px]">
@@ -139,25 +139,25 @@ export default function AboutUs() {
           <button className="bg-black font-tenor text-white xxxl:w-[18%] laptop:w-[25%] xxxl:py-4 laptop:py-3 rounded-full text-[16px]">
             Contact Us →
           </button>
-          <img src="images/review.png" alt="Reviews" className="max-w-[350px]" />
+          <img src="images/review.webp" alt="Reviews" className="max-w-[350px]" />
         </div>
 
         {/* Review image for mobile */}
         <div className="flex items-center justify-center lg:hidden block">
-          <img src="images/review.png" alt="Reviews" className="lg:max-w-[350px] lg:my-5 max-w-[300px] my-10" />
+          <img src="images/review.webp" alt="Reviews" className="lg:max-w-[350px] lg:my-5 max-w-[300px] my-10" />
         </div>
         </div>
 
         {/* RIGHT IMAGE */}
         <div className="lg:w-[40%] pt-10 lg:pt-0">
-          <img src="images/bg_lemon.png" className="rounded-xl object-contain w-full" />
+          <img src="images/bg_lemon.webp" className="rounded-xl object-contain w-full" />
         </div>
       </div>
 
       {/* REVIEW IMAGE MOBILE */}
       
       <div className="flex items-center justify-center lg:hidden">
-        <img src="images/review.png" className="max-w-[300px] my-10" />
+        <img src="images/review.webp" className="max-w-[300px] my-10" />
       </div>
 
       {/* SPECIAL PRODUCTS */}
@@ -169,7 +169,7 @@ export default function AboutUs() {
         <div className="flex flex-col lg:flex-row lg:space-x-14 lg:justify-center space-y-8 lg:space-y-0 text-center">
           {["herbal-handwash", "herbal-shampoo", "herbal-soap"].map((img, idx) => (
             <div key={idx} className="relative xxxl:w-[500px] xxxl:h-[340px] laptop:w-[350px] laptop:h-[250px] hd:w-[400px] hd:h-[280px] w-full h-[200px]">
-              <img src={`images/${img}.png`} alt={img} className="w-full h-full" />
+              <img src={`images/${img}.webp`} alt={img} className="w-full h-full" />
               <div className="backdrop-blur-sm tracking-widest font-tenor uppercase w-full absolute bottom-0 lg:py-4 py-2 left-1/2 transform -translate-x-1/2 bg-white/70 text-[#1F1F1F] text-[24px]">
                 {img.replace("herbal-", "Herbal ").replace("-", " ")}
               </div>
@@ -187,13 +187,13 @@ export default function AboutUs() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:px-24 lg:mb-40">
           {testimonials.map((item, index) => (
             <div key={index} className="flex flex-col text-left text-[#686257]">
-              <img src="images/quotes.png" alt="Quotes" className="mb-4 " />
+              <img src="images/quotes.webp" alt="Quotes" className="mb-4 " />
               <p className="font-archivo text-black text-[16px] leading-relaxed">
                 {item.comment}
               </p>
               <div className="flex items-center mt-4 space-x-4">
                 <img
-                  src={item.gender === "male" ? "images/male.png" : "images/female.png"}
+                  src={item.gender === "male" ? "images/male.webp" : "images/female.webp"}
                   alt="User"
                   className="w-10 h-10 rounded-full"
                 />

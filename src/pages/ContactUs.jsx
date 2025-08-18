@@ -70,7 +70,7 @@ const ContactUs = () => {
         {/* Top Image */}
         <div className="w-full">
           <img
-            src="/images/header-products.png"
+            src="/images/header-products.webp"
             alt="Products Header"
             className="h-[185px] xxxl:h-[884px] laptop:h-[600px] hd:h-[700px] mx-auto w-full object-cover"
           />
@@ -91,7 +91,7 @@ const ContactUs = () => {
 
       {/* Visit Branch */}
       <div className="flex items-start gap-4 mb-6">
-        <img src="/icons/loc.png" alt="Location" className="mt-2" />
+        <img src="/icons/loc.webp" alt="Location" className="mt-2" />
         <div>
           <p className="text-[16px] xxxl:text-[26px] laptop:text-[16px] hd:text-[18px] font-bold tracking-wide uppercase">Visit Our Office Branch</p>
           <p className="text-[14px] xxxl:text-[24px] laptop:text-[14px] hd:text-[16px] mt-2">
@@ -106,7 +106,7 @@ const ContactUs = () => {
 
       {/* Email */}
       <div className="flex items-start gap-4 mb-6">
-        <img src="/icons/e-mail.png" alt="Email" className="mt-2" />
+        <img src="/icons/e-mail.webp" alt="Email" className="mt-2" />
         <div>
           <p className="text-[16px] xxxl:text-[26px] laptop:text-[16px] hd:text-[18px] font-bold tracking-wide uppercase">Mail Us</p>
           <p className="text-[14px] xxxl:text-[24px] laptop:text-[14px] hd:text-[16px] mt-2">ziaherbalpro@gmail.com</p>
@@ -115,7 +115,7 @@ const ContactUs = () => {
 
       {/* Phone */}
       <div className="flex items-start gap-4 mb-6">
-        <img src="/icons/call.png" alt="Call" className="mt-2" />
+        <img src="/icons/call.webp" alt="Call" className="mt-2" />
         <div>
           <p className="text-[16px] xxxl:text-[26px] laptop:text-[16px] hd:text-[18px] font-bold tracking-wide uppercase">Contact Us</p>
           <p className="text-[14px] xxxl:text-[24px] laptop:text-[14px] hd:text-[16px] mt-2">+91 - 8939834383</p>
@@ -124,14 +124,14 @@ const ContactUs = () => {
 
       {/* WhatsApp */}
       <div className="flex items-start gap-4 mb-6">
-        <img src="/icons/w-app.png" alt="WhatsApp" className="mt-2" />
+        <img src="/icons/w-app.webp" alt="WhatsApp" className="mt-2" />
         <div>
           <p className="text-[16px] xxxl:text-[26px] laptop:text-[16px] hd:text-[18px] font-bold tracking-wide uppercase">Reach Us Via WhatsApp</p>
           <p className="text-[14px] xxxl:text-[24px] laptop:text-[14px] hd:text-[16px] mt-2">+91 - 8939834383</p>
         </div>
       </div>
        <div className="flex items-start gap-4">
-        <img src="/icons/clock.png" alt="Office timing" className="mt-2" />
+        <img src="/icons/clock.webp" alt="Office timing" className="mt-2" />
         <div>
           <p className="text-[16px] xxxl:text-[26px] laptop:text-[16px] hd:text-[18px] font-bold tracking-wide uppercase">Office Timings</p>
           <p className="text-[14px] xxxl:text-[24px] laptop:text-[14px] hd:text-[16px] mt-2">10 am - 5:00 pm</p>
@@ -251,7 +251,7 @@ const ContactUs = () => {
   <div className="flex w-full max-w-[1400px] mx-auto text-center divide-x divide-[#B2BA98]">
     {/* Returns */}
     <div className="w-1/3 px-6">
-      <img src="/icons/return-icon.png" alt="Returns" className="mx-auto mb-4" />
+      <img src="/icons/return-icon.webp" alt="Returns" className="mx-auto mb-4" />
       <h4 className="uppercase lg:text-[20px] tracking-widest mb-2 text-[#676A5E] font-tenor">Returns & Exchange</h4>
       <p className="text-[14px] lg:text-[16px] text-[#676A5E]">
         Hassle-free returns and easy exchanges within 30<br/> days of purchase.
@@ -259,7 +259,7 @@ const ContactUs = () => {
     </div>
     {/* Shipping */}
     <div className="w-1/3 px-6">
-      <img src="/icons/shipping-icon.png" alt="Shipping" className="mx-auto mb-4" />
+      <img src="/icons/shipping-icon.webp" alt="Shipping" className="mx-auto mb-4" />
       <h4 className="uppercase tracking-widest mb-2 text-[#676A5E] lg:text-[20px] font-tenor">Fast Shipping</h4>
       <p className="text-[14px] lg:text-[16px] text-[#676A5E]">
         Get your order delivered quickly with our reliable,<br/> express shipping service.
@@ -267,7 +267,7 @@ const ContactUs = () => {
     </div>
     {/* Support */}
     <div className="w-1/3 px-6">
-      <img src="/icons/support-icon.png" alt="Support" className="mx-auto mb-4" />
+      <img src="/icons/support-icon.webp" alt="Support" className="mx-auto mb-4" />
       <h4 className="uppercase tracking-widest mb-2 lg:text-[20px] text-[#676A5E] font-tenor">Support 24 / 7</h4>
       <p className="text-[14px] lg:text-[16px] text-[#676A5E]">
         Our customer support team is here for you anytime, <br/>day or night.
@@ -293,7 +293,7 @@ const ContactUs = () => {
 
 
  <div className="text-center px-6 lg:hidden">
-      <img src="/icons/return-icon.png" alt="Returns" className="mx-auto mb-4" />
+      <img src="/icons/return-icon.webp" alt="Returns" className="mx-auto mb-4" />
       <h4 className="uppercase lg:text-[20px] tracking-widest mb-2 text-[#676A5E] text-[18px] font-tenor">
         Returns & Exchange
       </h4>
@@ -304,7 +304,7 @@ const ContactUs = () => {
 <div className="text-center px-6 py-10 lg:hidden">
   
   <img
-    src="/icons/shipping-icon.png"
+    src="/icons/shipping-icon.webp"
     alt="Shipping Icon"
     className="mx-auto mb-6"
   />
@@ -316,7 +316,7 @@ const ContactUs = () => {
   </p>
 </div>
  <div className="text-center px-6 mb-10 lg:hidden">
-      <img src="/icons/support-icon.png" alt="Support" className="mx-auto mb-4" />
+      <img src="/icons/support-icon.webp" alt="Support" className="mx-auto mb-4" />
       <h4 className="uppercase tracking-widest mb-2 lg:text-[20px] text-[#676A5E] text-[18px] font-tenor">
         Support 24 / 7
       </h4>

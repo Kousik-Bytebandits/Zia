@@ -445,7 +445,7 @@ const renderOtpInput = () => (
       {/* Desktop */}
       <div className="hidden lg:flex relative h-screen w-full overflow-hidden">
         <img
-          src="images/leaf.jpg"
+          src="images/leaves.webp"
           alt="Background"
           className="absolute inset-0 w-full h-full object-cover z-0"
         />
@@ -462,7 +462,7 @@ const renderOtpInput = () => (
             </div>
             <div className="w-1/2 relative">
               <img
-                src="images/leaf.jpg"
+                src="images/leaves.webp"
                 alt="Background"
                 className="absolute inset-0 w-full h-full object-cover"
               />
@@ -472,7 +472,7 @@ const renderOtpInput = () => (
                   Your Herbal Beauty <br /> Journey Starts Here
                 </h1>
                 <img
-                  src="images/zia-white.png"
+                  src="images/zia-white.webp"
                   alt="Zia Logo"
                   className="xxxl:w-[250px] xxxl:h-[130px] laptop:w-[180px] laptop:h-[90px] hd:w-[220px] hd:h-[110px] "
                 />
@@ -494,7 +494,7 @@ const renderOtpInput = () => (
       {/* Mobile */}
       <div className="lg:hidden relative min-h-screen w-full overflow-hidden">
         <img
-          src="images/leaf.jpg"
+          src="images/leaves.webp"
           alt="Background"
           className="absolute inset-0 w-full h-full object-cover z-0"
         />
@@ -506,7 +506,7 @@ const renderOtpInput = () => (
           />
         </div>
         <img
-          src="images/zia-white.png"
+          src="images/zia-white.webp"
           alt="Zia Logo"
           className="absolute top-4 right-3 py-4 w-[120px] z-10"
         />

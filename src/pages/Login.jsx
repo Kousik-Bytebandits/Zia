@@ -4,7 +4,7 @@ import { RiArrowLeftSLine } from 'react-icons/ri';
 import { useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { showSessionExpiredToast } from '../components/showSessionExpiredToast';
 
 import endpoint_prefix from '../config/ApiConfig';
 
@@ -28,7 +28,11 @@ export default function Login() {
     });
 
     const data = await res.json();
-
+    if (res.status === 401 || res.status === 403) {
+          localStorage.removeItem("accessToken");
+          showSessionExpiredToast(navigate);
+          return null;
+        }
     if (res.ok && data.accessToken) {
       localStorage.setItem('user', JSON.stringify(data));
       localStorage.setItem('accessToken', data.accessToken);
@@ -85,7 +89,7 @@ export default function Login() {
 
       
       <img
-        src="images/leaf.jpg"
+        src="images/leaves.webp"
         alt="Background"
         className="absolute inset-0 w-full h-full object-cover z-0 hidden lg:block"
       />
@@ -98,7 +102,7 @@ export default function Login() {
           {/* Left */}
           <div className="relative w-1/2 h-full">
             <img
-              src="images/leaf.jpg"
+              src="images/leaves.webp"
               alt="Side background"
               className="absolute inset-0 w-full h-full object-cover"
             />
@@ -108,7 +112,7 @@ export default function Login() {
                 Your Herbal Beauty <br /> Journey Starts Here
               </h1>
               <img
-                src="images/zia-white.png"
+                src="images/zia-white.webp"
                 alt="Zia Logo"
                 className="xxxl:w-[250px] xxxl:h-[130px] laptop:w-[180px] laptop:h-[90px] hd:w-[220px] hd:h-[110px] mt-4"
               />
@@ -207,7 +211,7 @@ export default function Login() {
         {/* Top animated leaf */}
         <div className="relative w-full overflow-hidden">
           <img
-            src="images/leaf.jpg"
+            src="images/leaves.webp"
             alt="Leaf background"
             className="w-full h-[45lvh] object-cover"
           />
@@ -224,7 +228,7 @@ export default function Login() {
             />
           </div>
           <img
-            src="images/zia-white.png"
+            src="images/zia-white.webp"
             alt="Zia Logo"
             className="absolute top-4 right-3 py-4 w-[120px] z-10"
           />

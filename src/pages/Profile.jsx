@@ -164,7 +164,7 @@ const handleUpdate = async () => {
     <h1 className="text-[30px] text-[#2E3A27] font-bold mb-4">User Profile</h1>
 
     <div className="bg-white shadow-lg rounded-lg p-6 flex flex-col items-center w-full max-w-sm mb-8">
-      <img src="images/profile.png" alt="Profile" className="object-cover" />
+      <img src="images/profile.webp" alt="Profile" className="object-cover" />
       <p className="mt-2 text-lg font-semibold text-[#2E3A27]">
         {form.first_name} {form.last_name}
       </p>
@@ -252,7 +252,7 @@ const handleUpdate = async () => {
     <div className="flex gap-10 w-full justify-center">
       {/* Profile Card */}
       <div className="bg-white shadow-around-soft rounded-xl p-8 flex flex-col items-center xxxl:w-[400px] xxxl:h-[300px] laptop:w-[350px] laptop:h-[250px] hd:w-[350px] hd:h-[260px]">
-        <img src="images/profile.png" alt="Profile" className="object-cover" />
+        <img src="images/profile.webp" alt="Profile" className="object-cover" />
 <p className="mt-4 xxxl:text-[28px] laptop:text-[22px] hd:text-[26px] font-semibold text-black uppercase text-center">
   {form.first_name} {form.last_name}
 </p>

@@ -7,8 +7,8 @@ export default function StartScreen() {
     <div className="relative h-screen w-full overflow-hidden">
     
       <img
-        src="images/leaf.jpg"
-        alt="Background leaf"
+        src="images/leaves.webp"
+        alt="Background leaves"
         className="absolute inset-0 w-full h-full object-cover z-0"
       />
       <div className="absolute inset-0 bg-white/5 lg:bg-white/30  z-10" />
@@ -19,8 +19,8 @@ export default function StartScreen() {
         <div className="relative w-[65%] h-[80%] rounded-2xl overflow-hidden shadow-2xl border border-white/20">
           {/* Same image again for sharp center */}
           <img
-            src="images/leaf.jpg"
-            alt="Focused leaf background"
+            src="images/leaves.webp"
+            alt="Focused leaves background"
             className="absolute inset-0 w-full h-full object-cover"
           />
           {/* Optional dark overlay for contrast */}
@@ -33,7 +33,7 @@ export default function StartScreen() {
             </h1>
 
             <img
-              src="images/zia-white.png"
+              src="images/zia-white.webp"
               alt="Zia Logo"
               className="xxxl:w-[255px] xxxl:h-[130px] laptop:w-[200px] laptop:h-[100px] hd:w-[220px] hd:h-[110px] -mt-16"
             />
@@ -59,8 +59,8 @@ export default function StartScreen() {
       {/*  Mobile View */}
        <div className="relative h-screen w-full ">
          <img
-    src="images/leaf.jpg"
-    alt="Leaf background"
+    src="images/leaves.webp"
+    alt="leaves background"
     className="absolute inset-0 w-full h-full object-cover z-0"
     />
       {/* Overlay smoke */}
@@ -76,7 +76,7 @@ export default function StartScreen() {
           Your Herbal<br />Beauty Journey<br />Starts Here
         </div>
         
-          <img src="images/zia-white.png" alt="Zia Herbal Logo" className="bg-[#1212124D]/10 w-[140px]  h-[74px] " />
+          <img src="images/zia-white.webp" alt="Zia Herbal Logo" className="bg-[#1212124D]/10 w-[140px]  h-[74px] " />
 
         {/* Buttons - lower on screen */}
         <div className="w-full flex flex-col gap-5 max-w-xs bg-[#1212124D]/10">

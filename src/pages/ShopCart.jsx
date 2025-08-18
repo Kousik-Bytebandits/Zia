@@ -189,7 +189,7 @@ const handleDecrement = (id, currentQty) => {
           currency: "INR",
           name: data.customer_details.name,
           description: "Purchase from Zia Herbal",
-          image: data.theme?.logo || "/zia_logo.png",
+          image: data.theme?.logo || "/zia_logo.webp",
           order_id: data.razorpayOrder.id,
           handler: async function (response) {
             await verifyCratePayment(response, token);
@@ -333,7 +333,7 @@ const verifyCratePayment = async (response, token) => {
          
           <div className="flex items-center gap-2 mt-2  text-[#676A5E] text-[18px]">
             <span>4.5</span>
-            <img src="/images/5star.png" alt="star" />
+            <img src="/images/5star.webp" alt="star" />
             <span className="ml-1">(79)</span>
           </div>
         </div>
@@ -447,7 +447,7 @@ const verifyCratePayment = async (response, token) => {
                         </div>
                          <div className="flex items-center gap-2 text-[12px] text-[#676A5E] ">
                          <span>4.5</span>
-                      <img src="/images/5star.png" alt="star" className="" />
+                      <img src="/images/5star.webp" alt="star" className="" />
                       <span className="text-[#676A5E] mr-2">(79)</span>
                         </div>
                          <div className="flex items-center gap-3">

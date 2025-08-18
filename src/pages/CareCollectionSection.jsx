@@ -135,15 +135,15 @@ useEffect(() => {
     >
       <div className="flex gap-4 w-[1000px]">
       {Array.isArray(products) && products.map((product) => (
-   <div onClick={() => navigate(`/shopdetails/${product.product_id}`)}  
-    className="bg-white w-[170px] h-[250px] lg:rounded-lg xxxl:w-[270px] xxxl:h-[430px] laptop:w-[180px] laptop:h-[320px] hd:w-[220px] hd:h-[350px] shadow-around-soft border border-[#D8DCCB] flex flex-col ">
+    <div onClick={() => navigate(`/shopdetails/${product.product_id}`)}  
+    className="bg-white w-[180px] h-[320px] lg:rounded-t-2xl xxxl:w-[270px] xxxl:h-[460px] laptop:w-[180px] laptop:h-[320px] hd:w-[220px] hd:h-[375px] shadow-around-soft rounded-t-2xl border border-[#D8DCCB] flex flex-col mb-10">
       <img
-        src={product.primary_image_url || "/images/lemonwash.png"}
+        src={product.primary_image_url || "/images/lemonwash.webp"}
         alt={product.name}
-        className="w-[140px] h-[95px] xxxl:w-[180px] xxxl:h-[180px] laptop:w-[150px] laptop:h-[140px] hd:w-[150px] hd:h-[150px] object-contain mx-auto p-2 lg:mt-2 lg:mb-2"
-      /> 
-      <div className="flex flex-col items-center text-center flex-grow justify-between">
-        <h2 className="text-[14px] h-[34px] mx-4 laptop:text-[18px] hd:text-[20px] xxxl:text-[24px] font-medium xxxl:h-[70px] laptop:h-[55px] hd:h-[60px]">
+        className="w-[180px] h-[179px] rounded-t-2xl xxxl:w-[270px] xxxl:h-[270px] laptop:w-[180px] laptop:h-[180px] hd:w-[220px] hd:h-[220px] object-contain  "
+      />
+      <div className=" flex flex-col items-center text-center flex-grow justify-between">
+        <h2 className="text-[16px] h-[25px] truncate max-w-[150px] xxxl:max-w-[240px] laptop:max-w-[160px] hd:max-w-[190px] mx-4 laptop:text-[18px] hd:text-[20px] xxxl:text-[24px] font-medium xxxl:h-[40px] laptop:h-[25px] hd:h-[30px]">
           {product.name}
         </h2>
            <div className="flex text-yellow-500 items-center  ">
@@ -171,7 +171,7 @@ useEffect(() => {
     {/* Right Image */}
     <div className="hidden lg:flex justify-end items-stretch">
       <img
-        src="/images/pure.png"
+        src="/images/pure.webp"
         alt="Offer Banner"
         className="h-[540px] laptop:h-[720px] hd:h-[760px] xxxl:h-[695px] w-[360px] laptop:w-[400px] hd:w-[430px] xxxl:w-[460px] -mt-48 hd:-mt-[85%] laptop:-mt-[90%] xxxl:-mt-64 object-contain"
       />
@@ -181,7 +181,7 @@ useEffect(() => {
   {/* Mobile fallback image */}
   <div className="lg:hidden">
     <img
-      src="/images/pure.png"
+      src="/images/pure.webp"
       alt="Offer Banner"
       className="mx-auto mt-16 w-[85%]"
     />

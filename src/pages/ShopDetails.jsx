@@ -9,71 +9,59 @@ import { showLoginToast } from "../components/ShowLoginToast";
 import AddressPopup from "./AddressPopup";
 import Loader from "../components/Loader";
 import { showSessionExpiredToast } from "../components/showSessionExpiredToast";
+
 function ProductCard({ product }) {
-
-
-
   const navigate = useNavigate();
-  
+  const productId = product?.product_id || product?.id;
+
   const handleAddToCart = async () => {
- 
-
-  const token = localStorage.getItem("accessToken");
-      const reason = sessionStorage.getItem("tokenReason");
+    const token = localStorage.getItem("accessToken");
+    const reason = sessionStorage.getItem("tokenReason");
     if (!token && reason !== "expired") {
-    showLoginToast(navigate);
-}
+      showLoginToast(navigate);
+    }
+    sessionStorage.removeItem("tokenReason");
 
-sessionStorage.removeItem("tokenReason");
-
-  try {
-    const response = await fetch(
-      "https://api.ziaherbalpro.com/Microservices/06_cart/cart",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          product_id: product.product_id,
-          quantity: product.quantity,
-        }),
-      }
-    );
-       const contentType = response.headers.get("content-type");
-
-      if (!response.ok) {
-        if (contentType && contentType.includes("application/json")) {
-          const errorData = await response.json();
-          throw new Error(errorData.message || "Failed to add product to cart");
-        } else {
-          const errorText = await response.text();
-          throw new Error(errorText || "Failed to add product to cart");
+    try {
+      const response = await fetch(
+        "https://api.ziaherbalpro.com/Microservices/06_cart/cart",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            product_id: productId,
+            quantity: product.quantity || 1,
+          }),
         }
-      }
+      );
 
-    const data = await response.json();
-   console.log("Add to cart response:", data);
-    toast.success("Product added to cart successfully!");
+      const data = await response.json();
+      console.log("Add to cart response:", data);
+      toast.success("Product added to cart successfully!");
     } catch (error) {
       console.error("Error adding to cart:", error);
-     showSessionExpiredToast(navigate);
+      showSessionExpiredToast(navigate);
     }
-};
-
+  };
 
   
   return (
-    <div onClick={() => navigate(`/shopdetails/${product.product_id}`)} 
-     className=" bg-white  w-[170px] h-[250px]  lg:rounded-md xxxl:w-[270px] xxxl:h-[430px] laptop:w-[180px] laptop:h-[300px] hd:w-[200px] hd:h-[350px] shadow-xl border border-[#D8DCCB] flex flex-col">
+    <div
+      onClick={() => {
+        navigate(`/shopdetails/${productId}`);
+      }}
+      className="bg-white  w-[180px] h-[320px] lg:rounded-t-2xl xxxl:w-[270px] xxxl:h-[460px] laptop:w-[180px] laptop:h-[320px] hd:w-[220px] hd:h-[375px] shadow-around-soft rounded-t-2xl border border-[#D8DCCB] flex flex-col">
+      
       <img
         src={product.image}
         alt={product.name}
-        className="w-[140px] h-[95px] xxxl:w-[180px] xxxl:h-[180px] laptop:w-[140px] laptop:h-[140px] hd:w-[150px] hd:h-[150px] object-contain mx-auto p-2 lg:mt-2 lg:mb-2"
+         className="w-[180px] h-[179px] rounded-t-2xl xxxl:w-[270px] xxxl:h-[270px] laptop:w-[180px] laptop:h-[180px] hd:w-[220px] hd:h-[220px] object-contain  "
       />
       <div className=" flex flex-col  items-center text-center flex-grow justify-between">
-         <h2 className="text-[14px] h-[34px] mx-4 laptop:text-[18px] hd:text-[20px] xxxl:text-[24px] font-medium xxxl:h-[70px] laptop:h-[55px] hd:h-[60px]">
+        <h2 className="text-[16px] h-[25px] truncate max-w-[150px] xxxl:max-w-[240px] laptop:max-w-[160px] hd:max-w-[190px] mx-4 laptop:text-[18px] hd:text-[20px] xxxl:text-[24px] font-medium xxxl:h-[40px] laptop:h-[25px] hd:h-[30px]">
           {product.name}
         </h2>
         <div className="flex text-yellow-500 items-center lg:text-[14px]">
@@ -89,7 +77,7 @@ sessionStorage.removeItem("tokenReason");
         </div>
         <button  onClick={(e) => {
     e.stopPropagation(); 
-    handleAddToCart(product.product_id);
+    handleAddToCart(productId);
   }} className="w-full bg-[#2B452C]  text-white py-3 xxxl:py-4 laptop:py-2 hd:py-3 lg:rounded-b text-[18px] xxxl:text-[24px] laptop:text-[20px] tracking-wider font-medium rounded-none">
           Add to Cart
         </button>
@@ -118,25 +106,35 @@ const [loading, setLoading] = useState(false);
 const [quantity, setQuantity] = useState(1);
 const navigate = useNavigate();
 
- useEffect(() => {
-  
+
+useEffect(() => {
   if (productId) {
     fetch(`${endpoint_prefix}04_userProducts/api/user_products/product-details/${productId}`)
       .then((res) => res.json())
       .then((data) => {
-       
+        if (!data || !data.Product_details) {
+          console.error("No product details found:", data);
+          setProductDetails(null);
+          setImages([]);
+          setRelatedProducts([]);
+          return;
+        }
 
         const details = data.Product_details;
         setProductDetails(details);
+        
 
-        const imgs = details.images?.map(img => img.image_url) || [];
+        const imgs = Array.isArray(details.images)
+          ? details.images.map(img => img.image_url)
+          : [];
         setImages(imgs);
 
-        setRelatedProducts(data.Related_Products);
+        setRelatedProducts(data.Related_Products || []);
       })
       .catch((err) => console.error("Fetch error:", err));
   }
 }, [productId]);
+
 
 
 
@@ -854,7 +852,8 @@ const verifyCratePayment = async (response, token) => {
       name: product.name,
       image: product.primary_image_url,
       originalPrice: product.mrp,
-      salePrice: product.price
+      salePrice: product.price,
+       product_id: product.product_id
     }}
   />
 ))}

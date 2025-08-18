@@ -56,7 +56,7 @@ export default function Faq() {
       {/* FAQ Section */}
       <div className="max-w-7xl mx-auto py-16 px-4 grid md:grid-cols-2 gap-10 items-start">
         <img
-          src="images/faq.png"
+          src="images/faq.webp"
           alt="FAQ Illustration"
           className=" w-full mx-auto"
         />
@@ -107,7 +107,7 @@ export default function Faq() {
         </div>
 
         <img
-          src="images/customer.png"
+          src="images/customer.webp"
           alt="Customer Meeting"
           className="rounded-lg shadow-md w-full"
         />

@@ -11,15 +11,15 @@ const MobileOrderTrackingCard = ({ orderId, products, orderStatus }) => {
   const steps = [
     {
       title: "Shipped",
-      icon: "/icons/shipped.png",
+      icon: "/icons/shipped.webp",
     },
     {
       title: "Out of delivery",
-      icon: "/icons/ood.png",
+      icon: "/icons/ood.webp",
     },
     {
       title: "Delivered",
-      icon: "/icons/delivered.png",
+      icon: "/icons/delivered.webp",
     },
   ];
 
@@ -93,17 +93,17 @@ const StepTimeline = ({ orderStatus }) => {
     {
       title: "Shipped",
       description: "Your order has been handed over to our delivery partner and is on its way.",
-      icon: "/icons/shipped.png"
+      icon: "/icons/shipped.webp"
     },
     {
       title: "Out of delivery",
       description: "Your package is arriving today. Please keep your phone nearby.",
-      icon: "/icons/ood.png"
+      icon: "/icons/ood.webp"
     },
     {
       title: "Delivered",
       description: "Your package was successfully delivered. We hope you love it!",
-      icon: "/icons/delivered.png"
+      icon: "/icons/delivered.webp"
     }
   ];
 

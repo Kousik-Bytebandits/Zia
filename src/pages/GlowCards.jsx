@@ -17,7 +17,7 @@ export default function GlowCards() {
       title: "BEAUTY GLOW",
       description:
         "Reveal your natural radiance with Zia Herbal’s Face Packs and Soaps. Formulated with ingredients like Papaya, Aloe Vera, and Hibiscus to brighten your skin and restore your natural beauty.",
-      icon: "images/pot.png",
+      icon: "images/pot.webp",
       bg: "bg-[#F8F2F0]",
       textColor: "text-black",
       button: false,
@@ -25,7 +25,7 @@ export default function GlowCards() {
     {
       title: "NATURE GLOW",
       description: "",
-      icon: "images/nature.png",
+      icon: "images/nature.webp",
       bg: "bg-[#2B452C]",
       textColor: "text-white",
       button: true,
@@ -34,7 +34,7 @@ export default function GlowCards() {
       title: "FLAWLESS GLOW",
       description:
         "Achieve smooth, even-toned, and flawless skin. The Zia Radiance Boost Solution and Face Packs help reduce dullness and enhance your skin’s natural glow without harsh chemicals.",
-      icon: "images/sun.png",
+      icon: "images/sun.webp",
       bg: "bg-[#F8F2F0]",
       textColor: "text-black",
       button: false,
@@ -43,7 +43,7 @@ export default function GlowCards() {
       title: "SUN GLOW",
       description:
         "Protect and hydrate your skin under the sun. Zia’s herbal formulations, including Aloe Vera and Rose Soaps, soothe sun-exposed skin while maintaining moisture and radiance throughout the day.",
-      icon: "images/flawless.png",
+      icon: "images/flawless.webp",
       bg: "bg-[#F8F2F0]",
       textColor: "text-black",
       button: false,
