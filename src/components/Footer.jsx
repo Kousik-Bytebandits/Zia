@@ -11,7 +11,7 @@ export default function Footer() {
           {/* Logo & Address */}
           <div className="text-center lg:text-left space-y-4 laptop:w-[320px]">
             <img
-              src="/images/zia_footer.png"
+              src="/images/zia_footer.webp"
               alt="Zia Logo"
               className="mx-auto laptop:mx-0 w-[140px] laptop:w-[140px] hd:w-[180px] xxxl:w-[200px]"
             />
@@ -43,11 +43,11 @@ export default function Footer() {
                 <li><Link to="/contactus" className="hover:underline">Contact Us</Link></li>
                 
                 <li className="flex items-center gap-2">
-                  <img src="/icons/whatsapp.png" className="w-[16px] h-[16px] -ml-6" alt="whatsapp" />
+                  <img src="/icons/whatsapp.webp" className="w-[16px] h-[16px] -ml-6" alt="whatsapp" />
                   +91 - 8939843483
                 </li>
                 <li className="flex items-center gap-2 ">
-                  <img src="/icons/mail.png" className="w-[20px] h-[18px] -ml-6" alt="email" />
+                  <img src="/icons/mail.webp" className="w-[20px] h-[18px] -ml-6" alt="email" />
                   Ziaherbalpro@gmail.com
                 </li>
               </ul>

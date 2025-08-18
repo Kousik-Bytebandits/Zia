@@ -107,7 +107,7 @@ useEffect(() => {
                   <button onClick={() => setIsOpen(true)} className="text-white">
                     <IoMenu className="text-5xl" />
                   </button>
-                  <img src="/images/zia_logo.png" alt="Zia Logo" className="h-11" />
+                  <img src="/images/zia_logo.webp" alt="Zia Logo" className="h-11" />
                 </div>
 
                 <div className="flex items-center gap-4">
@@ -258,7 +258,7 @@ useEffect(() => {
         {/* Desktop View */}
         <div className="hidden laptop:flex w-full fixed top-0 z-50 font-archivo ">
           <div className="bg-[#2f3a27] flex items-center px-4 laptop:px-4 xxxl:px-10 py-3 gap-6 hd:gap-10 laptop:gap-6 xxxl:gap-14 laptop:w-[45%] xxxl:w-[45%] ">
-            <img src="/images/zia_logo.png" alt="Zia Logo" className="h-12 laptop:h-14 xxxl:h-16 px-2 shrink-0" />
+            <img src="/images/zia_logo.webp" alt="Zia Logo" className="h-12 laptop:h-14 xxxl:h-16 px-2 shrink-0" />
             <ul className="flex gap-6 laptop:gap-6 xxxl:gap-14 hd:gap-10 hd:text-[18px] text-[16px] laptop:text-[17px] xxxl:text-[20px] items-center justify-start ">
               <NavLink to="/home" className={({ isActive }) => `ml-2 ${isActive ? 'border-b-2 border-white' : ''}`}>Home</NavLink>
               <NavLink to="/shoplist" className={({ isActive }) => `${isActive ? 'border-b-2 border-white' : ''}`}>Shop</NavLink>
