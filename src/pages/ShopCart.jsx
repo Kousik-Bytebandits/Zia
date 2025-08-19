@@ -424,77 +424,79 @@ const verifyCratePayment = async (response, token) => {
 
             {/* ✅ Mobile View */}
            <div className="lg:hidden">
-  <div className="max-w-md  mx-auto bg-white rounded-lg px-4">
-    {items.map((item) => (
-      <div
-        key={item.product_id}
-        className=" mt-4  shadow-around-soft rounded-md border-[#D1D1D1] px-3 py-5"
-      >
-        <div className="flex gap-3">
-          {/* Product Image */}
+  <div className="max-w-md mx-auto bg-white rounded-lg px-4">
+  {items.map((item) => (
+    <div
+      key={item.product_id}
+      className="mt-4 shadow-around-soft rounded-md border-[#D1D1D1] px-3 py-4"
+    >
+      <div className="flex">
+        {/* Product Image Left Side */}
+        <div className="w-1/3 flex items-stretch">
           <img
             src={item.image_url}
             alt="product"
-            className="w-28 h-32 object-contain"
+            className="w-full h-full object-cover "
           />
+        </div>
 
-          {/* Product Details */}
-          <div className="flex flex-col justify-between w-full">
-            <h3 className="font-semibold text-[#333333] max-w-[80%] tracking-wide text-[16px] sm:text-base leading-snug">
-              {item.name}
-            </h3>
+        {/* Product Details Right Side */}
+        <div className="w-2/3 flex flex-col justify-between pl-3">
+          <h3 className="font-semibold text-[#333333] tracking-wide text-[16px] sm:text-base leading-snug line-clamp-2">
+            {item.name}
+          </h3>
 
-            {/* Rating */}
-            <div className="flex items-center gap-1 text-sm text-[#676A5E] mt-1">
-              <span className="mt-0.5">4.5</span>
-              <img src="/images/5star.webp" alt="star" className="w-16" />
-              <span className="text-[#676A5E]">(79)</span>
+          {/* Rating */}
+          <div className="flex items-center gap-1 text-sm text-[#676A5E] mt-1">
+            <span className="mt-0.5">4.5</span>
+            <img src="/images/5star.webp" alt="star" className="w-16" />
+            <span className="text-[#676A5E]">(79)</span>
+          </div>
+
+          {/* Price Section */}
+          <div className="flex items-center gap-2 mt-1">
+            <p className="text-[16px] text-[#FF1010]">- {item.discount}%</p>
+            <p className="line-through text-[#AEAEAE] text-[16px]">
+              ₹ {item.old_price}
+            </p>
+            <p className="text-[18px] font-bold">₹ {item.price}</p>
+          </div>
+
+          {/* Quantity + Delete */}
+          <div className="flex w-full items-center mt-2 gap-3">
+            {/* Quantity Box */}
+            <div className="flex flex-1 items-center justify-between border border-[#D5D5D5] rounded-full h-9 shadow-around-soft">
+              <button
+                className="flex-1 h-full flex items-center justify-center"
+                onClick={() => handleDecrement(item.product_id, item.quantity)}
+              >
+                <FaMinus size={14} />
+              </button>
+              <span className="text-[#4C4B4B] text-[18px] px-2">
+                {item.quantity}
+              </span>
+              <button
+                className="flex-1 h-full flex items-center justify-center"
+                onClick={() => handleIncrement(item.product_id, item.quantity)}
+              >
+                <FaPlus size={14} />
+              </button>
             </div>
 
-            {/* Price Section */}
-            <div className="flex items-center gap-2 mt-1">
-              <p className="text-[18px] sm:text-base text-[#FF1010]">
-                - {item.discount}%
-              </p>
-              <p className="line-through text-[#AEAEAE] text-[18px] sm:text-base">
-                ₹ {item.old_price}
-              </p>
-              <p className="text-[22px] sm:text-xl font-bold">₹ {item.price}</p>
-            </div>
-
-            {/* Quantity + Delete */}
-           <div className="flex w-full items-center mt-2 gap-3">
-  {/* Quantity Box */}
-  <div className="flex flex-1 items-center justify-between border border-[#D5D5D5] rounded-full h-9 shadow-around-soft">
-    <button
-      className="flex-1 h-full flex items-center justify-center"
-      onClick={() => handleDecrement(item.product_id, item.quantity)}
-    >
-      <FaMinus size={14} />
-    </button>
-    <span className="text-[#4C4B4B] text-[18px] px-2">{item.quantity}</span>
-    <button
-      className="flex-1 h-full flex items-center justify-center"
-      onClick={() => handleIncrement(item.product_id, item.quantity)}
-    >
-      <FaPlus size={14} />
-    </button>
-  </div>
-
-  {/* Delete Button */}
-  <button
-    onClick={() => handleRemove(item.product_id)}
-    className="flex-1 rounded-full bg-[#BE0000] text-white py-2 text-sm sm:text-base"
-  >
-    Delete
-  </button>
-</div>
-
+            {/* Delete Button */}
+            <button
+              onClick={() => handleRemove(item.product_id)}
+              className="flex-1 rounded-full bg-[#BE0000] text-white py-2 text-sm sm:text-base"
+            >
+              Delete
+            </button>
           </div>
         </div>
       </div>
-    ))}
-  </div>
+    </div>
+  ))}
+</div>
+
 
   {/* Sticky Bottom Cart Summary */}
   <div className="sticky bottom-0 bg-white p-4 rounded-lg shadow-xl mt-4 space-y-2">
