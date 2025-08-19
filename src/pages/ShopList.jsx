@@ -345,12 +345,12 @@ const handleApplyFilter = () => {
 
   return (
     <div>
-    <div className="pt-[18%] min-h-screen overflow-hidden  mb-20 bg-white  lg:px-8 lg:pt-8 font-archivo text-[#676A5E]">
-      <div className="hidden lg:flex justify-between items-center mb-4 px-4">
+    <div className="pt-[19%] min-h-screen overflow-hidden  mb-20 bg-white  lg:px-8 lg:pt-8 font-archivo text-[#676A5E]">
+      <div className="hidden lg:flex justify-between items-center px-4 ">
        
       </div>
 
-      <div className="lg:hidden bg-[#2E3A2714] py-2 rounded flex items-center text-[#676A5E] justify-center mb-4">
+      <div className="lg:hidden bg-[#2E3A2714] py-2 rounded flex items-center text-[#676A5E] justify-center ">
         <div className="flex-1  flex items-center justify-center  font-archivo text-gray-700">
           Sort by :
           <select
@@ -390,11 +390,11 @@ const handleApplyFilter = () => {
 
       </div>
 
-      <div className="grid grid-cols-2 gap-3 px-3 pb-4 pt-2 font-archivo text-[#676A5E] lg:hidden">
+      <div className="grid grid-cols-2 gap-3 px-3 pb-4  font-archivo text-[#676A5E] lg:hidden">
        {Array.isArray(products) && products.map((product) => (
   <ProductCard key={product.product_id} product={product} />
 ))}
-
+    
 
       </div>
 

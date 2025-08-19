@@ -305,7 +305,7 @@ const verifyCratePayment = async (response, token) => {
         }}
       />
       <div className="xxxl:max-w-[80%] laptop:max-w-[90%]  pt-20 mx-auto py-8 font-archivo">
-        <h2 className="xxxl:text-[50px] text-center laptop:text-[35px] hd:text-[40px] lg:mb-10 py-4 font-tenor text-[#2E3A27] text-[28px]">
+        <h2 className="xxxl:text-[50px] text-center laptop:text-[35px] hd:text-[40px] lg:mb-10 lg:py-4 font-tenor text-[#2E3A27] text-[28px]">
           Shopping Cart
         </h2>
 
@@ -423,97 +423,112 @@ const verifyCratePayment = async (response, token) => {
            
 
             {/* ✅ Mobile View */}
-            <div className="lg:hidden">
-              <div className="max-w-md mx-auto bg-white rounded-lg p-4">
-                {items.map((item) => (
-                  <div
-                    key={item.product_id}
-                    className="border-b-2 mt-8 ...987\l
-                    border-dashed border-[#D1D1D1] pb-4 relative"
-                  >
-                  
-                    <div className="flex gap-">
-                      <img
-                        src={item.image_url}
-                        alt="product"
-                        className="w-[117px] h-[155px] "
-                      />
-                      <div className="flex flex-col justify-between py-2 w-full">
-                        <div>
-                          <h3 className="font-medium text-[18px] leading-tight tracking-wider">
-                            {item.name}
-                          </h3>
-                         
-                        </div>
-                         <div className="flex items-center gap-2 text-[12px] text-[#676A5E] ">
-                         <span>4.5</span>
-                      <img src="/images/5star.webp" alt="star" className="" />
-                      <span className="text-[#676A5E] mr-2">(79)</span>
-                        </div>
-                         <div className="flex items-center gap-3">
-        <p className="text-[20px] text-[#FF1010] ">- {item.discount}%</p>
-        <p className="line-through text-[#AEAEAE] text-[20px]">₹ {item.old_price}</p>
-        <p className="text-[24px] font-bold">₹ {item.price}</p>
-      </div>
-                        <div className="flex justify-start gap-4 items-center mt-2">
-                         
-                         <div className="shadow-around-soft flex items-center gap-1 border border-[#D5D5D5] rounded-full h-[34px]">
-                <button
-                  className="px-3"
-                  onClick={() => handleDecrement(item.product_id, item.quantity)}
-                >
-                  <FaMinus size={16}/>
-                </button>
-                <span className="text-[#4C4B4B] text-[20px] ">{item.quantity}</span>
-                <div className="px-3 items-center flex">
-                  <button onClick={() => handleIncrement(item.product_id, item.quantity)}><FaPlus className=" " size={16}/></button>
-                </div>
-              </div>
-              <div>
-                <button  onClick={() => handleRemove(item.product_id)} className="rounded-full bg-[#BE0000] text-white px-8 py-1.5">Delete</button>
-                </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+           <div className="lg:hidden">
+  <div className="max-w-md  mx-auto bg-white rounded-lg px-4">
+    {items.map((item) => (
+      <div
+        key={item.product_id}
+        className=" mt-4  shadow-around-soft rounded-md border-[#D1D1D1] px-3 py-5"
+      >
+        <div className="flex gap-3">
+          {/* Product Image */}
+          <img
+            src={item.image_url}
+            alt="product"
+            className="w-28 h-32 object-contain"
+          />
 
-              <div className="sticky bottom-0 bg-white p-4 rounded-lg shadow-xl mt-4 space-y-2 pb-4">
-                <div className="flex justify-between text-[14px] text-[#5E5C5C]">
-                  <span>Cart Items</span>
-                  <span className="font-semibold text-[16px]">
-                    ₹ {subtotal.toFixed(2)} INR
-                  </span>
-                </div>
-                <div className="flex justify-between text-[14px] text-[#5E5C5C]">
-                  <span>Discount</span>
-                  <span className="text-[#FF6565] font-semibold text-[16px]">
-                     - {discountPercent.toFixed(0)}%
-                  </span>
-                </div>
-                <div className="flex justify-between text-[14px] text-[#5E5C5C]">
-                  <span>Delivery Charges</span>
-                  <span className="line-through font-semibold text-[16px]">
-                    ₹ 80 INR
-                  </span>
-                </div>
-                <div className="flex justify-between font-semibold tracking-wide text-[18px]">
-                  <span>Total:</span>
-                  <span>₹ {total.toFixed(2)} INR</span>
-                </div>
-                <p className="flex justify-end text-[#929292] text-[11px]">
-                  Free Shipping
-                </p>
+          {/* Product Details */}
+          <div className="flex flex-col justify-between w-full">
+            <h3 className="font-semibold text-[#333333] max-w-[80%] tracking-wide text-[16px] sm:text-base leading-snug">
+              {item.name}
+            </h3>
 
-                <button
-                  onClick={handleCheckout}
-                  className="w-full bg-[#111111] font-tenor text-[18px] text-white py-3 mt-2 rounded-lg"
-                >
-                  Proceed to checkout
-                </button>
-              </div>
+            {/* Rating */}
+            <div className="flex items-center gap-1 text-sm text-[#676A5E] mt-1">
+              <span className="mt-0.5">4.5</span>
+              <img src="/images/5star.webp" alt="star" className="w-16" />
+              <span className="text-[#676A5E]">(79)</span>
             </div>
+
+            {/* Price Section */}
+            <div className="flex items-center gap-2 mt-1">
+              <p className="text-[18px] sm:text-base text-[#FF1010]">
+                - {item.discount}%
+              </p>
+              <p className="line-through text-[#AEAEAE] text-[18px] sm:text-base">
+                ₹ {item.old_price}
+              </p>
+              <p className="text-[22px] sm:text-xl font-bold">₹ {item.price}</p>
+            </div>
+
+            {/* Quantity + Delete */}
+           <div className="flex w-full items-center mt-2 gap-3">
+  {/* Quantity Box */}
+  <div className="flex flex-1 items-center justify-between border border-[#D5D5D5] rounded-full h-9 shadow-around-soft">
+    <button
+      className="flex-1 h-full flex items-center justify-center"
+      onClick={() => handleDecrement(item.product_id, item.quantity)}
+    >
+      <FaMinus size={14} />
+    </button>
+    <span className="text-[#4C4B4B] text-[18px] px-2">{item.quantity}</span>
+    <button
+      className="flex-1 h-full flex items-center justify-center"
+      onClick={() => handleIncrement(item.product_id, item.quantity)}
+    >
+      <FaPlus size={14} />
+    </button>
+  </div>
+
+  {/* Delete Button */}
+  <button
+    onClick={() => handleRemove(item.product_id)}
+    className="flex-1 rounded-full bg-[#BE0000] text-white py-2 text-sm sm:text-base"
+  >
+    Delete
+  </button>
+</div>
+
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  {/* Sticky Bottom Cart Summary */}
+  <div className="sticky bottom-0 bg-white p-4 rounded-lg shadow-xl mt-4 space-y-2">
+    <div className="flex justify-between text-sm text-[#5E5C5C]">
+      <span>Cart Items</span>
+      <span className="font-semibold text-base">
+        ₹ {subtotal.toFixed(2)} INR
+      </span>
+    </div>
+    <div className="flex justify-between text-sm text-[#5E5C5C]">
+      <span>Discount</span>
+      <span className="text-[#FF6565] font-semibold text-base">
+        -{discountPercent.toFixed(0)}%
+      </span>
+    </div>
+    <div className="flex justify-between text-sm text-[#5E5C5C]">
+      <span>Delivery Charges</span>
+      <span className="line-through font-semibold text-base">₹ 80 INR</span>
+    </div>
+    <div className="flex justify-between font-semibold tracking-wide text-lg">
+      <span>Total:</span>
+      <span>₹ {total.toFixed(2)} INR</span>
+    </div>
+    <p className="flex justify-end text-[#929292] text-[11px]">Free Shipping</p>
+
+    <button
+      onClick={handleCheckout}
+      className="w-full bg-[#111111] font-tenor text-base sm:text-lg text-white py-3 mt-2 rounded-lg"
+    >
+      Proceed to checkout
+    </button>
+  </div>
+</div>
+
           </>
         )}
       </div>
