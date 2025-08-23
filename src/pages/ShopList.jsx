@@ -132,7 +132,7 @@ export default function ShopList() {
    const [showFilter, setShowFilter] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedDiscounts, setSelectedDiscounts] = useState([]);
-
+const [totalProducts, setTotalProducts] = useState(0);
   const filterRef = useRef(null);
 const [selectedCategories, setSelectedCategories] = useState([]);
 const toggleCategory = (category) => {
@@ -190,16 +190,15 @@ const handleApplyFilter = () => {
 
       const url = isMobile
         ? `${endpoint_prefix}04_userProducts/api/user_products/all-products?sort_by=${sortOption}&min_price=${priceRange[0]}&max_price=${priceRange[1]}&limit=1000`
-        : `${endpoint_prefix}04_userProducts/api/user_products/all-products?sort_by=${sortOption}&min_price=${priceRange[0]}&max_price=${priceRange[1]}&page=${currentPage}&limit=20`;
+        : `${endpoint_prefix}04_userProducts/api/user_products/all-products?sort_by=${sortOption}&min_price=${priceRange[0]}&max_price=${priceRange[1]}&page=${currentPage}&limit=15`;
 
       const res = await fetch(url);
       const result = await res.json();
 
       if (result && Array.isArray(result.data)) {
-        setProducts(result.data);
-        // if API supports it, update total
-        // setTotalProducts(result.pagination?.total || result.data.length);
-      } else {
+  setProducts(result.data);
+  setTotalProducts(result.pagination?.total || 0);
+} else {
         console.error("Unexpected response format:", result);
         setProducts([]);
       }
@@ -228,8 +227,8 @@ const handleApplyFilter = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [showFilter]);
 
-  const totalProducts = 350;
-  const perPage = 20;
+  
+  const perPage = 15;
   const totalPages = Math.ceil(totalProducts / perPage);
 
  const FilterSidebar = (
@@ -442,46 +441,73 @@ const handleApplyFilter = () => {
 
         </div>
       </div>
-         <div className="hidden lg:flex justify-end items-center text-[18px] text-[#676A5E] mt-8 mb-20">
+
+
+        <div className="hidden lg:flex justify-end items-center text-[18px] text-[#676A5E] mt-8 mb-20">
   <div className="flex gap-2">
+    {/* Prev */}
     <button
       onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-      className="w-[64px] h-[64px] text-[#2B452C] font-bold rounded flex items-center justify-center"
+      disabled={currentPage === 1}
+      className={`w-[64px] h-[64px] font-bold rounded flex items-center justify-center ${
+        currentPage === 1
+          ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+          : "text-[#2B452C]"
+      }`}
     >
       Prev
     </button>
 
-    {[...Array(totalPages).keys()].slice(0, 3).map((i) => (
-      <button
-        key={i + 1}
-        className={`w-[64px] h-[64px] border border-[#2B452C] rounded flex items-center justify-center ${
-          currentPage === i + 1 ? "bg-[#2B452C] text-white" : ""
-        }`}
-        onClick={() => setCurrentPage(i + 1)}
-      >
-        {i + 1}
-      </button>
-    ))}
+    {/* Page numbers */}
+    {(() => {
+      let pages = [];
+      if (totalPages <= 3) {
+        pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+      } else if (currentPage <= 2) {
+        pages = [1, 2, 3, "...", totalPages];
+      } else if (currentPage >= totalPages - 1) {
+        pages = [1, "...", totalPages - 2, totalPages - 1, totalPages];
+      } else {
+        pages = [1, "...", currentPage, currentPage + 1, "...", totalPages];
+      }
 
-    <div className="w-[64px] h-[64px] flex items-center justify-center">...</div>
+      return pages.map((p, i) =>
+        p === "..." ? (
+          <div
+            key={`dots-${i}`}
+            className="w-[64px] h-[64px] flex items-center justify-center"
+          >
+            ...
+          </div>
+        ) : (
+          <button
+            key={p}
+            onClick={() => setCurrentPage(p)}
+            className={`w-[64px] h-[64px] border border-[#2B452C] rounded flex items-center justify-center ${
+              currentPage === p ? "bg-[#2B452C] text-white" : ""
+            }`}
+          >
+            {p}
+          </button>
+        )
+      );
+    })()}
 
-    <button
-      className={`w-[64px] h-[64px] border border-[#2B452C] rounded flex items-center justify-center ${
-        currentPage === totalPages ? "bg-[#2B452C] text-white" : ""
-      }`}
-      onClick={() => setCurrentPage(totalPages)}
-    >
-      {totalPages}
-    </button>
-
+    {/* Next */}
     <button
       onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-      className="w-[64px] h-[64px] text-[#2B452C] font-bold  rounded flex items-center justify-center"
+      disabled={currentPage === totalPages}
+      className={`w-[64px] h-[64px] font-bold rounded flex items-center justify-center ${
+        currentPage === totalPages
+          ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+          : "text-[#2B452C]"
+      }`}
     >
       Next
     </button>
   </div>
 </div>
+
     </div>
     <Footer/>
     <ToastContainer position="top-right" autoClose={3000} />
