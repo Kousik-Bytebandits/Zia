@@ -184,7 +184,7 @@ useEffect(() => {
     NEXT <span className="inline-block ml-3 -mt-1 text-2xl lg:text-4xl lg:-mt-2">→</span>
   </div>
 </section>
-
+<CareCollectionsSection/>
 <div className="px-6 mt-10 mb-10 text-left space-y-5 lg:space-y-8  xxxl:px-20 xxxl:mt-28 xxxl:mb-28 laptop:px-10 laptop:mt-12 laptop:mb-14 hd:px-16 hd:mt-20 hd:mb-20">
   {/* Box Grid for Desktop */}
  <div className="hidden laptop:grid laptop:grid-cols-4 hd:grid-cols-4 xxxl:grid-cols-4 gap-y-4 laptop:gap-x-2 hd:gap-x-2 hd:gap-y-4 xxxl:gap-x-8 xxxl:gap-y-10">
@@ -764,7 +764,7 @@ useEffect(() => {
 </div>
 
 
-    <CareCollectionsSection/>
+    
 
  <div className="lg:mt-20 p-6 text-left lg:text-center mb-10">
         <h2 className="text-[#686257] font-tenor text-[24px] lg:text-[32px] tracking-widest mb-10 uppercase">
