@@ -155,28 +155,27 @@ const handleApplyFilter = () => {
   const categoryString = selectedCategories.join(",");
   fetch(`${endpoint_prefix}04_userProducts/api/user_products/all-products?sort_by=${sortOption}&min_price=${priceRange[0]}&max_price=${priceRange[1]}&categories=${categoryString}`)
     .then((res) => res.json())
-    .then((data) => {
-      let filteredProducts = Array.isArray(data) ? data : [];
+    .then((result) => {
+  let filteredProducts = Array.isArray(result.data) ? result.data : [];
 
-      if (selectedDiscounts.length > 0) {
-        filteredProducts = filteredProducts.filter((product) => {
-          const discount = parseFloat(product.discount || "0");
+  if (selectedDiscounts.length > 0) {
+    filteredProducts = filteredProducts.filter((product) => {
+      const discount = parseFloat(product.discount || "0");
+      return selectedDiscounts.some((value) => {
+        const threshold = parseInt(value);
+        if (threshold === 30) {
+          return discount >= 30;
+        } else {
+          return discount <= threshold;
+        }
+      });
+    });
+  }
 
-          return selectedDiscounts.some((value) => {
-            const threshold = parseInt(value);
-            if (threshold === 30) {
-              return discount >= 30;
-            } else {
-              return discount <= threshold;
-            }
-          });
-        });
-      }
-
-      setProducts(filteredProducts);
-      setShowFilter(false);
-    })
-    .catch((err) => console.error("Failed to fetch filtered products", err));
+  setProducts(filteredProducts);
+  setShowFilter(false);
+})
+  .catch((err) => console.error("Failed to fetch filtered products", err));
 };
 
 
@@ -184,19 +183,34 @@ const handleApplyFilter = () => {
 
 
  useEffect(() => {
-  fetch(`${endpoint_prefix}04_userProducts/api/user_products/all-products?sort_by=${sortOption}&min_price=${priceRange[0]}&max_price=${priceRange[1]}`)
-    .then(res => res.json())
-    .then(data => {
-      if (Array.isArray(data)) {
-       
-        setProducts(data);
+  const fetchProducts = async () => {
+    try {
+      // detect screen size
+      const isMobile = window.innerWidth < 768; // Tailwind's md breakpoint
+
+      const url = isMobile
+        ? `${endpoint_prefix}04_userProducts/api/user_products/all-products?sort_by=${sortOption}&min_price=${priceRange[0]}&max_price=${priceRange[1]}&limit=1000`
+        : `${endpoint_prefix}04_userProducts/api/user_products/all-products?sort_by=${sortOption}&min_price=${priceRange[0]}&max_price=${priceRange[1]}&page=${currentPage}&limit=20`;
+
+      const res = await fetch(url);
+      const result = await res.json();
+
+      if (result && Array.isArray(result.data)) {
+        setProducts(result.data);
+        // if API supports it, update total
+        // setTotalProducts(result.pagination?.total || result.data.length);
       } else {
-        console.error("Unexpected response format:", data);
+        console.error("Unexpected response format:", result);
         setProducts([]);
       }
-    })
-    .catch(err => console.error("Failed to fetch products", err));
-}, [sortOption, priceRange]);
+    } catch (err) {
+      console.error("Failed to fetch products", err);
+    }
+  };
+
+  fetchProducts();
+}, [sortOption, priceRange, currentPage]);
+
 
 
 
@@ -398,7 +412,7 @@ const handleApplyFilter = () => {
 
       </div>
 
-      <div className="grid lg:grid-cols-[270px_1fr] gap-8 hidden lg:grid">
+      <div className="grid lg:grid-cols-[270px_1fr] mt-4 gap-8 hidden lg:grid">
         <div>{FilterSidebar}</div>
         <div className="flex flex-col gap-8">
          <div className="flex justify-between items-center"> 
