@@ -133,6 +133,10 @@ export default function ShopList() {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedDiscounts, setSelectedDiscounts] = useState([]);
 const [totalProducts, setTotalProducts] = useState(0);
+const [totalPages, setTotalPages] = useState(1);
+const [filters, setFilters] = useState(null); 
+const LIMIT = 15; 
+
   const filterRef = useRef(null);
 const [selectedCategories, setSelectedCategories] = useState([]);
 const toggleCategory = (category) => {
@@ -153,54 +157,114 @@ const toggleDiscount = (Value) => {
 
 const handleApplyFilter = () => {
   const categoryString = selectedCategories.join(",");
-  fetch(`${endpoint_prefix}04_userProducts/api/user_products/all-products?sort_by=${sortOption}&min_price=${priceRange[0]}&max_price=${priceRange[1]}&categories=${categoryString}`)
+
+  
+  const page = 1;
+  
+
+  fetch(
+    `${endpoint_prefix}04_userProducts/api/user_products/all-products?sort_by=${sortOption}&min_price=${priceRange[0]}&max_price=${priceRange[1]}&categories=${categoryString}&page=${page}&limit=${LIMIT}`
+  )
     .then((res) => res.json())
     .then((result) => {
-  let filteredProducts = Array.isArray(result.data) ? result.data : [];
+      if (result && Array.isArray(result.data)) {
+        let filteredProducts = result.data;
 
-  if (selectedDiscounts.length > 0) {
-    filteredProducts = filteredProducts.filter((product) => {
-      const discount = parseFloat(product.discount || "0");
-      return selectedDiscounts.some((value) => {
-        const threshold = parseInt(value);
-        if (threshold === 30) {
-          return discount >= 30;
-        } else {
-          return discount <= threshold;
+        // Apply frontend discount filter if selected
+        if (selectedDiscounts.length > 0) {
+          filteredProducts = filteredProducts.filter((product) => {
+            const discount = parseFloat(product.discount || "0");
+            return selectedDiscounts.some((value) => {
+              const threshold = parseInt(value);
+              if (threshold === 30) {
+                return discount >= 30;
+              } else {
+                return discount <= threshold;
+              }
+            });
+          });
         }
-      });
-    });
-  }
 
-  setProducts(filteredProducts);
-  setShowFilter(false);
-})
-  .catch((err) => console.error("Failed to fetch filtered products", err));
+        const total = result.pagination?.total || filteredProducts.length;
+        const computedTotalPages = Math.ceil(total / LIMIT);
+         setFilters({
+    categories: selectedCategories.join(","),
+    min_price: priceRange[0],
+    max_price: priceRange[1],
+    discounts: selectedDiscounts,
+  });
+        setProducts(filteredProducts);
+        setTotalProducts(total);
+        setTotalPages(computedTotalPages);
+        
+        
+      } else {
+        setProducts([]);
+        setTotalProducts(0);
+        setTotalPages(1);
+        setCurrentPage(1);
+      }
+       setCurrentPage(1);
+      setShowFilter(false);
+    })
+    .catch((err) => console.error("Failed to fetch filtered products", err));
 };
 
 
 
 
-
- useEffect(() => {
+useEffect(() => {
   const fetchProducts = async () => {
     try {
-      // detect screen size
-      const isMobile = window.innerWidth < 768; // Tailwind's md breakpoint
+      const isMobile = window.innerWidth < 768;
 
-      const url = isMobile
-        ? `${endpoint_prefix}04_userProducts/api/user_products/all-products?sort_by=${sortOption}&min_price=${priceRange[0]}&max_price=${priceRange[1]}&limit=1000`
-        : `${endpoint_prefix}04_userProducts/api/user_products/all-products?sort_by=${sortOption}&min_price=${priceRange[0]}&max_price=${priceRange[1]}&page=${currentPage}&limit=15`;
+      const params = new URLSearchParams({
+        sort_by: sortOption,
+        page: currentPage.toString(),
+        limit: isMobile ? "1000" : LIMIT.toString(),
+        min_price: priceRange[0].toString(),
+        max_price: priceRange[1].toString(),
+      });
+
+      if (filters?.categories) params.append("categories", filters.categories);
+
+      let url = `${endpoint_prefix}04_userProducts/api/user_products/all-products?${params.toString()}`;
 
       const res = await fetch(url);
       const result = await res.json();
 
       if (result && Array.isArray(result.data)) {
-  setProducts(result.data);
-  setTotalProducts(result.pagination?.total || 0);
-} else {
-        console.error("Unexpected response format:", result);
+        let fetchedProducts = result.data;
+        let total = result.pagination?.total || fetchedProducts.length;
+        let computedTotalPages = Math.ceil(total / LIMIT);
+
+        // If discounts are applied, do client-side filter
+        if (filters?.discounts?.length > 0) {
+          fetchedProducts = fetchedProducts.filter((product) => {
+            const discount = parseFloat(product.discount || "0");
+            return filters.discounts.some((value) => {
+              const threshold = parseInt(value);
+              return threshold === 30 ? discount >= 30 : discount <= threshold;
+            });
+          });
+
+          // recompute total + totalPages locally
+          total = fetchedProducts.length;
+          computedTotalPages = Math.ceil(total / LIMIT);
+
+          // slice the array manually for current page
+          const start = (currentPage - 1) * LIMIT;
+          const end = start + LIMIT;
+          fetchedProducts = fetchedProducts.slice(start, end);
+        }
+
+        setProducts(fetchedProducts);
+        setTotalProducts(total);
+        setTotalPages(computedTotalPages);
+      } else {
         setProducts([]);
+        setTotalProducts(0);
+        setTotalPages(1);
       }
     } catch (err) {
       console.error("Failed to fetch products", err);
@@ -208,7 +272,9 @@ const handleApplyFilter = () => {
   };
 
   fetchProducts();
-}, [sortOption, priceRange, currentPage]);
+}, [sortOption, priceRange, currentPage, filters]);
+
+
 
 
 
@@ -229,7 +295,8 @@ const handleApplyFilter = () => {
 
   
   const perPage = 15;
-  const totalPages = Math.ceil(totalProducts / perPage);
+
+
 
  const FilterSidebar = (
   
@@ -443,7 +510,7 @@ const handleApplyFilter = () => {
       </div>
 
 
-        <div className="hidden lg:flex justify-end items-center text-[18px] text-[#676A5E] mt-8 mb-20">
+       <div className="hidden lg:flex justify-end items-center text-[18px] text-[#676A5E] mt-8 mb-20">
   <div className="flex gap-2">
     {/* Prev */}
     <button
@@ -459,39 +526,34 @@ const handleApplyFilter = () => {
     </button>
 
     {/* Page numbers */}
-    {(() => {
-      let pages = [];
-      if (totalPages <= 3) {
-        pages = Array.from({ length: totalPages }, (_, i) => i + 1);
-      } else if (currentPage <= 2) {
-        pages = [1, 2, 3, "...", totalPages];
-      } else if (currentPage >= totalPages - 1) {
-        pages = [1, "...", totalPages - 2, totalPages - 1, totalPages];
-      } else {
-        pages = [1, "...", currentPage, currentPage + 1, "...", totalPages];
-      }
+   {(() => {
+  const pages = [];
+  if (totalPages <= 5) {
+    for (let i = 1; i <= totalPages; i++) pages.push(i);
+  } else if (currentPage <= 3) {
+    pages.push(1, 2, 3, 4, "...", totalPages);
+  } else if (currentPage >= totalPages - 2) {
+    pages.push(1, "...", totalPages - 3, totalPages - 2, totalPages - 1, totalPages);
+  } else {
+    pages.push(1, "...", currentPage - 1, currentPage, currentPage + 1, "...", totalPages);
+  }
+  return pages.map((p, i) =>
+    p === "..." ? (
+      <div key={`dots-${i}`} className="w-[64px] h-[64px] flex items-center justify-center">...</div>
+    ) : (
+      <button
+        key={p}
+        onClick={() => setCurrentPage(p)}
+        className={`w-[64px] h-[64px] border border-[#2B452C] rounded flex items-center justify-center ${
+          currentPage === p ? "bg-[#2B452C] text-white" : ""
+        }`}
+      >
+        {p}
+      </button>
+    )
+  );
+})()}
 
-      return pages.map((p, i) =>
-        p === "..." ? (
-          <div
-            key={`dots-${i}`}
-            className="w-[64px] h-[64px] flex items-center justify-center"
-          >
-            ...
-          </div>
-        ) : (
-          <button
-            key={p}
-            onClick={() => setCurrentPage(p)}
-            className={`w-[64px] h-[64px] border border-[#2B452C] rounded flex items-center justify-center ${
-              currentPage === p ? "bg-[#2B452C] text-white" : ""
-            }`}
-          >
-            {p}
-          </button>
-        )
-      );
-    })()}
 
     {/* Next */}
     <button
@@ -507,6 +569,7 @@ const handleApplyFilter = () => {
     </button>
   </div>
 </div>
+
 
     </div>
     <Footer/>
