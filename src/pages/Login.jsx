@@ -19,7 +19,7 @@ export default function Login() {
 
  
 
-  const handleLogin = async () => {
+const handleLogin = async () => {
   try {
     const res = await fetch(`${endpoint_prefix}02_Authentication/auth/login`, {
       method: 'POST',
@@ -28,12 +28,10 @@ export default function Login() {
     });
 
     const data = await res.json();
-    if (res.status === 401 || res.status === 403) {
-          localStorage.removeItem("accessToken");
-          showSessionExpiredToast(navigate);
-          return null;
-        }
+    const errorMessage = data.error || data.message || data.msg || '';
+
     if (res.ok && data.accessToken) {
+      // ✅ Success
       localStorage.setItem('user', JSON.stringify(data));
       localStorage.setItem('accessToken', data.accessToken);
       localStorage.setItem('refreshToken', data.refreshToken);
@@ -43,18 +41,21 @@ export default function Login() {
       setTimeout(() => {
         navigate(fromCheckout ? '/shopcart' : '/home', { replace: true });
       }, 1500);
-    } else {
-      const errorMessage = data.error || data.message || data.msg || 'Login failed';
-
-      if (/password/i.test(errorMessage)) {
-        toast.error("Invalid password. Please try again.");
-      } else if (/email|username|not registered|no user|not found/i.test(errorMessage)) {
-        toast.error("User not found. Please create an account.");
+    } else if (res.status === 401) {
+      // 🔑 Handle Invalid credentials
+      if (/invalid credentials/i.test(errorMessage)) {
+        toast.error("Invalid email or password. Please try again.",{ autoClose: 2000 });
       } else if (/not active/i.test(errorMessage)) {
         toast.error("Your account is not active. Please contact support.");
       } else {
-        toast.error(errorMessage);
+        // Default → session expired
+        localStorage.removeItem("accessToken");
+        showSessionExpiredToast(navigate);
       }
+    } else if (res.status === 403) {
+      toast.error("Access forbidden. Please contact support.");
+    } else {
+      toast.error(errorMessage || "Login failed");
     }
   } catch (err) {
     console.error(err);
