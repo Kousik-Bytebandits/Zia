@@ -19,6 +19,13 @@ const [suggestions, setSuggestions] = useState([]);
   const location = useLocation();
   const navigate = useNavigate();
   const isHome = location.pathname === '/home';
+const [showUserMenu, setShowUserMenu] = useState(false);
+const [token, setToken] = useState(null);
+
+useEffect(() => {
+  const savedToken = localStorage.getItem("accessToken");
+  setToken(savedToken);
+}, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -62,21 +69,11 @@ useEffect(() => {
 
 
 
-  const handleChange = () => {
-    const token = localStorage.getItem("accessToken");
-    const reason = sessionStorage.getItem("tokenReason");
-    if (!token && reason !== "expired") {
-      showLoginToast(navigate);
-    } else {
-      navigate("/profile");
-    }
-    sessionStorage.removeItem("tokenReason");
-  };
+ 
 
   const handleCart = () => {
-    const token = localStorage.getItem("accessToken");
-    const reason = sessionStorage.getItem("tokenReason");
-    if (!token && reason !== "expired") {
+const token = localStorage.getItem("accessToken");
+    if (!token) {
       showLoginToast(navigate);
     } else {
       navigate("/shopcart");
@@ -111,7 +108,52 @@ useEffect(() => {
                 </div>
 
                 <div className="flex items-center gap-4">
-                  <FaUser onClick={handleChange} className="text-white text-3xl" />
+                <div className="relative">
+  <FaUser
+    onClick={() => setShowUserMenu(!showUserMenu)}
+    className="cursor-pointer text-3xl laptop:text-2xl xxxl:text-3xl shrink-0"
+  />
+
+  {showUserMenu && (
+    <div className="absolute  top-7 ml-[-35px] mt-2 w-32 bg-[#f5f1e8] shadow-lg rounded-md py-1 z-50">
+      {!token ? (
+        <button
+          className="block w-full  text-center text-black font-medium px-4 py-1 hover:bg-gray-200"
+          onClick={() => {
+            setShowUserMenu(false);
+            navigate("/login");
+          }}
+        >
+          Login
+        </button>
+      ) : (
+        <>
+          <button
+            className="block w-full text-center text-black font-medium px-4 py-1 hover:bg-gray-200"
+            onClick={() => {
+              setShowUserMenu(false);
+              navigate("/profile");
+            }}
+          >
+            Profile
+          </button>
+          <button
+            className="block w-full text-center text-black font-medium px-4 py-1 hover:bg-gray-200"
+            onClick={() => {
+              localStorage.removeItem("accessToken");
+              setToken(null);
+              setShowUserMenu(false);
+              navigate("/home");
+            }}
+          >
+            Logout
+          </button>
+        </>
+      )}
+    </div>
+  )}
+</div>
+
                   <div className="relative">
                     <img src='/icons/cart.svg' onClick={handleCart} className="text-white w-9" />
                     <span className="absolute -top-2 -right-1 bg-red-600 text-[10px] leading-none font-semibold text-white rounded-full px-[4px] py-[3px]">
@@ -307,7 +349,52 @@ useEffect(() => {
             </div>
 
             <img src='/icons/cart.svg' className="text-2xl laptop:w-8 xxxl:w-10 cursor-pointer shrink-0" onClick={handleCart} />
-            <FaUser onClick={handleChange} className="cursor-pointer text-2xl laptop:text-2xl xxxl:text-3xl shrink-0" />
+<div className="relative">
+  <FaUser
+    onClick={() => setShowUserMenu(!showUserMenu)}
+    className="cursor-pointer text-2xl laptop:text-2xl xxxl:text-3xl shrink-0"
+  />
+
+  {showUserMenu && (
+    <div className="absolute mt-7 laptop:ml-[-85px] xxxl:ml-[-55px] mt-2 w-32 bg-[#f5f1e8] shadow-lg rounded-md py-1 z-50">
+      {!token ? (
+        <button
+          className="block w-full  text-center text-black font-medium px-4 py-1 hover:bg-gray-200"
+          onClick={() => {
+            setShowUserMenu(false);
+            navigate("/login");
+          }}
+        >
+          Login
+        </button>
+      ) : (
+        <>
+          <button
+            className="block w-full text-center text-black font-medium px-4 py-1 hover:bg-gray-200"
+            onClick={() => {
+              setShowUserMenu(false);
+              navigate("/profile");
+            }}
+          >
+            Profile
+          </button>
+          <button
+            className="block w-full text-center text-black font-medium px-4 py-1 hover:bg-gray-200"
+            onClick={() => {
+              localStorage.removeItem("accessToken");
+              setToken(null);
+              setShowUserMenu(false);
+              navigate("/home");
+            }}
+          >
+            Logout
+          </button>
+        </>
+      )}
+    </div>
+  )}
+</div>
+
           </div>
         </div>
       </nav>

@@ -224,7 +224,7 @@ const handleLogin = async () => {
           {/* Top icons */}
           <div className="absolute top-4 left-4 py-5 text-5xl z-10">
             <RiArrowLeftSLine
-              onClick={() => navigate(-1)}
+              onClick={() => navigate('/home')}
               className="bg-white rounded-full"
             />
           </div>

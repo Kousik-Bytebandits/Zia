@@ -184,7 +184,7 @@ const handleDecrement = (id, currentQty) => {
 
       if (data?.razorpayOrder) {
         const options = {
-          key: "rzp_test_qQ40l1wBMtOxc0",
+          key: "rzp_live_R75rdw8gxXpPWJ",
           amount: data.razorpayOrder.amount,
           currency: "INR",
           name: data.customer_details.name,

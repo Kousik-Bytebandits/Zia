@@ -300,7 +300,7 @@ useEffect(() => {
 
  const FilterSidebar = (
   
-  <div className="relative lg:top-[3.5%] top-[4%] -left-[56%] w-[111%] lg:w-[280px] bg-white    lg:left-[0%] lg:z-0 z-0  border-2 rounded-lg lg:border-[#D8DCCB] font-archivo text-[#2B452C]">
+  <div className="relative lg:top-[5.2%] top-[4%] -left-[56%] w-[111%] lg:w-[280px] bg-white    lg:left-[0%] lg:z-0 z-0  border-2 rounded-lg lg:border-[#D8DCCB] font-archivo text-[#2B452C]">
 
    
 
@@ -362,12 +362,12 @@ useEffect(() => {
       {/* PRODUCT TYPE (Left column short, Right column long) */}
       <div className="mb-6">
         <p className="text-[18px] text-[#676A5E] font-tenor lg:text-[22px] uppercase mb-3">PRODUCT TYPE</p>
-        <div className="grid grid-cols-2 gap-3 text-[14px]">
+        <div className="grid grid-cols-2 gap-2 text-[14px]">
 
           {/* Left Column (Fewer items) */}
           <div className="space-y-2">
-            {["handwash", "soap", "hairoil", "body_oil", "shampoo"].map((key, index) => (
-  <label key={index} className="flex text-[#676A5E] text-[18px] lg:text-[17px] items-center space-x-2">
+            {["handwash", "soap", "hairoil", "body_oil", "shampoo","shower_gel"].map((key, index) => (
+  <label key={index} className="flex text-[#676A5E] text-[18px] lg:text-[17px] items-center space-x-2 ">
     <input
       type="checkbox"
       className="accent-[#676A5E] w-[18px] h-[18px]"
@@ -382,15 +382,15 @@ useEffect(() => {
 
           {/* Right Column (More items) */}
           <div className="space-y-2">
-            {[ "face_pack", "lip_balm", "serum", "face_wash", "foot_gel", "foot_cream"].map((key, index) => (
-              <label key={index} className="flex text-[#676A5E] text-[18px] lg:text-[17px] items-center space-x-2">
+            {[ "face_pack", "lip_balm", "serum", "face_wash", "foot_crack_ointment", "foot_massage_cream"].map((key, index) => (
+              <label key={index} className="flex text-[#676A5E] text-[18px] lg:text-[17px] items-center space-x-2 ">
                 <input
                   type="checkbox"
                   className="accent-[#B2BA98] w-[18px] h-[18px]"
                   checked={selectedCategories.includes(key)}
       onChange={() => toggleCategory(key)}
                 />
-                 <span>{key.replace(/_/g, " ").replace(/\b\w/g, l => l.toUpperCase())}</span>
+                 <span className="whitespace-nowrap overflow-hidden text-ellipsis lg:max-w-[90px]">{key.replace(/_/g, " ").replace(/\b\w/g, l => l.toUpperCase())}</span>
               </label>
             ))}
           </div>
