@@ -1,5 +1,5 @@
 import Footer from "../components/Footer";
-
+import { useEffect } from "react";
 export default function AboutUs() {
   const testimonials = [
     {
@@ -66,6 +66,15 @@ export default function AboutUs() {
         "Calendula handwash make my hands feel nice. I can still smell it after washing, my hands feel so soft",
     },
   ];
+
+   useEffect(() => {
+    const hasReloaded = sessionStorage.getItem("hasReloaded");
+
+    if (!hasReloaded) {
+      sessionStorage.setItem("hasReloaded", "true");
+      window.location.reload();
+    }
+  }, []);
 
   return (
     <>

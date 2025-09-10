@@ -1,5 +1,5 @@
 import Footer from "../components/Footer";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import endpoint_prefix from "../config/ApiConfig";
 import NotificationPopup from "./NotificatioPopup"
 
@@ -63,7 +63,14 @@ const ContactUs = () => {
       });
   };
 
+ useEffect(() => {
+    const hasReloaded = sessionStorage.getItem("hasReloaded");
 
+    if (!hasReloaded) {
+      sessionStorage.setItem("hasReloaded", "true");
+      window.location.reload();
+    }
+  }, []);
   return (
     <>
       <div className="pt-[17%] lg:pt-[0] bg-white  text-[#676A5E] w-full text-[#4A4A4A] font-archivo py-3">
