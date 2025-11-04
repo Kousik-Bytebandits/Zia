@@ -125,7 +125,7 @@ useEffect(() => {
   
  <section className="pt-[120px] lg:bg-[#F5F5F5] lg:pt-[110px] lg:pb-20 lg:flex lg:items-center lg:justify-between relative">
   {/* Left Content Block */}
-  <div className=" xxxl:ml-52 hd:ml-40 laptop:ml-32 relative ">
+  <div className=" xxxl:ml-52 hd:ml-40 laptop:ml-32 lg:ml-16 relative ">
     <h1 data-aos="fade-up" data-aos-delay="100" className="lg:w-[75%] laptop:w-[80%] text-[24px] laptop:text-[22px] hd:text-[30px]   xxxl:text-[40px] tracking-widest font-tenor text-[#333333] mb-4 lg:text-left ">
       NATURE’S TOUCH,
       <br />
@@ -166,7 +166,7 @@ useEffect(() => {
   />
   <img
     src="images/bg_right.webp"
-    className="hidden lg:block w-[55%] xxxl:h-[750px] laptop:h-[500px] hd:h-[600px]  xxxl:-mt-[7.5%] laptop:-mt-[15%] hd:-mt-[9%] rounded-bl-[200px]"
+    className="hidden lg:block w-[55%] xxxl:h-[750px] laptop:h-[500px] hd:h-[600px]  xxxl:-mt-[7.5%] laptop:-mt-[15%] hd:-mt-[9%] lg:-mt-[35%] rounded-bl-[200px]"
     alt="Background Right"
   />
 </section>

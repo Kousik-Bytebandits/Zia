@@ -298,10 +298,10 @@ const token = localStorage.getItem("accessToken");
         </div>
 
         {/* Desktop View */}
-        <div className="hidden laptop:flex w-full fixed top-0 z-50 font-archivo ">
-          <div className="bg-[#2f3a27] flex items-center px-4 laptop:px-4 xxxl:px-10 py-3 gap-6 hd:gap-10 laptop:gap-6 xxxl:gap-14 laptop:w-[45%] xxxl:w-[45%] ">
+        <div className="hidden lg:flex w-full fixed top-0 z-50 font-archivo ">
+          <div className="bg-[#2f3a27] flex items-center px-4 lg:px-4  laptop:px-4 xxxl:px-10 py-3 gap-6 hd:gap-10 laptop:gap-6 xxxl:gap-14 lg:w-[45%] laptop:w-[45%] xxxl:w-[45%] ">
             <img src="/images/zia_logo.webp" alt="Zia Logo" className="h-12 laptop:h-14 xxxl:h-16 px-2 shrink-0" onClick={() => navigate("/home")} />
-            <ul className="flex gap-6 laptop:gap-6 xxxl:gap-14 hd:gap-10 hd:text-[18px] text-[16px] laptop:text-[17px] xxxl:text-[20px] items-center justify-start ">
+            <ul className="flex gap-6 lg:gap-3 lg:text-[16px] laptop:gap-6 xxxl:gap-14 hd:gap-10 hd:text-[18px] text-[16px] laptop:text-[17px] xxxl:text-[20px] items-center justify-start ">
               <NavLink to="/home" className={({ isActive }) => `ml-2 ${isActive ? 'border-b-2 border-white' : ''}`}>Home</NavLink>
               <NavLink to="/shoplist" className={({ isActive }) => `${isActive ? 'border-b-2 border-white' : ''}`}>Shop</NavLink>
               <NavLink to="/about" className={({ isActive }) => `${isActive ? 'border-b-2 border-white' : ''}`}>About Us</NavLink>
@@ -317,13 +317,13 @@ const token = localStorage.getItem("accessToken");
             </div>
 
            
-            <div className="bg-[#545D4F] flex items-center px-3 py-3 laptop:py-2 rounded-lg w-full ">
+            <div className="bg-[#545D4F] flex items-center px-3 py-3 lg:py-2 laptop:py-2 rounded-lg w-full ">
               <BiSearchAlt className="w-5 h-5 laptop:w-6 laptop:h-6 mr-2 shrink-0" />
                <input
         type="text"
         placeholder="Search for books"
          onChange={(e) => setSearchTerm(e.target.value)}
-        className="bg-transparent outline-none xxxl:text-[22px] px-2 hd:text-[18px] laptop:text-[15px]  w-full placeholder-white text-white "
+        className="bg-transparent outline-none xxxl:text-[22px] px-2 hd:text-[18px] laptop:text-[15px] lg:text-[14px] w-full placeholder-white text-white "
       />
        
        {suggestions.length > 0 && (
@@ -348,7 +348,7 @@ const token = localStorage.getItem("accessToken");
 
             </div>
 
-            <img src='/icons/cart.svg' className="text-2xl laptop:w-8 xxxl:w-10 cursor-pointer shrink-0" onClick={handleCart} />
+            <img src='/icons/cart.svg' className="text-2xl laptop:w-8 xxxl:w-10 lg:w-8 cursor-pointer shrink-0" onClick={handleCart} />
 <div className="relative">
   <FaUser
     onClick={() => setShowUserMenu(!showUserMenu)}
